@@ -67,7 +67,6 @@ public class ICodeMetricsF77Nesting implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// F77 Cyclomatic
 		res.addAll(Arrays.asList(
 				F77_NESTING, 
 				F77_NESTING_MIN,

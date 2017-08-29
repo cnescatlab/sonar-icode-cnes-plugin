@@ -1,6 +1,5 @@
 package fr.cnes.sonarqube.plugins.icode.measures;
 
-//import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetrics.DBG;
 import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsSHELLRatioComment.SHELL_RATIO_COMMENT;
 import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsSHELLRatioComment.SHELL_RATIO_COMMENT_MEAN;
 import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsSHELLRatioComment.SHELL_RATIO_COMMENT_MIN;
@@ -11,9 +10,9 @@ import org.sonar.api.ce.measure.Measure;
 import org.sonar.api.ce.measure.MeasureComputer;
 
 /**
- * Compute RATIO_COMMENT complexity into the project.
+ * Compute RATIO_COMMENT into the project.
  * 
- * Each file RATIO_COMMENT complexited is provided by the analyse report file
+ * Each file RATIO_COMMENT is provided by the analyse report file
  * 
  * @see ICodeSensor
  * 
@@ -63,15 +62,12 @@ public class ComputeModuleSHELLRatioCommentStatistics implements MeasureComputer
 			childrenMeasures = context.getChildrenMeasures(SHELL_RATIO_COMMENT_MIN.key());
 			if(childrenMeasures.iterator().hasNext()){
 				double min = 1000;
-//				String msg = "";
 				for (Measure child : childrenMeasures){
-//					msg += "child value for type "+context.getComponent().getType()+" = "+child.getIntValue();
 					if(child.getDoubleValue() < min){
 						min = child.getDoubleValue();
 					}
 				}
 				context.addMeasure(SHELL_RATIO_COMMENT_MIN.key(), min);
-//				context.addMeasure(DBG.key(), msg);
 			}
 						
 			// Search RATIO_COMMENT minimum measure for children files

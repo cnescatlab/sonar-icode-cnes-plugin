@@ -63,7 +63,6 @@ public class ICodeMetricsSHELLCyclomatic implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// SHELL Cyclomatic
 		res.addAll(Arrays.asList(
 				SHELL_CYCLOMATIC, 
 				SHELL_CYCLOMATIC_MIN,

@@ -1,6 +1,5 @@
 package fr.cnes.sonarqube.plugins.icode.measures;
 
-//import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetrics.DBG;
 import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsSHELLCyclomatic.SHELL_CYCLOMATIC;
 import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsSHELLCyclomatic.SHELL_CYCLOMATIC_MEAN;
 import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsSHELLCyclomatic.SHELL_CYCLOMATIC_MIN;
@@ -63,15 +62,12 @@ public class ComputeModuleSHELLCyclomaticStatistics implements MeasureComputer {
 			childrenMeasures = context.getChildrenMeasures(SHELL_CYCLOMATIC_MIN.key());
 			if(childrenMeasures.iterator().hasNext()){
 				int min = 1000;
-//				String msg = "";
 				for (Measure child : childrenMeasures){
-//					msg += "child value for type "+context.getComponent().getType()+" = "+child.getIntValue();
 					if(child.getIntValue() < min){
 						min = child.getIntValue();
 					}
 				}
 				context.addMeasure(SHELL_CYCLOMATIC_MIN.key(), min);
-//				context.addMeasure(DBG.key(), msg);
 			}
 						
 			// Search Cyclomatic minimum measure for children files

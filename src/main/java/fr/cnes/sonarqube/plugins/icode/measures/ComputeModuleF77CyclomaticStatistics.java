@@ -63,15 +63,12 @@ public class ComputeModuleF77CyclomaticStatistics implements MeasureComputer {
 			childrenMeasures = context.getChildrenMeasures(F77_CYCLOMATIC_MIN.key());
 			if(childrenMeasures.iterator().hasNext()){
 				int min = 1000;
-//				String msg = "";
 				for (Measure child : childrenMeasures){
-//					msg += "child value for type "+context.getComponent().getType()+" = "+child.getIntValue();
 					if(child.getIntValue() < min){
 						min = child.getIntValue();
 					}
 				}
 				context.addMeasure(F77_CYCLOMATIC_MIN.key(), min);
-//				context.addMeasure(DBG.key(), msg);
 			}
 						
 			// Search Cyclomatic minimum measure for children files

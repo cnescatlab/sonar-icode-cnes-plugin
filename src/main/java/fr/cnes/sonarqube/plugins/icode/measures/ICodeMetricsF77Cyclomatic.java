@@ -63,7 +63,6 @@ public class ICodeMetricsF77Cyclomatic implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// F77 Cyclomatic
 		res.addAll(Arrays.asList(
 				F77_CYCLOMATIC, 
 				F77_CYCLOMATIC_MIN,

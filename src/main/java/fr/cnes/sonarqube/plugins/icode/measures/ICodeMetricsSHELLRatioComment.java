@@ -68,7 +68,6 @@ public class ICodeMetricsSHELLRatioComment implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// SHELL Cyclomatic
 		res.addAll(Arrays.asList(
 				SHELL_RATIO_COMMENT, 
 				SHELL_RATIO_COMMENT_MIN,

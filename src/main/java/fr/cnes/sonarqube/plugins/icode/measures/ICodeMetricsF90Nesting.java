@@ -67,7 +67,6 @@ public class ICodeMetricsF90Nesting implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// F90 Cyclomatic
 		res.addAll(Arrays.asList(
 				F90_NESTING, 
 				F90_NESTING_MIN,

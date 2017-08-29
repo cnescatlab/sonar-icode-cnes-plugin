@@ -68,7 +68,6 @@ public class ICodeMetricsF77RatioComment implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// F77 Cyclomatic
 		res.addAll(Arrays.asList(
 				F77_RATIO_COMMENT, 
 				F77_RATIO_COMMENT_MIN,

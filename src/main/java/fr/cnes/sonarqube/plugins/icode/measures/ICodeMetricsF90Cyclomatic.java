@@ -63,7 +63,6 @@ public class ICodeMetricsF90Cyclomatic implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// F90 Cyclomatic
 		res.addAll(Arrays.asList(
 				F90_CYCLOMATIC, 
 				F90_CYCLOMATIC_MIN,

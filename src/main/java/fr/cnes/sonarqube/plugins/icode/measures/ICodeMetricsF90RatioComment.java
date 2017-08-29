@@ -68,7 +68,6 @@ public class ICodeMetricsF90RatioComment implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// F90 Cyclomatic
 		res.addAll(Arrays.asList(
 				F90_RATIO_COMMENT, 
 				F90_RATIO_COMMENT_MIN,

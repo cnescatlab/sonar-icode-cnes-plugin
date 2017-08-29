@@ -1,6 +1,5 @@
 package fr.cnes.sonarqube.plugins.icode.measures;
 
-//import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetrics.DBG;
 import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsF90LinesOfCode.F90_LOC;
 import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsF90LinesOfCode.F90_LOC_MEAN;
 import static fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsF90LinesOfCode.F90_LOC_MIN;

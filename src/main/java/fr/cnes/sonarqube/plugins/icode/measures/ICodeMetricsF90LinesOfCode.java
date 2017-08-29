@@ -68,7 +68,6 @@ public class ICodeMetricsF90LinesOfCode implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// F90 Cyclomatic
 		res.addAll(Arrays.asList(
 				F90_LOC, 
 				F90_LOC_MIN,

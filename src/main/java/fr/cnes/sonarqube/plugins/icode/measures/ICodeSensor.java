@@ -226,6 +226,7 @@ public class ICodeSensor implements Sensor {
 					}
 
 				} catch (Exception e) {
+					LOGGER.error(e.getMessage());
 					LOGGER.error("No cyclomatic measure: " + currentFunctionRuleInterface.getValue());
 				}
 			}
@@ -308,6 +309,7 @@ public class ICodeSensor implements Sensor {
 					}
 
 				} catch (Exception e) {
+					LOGGER.error(e.getMessage());
 					LOGGER.error("No lines of code measure: " + currentFunctionRuleInterface.getValue());
 				}
 			}
@@ -353,7 +355,7 @@ public class ICodeSensor implements Sensor {
 	 * 
 	 * @see XmlReportReader#parse
 	 */
-	
+
 	private void parseReportRatioCommentMeasures(SensorContext context, InputFile file, ReportInterface report) {
 		// Add metrics results
 		ReportModuleRuleInterface reportModuleRuleInterface = report.getModuleRatioCommentMeasure();
@@ -387,6 +389,7 @@ public class ICodeSensor implements Sensor {
 					}
 
 				} catch (Exception e) {
+					LOGGER.error(e.getMessage());
 					LOGGER.error("No ratio comment measure: " + currentFunctionRuleInterface.getValue());
 				}
 			}
@@ -398,24 +401,24 @@ public class ICodeSensor implements Sensor {
 			// Complexity simplified store by module is not defined by ICode,
 			// but ICode sonar plugin expected a module measure...
 			String ratioCommentValue = reportModuleRuleInterface.getValue();
-			
+
 			if ("NaN".equals(ratioCommentValue)) {
-				ratioCommentValue = (""+ratioCommentValueSum);
+				ratioCommentValue = ("" + ratioCommentValueSum);
 			} else {
 				LOGGER.warn("ICode define lines of code simplified by module");
 			}
-			
+
 			double ratioCommentNewValue = Double.parseDouble(ratioCommentValue);
-			
+
 			if (report.isF77()) {
-				storeRatioCommentMeasuresF77(context, file, ratioCommentValueMin, ratioCommentValueMax, ratioCommentValueMean,
-						ratioCommentNewValue);
+				storeRatioCommentMeasuresF77(context, file, ratioCommentValueMin, ratioCommentValueMax,
+						ratioCommentValueMean, ratioCommentNewValue);
 			} else if (report.isF90()) {
-				storeRatioCommentMeasuresF90(context, file, ratioCommentValueMin, ratioCommentValueMax, ratioCommentValueMean,
-						ratioCommentNewValue);
+				storeRatioCommentMeasuresF90(context, file, ratioCommentValueMin, ratioCommentValueMax,
+						ratioCommentValueMean, ratioCommentNewValue);
 			} else {
-				storeRatioCommentMeasuresSHELL(context, file, ratioCommentValueMin, ratioCommentValueMax, ratioCommentValueMean,
-						ratioCommentNewValue);
+				storeRatioCommentMeasuresSHELL(context, file, ratioCommentValueMin, ratioCommentValueMax,
+						ratioCommentValueMean, ratioCommentNewValue);
 			}
 		}
 	}
@@ -467,6 +470,7 @@ public class ICodeSensor implements Sensor {
 					}
 
 				} catch (Exception e) {
+					LOGGER.error(e.getMessage());
 					LOGGER.error("No nesting measure: " + currentFunctionRuleInterface.getValue());
 				}
 			}
@@ -518,7 +522,7 @@ public class ICodeSensor implements Sensor {
 	 */
 	private void storeCyclomaticMeasuresF77(SensorContext context, InputFile file, double cyclomaticValueMin,
 			double cyclomaticValueMax, double cyclomaticValueMean, double value) {
-		// Store module CYCLOMATIC, MEAN, MIN, MAX
+		// Store module VALUE, MEAN, MIN, MAX
 		context.<Integer>newMeasure().forMetric(ICodeMetricsF77Cyclomatic.F77_CYCLOMATIC).on(file)
 				.withValue(Integer.valueOf((int) value)).save();
 		context.<Integer>newMeasure().forMetric(ICodeMetricsF77Cyclomatic.F77_CYCLOMATIC_MAX).on(file)
@@ -598,10 +602,7 @@ public class ICodeSensor implements Sensor {
 		context.<Double>newMeasure().forMetric(ICodeMetricsF90Cyclomatic.F90_CYCLOMATIC_MEAN).on(file)
 				.withValue(Double.valueOf(cyclomaticValueMean)).save();
 	}
-	
-	
-	
-	
+
 	/**
 	 * Store measures from a valid report file into F77 Metrics.
 	 * 
@@ -620,20 +621,16 @@ public class ICodeSensor implements Sensor {
 	 * 
 	 * @see ICodeMetrics
 	 */
-	
+
 	private void storeRatioCommentMeasuresF77(SensorContext context, InputFile file, double ratioCommentValueMin,
 			double ratioCommentValueMax, double ratioCommentValueMean, double value) {
-		// Store module CYCLOMATIC, MEAN, MIN, MAX
-		LOGGER.warn("F77_RATIO_COMMENT: " + value);
-		LOGGER.warn("F77_RATIO_COMMENT_MAX: " + ratioCommentValueMax);
-		LOGGER.warn("F77_RATIO_COMMENT_MIN: " + ratioCommentValueMin);
-		LOGGER.warn("F77_RATIO_COMMENT_MEAN: " + value);
+		// Store module VALUE, MEAN, MIN, MAX
 		context.<Double>newMeasure().forMetric(ICodeMetricsF77RatioComment.F77_RATIO_COMMENT).on(file)
-				.withValue(Double.valueOf( value)).save();
+				.withValue(Double.valueOf(value)).save();
 		context.<Double>newMeasure().forMetric(ICodeMetricsF77RatioComment.F77_RATIO_COMMENT_MAX).on(file)
-				.withValue(Double.valueOf( ratioCommentValueMax)).save();
+				.withValue(Double.valueOf(ratioCommentValueMax)).save();
 		context.<Double>newMeasure().forMetric(ICodeMetricsF77RatioComment.F77_RATIO_COMMENT_MIN).on(file)
-				.withValue(Double.valueOf( ratioCommentValueMin)).save();
+				.withValue(Double.valueOf(ratioCommentValueMin)).save();
 		context.<Double>newMeasure().forMetric(ICodeMetricsF77RatioComment.F77_RATIO_COMMENT_MEAN).on(file)
 				.withValue(Double.valueOf(ratioCommentValueMean)).save();
 	}
@@ -656,7 +653,7 @@ public class ICodeSensor implements Sensor {
 	 * 
 	 * @see ICodeMetrics
 	 */
-	
+
 	private void storeRatioCommentMeasuresSHELL(SensorContext context, InputFile file, double ratioCommentValueMin,
 			double ratioCommentValueMax, double ratioCommentValueMean, double value) {
 		context.<Double>newMeasure().forMetric(ICodeMetricsSHELLRatioComment.SHELL_RATIO_COMMENT).on(file)
@@ -674,24 +671,15 @@ public class ICodeSensor implements Sensor {
 	}
 
 	/**
-	 * Store measures from a valid report file into F90 Metrics.
+	 * Store measures from a valid report file into F90 Metrics (Ratio Comment).
 	 * 
 	 * @param context
-	 *            Sonar sensor context
 	 * @param file
-	 *            input code file
-	 * @param cyclomaticValueMin
-	 *            minimum
-	 * @param cyclomaticValueMax
-	 *            maximum
-	 * @param cyclomaticValueMean
-	 *            mean
-	 * @param cyclomaticValue
-	 *            complexity value
-	 * 
-	 * @see ICodeMetrics
+	 * @param ratioCommentValueMin
+	 * @param ratioCommentValueMax
+	 * @param ratioCommentValueMean
+	 * @param value
 	 */
-	
 	private void storeRatioCommentMeasuresF90(SensorContext context, InputFile file, double ratioCommentValueMin,
 			double ratioCommentValueMax, double ratioCommentValueMean, double value) {
 		// TODO Auto-generated method stub
@@ -708,23 +696,26 @@ public class ICodeSensor implements Sensor {
 		context.<Double>newMeasure().forMetric(ICodeMetricsF90RatioComment.F90_RATIO_COMMENT_MEAN).on(file)
 				.withValue(Double.valueOf(ratioCommentValueMean)).save();
 	}
-	
-	
-	
-	
 
 	/**
+	 * Store measures from a valid report file into F77 Metrics (Lines of Code).
 	 * 
 	 * @param context
+	 *            Sonar sensor context
 	 * @param file
+	 *            Input code file
 	 * @param linesOfCodeValueMin
+	 *            Minimum
 	 * @param linesOfCodeValueMax
+	 *            Maximum
 	 * @param linesOfCodeValueMean
+	 *            Mean
 	 * @param value
+	 *            Value
 	 */
 	private void storeLOCMeasuresF77(SensorContext context, InputFile file, double linesOfCodeValueMin,
 			double linesOfCodeValueMax, double linesOfCodeValueMean, double value) {
-		// Store module CYCLOMATIC, MEAN, MIN, MAX
+		// Store module VALUE, MEAN, MIN, MAX
 		context.<Integer>newMeasure().forMetric(ICodeMetricsF77LinesOfCode.F77_LOC).on(file)
 				.withValue(Integer.valueOf((int) value)).save();
 
@@ -739,20 +730,26 @@ public class ICodeSensor implements Sensor {
 	}
 
 	/**
+	 * Store measures from a valid report file into F77 Metrics (Nesting).
 	 * 
 	 * @param context
+	 *            Sonar sensor context
 	 * @param file
+	 *            Input code file
 	 * @param nestingValueMin
+	 *            Minimum
 	 * @param nestingValueMax
+	 *            Maximum
 	 * @param nestingValueMean
+	 *            Mean
 	 * @param value
+	 *            Value
 	 */
 	private void storeNestingMeasuresF77(SensorContext context, InputFile file, double nestingValueMin,
 			double nestingValueMax, double nestingValueMean, double value) {
-		// Store module CYCLOMATIC, MEAN, MIN, MAX
+		// Store module VALUE, MEAN, MIN, MAX
 		context.<Integer>newMeasure().forMetric(ICodeMetricsF77Nesting.F77_NESTING).on(file)
-		.withValue(Integer.valueOf((int)value))
-				.save();
+				.withValue(Integer.valueOf((int) value)).save();
 
 		context.<Integer>newMeasure().forMetric(ICodeMetricsF77Nesting.F77_NESTING_MAX).on(file)
 				.withValue(Integer.valueOf((int) nestingValueMax)).save();
@@ -765,20 +762,26 @@ public class ICodeSensor implements Sensor {
 	}
 
 	/**
+	 * Store measures from a valid report file into F90 Metrics (Nesting).
 	 * 
 	 * @param context
+	 *            Sonar sensor context
 	 * @param file
+	 *            Input code file
 	 * @param nestingValueMin
+	 *            Minimum
 	 * @param nestingValueMax
+	 *            Maximum
 	 * @param nestingValueMean
+	 *            Mean
 	 * @param value
+	 *            Value
 	 */
 	private void storeNestingMeasuresF90(SensorContext context, InputFile file, double nestingValueMin,
 			double nestingValueMax, double nestingValueMean, double value) {
-		// Store module CYCLOMATIC, MEAN, MIN, MAX
+		// Store module VALUE, MEAN, MIN, MAX
 		context.<Integer>newMeasure().forMetric(ICodeMetricsF90Nesting.F90_NESTING).on(file)
-		.withValue(Integer.valueOf((int)value))
-				.save();
+				.withValue(Integer.valueOf((int) value)).save();
 
 		context.<Integer>newMeasure().forMetric(ICodeMetricsF90Nesting.F90_NESTING_MAX).on(file)
 				.withValue(Integer.valueOf((int) nestingValueMax)).save();
@@ -791,20 +794,26 @@ public class ICodeSensor implements Sensor {
 	}
 
 	/**
+	 * Store measures from a valid report file into SHELL Metrics (Nesting).
 	 * 
 	 * @param context
+	 *            Sonar sensor context
 	 * @param file
+	 *            Input code file
 	 * @param nestingValueMin
+	 *            Minimum
 	 * @param nestingValueMax
+	 *            Maximum
 	 * @param nestingValueMean
+	 *            Mean
 	 * @param value
+	 *            Value
 	 */
 	private void storeNestingMeasuresSHELL(SensorContext context, InputFile file, double nestingValueMin,
 			double nestingValueMax, double nestingValueMean, double value) {
-		// Store module CYCLOMATIC, MEAN, MIN, MAX
+		// Store module VALUE, MEAN, MIN, MAX
 		context.<Integer>newMeasure().forMetric(ICodeMetricsSHELLNesting.SHELL_NESTING).on(file)
-		.withValue(Integer.valueOf((int)value))
-				.save();
+				.withValue(Integer.valueOf((int) value)).save();
 
 		context.<Integer>newMeasure().forMetric(ICodeMetricsSHELLNesting.SHELL_NESTING_MAX).on(file)
 				.withValue(Integer.valueOf((int) nestingValueMax)).save();
@@ -817,19 +826,26 @@ public class ICodeSensor implements Sensor {
 	}
 
 	/**
+	 * Store measures from a valid report file into F90 Metrics (Lines Of Code).
 	 * 
 	 * @param context
+	 *            Sonar sensor context
 	 * @param file
+	 *            Input code file
 	 * @param linesOfCodeValueMin
+	 *            Minimum
 	 * @param linesOfCodeValueMax
+	 *            Maximum
 	 * @param linesOfCodeValueMean
+	 *            Mean
 	 * @param value
+	 *            Value
 	 */
 	private void storeLOCMeasuresF90(SensorContext context, InputFile file, double linesOfCodeValueMin,
 			double linesOfCodeValueMax, double linesOfCodeValueMean, double value) {
-		// Store module CYCLOMATIC, MEAN, MIN, MAX
-		context.<Integer>newMeasure().forMetric(ICodeMetricsF90LinesOfCode.F90_LOC).on(file).withValue(Integer.valueOf((int) value))
-				.save();
+		// Store module VALUE, MEAN, MIN, MAX
+		context.<Integer>newMeasure().forMetric(ICodeMetricsF90LinesOfCode.F90_LOC).on(file)
+				.withValue(Integer.valueOf((int) value)).save();
 
 		context.<Integer>newMeasure().forMetric(ICodeMetricsF90LinesOfCode.F90_LOC_MAX).on(file)
 				.withValue(Integer.valueOf((int) linesOfCodeValueMax)).save();
@@ -842,19 +858,27 @@ public class ICodeSensor implements Sensor {
 	}
 
 	/**
+	 * Store measures from a valid report file into SHELL Metrics (Lines Of
+	 * Code).
 	 * 
 	 * @param context
+	 *            Sonar sensor context
 	 * @param file
+	 *            Input code file
 	 * @param linesOfCodeValueMin
+	 *            Minimum
 	 * @param linesOfCodeValueMax
+	 *            Maximum
 	 * @param linesOfCodeValueMean
+	 *            Mean
 	 * @param value
+	 *            Value
 	 */
 	private void storeLOCMeasuresSHELL(SensorContext context, InputFile file, double linesOfCodeValueMin,
 			double linesOfCodeValueMax, double linesOfCodeValueMean, double value) {
-		// Store module CYCLOMATIC, MEAN, MIN, MAX
-		context.<Integer>newMeasure().forMetric(ICodeMetricsSHELLLinesOfCode.SHELL_LOC).on(file).withValue(Integer.valueOf((int) value))
-				.save();
+		// Store module VALUE, MEAN, MIN, MAX
+		context.<Integer>newMeasure().forMetric(ICodeMetricsSHELLLinesOfCode.SHELL_LOC).on(file)
+				.withValue(Integer.valueOf((int) value)).save();
 
 		context.<Integer>newMeasure().forMetric(ICodeMetricsSHELLLinesOfCode.SHELL_LOC_MAX).on(file)
 				.withValue(Integer.valueOf((int) linesOfCodeValueMax)).save();
@@ -869,7 +893,9 @@ public class ICodeSensor implements Sensor {
 	/**
 	 * 
 	 * @param context
+	 *            Sonar sensor context
 	 * @param file
+	 *            Input code file
 	 * @param report
 	 */
 	private void parseReportIssues(SensorContext context, InputFile file, ReportInterface report) {

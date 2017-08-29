@@ -67,7 +67,6 @@ public class ICodeMetricsSHELLNesting implements Metrics {
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
-		// SHELL Cyclomatic
 		res.addAll(Arrays.asList(
 				SHELL_NESTING, 
 				SHELL_NESTING_MIN,
