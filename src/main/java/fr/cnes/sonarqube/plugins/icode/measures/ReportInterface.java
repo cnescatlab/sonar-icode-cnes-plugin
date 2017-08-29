@@ -12,7 +12,16 @@ public interface ReportInterface {
 	boolean isF90();
 
 	ReportModuleRuleInterface getModuleCyclomaticMeasure();
-
 	ReportFunctionRuleInterface[] getCyclomaticMeasureByFunction();
+	
+	ReportModuleRuleInterface getModuleLinesOfCodeMeasure();
+	ReportFunctionRuleInterface[] getLinesOfCodeMeasureByFunction();
+	
+	ReportModuleRuleInterface getModuleNestingMeasure();
+	ReportFunctionRuleInterface[] getNestingMeasureByFunction();
+	
+	ReportModuleRuleInterface getModuleRatioCommentMeasure();
+	ReportFunctionRuleInterface[] getRatioCommentMeasureByFunction();
+	
 
 }

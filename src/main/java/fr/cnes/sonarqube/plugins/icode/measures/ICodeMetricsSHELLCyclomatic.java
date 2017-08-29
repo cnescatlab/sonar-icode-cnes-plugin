@@ -18,66 +18,58 @@ import org.sonar.api.measures.Metrics;
  * @author Cyrille FRANCOIS
  * 
  */
-public class ICodeMetrics implements Metrics {
+public class ICodeMetricsSHELLCyclomatic implements Metrics {
 	
 	public static final String DOMAIN = "ICode";
 	
-	
-	/** Metric for number of warnings */
-	public static final Metric<Integer> NUMBER_OF_WARNINGS = new Metric.Builder(
-			"icode-warnings",
-			"Number of warning messages",
+	/** Metric for cyclomatic complexity */
+	public static final Metric<Integer> SHELL_CYCLOMATIC = new Metric.Builder(
+			"icode-shell-cyclomatic-complexity",
+			"SHELL : ComplexitySimplified",
 			Metric.ValueType.INT)
 			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
             .setQualitative(false) // by default false, tru => Highlighted into gui		
 			.setDomain(DOMAIN).create();
 
-	/** Metric for number of errors */
-	public static final Metric<Integer> NUMBER_OF_ERRORS = new Metric.Builder(
-			"icode-errors",
-			"Number of error messages",
+	/** Metric project for minimum cyclomatic complexity */
+	public static final Metric<Integer> SHELL_CYCLOMATIC_MIN = new Metric.Builder(
+			"icode-shell-cyclomatic-complexity-min",
+			"SHELL : ComplexitySimplified (Minimum)",
 			Metric.ValueType.INT)
 			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
             .setQualitative(false) // by default false, tru => Highlighted into gui		
 			.setDomain(DOMAIN).create();
 
-	/** Metric for report files warning */
-	public static final Metric<String> REPORT_FILES_WARNING = new Metric.Builder(
-			"icode-report-files-warning",
-			"Report files warning",
-			Metric.ValueType.STRING)
+	/** Metric project for maximum cyclomatic complexity */
+	public static final Metric<Integer> SHELL_CYCLOMATIC_MAX = new Metric.Builder(
+			"icode-shell-cyclomatic-complexity-max",
+			"SHELL : ComplexitySimplified (Maximum)",
+			Metric.ValueType.INT)
 			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
             .setQualitative(false) // by default false, tru => Highlighted into gui		
 			.setDomain(DOMAIN).create();
 
-	/** Metric for report files error */
-	public static final Metric<String> REPORT_FILES_ERROR = new Metric.Builder(
-			"icode-report-files-error",
-			"Report files error",
-			Metric.ValueType.STRING)
+	/** Metric project for mean cyclomatic complexity */
+	public static final Metric<Double> SHELL_CYCLOMATIC_MEAN = new Metric.Builder(
+			"icode-shell-cyclomatic-complexity-mean",
+			"SHELL : ComplexitySimplified (Mean)",
+			Metric.ValueType.FLOAT)
 			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
             .setQualitative(false) // by default false, tru => Highlighted into gui		
 			.setDomain(DOMAIN).create();
 
-	/** Metric for report files error */
-	public static final Metric<String> DBG = new Metric.Builder(
-			"icode-dbg",
-			"Debug report",
-			Metric.ValueType.STRING)
-			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
-            .setQualitative(false) // by default false, tru => Highlighted into gui		
-			.setDomain(DOMAIN).create();
 	
 	@SuppressWarnings({ "rawtypes" })
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
+		// SHELL Cyclomatic
 		res.addAll(Arrays.asList(
-				NUMBER_OF_WARNINGS, 
-				NUMBER_OF_ERRORS,
-				REPORT_FILES_WARNING,
-				REPORT_FILES_ERROR));
-		
+				SHELL_CYCLOMATIC, 
+				SHELL_CYCLOMATIC_MIN,
+				SHELL_CYCLOMATIC_MAX,
+				SHELL_CYCLOMATIC_MEAN));
+				
 		return res;
 	}
 }

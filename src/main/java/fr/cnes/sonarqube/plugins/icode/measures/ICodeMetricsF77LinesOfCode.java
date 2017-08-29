@@ -18,66 +18,63 @@ import org.sonar.api.measures.Metrics;
  * @author Cyrille FRANCOIS
  * 
  */
-public class ICodeMetrics implements Metrics {
+public class ICodeMetricsF77LinesOfCode implements Metrics {
 	
 	public static final String DOMAIN = "ICode";
 	
+	/** Metric for number of lines of code */
+	public static final Metric<Integer> F77_LOC = new Metric.Builder(
+			"icode-f77-loc",
+			"F77 : LineOfCode",
+			Metric.ValueType.INT)
+			.setDescription("Number of lines of code")
+			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
+            .setQualitative(false) // by default false, tru => Highlighted into gui		
+			.setDomain(DOMAIN).create();
 	
-	/** Metric for number of warnings */
-	public static final Metric<Integer> NUMBER_OF_WARNINGS = new Metric.Builder(
-			"icode-warnings",
-			"Number of warning messages",
+	/** Metric project for minimum number of lines of code */
+	public static final Metric<Integer> F77_LOC_MIN = new Metric.Builder(
+			"icode-f77-loc-min",
+			"F77 : LineOfCode (Minimum)",
 			Metric.ValueType.INT)
+			.setDescription("Number of lines of code (Minimum)")
 			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
             .setQualitative(false) // by default false, tru => Highlighted into gui		
 			.setDomain(DOMAIN).create();
-
-	/** Metric for number of errors */
-	public static final Metric<Integer> NUMBER_OF_ERRORS = new Metric.Builder(
-			"icode-errors",
-			"Number of error messages",
+	
+	/** Metric project for maximum number of lines of code */
+	public static final Metric<Integer> F77_LOC_MAX = new Metric.Builder(
+			"icode-f77-loc-max",
+			"F77 : LineOfCode (Maximum)",
 			Metric.ValueType.INT)
+			.setDescription("Number of lines of code (Maximum)")
 			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
             .setQualitative(false) // by default false, tru => Highlighted into gui		
 			.setDomain(DOMAIN).create();
+	
+	/** Metric project for mean number of lines of code */
+	public static final Metric<Double> F77_LOC_MEAN = new Metric.Builder(
+			"icode-f77-loc-mean",
+			"F77 : LineOfCode (Mean)",
+			Metric.ValueType.FLOAT)
+			.setDescription("Number of lines of code (Mean)")
+			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
+            .setQualitative(false) // by default false, tru => Highlighted into gui		
+			.setDomain(DOMAIN).create();
+	
 
-	/** Metric for report files warning */
-	public static final Metric<String> REPORT_FILES_WARNING = new Metric.Builder(
-			"icode-report-files-warning",
-			"Report files warning",
-			Metric.ValueType.STRING)
-			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
-            .setQualitative(false) // by default false, tru => Highlighted into gui		
-			.setDomain(DOMAIN).create();
-
-	/** Metric for report files error */
-	public static final Metric<String> REPORT_FILES_ERROR = new Metric.Builder(
-			"icode-report-files-error",
-			"Report files error",
-			Metric.ValueType.STRING)
-			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
-            .setQualitative(false) // by default false, tru => Highlighted into gui		
-			.setDomain(DOMAIN).create();
-
-	/** Metric for report files error */
-	public static final Metric<String> DBG = new Metric.Builder(
-			"icode-dbg",
-			"Debug report",
-			Metric.ValueType.STRING)
-			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
-            .setQualitative(false) // by default false, tru => Highlighted into gui		
-			.setDomain(DOMAIN).create();
 	
 	@SuppressWarnings({ "rawtypes" })
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
+		// F77 Cyclomatic
 		res.addAll(Arrays.asList(
-				NUMBER_OF_WARNINGS, 
-				NUMBER_OF_ERRORS,
-				REPORT_FILES_WARNING,
-				REPORT_FILES_ERROR));
-		
+				F77_LOC, 
+				F77_LOC_MIN,
+				F77_LOC_MAX,
+				F77_LOC_MEAN));
+				
 		return res;
 	}
 }

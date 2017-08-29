@@ -18,66 +18,62 @@ import org.sonar.api.measures.Metrics;
  * @author Cyrille FRANCOIS
  * 
  */
-public class ICodeMetrics implements Metrics {
+public class ICodeMetricsF77Nesting implements Metrics {
 	
 	public static final String DOMAIN = "ICode";
 	
+	/** Metric for nested statements */
+	public static final Metric<Integer> F77_NESTING = new Metric.Builder(
+			"icode-f77-nesting",
+			"F77 : Nesting",
+			Metric.ValueType.INT)
+			.setDescription("Number of nested statements")
+			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
+            .setQualitative(false) // by default false, tru => Highlighted into gui		
+			.setDomain(DOMAIN).create();
 	
-	/** Metric for number of warnings */
-	public static final Metric<Integer> NUMBER_OF_WARNINGS = new Metric.Builder(
-			"icode-warnings",
-			"Number of warning messages",
+	/** Metric project for maximum nested statements */
+	public static final Metric<Integer> F77_NESTING_MIN= new Metric.Builder(
+			"icode-f77-nesting-min",
+			"F77 : Nesting (Minimum)",
 			Metric.ValueType.INT)
+			.setDescription("Number of nested statements (Minimum)")
 			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
             .setQualitative(false) // by default false, tru => Highlighted into gui		
 			.setDomain(DOMAIN).create();
-
-	/** Metric for number of errors */
-	public static final Metric<Integer> NUMBER_OF_ERRORS = new Metric.Builder(
-			"icode-errors",
-			"Number of error messages",
+	
+	/** Metric project for maximum nested statements */
+	public static final Metric<Integer> F77_NESTING_MAX = new Metric.Builder(
+			"icode-f77-nesting-max",
+			"F77 : Nesting (Maximum)",
 			Metric.ValueType.INT)
+			.setDescription("Number of nested statements (Maximum)")
 			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
             .setQualitative(false) // by default false, tru => Highlighted into gui		
 			.setDomain(DOMAIN).create();
-
-	/** Metric for report files warning */
-	public static final Metric<String> REPORT_FILES_WARNING = new Metric.Builder(
-			"icode-report-files-warning",
-			"Report files warning",
-			Metric.ValueType.STRING)
+	
+	/** Metric project for maximum nested statements */
+	public static final Metric<Double> F77_NESTING_MEAN= new Metric.Builder(
+			"icode-f77-nesting-mean",
+			"F77 : Nesting (Mean)",
+			Metric.ValueType.FLOAT)
+			.setDescription("Number of nested statements (Mean)")
 			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
             .setQualitative(false) // by default false, tru => Highlighted into gui		
 			.setDomain(DOMAIN).create();
-
-	/** Metric for report files error */
-	public static final Metric<String> REPORT_FILES_ERROR = new Metric.Builder(
-			"icode-report-files-error",
-			"Report files error",
-			Metric.ValueType.STRING)
-			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
-            .setQualitative(false) // by default false, tru => Highlighted into gui		
-			.setDomain(DOMAIN).create();
-
-	/** Metric for report files error */
-	public static final Metric<String> DBG = new Metric.Builder(
-			"icode-dbg",
-			"Debug report",
-			Metric.ValueType.STRING)
-			.setDirection(Metric.DIRECTION_WORST) // Metric.DIRECTION_NONE, Metric.DIRECTION_BETTER, Metric.DIRECTION_WORST
-            .setQualitative(false) // by default false, tru => Highlighted into gui		
-			.setDomain(DOMAIN).create();
+	
 	
 	@SuppressWarnings({ "rawtypes" })
 	public List<Metric> getMetrics() {
 		ArrayList<Metric> res = new ArrayList<Metric>();
 		
+		// F77 Cyclomatic
 		res.addAll(Arrays.asList(
-				NUMBER_OF_WARNINGS, 
-				NUMBER_OF_ERRORS,
-				REPORT_FILES_WARNING,
-				REPORT_FILES_ERROR));
-		
+				F77_NESTING, 
+				F77_NESTING_MIN,
+				F77_NESTING_MAX,
+				F77_NESTING_MEAN));
+				
 		return res;
 	}
 }

@@ -40,6 +40,19 @@ public class AnalysisProject implements ReportInterface{
 		}
 		return res;
 	}
+	
+	@Override
+	public boolean isF90() {
+		// TODO Auto-generated method stub
+		boolean res=false;
+		if(listOfAnalysisRule != null && listOfAnalysisRule.size()>0){
+			if(listOfAnalysisRule.get(0).analysisRuleId.startsWith(AnalysisRule.F90)){
+				res=true;
+			}
+		}
+		return res;
+		//return false;
+	}
 
 	@Override
 	public ReportModuleRuleInterface getModuleCyclomaticMeasure() {
@@ -70,12 +83,103 @@ public class AnalysisProject implements ReportInterface{
 		res = listOfRes.toArray(new ReportFunctionRuleInterface[listOfRes.size()]);
 		return res;
 	}
-
+	
+	
 	@Override
-	public boolean isF90() {
+	public ReportModuleRuleInterface getModuleLinesOfCodeMeasure() {
+		ReportModuleRuleInterface res=null;
+		for (AnalysisRule analysisRule : listOfAnalysisRule) {
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.LINE_OF_CODE)){
+				if(analysisRule.result.resultTypePlace.equals("class")){
+					res = analysisRule;
+					break;
+				}
+			}
+		}
 		// TODO Auto-generated method stub
-		return false;
+		return res;
 	}
+	
+	@Override
+	public ReportFunctionRuleInterface[] getLinesOfCodeMeasureByFunction(){
+		ReportFunctionRuleInterface[] res=null;
+		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<ReportFunctionRuleInterface>();
+		for (AnalysisRule analysisRule : listOfAnalysisRule) {
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.LINE_OF_CODE)){
+				if(analysisRule.result.resultTypePlace.equals("method")){
+					listOfRes.add(analysisRule);
+				}
+			}
+		}
+		res = listOfRes.toArray(new ReportFunctionRuleInterface[listOfRes.size()]);
+		return res;
+	}
+	
+	
+	
+	@Override
+	public ReportModuleRuleInterface getModuleNestingMeasure() {
+		ReportModuleRuleInterface res=null;
+		for (AnalysisRule analysisRule : listOfAnalysisRule) {
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.NESTING)){
+				if(analysisRule.result.resultTypePlace.equals("class")){
+					res = analysisRule;
+					break;
+				}
+			}
+		}
+		// TODO Auto-generated method stub
+		return res;
+	}
+	
+	@Override
+	public ReportFunctionRuleInterface[] getNestingMeasureByFunction(){
+		ReportFunctionRuleInterface[] res=null;
+		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<ReportFunctionRuleInterface>();
+		for (AnalysisRule analysisRule : listOfAnalysisRule) {
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.NESTING)){
+				if(analysisRule.result.resultTypePlace.equals("method")){
+					listOfRes.add(analysisRule);
+				}
+			}
+		}
+		res = listOfRes.toArray(new ReportFunctionRuleInterface[listOfRes.size()]);
+		return res;
+	}
+	
+	@Override
+	public ReportModuleRuleInterface getModuleRatioCommentMeasure() {
+		ReportModuleRuleInterface res=null;
+		for (AnalysisRule analysisRule : listOfAnalysisRule) {
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.RATIO_COMMENT)){
+				if(analysisRule.result.resultTypePlace.equals("class")){
+					res = analysisRule;
+					break;
+				}
+			}
+		}
+		// TODO Auto-generated method stub
+		return res;
+	}
+	
+	@Override
+	public ReportFunctionRuleInterface[] getRatioCommentMeasureByFunction(){
+		ReportFunctionRuleInterface[] res=null;
+		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<ReportFunctionRuleInterface>();
+		for (AnalysisRule analysisRule : listOfAnalysisRule) {
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.RATIO_COMMENT)){
+				if(analysisRule.result.resultTypePlace.equals("method")){
+					listOfRes.add(analysisRule);
+				}
+			}
+		}
+		res = listOfRes.toArray(new ReportFunctionRuleInterface[listOfRes.size()]);
+		return res;
+	}
+	
+	
+
+	
 
 	/* ReportInterface */
 }
