@@ -1,5 +1,4 @@
-sonar-icode-plugin
-===========
+# sonar-icode-plugin
 [![Build Status](https://travis-ci.org/AT-NicolasMetivier/sonar-icode-plugin.svg?branch=master)](https://travis-ci.org/AT-NicolasMetivier/sonar-icode-plugin)
 [![SonarQube Coverage](https://sonarcloud.io/api/badges/gate?key=com.ateno.sonar%3Asonar-test-plugin)](https://sonarcloud.io/dashboard?id=com.ateno.sonar%3Asonar-test-plugin)
 [![Unit-Tests Overall Coverage](https://sonarcloud.io/api/badges/measure?key=org.sonar:sonar-test-plugin&metric=coverage&template=FLAT)](https://sonarcloud.io/dashboard?id=com.ateno.sonar%3Asonar-test-plugin)
