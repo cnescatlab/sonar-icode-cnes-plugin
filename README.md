@@ -1,5 +1,4 @@
 # sonar-icode-plugin
-Sonar Plugin for the code analysys tool : ICode
 ==========
 [![Build Status](https://travis-ci.org/AT-NicolasMetivier/sonar-icode-plugin.svg?branch=master)](https://travis-ci.org/AT-NicolasMetivier/sonar-icode-plugin)
 [![SonarQube Coverage](https://sonarcloud.io/api/badges/gate?key=com.ateno.sonar%3Asonar-test-plugin)](https://sonarcloud.io/dashboard?id=com.ateno.sonar%3Asonar-test-plugin)
@@ -10,3 +9,4 @@ Sonar Plugin for the code analysys tool : ICode
 [![Technical Debt](https://sonarcloud.io/api/badges/measure?key=org.sonar:sonar-test-plugin&metric=sqale_debt_ratio&template=FLAT)](https://sonarcloud.io/dashboard?id=com.ateno.sonar%3Asonar-test-plugin)
 [![Coverage Status](https://coveralls.io/repos/github/AT-NicolasMetivier/sonar-test-plugin/badge.svg)](https://coveralls.io/github/AT-NicolasMetivier/sonar-test-plugin)
 ==========
+Sonar Plugin for the code analysys tool : ICode
