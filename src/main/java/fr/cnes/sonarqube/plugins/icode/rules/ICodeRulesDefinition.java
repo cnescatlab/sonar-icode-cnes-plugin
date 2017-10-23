@@ -21,9 +21,13 @@ package fr.cnes.sonarqube.plugins.icode.rules;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
+import org.sonar.api.server.rule.RulesDefinition.NewRule;
 
 import fr.cnes.sonarqube.plugins.icode.languages.ICodeLanguage;
 
@@ -43,6 +47,7 @@ public final class ICodeRulesDefinition implements RulesDefinition {
 	protected static final String REPO_NAME = ICodeLanguage.NAME;
 
 	private static NewRepository repository;
+	private static List<String> allRuleIds = new ArrayList<String>();
 
 	protected String rulesDefinitionFilePath() {
 		return PATH_TO_RULES_XML;
@@ -57,8 +62,12 @@ public final class ICodeRulesDefinition implements RulesDefinition {
 			RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
 			rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
 		}
-
 		repository.done();
+		Collection<NewRule> col = repository.rules();
+		allRuleIds = new ArrayList<String>();
+		for (NewRule newRule : col) {
+			allRuleIds.add(newRule.key());
+		}
 	}
 
 	@Override
@@ -69,4 +78,8 @@ public final class ICodeRulesDefinition implements RulesDefinition {
 	public static String getRepositoryKeyForLanguage() {
 		    return ICodeLanguage.KEY + "-" + KEY;
 	 }
+	
+	public static boolean existRule(String analysisRuleId){
+		return allRuleIds.contains(analysisRuleId);
+	}
 }

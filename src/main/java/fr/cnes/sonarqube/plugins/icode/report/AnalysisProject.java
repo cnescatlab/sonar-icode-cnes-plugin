@@ -3,12 +3,20 @@ package fr.cnes.sonarqube.plugins.icode.report;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
+
+import fr.cnes.sonarqube.plugins.icode.measures.ICodeSensor;
+import fr.cnes.sonarqube.plugins.icode.rules.ICodeRulesDefinition;
+
 /**
  * 
  * @author Cyrille FRANCOIS
  *
  */
 public class AnalysisProject implements ReportInterface{
+	
+	private static final Logger LOGGER = Loggers.get(AnalysisProject.class);
 	
 	static final String ANALYSIS_PROJECT_NAME = "analysisProjectName";
 	static final String ANALYSIS_PROJECT_VERSION = "analysisProjectVersion";
@@ -188,17 +196,10 @@ public class AnalysisProject implements ReportInterface{
 					if(isUnexpectedRule(analysisRule)){
 						
 						// Unexcepted rule analyse is save as a COM.DEFAULT rule issue...
-						if(this.isF77()){
-							analysisRule.analysisRuleId = AnalysisRule.F77+"COM.DEFAULT";
-						}
-						if(this.isF90()){
-							analysisRule.analysisRuleId = AnalysisRule.F77+"COM.DEFAULT";
-						}
-						else{
-							analysisRule.analysisRuleId = AnalysisRule.SHELL+"COM.DEFAULT";
-						}	
+						analysisRule.analysisRuleId = "COM.DEFAULT";	
 					}
 					listOfRes.add(analysisRule);
+					LOGGER.debug("AnalysisRule: "+analysisRule.toString());
 				}
 			}
 		}
@@ -208,9 +209,12 @@ public class AnalysisProject implements ReportInterface{
 	
 	private boolean isUnexpectedRule(AnalysisRule analysisRule){
 		boolean res=true;
-		if(analysisRule.analysisRuleId.equals("COM.DATA.FloatCompare")){
-			res=false;
-		}
+		
+//		if(analysisRule.analysisRuleId.equals("COM.DATA.FloatCompare")){
+//			res=false;
+//		}
+		res = !ICodeRulesDefinition.existRule(analysisRule.analysisRuleId);
+		
 		return res;
 	}	
 

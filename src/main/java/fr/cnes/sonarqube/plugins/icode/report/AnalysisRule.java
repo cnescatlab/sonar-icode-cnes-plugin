@@ -55,7 +55,7 @@ public class AnalysisRule implements ReportFunctionRuleInterface{
 	@Override
 	public String getLineDescriptor() {
 		// TODO Auto-generated method stub
-		return "";
+		return result.resultLine;
 	}
 
 	@Override
@@ -66,8 +66,11 @@ public class AnalysisRule implements ReportFunctionRuleInterface{
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return "";
+		String res="";
+		if(result != null && result.resultValue != null){
+			res = result.resultValue;
+		}
+		return res;
 	}
 	
 	
