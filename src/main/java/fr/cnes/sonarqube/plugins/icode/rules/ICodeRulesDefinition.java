@@ -19,73 +19,54 @@
  */
 package fr.cnes.sonarqube.plugins.icode.rules;
 
-import org.sonar.api.rule.RuleKey;
-import org.sonar.api.rule.RuleStatus;
-import org.sonar.api.rule.Severity;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
 import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
+
+import fr.cnes.sonarqube.plugins.icode.languages.ICodeLanguage;
 
 /**
- * Specific ICode Rules definition provided by resource file 
+ * Specific ICode Rules definition provided by resource file
  * 
  * @author Cyrille FRANCOIS
  *
  */
 public final class ICodeRulesDefinition implements RulesDefinition {
 
-  private static final String FORTRAN = "fortran";
+	private static final String PATH_TO_RULES_XML = "/example/icode-rules.xml";
 
-  private static final String PATH_TO_RULES_XML = "/example/icode-rules.xml";
+	public static final String KEY = "rules";
+	
+	public static final String REPO_KEY = ICodeLanguage.KEY + "-" + KEY;
+	protected static final String REPO_NAME = ICodeLanguage.NAME;
 
-  protected static final String KEY = "icode";
-  protected static final String NAME = "ICode";
+	private static NewRepository repository;
 
-  public static final String REPO_KEY = FORTRAN + "-" + KEY;
-  protected static final String REPO_NAME = FORTRAN + "-" + NAME;
-  
-  public static final RuleKey RULE_CYCLO = RuleKey.of(REPO_KEY, "ComplexitySimplified");
+	protected String rulesDefinitionFilePath() {
+		return PATH_TO_RULES_XML;
+	}
 
-  protected String rulesDefinitionFilePath() {
-    return PATH_TO_RULES_XML;
-  }
+	private void defineRulesForLanguage(Context context, String repositoryKey, String repositoryName,
+			String languageKey) {
+		repository = context.createRepository(repositoryKey, languageKey).setName(repositoryName);
 
-  private void defineRulesForLanguage(
-		  Context context, 
-		  String repositoryKey, 
-		  String repositoryName, 
-		  String languageKey) {
-//    NewRepository repository = context.createRepository(repositoryKey, languageKey).setName(repositoryName);
-//
-//    InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath());
-//    if (rulesXml != null) {
-//      RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
-//      rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
-//    }
-//
-//    repository.done();
-	    NewRepository repository = context.createRepository(repositoryKey, languageKey).setName(repositoryName);
+		InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath());
+		if (rulesXml != null) {
+			RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
+			rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
+		}
 
-	    NewRule x1Rule = repository.createRule(RULE_CYCLO.rule())
-	      .setName("Stupid rule")
-	      .setHtmlDescription("Generates an issue on every line 1 of Java files")
+		repository.done();
+	}
 
-	      // optional tags
-	      .setTags("style", "stupid")
+	@Override
+	public void define(Context context) {
+		defineRulesForLanguage(context, REPO_KEY, REPO_NAME, ICodeLanguage.KEY);
+	}
 
-	      // optional status. Default value is READY.
-	      .setStatus(RuleStatus.BETA)
-
-	      // default severity when the rule is activated on a Quality profile. Default value is MAJOR.
-	      .setSeverity(Severity.MINOR);
-
-	    x1Rule.setDebtRemediationFunction(x1Rule.debtRemediationFunctions().linearWithOffset("1h", "30min"));
-
-	    // don't forget to call done() to finalize the definition
-	    repository.done();
-  }
-
-  @Override
-  public void define(Context context) {
-    defineRulesForLanguage(context, REPO_KEY, REPO_NAME, FORTRAN);
-  }
-
+	public static String getRepositoryKeyForLanguage() {
+		    return ICodeLanguage.KEY + "-" + KEY;
+	 }
 }
