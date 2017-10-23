@@ -13,9 +13,18 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.batch.sensor.issue.NewIssue;
+import org.sonar.api.batch.sensor.issue.NewIssueLocation;
+import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
+import fr.cnes.sonarqube.plugins.icode.rules.ICodeRulesDefinition;
+import fr.cnes.sonarqube.plugins.icode.settings.ICodeLanguageProperties;
+import fr.cnes.sonarqube.plugins.icode.report.ErrorInterface;
+import fr.cnes.sonarqube.plugins.icode.report.ReportFunctionRuleInterface;
+import fr.cnes.sonarqube.plugins.icode.report.ReportInterface;
+import fr.cnes.sonarqube.plugins.icode.report.ReportModuleRuleInterface;
 import fr.cnes.sonarqube.plugins.icode.report.XmlReportReader;
 
 /**
@@ -29,12 +38,18 @@ public class ICodeSensor implements Sensor {
 
 	private static final Logger LOGGER = Loggers.get(ICodeSensor.class);
 
-	/** Report sub directory */
-	public static final String REPORT_SUBDIR = "reports";
-	/** Report extension */
-	public static final String REPORT_EXT = ".res.xml";
-	/** project code file patterns */
-	public static final String EXPECTED_REPORT_INPUT_FILE_TYPES = "*.f,*.f77,*.f90";
+	private String expectedReportInputFileTypes = null;
+
+	private String reportOutExt = null;
+
+	private String reportSubdir = null;
+	
+//	/** Report sub directory */
+//	public static final String REPORT_SUBDIR = "reports";
+//	/** Report extension */
+//	public static final String REPORT_EXT = ".res.xml";
+//	/** project code file patterns */
+//	public static final String EXPECTED_REPORT_INPUT_FILE_TYPES = "*.f,*.f77,*.f90";
 
 	@Override
 	public void describe(SensorDescriptor descriptor) {
@@ -45,13 +60,21 @@ public class ICodeSensor implements Sensor {
 	public void execute(SensorContext context) {
 		LOGGER.info("ICodeSensor is running...");
 		FileSystem fs = context.fileSystem();
+		LOGGER.info("ICodeSensor : file system base dir = " + fs.baseDir());
 		FilePredicates p = fs.predicates();
-		// // only "main" files, but not "tests"
-		// Iterable<InputFile> files =
-		// fs.inputFiles(fs.predicates().hasType(InputFile.Type.MAIN));
-		String[] icodeMatchingPatterns = matchingPatterns();
-		Iterable<InputFile> filesC = fs.inputFiles(fs.predicates().matchesPathPatterns(icodeMatchingPatterns));
-		for (InputFile file : filesC) {
+		LOGGER.info("ICodeSensor : file system base dir = " + fs.hasFiles(p.all()));
+		
+		// Read Plugin settings
+		expectedReportInputFileTypes = context.settings().getString(ICodeLanguageProperties.EXPECTED_REPORT_INPUT_FILE_TYPES_KEY);
+		reportOutExt = context.settings().getString(ICodeLanguageProperties.REPORT_OUT_EXT_KEY);
+		reportSubdir = context.settings().getString(ICodeLanguageProperties.REPORT_SUBDIR_KEY);
+		
+
+		// only "main" files, but not "tests"
+		String[] aMatchingPatterns = matchingPatterns();
+		Iterable<InputFile> filesF = fs.inputFiles(fs.predicates().matchesPathPatterns(aMatchingPatterns));
+		for (InputFile file : filesF) {
+			LOGGER.debug("ICodeSensor : current input file = " + file.absolutePath());
 
 			// Check for report out
 			String fileRelativePathNameReportOut = outReportFileName(file);
@@ -66,9 +89,8 @@ public class ICodeSensor implements Sensor {
 	 * @return all expected file code patterns
 	 */
 	private String[] matchingPatterns() {
-		StringBuffer sb = new StringBuffer();
-		String patternSeparator = ",";
-		String[] res = EXPECTED_REPORT_INPUT_FILE_TYPES.trim().split(patternSeparator);
+		String patternSeparator = ICodeLanguageProperties.FILE_SUFFIXES_SEPARATOR;
+		String[] res = expectedReportInputFileTypes.trim().split(patternSeparator);
 		return res;
 	}
 
@@ -78,7 +100,6 @@ public class ICodeSensor implements Sensor {
 	 * @return relative report file for this input code file
 	 */
 	protected String outReportFileName(InputFile file) {
-		String reportOutExt = REPORT_EXT;
 		return relativeReportFileName(file, reportOutExt);
 	}
 
@@ -92,7 +113,7 @@ public class ICodeSensor implements Sensor {
 	private String relativeReportFileName(InputFile file, String reportOutExt) {
 		String separator = file.file().separator;
 		String name = file.file().getName();
-		return REPORT_SUBDIR + separator + name + reportOutExt;
+		return reportSubdir + separator + name + reportOutExt;
 	}
 
 	/**
@@ -106,7 +127,10 @@ public class ICodeSensor implements Sensor {
 	 * @param fileRelativePathNameReportOut
 	 *            name of the expected report file for this input code file
 	 */
-	private void analyseReportOut(SensorContext context, InputFile file, String fileRelativePathNameReportOut) {
+	private void analyseReportOut(
+			SensorContext context,
+			InputFile file,
+			String fileRelativePathNameReportOut) {
 		ReportInterface report = null;
 		StringBuffer warningMsgs = new StringBuffer();
 		int nbWarningMsgs = 0;
@@ -118,11 +142,10 @@ public class ICodeSensor implements Sensor {
 		Path fileReportPath = Paths.get(file.absolutePath()).getParent().resolve(fileRelativePathNameReportOut);
 		if (existReportFile(fileReportPath)) {
 
-			try {
-				FileChannel reportFile = FileChannel.open(fileReportPath);
+			try (FileChannel reportFile = FileChannel.open(fileReportPath)){
 				report = XmlReportReader.parse(fileReportPath);
 				long reportFileSize = reportFile.size();
-				if (reportFileSize > 0) {
+				if (reportFileSize == 0) {
 					errorMsgs.append("Empty report file : " + fileRelativePathNameReportOut);
 					nbErrorMsgs++;
 				}
@@ -140,17 +163,29 @@ public class ICodeSensor implements Sensor {
 		}
 		// Add a ICode report warning
 		if (nbWarningMsgs > 0) {
-			context.<String>newMeasure().forMetric(ICodeMetrics.REPORT_FILES_WARNING).on(file)
-					.withValue(warningMsgs.toString()).save();
-			context.<Integer>newMeasure().forMetric(ICodeMetrics.NUMBER_OF_WARNINGS).on(file).withValue(nbWarningMsgs)
-					.save();
+			context.<String>newMeasure()
+				.forMetric(ICodeMetrics.REPORT_FILES_WARNING)
+				.on(file)
+				.withValue(warningMsgs.toString())
+				.save();
+			context.<Integer>newMeasure()
+				.forMetric(ICodeMetrics.NUMBER_OF_WARNINGS)
+				.on(file)
+				.withValue(nbWarningMsgs)
+				.save();
 		}
 		// Add a ICode report error
 		if (nbErrorMsgs > 0) {
-			context.<String>newMeasure().forMetric(ICodeMetrics.REPORT_FILES_ERROR).on(file)
-					.withValue(errorMsgs.toString()).save();
-			context.<Integer>newMeasure().forMetric(ICodeMetrics.NUMBER_OF_ERRORS).on(file).withValue(nbErrorMsgs)
-					.save();
+			context.<String>newMeasure()
+				.forMetric(ICodeMetrics.REPORT_FILES_ERROR)
+				.on(file)
+				.withValue(errorMsgs.toString())
+				.save();
+			context.<Integer>newMeasure()
+				.forMetric(ICodeMetrics.NUMBER_OF_ERRORS)
+				.on(file)
+				.withValue(nbErrorMsgs)
+				.save();
 		}
 		if (report != null) {
 			parseReportMeasures(context, file, report);
@@ -899,31 +934,64 @@ public class ICodeSensor implements Sensor {
 	 * @param report
 	 */
 	private void parseReportIssues(SensorContext context, InputFile file, ReportInterface report) {
+		LOGGER.info("Parse and store report issues (doing...)");
+
 		// Read all report issues
-		ReportModuleRuleInterface reportModuleRuleInterface = report.getModuleCyclomaticMeasure();
-		ReportFunctionRuleInterface[] reportModuleRuleInterfaces = report.getCyclomaticMeasureByFunction();
+		ErrorInterface[] errors = report.getErrors();
 
-		// Create issues for this file
-		if (reportModuleRuleInterface != null) {
+		/*
+		 * // Read all report issues ReportModuleRuleInterface
+		 * reportModuleRuleInterface = report.getModuleCyclomaticMeasure();
+		 * ReportFunctionRuleInterface[] reportModuleRuleInterfaces =
+		 * report.getCyclomaticMeasureByFunction();
+		 * 
+		 * // Create issues for this file if (reportModuleRuleInterface != null)
+		 * { InputFile inputFile = file; int lines = inputFile.lines();
+		 * 
+		 * // Read measure value for each elements of this module for
+		 * (ReportFunctionRuleInterface currentFunctionRuleInterface :
+		 * reportModuleRuleInterfaces) { String line =
+		 * currentFunctionRuleInterface.getLine(); int lineNr =
+		 * getLineAsInt(line, lines); // RuleKey ruleKey =
+		 * ICodeRulesDefinition.RULE_CYCLO;//TODO: TBD // NewIssue newIssue =
+		 * context.newIssue().forRule(ruleKey); // NewIssueLocation location =
+		 * newIssue.newLocation() // .on(inputFile) //
+		 * .at(inputFile.selectLine(lineNr > 0 ? lineNr : 1)) //
+		 * .message(currentFunctionRuleInterface.getValue()); // //
+		 * newIssue.at(location); // newIssue.save(); //
+		 * violationsCount++;//TODO: TBD count number of issues } }
+		 */
+		if (errors != null) {
 			InputFile inputFile = file;
-			int lines = inputFile.lines();
-
-			// Read measure value for each elements of this module
-			for (ReportFunctionRuleInterface currentFunctionRuleInterface : reportModuleRuleInterfaces) {
-				String line = currentFunctionRuleInterface.getLine();
-				int lineNr = getLineAsInt(line, lines);
-				// RuleKey ruleKey = ICodeRulesDefinition.RULE_CYCLO;//TODO: TBD
-				// NewIssue newIssue = context.newIssue().forRule(ruleKey);
-				// NewIssueLocation location = newIssue.newLocation()
-				// .on(inputFile)
-				// .at(inputFile.selectLine(lineNr > 0 ? lineNr : 1))
-				// .message(currentFunctionRuleInterface.getValue());
-				//
-				// newIssue.at(location);
-				// newIssue.save();
-				// violationsCount++;//TODO: TBD count number of issues
+			for (ErrorInterface error : errors) {
+				String lineString = error.getLineDescriptor();
+				String message = error.getDescription();
+				String externalRuleKey = error.getRuleKey();
+				saveIssue(context, inputFile, lineString, externalRuleKey, message);
 			}
 		}
+		LOGGER.info("Parse and store report issues (done)");
+	}
+
+	private void saveIssue(SensorContext context, InputFile inputFile, String lineString, String externalRuleKey,
+			String message) {
+		RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(), externalRuleKey);
+
+		LOGGER.info("externalRuleKey: " + externalRuleKey);
+		LOGGER.info("Repo: " + ICodeRulesDefinition.getRepositoryKeyForLanguage());
+		LOGGER.info("RuleKey: " + ruleKey);
+		NewIssue newIssue = context.newIssue().forRule(ruleKey);
+
+		NewIssueLocation primaryLocation = newIssue.newLocation().on(inputFile).message(message);
+
+		int maxLine = inputFile.lines();
+		int iLine = getLineAsInt(lineString, maxLine);
+		if (iLine > 0) {
+			primaryLocation.at(inputFile.selectLine(iLine));
+		}
+		newIssue.at(primaryLocation);
+
+		newIssue.save();
 	}
 
 	/**
