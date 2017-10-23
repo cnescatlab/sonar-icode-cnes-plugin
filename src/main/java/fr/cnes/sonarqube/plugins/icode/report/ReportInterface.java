@@ -1,4 +1,4 @@
-package fr.cnes.sonarqube.plugins.icode.measures;
+package fr.cnes.sonarqube.plugins.icode.report;
 
 /**
  * Expected report services for a ICode report
@@ -23,5 +23,5 @@ public interface ReportInterface {
 	ReportModuleRuleInterface getModuleRatioCommentMeasure();
 	ReportFunctionRuleInterface[] getRatioCommentMeasureByFunction();
 	
-
+	ErrorInterface[] getErrors();
 }

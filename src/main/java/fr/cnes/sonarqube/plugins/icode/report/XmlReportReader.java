@@ -14,8 +14,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import fr.cnes.sonarqube.plugins.icode.measures.ReportInterface;
-
 /**
  * SAX parser for XML ICode report input file
  * 
