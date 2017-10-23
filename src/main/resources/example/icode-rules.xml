@@ -1,7 +1,7 @@
 <icodelint-rules>
 	<rule>
 		<key>COM.DEFAULT</key>
-		<name>Rule value 0</name>
+		<name>COM.DEFAULT</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule
 		</description>
@@ -15,7 +15,7 @@
 	</rule>
 	<rule>
 		<key>COM.DATA.FloatCompare</key>
-		<name>Rule value 1</name>
+		<name>COM.DATA.FloatCompare</name>
 		<internalKey>dropping duplicate def'n of func</internalKey>
 		<description>dropping duplicate def'n of func...
 		</description>
