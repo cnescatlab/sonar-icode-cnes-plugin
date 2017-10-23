@@ -36,15 +36,15 @@ public class ComputeModuleSHELLCyclomaticStatistics implements MeasureComputer {
 		// Create module measures
 		if (context.getComponent().getType() != Component.Type.FILE) {
 			
-			// Search Cyclomatic measure for children files
-			childrenMeasures = context.getChildrenMeasures(SHELL_CYCLOMATIC.key());
-			if(childrenMeasures.iterator().hasNext()){
-				int sum = 0;
-				for (Measure child : childrenMeasures) {
-					sum += child.getIntValue();
-				}			
-				context.addMeasure(SHELL_CYCLOMATIC.key(),sum);				
-			}
+//			// Search Cyclomatic measure for children files
+//			childrenMeasures = context.getChildrenMeasures(SHELL_CYCLOMATIC.key());
+//			if(childrenMeasures.iterator().hasNext()){
+//				int sum = 0;
+//				for (Measure child : childrenMeasures) {
+//					sum += child.getIntValue();
+//				}			
+//				context.addMeasure(SHELL_CYCLOMATIC.key(),sum);				
+//			}
 			
 			// Search Cyclomatic mean measure for children files
 			childrenMeasures = context.getChildrenMeasures(SHELL_CYCLOMATIC_MEAN.key());

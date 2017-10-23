@@ -36,15 +36,15 @@ public class ComputeModuleF90CyclomaticStatistics implements MeasureComputer {
 		// Create module measures
 		if (context.getComponent().getType() != Component.Type.FILE) {
 			
-			// Search Cyclomatic measure for children files
-			childrenMeasures = context.getChildrenMeasures(F90_CYCLOMATIC.key());
-			if(childrenMeasures.iterator().hasNext()){
-				int sum = 0;
-				for (Measure child : childrenMeasures) {
-					sum += child.getIntValue();
-				}			
-				context.addMeasure(F90_CYCLOMATIC.key(),sum);				
-			}
+//			// Search Cyclomatic measure for children files
+//			childrenMeasures = context.getChildrenMeasures(F90_CYCLOMATIC.key());
+//			if(childrenMeasures.iterator().hasNext()){
+//				int sum = 0;
+//				for (Measure child : childrenMeasures) {
+//					sum += child.getIntValue();
+//				}			
+//				context.addMeasure(F90_CYCLOMATIC.key(),sum);				
+//			}
 			
 			// Search Cyclomatic mean measure for children files
 			childrenMeasures = context.getChildrenMeasures(F90_CYCLOMATIC_MEAN.key());
