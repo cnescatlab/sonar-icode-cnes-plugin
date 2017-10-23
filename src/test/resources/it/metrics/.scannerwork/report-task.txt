@@ -1,6 +1,0 @@
-projectKey=fr.cnes.icode:icode-metrics-sq-scanner
-serverUrl=http://localhost:9000
-serverVersion=6.4.0.25310
-dashboardUrl=http://localhost:9000/dashboard/index/fr.cnes.icode:icode-metrics-sq-scanner
-ceTaskId=AV4OyChvyjJv5v-h5X0T
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AV4OyChvyjJv5v-h5X0T
