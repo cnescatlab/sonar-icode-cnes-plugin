@@ -2,6 +2,8 @@ package fr.cnes.sonarqube.plugins.icode;
 
 import org.sonar.api.Plugin;
 
+import fr.cnes.sonarqube.plugins.icode.languages.ICodeLanguage;
+import fr.cnes.sonarqube.plugins.icode.languages.ICodeQualityProfile;
 import fr.cnes.sonarqube.plugins.icode.measures.ComputeModuleF77CyclomaticStatistics;
 import fr.cnes.sonarqube.plugins.icode.measures.ComputeModuleF77LinesOfCodeStatistics;
 import fr.cnes.sonarqube.plugins.icode.measures.ComputeModuleF77NestingStatistics;
@@ -30,6 +32,7 @@ import fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsSHELLNesting;
 import fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsSHELLRatioComment;
 import fr.cnes.sonarqube.plugins.icode.measures.ICodeSensor;
 import fr.cnes.sonarqube.plugins.icode.rules.ICodeRulesDefinition;
+import fr.cnes.sonarqube.plugins.icode.settings.ICodeLanguageProperties;
 
 /**
  * This class is the entry point for all extensions
@@ -39,55 +42,43 @@ import fr.cnes.sonarqube.plugins.icode.rules.ICodeRulesDefinition;
 public class ICodePlugin implements Plugin {
 
 	public void define(Context context) {
+		// Setting plugin ICode
+		context.addExtensions(ICodeLanguage.class, ICodeQualityProfile.class);
+		context.addExtensions(ICodeLanguageProperties.getProperties());
 
 		// Metrics definition and computed measures
-		context.addExtensions(
-				ICodeMetrics.class,
-				ComputePluginErrors.class,
-				
-				ICodeMetricsF77Cyclomatic.class,
-				ComputeModuleF77CyclomaticStatistics.class,
-				
-				ICodeMetricsF77LinesOfCode.class,
-				ComputeModuleF77LinesOfCodeStatistics.class,
-				
-				ICodeMetricsF77RatioComment.class,
-				ComputeModuleF77RatioCommentStatistics.class,
-				
-				ICodeMetricsF77Nesting.class,
-				ComputeModuleF77NestingStatistics.class,
-				
-				ICodeMetricsF90Cyclomatic.class,
-				ComputeModuleF90CyclomaticStatistics.class,
-				
-				ICodeMetricsF90LinesOfCode.class,
-				ComputeModuleF90LinesOfCodeStatistics.class,
-				
-				ICodeMetricsF90RatioComment.class,
-				ComputeModuleF90RatioCommentStatistics.class,
-				
-				ICodeMetricsF90Nesting.class,
-				ComputeModuleF90NestingStatistics.class,
-				
-				ICodeMetricsSHELLCyclomatic.class,
-				ComputeModuleSHELLCyclomaticStatistics.class,
-				
-				ICodeMetricsSHELLLinesOfCode.class,
-				ComputeModuleSHELLLinesOfCodeStatistics.class,
-				
-				ICodeMetricsSHELLRatioComment.class,
-				ComputeModuleSHELLRatioCommentStatistics.class,
-				
-				ICodeMetricsSHELLNesting.class,
-				ComputeModuleSHELLNestingStatistics.class
-				
-				);		
+		context.addExtensions(ICodeMetrics.class, ComputePluginErrors.class,
+
+				ICodeMetricsF77Cyclomatic.class, ComputeModuleF77CyclomaticStatistics.class,
+
+				ICodeMetricsF77LinesOfCode.class, ComputeModuleF77LinesOfCodeStatistics.class,
+
+				ICodeMetricsF77RatioComment.class, ComputeModuleF77RatioCommentStatistics.class,
+
+				ICodeMetricsF77Nesting.class, ComputeModuleF77NestingStatistics.class,
+
+				ICodeMetricsF90Cyclomatic.class, ComputeModuleF90CyclomaticStatistics.class,
+
+				ICodeMetricsF90LinesOfCode.class, ComputeModuleF90LinesOfCodeStatistics.class,
+
+				ICodeMetricsF90RatioComment.class, ComputeModuleF90RatioCommentStatistics.class,
+
+				ICodeMetricsF90Nesting.class, ComputeModuleF90NestingStatistics.class,
+
+				ICodeMetricsSHELLCyclomatic.class, ComputeModuleSHELLCyclomaticStatistics.class,
+
+				ICodeMetricsSHELLLinesOfCode.class, ComputeModuleSHELLLinesOfCodeStatistics.class,
+
+				ICodeMetricsSHELLRatioComment.class, ComputeModuleSHELLRatioCommentStatistics.class,
+
+				ICodeMetricsSHELLNesting.class, ComputeModuleSHELLNestingStatistics.class
+
+		);
 
 		// Rules definition
-		context.addExtension(ICodeRulesDefinition.class);	
-		
+		context.addExtension(ICodeRulesDefinition.class);
+
 		// Sonar scanner extension
-		context.addExtension(
-				ICodeSensor.class);		
+		context.addExtension(ICodeSensor.class);
 	}
 }
