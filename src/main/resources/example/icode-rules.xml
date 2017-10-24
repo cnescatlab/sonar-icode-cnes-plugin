@@ -758,10 +758,9 @@
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
-	</xml>
 	<rule>
-		<key>COM.DATA.LoopCondition"</key>
-		<name>COM.DATA.LoopCondition"</name>
+		<key>COM.FLOW.CaseSwitch</key>
+		<name>COM.FLOW.CaseSwitch</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -773,8 +772,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.DATA.NotUsed"</key>
-		<name>COM.DATA.NotUsed"</name>
+		<key>COM.INST.Line</key>
+		<name>COM.INST.Line</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -786,8 +785,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.Abort"</key>
-		<name>COM.FLOW.Abort"</name>
+		<key>COM.PRES.Header</key>
+		<name>COM.PRES.Header</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -799,8 +798,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.DESIGN.ActiveWait"</key>
-		<name>COM.DESIGN.ActiveWait"</name>
+		<key>SH.DATA.IFS</key>
+		<name>SH.DATA.IFS</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -812,8 +811,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.BooleanExpression"</key>
-		<name>COM.FLOW.BooleanExpression"</name>
+		<key>SH.DATA.Integer</key>
+		<name>SH.DATA.Integer</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -825,8 +824,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.CaseSwitch"</key>
-		<name>COM.FLOW.CaseSwitch"</name>
+		<key>SH.DESIGN.Bash</key>
+		<name>SH.DESIGN.Bash</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -838,8 +837,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.ExitLoop"</key>
-		<name>COM.FLOW.ExitLoop"</name>
+		<key>SH.DESIGN.Options</key>
+		<name>SH.DESIGN.Options</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -851,8 +850,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.FileExistence"</key>
-		<name>COM.FLOW.FileExistence"</name>
+		<key>SH.ERR.Help</key>
+		<name>SH.ERR.Help</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -864,8 +863,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.INST.CodeComment"</key>
-		<name>COM.INST.CodeComment"</name>
+		<key>SH.ERR.NoPipe</key>
+		<name>SH.ERR.NoPipe</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -877,8 +876,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.INST.Line"</key>
-		<name>COM.INST.Line"</name>
+		<key>SH.ERR.String</key>
+		<name>SH.ERR.String</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -890,8 +889,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.PRES.Header"</key>
-		<name>COM.PRES.Header"</name>
+		<key>SH.FLOW.CheckArguments</key>
+		<name>SH.FLOW.CheckArguments</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -903,8 +902,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.DATA.IFS"</key>
-		<name>SH.DATA.IFS"</name>
+		<key>SH.FLOW.CheckUser</key>
+		<name>SH.FLOW.CheckUser</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -916,8 +915,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.DATA.Integer"</key>
-		<name>SH.DATA.Integer"</name>
+		<key>SH.INST.Basename</key>
+		<name>SH.INST.Basename</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -929,8 +928,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.DESIGN.Bash"</key>
-		<name>SH.DESIGN.Bash"</name>
+		<key>SH.INST.Find</key>
+		<name>SH.INST.Find</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -942,8 +941,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.DESIGN.Options"</key>
-		<name>SH.DESIGN.Options"</name>
+		<key>SH.INST.GetOpts</key>
+		<name>SH.INST.GetOpts</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -955,8 +954,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.ERR.Help"</key>
-		<name>SH.ERR.Help"</name>
+		<key>SH.INST.Interpreter</key>
+		<name>SH.INST.Interpreter</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -968,8 +967,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.ERR.NoPipe"</key>
-		<name>SH.ERR.NoPipe"</name>
+		<key>SH.INST.Keywords</key>
+		<name>SH.INST.Keywords</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -981,8 +980,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.ERR.String"</key>
-		<name>SH.ERR.String"</name>
+		<key>SH.INST.Logical</key>
+		<name>SH.INST.Logical</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -994,8 +993,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.FLOW.CheckArguments"</key>
-		<name>SH.FLOW.CheckArguments"</name>
+		<key>SH.INST.POSIX</key>
+		<name>SH.INST.POSIX</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1007,8 +1006,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.FLOW.CheckUser"</key>
-		<name>SH.FLOW.CheckUser"</name>
+		<key>SH.INST.SetShift</key>
+		<name>SH.INST.SetShift</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1020,8 +1019,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.INST.Basename"</key>
-		<name>SH.INST.Basename"</name>
+		<key>SH.INST.Variables</key>
+		<name>SH.INST.Variables</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1033,8 +1032,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.INST.Find"</key>
-		<name>SH.INST.Find"</name>
+		<key>SH.IO.Redirect</key>
+		<name>SH.IO.Redirect</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1046,8 +1045,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.INST.GetOpts"</key>
-		<name>SH.INST.GetOpts"</name>
+		<key>SH.MET.LimitAWK</key>
+		<name>SH.MET.LimitAWK</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1059,8 +1058,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.INST.Interpreter"</key>
-		<name>SH.INST.Interpreter"</name>
+		<key>SH.MET.LimitSed</key>
+		<name>SH.MET.LimitSed</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1072,8 +1071,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.INST.Keywords"</key>
-		<name>SH.INST.Keywords"</name>
+		<key>SH.MET.PipeLine</key>
+		<name>SH.MET.PipeLine</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1085,8 +1084,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.INST.Logical"</key>
-		<name>SH.INST.Logical"</name>
+		<key>COM.FLOW.Recursion</key>
+		<name>COM.FLOW.Recursion</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1098,8 +1097,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.INST.POSIX"</key>
-		<name>SH.INST.POSIX"</name>
+		<key>F90.BLOC.File</key>
+		<name>F90.BLOC.File</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1111,8 +1110,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.INST.SetShift"</key>
-		<name>SH.INST.SetShift"</name>
+		<key>F90.DATA.Array</key>
+		<name>F90.DATA.Array</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1124,8 +1123,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.INST.Variables"</key>
-		<name>SH.INST.Variables"</name>
+		<key>F90.DATA.ArrayAccess</key>
+		<name>F90.DATA.ArrayAccess</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1137,8 +1136,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.IO.Redirect"</key>
-		<name>SH.IO.Redirect"</name>
+		<key>F90.DATA.Constant</key>
+		<name>F90.DATA.Constant</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1150,8 +1149,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.MET.LimitAWK"</key>
-		<name>SH.MET.LimitAWK"</name>
+		<key>F90.DATA.ConstantFloat</key>
+		<name>F90.DATA.ConstantFloat</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1163,8 +1162,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.MET.LimitSed"</key>
-		<name>SH.MET.LimitSed"</name>
+		<key>F90.DATA.Declaration</key>
+		<name>F90.DATA.Declaration</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1176,8 +1175,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>SH.MET.PipeLine"</key>
-		<name>SH.MET.PipeLine"</name>
+		<key>F90.DATA.Float</key>
+		<name>F90.DATA.Float</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1189,8 +1188,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.DATA.FloatCompare" </key>
-		<name>COM.DATA.FloatCompare" </name>
+		<key>F90.DATA.Parameter</key>
+		<name>F90.DATA.Parameter</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1202,8 +1201,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.DATA.Initialisation" </key>
-		<name>COM.DATA.Initialisation" </name>
+		<key>F90.DESIGN.Free</key>
+		<name>F90.DESIGN.Free</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1215,8 +1214,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.DATA.Invariant" </key>
-		<name>COM.DATA.Invariant" </name>
+		<key>F90.DESIGN.Include</key>
+		<name>F90.DESIGN.Include</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1228,8 +1227,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.DATA.LoopCondition" </key>
-		<name>COM.DATA.LoopCondition" </name>
+		<key>F90.DESIGN.Interface</key>
+		<name>F90.DESIGN.Interface</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1241,8 +1240,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.DATA.NotUsed" </key>
-		<name>COM.DATA.NotUsed" </name>
+		<key>F90.DESIGN.IO</key>
+		<name>F90.DESIGN.IO</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1254,8 +1253,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.DESIGN.Alloc" </key>
-		<name>COM.DESIGN.Alloc" </name>
+		<key>F90.DESIGN.Obsolete</key>
+		<name>F90.DESIGN.Obsolete</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1267,8 +1266,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.DESIGN.ActiveWait" </key>
-		<name>COM.DESIGN.ActiveWait" </name>
+		<key>F90.ERR.Allocate</key>
+		<name>F90.ERR.Allocate</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1280,8 +1279,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.Abort" </key>
-		<name>COM.FLOW.Abort" </name>
+		<key>F90.ERR.OpenRead</key>
+		<name>F90.ERR.OpenRead</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1293,8 +1292,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.BooleanExpression" </key>
-		<name>COM.FLOW.BooleanExpression" </name>
+		<key>F90.INST.Associated</key>
+		<name>F90.INST.Associated</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1306,8 +1305,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.CaseSwitch" </key>
-		<name>COM.FLOW.CaseSwitch" </name>
+		<key>F90.INST.Entry</key>
+		<name>F90.INST.Entry</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1319,8 +1318,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.CheckCodeReturn" </key>
-		<name>COM.FLOW.CheckCodeReturn" </name>
+		<key>F90.INST.Equivalence</key>
+		<name>F90.INST.Equivalence</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1332,8 +1331,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.CheckUser" </key>
-		<name>COM.FLOW.CheckUser" </name>
+		<key>F90.INST.If</key>
+		<name>F90.INST.If</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1345,8 +1344,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.Exit" </key>
-		<name>COM.FLOW.Exit" </name>
+		<key>F90.INST.Intent</key>
+		<name>F90.INST.Intent</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1358,8 +1357,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.ExitLoop" </key>
-		<name>COM.FLOW.ExitLoop" </name>
+		<key>F90.INST.Nullify</key>
+		<name>F90.INST.Nullify</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1371,8 +1370,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.FileExistence" </key>
-		<name>COM.FLOW.FileExistence" </name>
+		<key>F90.INST.Only</key>
+		<name>F90.INST.Only</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1384,8 +1383,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.FilePath" </key>
-		<name>COM.FLOW.FilePath" </name>
+		<key>F90.INST.Operator</key>
+		<name>F90.INST.Operator</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1397,8 +1396,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.FLOW.Recursion" </key>
-		<name>COM.FLOW.Recursion" </name>
+		<key>F90.INST.Pointer</key>
+		<name>F90.INST.Pointer</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1410,8 +1409,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.INST.BoolNegation" </key>
-		<name>COM.INST.BoolNegation" </name>
+		<key>F90.NAME.GenericIntrinsic</key>
+		<name>F90.NAME.GenericIntrinsic</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1423,8 +1422,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.INST.Brace" </key>
-		<name>COM.INST.Brace" </name>
+		<key>F90.NAME.KeyWords</key>
+		<name>F90.NAME.KeyWords</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1436,8 +1435,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.INST.CodeComment" </key>
-		<name>COM.INST.CodeComment" </name>
+		<key>F90.PROTO.Overload</key>
+		<name>F90.PROTO.Overload</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1449,8 +1448,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.INST.GoTo" </key>
-		<name>COM.INST.GoTo" </name>
+		<key>F90.REF.Array</key>
+		<name>F90.REF.Array</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1462,8 +1461,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.INST.Line" </key>
-		<name>COM.INST.Line" </name>
+		<key>F90.REF.Interface</key>
+		<name>F90.REF.Interface</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1475,8 +1474,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.INST.LoopCondition" </key>
-		<name>COM.INST.LoopCondition" </name>
+		<key>F90.REF.Label</key>
+		<name>F90.REF.Label</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1488,8 +1487,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.NAME.Homonymy" </key>
-		<name>COM.NAME.Homonymy" </name>
+		<key>F90.REF.Open</key>
+		<name>F90.REF.Open</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1501,8 +1500,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.PRES.Indent" </key>
-		<name>COM.PRES.Indent" </name>
+		<key>F90.REF.Variable</key>
+		<name>F90.REF.Variable</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1514,8 +1513,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.PRES.LengthLine" </key>
-		<name>COM.PRES.LengthLine" </name>
+		<key>F90.TYPE.Derivate</key>
+		<name>F90.TYPE.Derivate</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1527,8 +1526,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.PROJECT.Header" </key>
-		<name>COM.PROJECT.Header" </name>
+		<key>F90.TYPE.Integer</key>
+		<name>F90.TYPE.Integer</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
@@ -1540,463 +1539,8 @@
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>COM.TYPE.Expression" </key>
-		<name>COM.TYPE.Expression" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.BLOC.File" </key>
-		<name>F90.BLOC.File" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DATA.Array" </key>
-		<name>F90.DATA.Array" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DATA.ArrayAccess" </key>
-		<name>F90.DATA.ArrayAccess" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DATA.Constant" </key>
-		<name>F90.DATA.Constant" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DATA.ConstantFloat" </key>
-		<name>F90.DATA.ConstantFloat" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DATA.Declaration" </key>
-		<name>F90.DATA.Declaration" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DATA.Float" </key>
-		<name>F90.DATA.Float" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DATA.Parameter" </key>
-		<name>F90.DATA.Parameter" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DESIGN.Free" </key>
-		<name>F90.DESIGN.Free" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DESIGN.Include" </key>
-		<name>F90.DESIGN.Include" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DESIGN.Interface" </key>
-		<name>F90.DESIGN.Interface" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DESIGN.IO" </key>
-		<name>F90.DESIGN.IO" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.DESIGN.Obsolete" </key>
-		<name>F90.DESIGN.Obsolete" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.ERR.Allocate" </key>
-		<name>F90.ERR.Allocate" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.ERR.OpenRead" </key>
-		<name>F90.ERR.OpenRead" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.INST.Associated" </key>
-		<name>F90.INST.Associated" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.INST.Entry" </key>
-		<name>F90.INST.Entry" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.INST.Equivalence" </key>
-		<name>F90.INST.Equivalence" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.INST.If" </key>
-		<name>F90.INST.If" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.INST.Intent" </key>
-		<name>F90.INST.Intent" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.INST.Nullify" </key>
-		<name>F90.INST.Nullify" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.INST.Only" </key>
-		<name>F90.INST.Only" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.INST.Operator" </key>
-		<name>F90.INST.Operator" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.INST.Pointer" </key>
-		<name>F90.INST.Pointer" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.NAME.GenericIntrinsic" </key>
-		<name>F90.NAME.GenericIntrinsic" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.NAME.KeyWords" </key>
-		<name>F90.NAME.KeyWords" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.PROTO.Overload" </key>
-		<name>F90.PROTO.Overload" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.REF.Array" </key>
-		<name>F90.REF.Array" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.REF.Interface" </key>
-		<name>F90.REF.Interface" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.REF.Label" </key>
-		<name>F90.REF.Label" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.REF.Open" </key>
-		<name>F90.REF.Open" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.REF.Variable" </key>
-		<name>F90.REF.Variable" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.TYPE.Derivate" </key>
-		<name>F90.TYPE.Derivate" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.TYPE.Integer" </key>
-		<name>F90.TYPE.Integer" </name>
-		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>value</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
-	</rule>
-	<rule>
-		<key>F90.TYPE.Real" </key>
-		<name>F90.TYPE.Real" </name>
+		<key>F90.TYPE.Real</key>
+		<name>F90.TYPE.Real</name>
 		<internalKey>*</internalKey>
 		<description>Unreferenced rule</description>
 		<severity>MAJOR</severity>
