@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisProject analysisProjectName="Unknown" analysisProjectVersion="1.0.0">
+  <analysisInformations analysisConfigurationId="analysis1" analysisDate="2017-08-16" author="i-Code CNES Analyzer" />
+  <analysisFile language="f" fileName="f77_1/clarft.f" />
+  <analysisRule analysisRuleId="F77.MET.ComplexitySimplified">
+    <result resultId="1" fileName="f77_1/clarft.f" resultLine="164" resultTypePlace="method" resultNamePlace="SUBROUTINE  CLARFT" resultValue="26.0" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.ComplexitySimplified">
+    <result resultId="2" fileName="f77_1/clarft.f" resultLine="0" resultTypePlace="class" resultValue="NaN" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.Nesting">
+    <result resultId="3" fileName="f77_1/clarft.f" resultLine="164" resultTypePlace="method" resultNamePlace="SUBROUTINE  CLARFT" resultValue="5.0" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.Nesting">
+    <result resultId="4" fileName="f77_1/clarft.f" resultLine="0" resultTypePlace="class" resultValue="NaN" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.LineOfCode">
+    <result resultId="5" fileName="f77_1/clarft.f" resultLine="164" resultTypePlace="method" resultNamePlace="SUBROUTINE  CLARFT" resultValue="102.0" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.LineOfCode">
+    <result resultId="6" fileName="f77_1/clarft.f" resultLine="0" resultTypePlace="class" resultValue="102.0" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.RatioComment">
+    <result resultId="7" fileName="f77_1/clarft.f" resultLine="164" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT" resultValue="38.650307" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.RatioComment">
+    <result resultId="8" fileName="f77_1/clarft.f" resultLine="0" resultTypePlace="class" resultValue="NaN" />
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.FloatCompare">
+    <result resultId="9" fileName="f77_1/clarft.f" resultLine="207" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>It's not allowed to compare float variables (TAU) with equality.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.FloatCompare">
+    <result resultId="10" fileName="f77_1/clarft.f" resultLine="221" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>It's not allowed to compare float variables (V) with equality.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.FloatCompare">
+    <result resultId="11" fileName="f77_1/clarft.f" resultLine="237" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>It's not allowed to compare float variables (V) with equality.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.FloatCompare">
+    <result resultId="12" fileName="f77_1/clarft.f" resultLine="266" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>It's not allowed to compare float variables (TAU) with equality.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.FloatCompare">
+    <result resultId="13" fileName="f77_1/clarft.f" resultLine="281" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>It's not allowed to compare float variables (V) with equality.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.FloatCompare">
+    <result resultId="14" fileName="f77_1/clarft.f" resultLine="296" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>It's not allowed to compare float variables (V) with equality.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.Invariant">
+    <result resultId="15" fileName="f77_1/clarft.f" resultLine="172" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>The variable DIRECT must be defined as constant.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.Invariant">
+    <result resultId="16" fileName="f77_1/clarft.f" resultLine="172" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>The variable STOREV must be defined as constant.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.Invariant">
+    <result resultId="17" fileName="f77_1/clarft.f" resultLine="173" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>The variable LDT must be defined as constant.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.Invariant">
+    <result resultId="18" fileName="f77_1/clarft.f" resultLine="173" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>The variable LDV must be defined as constant.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.Invariant">
+    <result resultId="19" fileName="f77_1/clarft.f" resultLine="193" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>The variable LSAME must be defined as constant.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.FLOW.Exit">
+    <result resultId="20" fileName="f77_1/clarft.f" resultLine="324" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>There is more than one exit in the function.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.FLOW.ExitLoop">
+    <result resultId="21" fileName="f77_1/clarft.f" resultLine="221" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>There is more than one exit in the loop.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.FLOW.ExitLoop">
+    <result resultId="22" fileName="f77_1/clarft.f" resultLine="237" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>There is more than one exit in the loop.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.FLOW.ExitLoop">
+    <result resultId="23" fileName="f77_1/clarft.f" resultLine="281" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>There is more than one exit in the loop.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.FLOW.ExitLoop">
+    <result resultId="24" fileName="f77_1/clarft.f" resultLine="296" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>There is more than one exit in the loop.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="25" fileName="f77_1/clarft.f" resultLine="224" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="26" fileName="f77_1/clarft.f" resultLine="240" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="27" fileName="f77_1/clarft.f" resultLine="284" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="28" fileName="f77_1/clarft.f" resultLine="284" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="29" fileName="f77_1/clarft.f" resultLine="290" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="30" fileName="f77_1/clarft.f" resultLine="299" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="31" fileName="f77_1/clarft.f" resultLine="299" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="32" fileName="f77_1/clarft.f" resultLine="305" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.LengthLine">
+    <result resultId="33" fileName="f77_1/clarft.f" resultLine="10" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>There are more than 100 characters in this line.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.LengthLine">
+    <result resultId="34" fileName="f77_1/clarft.f" resultLine="12" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>There are more than 100 characters in this line.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.LengthLine">
+    <result resultId="35" fileName="f77_1/clarft.f" resultLine="14" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>There are more than 100 characters in this line.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="36" fileName="f77_1/clarft.f" resultLine="230" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 'Conjugate transpose', J-I, I-1 belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="37" fileName="f77_1/clarft.f" resultLine="232" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 1 belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="38" fileName="f77_1/clarft.f" resultLine="233" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 1 variable belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="39" fileName="f77_1/clarft.f" resultLine="246" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 'N', 'C', I-1, 1, J-I belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="40" fileName="f77_1/clarft.f" resultLine="253" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 'Upper', 'No transpose', 'Non-unit', I-1 belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="41" fileName="f77_1/clarft.f" resultLine="254" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 1 variable belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="42" fileName="f77_1/clarft.f" resultLine="290" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 'Conjugate transpose', N-K+I-J, K-I belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="43" fileName="f77_1/clarft.f" resultLine="292" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 1, 1 variable belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="44" fileName="f77_1/clarft.f" resultLine="305" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 'N', 'C', K-I, 1, N-K+I-J belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="45" fileName="f77_1/clarft.f" resultLine="312" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 'Lower', 'No transpose', 'Non-unit', K-I belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="46" fileName="f77_1/clarft.f" resultLine="313" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>Error in the following parameters: 1 variable belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.INST.Return">
+    <result resultId="47" fileName="f77_1/clarft.f" resultLine="201" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>The instruction RETURN(i) is not allowed.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.INST.Return">
+    <result resultId="48" fileName="f77_1/clarft.f" resultLine="324" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>The instruction RETURN(i) is not allowed.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.Line">
+    <result resultId="49" fileName="f77_1/clarft.f" resultLine="307" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>There are more than 72 characters in this line.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.PROTO.Declaration">
+    <result resultId="50" fileName="f77_1/clarft.f" resultLine="224" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>The function CONJG shall be declared.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.PROTO.Declaration">
+    <result resultId="51" fileName="f77_1/clarft.f" resultLine="284" resultTypePlace="method" resultNamePlace="SUBROUTINE CLARFT">
+      <resultMessage>The function CONJG shall be declared.</resultMessage>
+    </result>
+  </analysisRule>
+</analysisProject>

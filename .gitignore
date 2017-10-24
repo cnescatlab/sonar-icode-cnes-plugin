@@ -1,0 +1,20 @@
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+
+# Avoid Eclipse specific configuration
+/.classpath
+/.DS_Store
+/.project
+=======
+# Avoid ignoring Eclipse project specific configuration if someone use another IDE
+# /.project

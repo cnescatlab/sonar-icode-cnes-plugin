@@ -1,1 +1,1 @@
-# sonar-icode-cnes-plugin
+Sonar Plugin for the code analysys tool : ICode

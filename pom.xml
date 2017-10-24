@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.cnes.sonarqube.plugins</groupId>
+	<artifactId>sonar-icode-plugin</artifactId>
+	<packaging>sonar-plugin</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>ICode</name>
+
+	<description>ICode plugin for Sonarqube</description>
+	<!-- TBC : is it the right repository ? -->
+	<url>https://github.com/dupuisa/sonar-icode-plugin</url>
+	<inceptionYear>2017</inceptionYear>
+
+	<!-- TBD : Apache license ? (Sonarqube update center required a FLOSS one -->
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+	<!-- optional -->
+	<organization>
+		<name>CNES</name>
+		<url>http://cnes.fr</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Cyrille Francois</name>
+			<url>https://github.com/CfrancCyrille</url>
+			<id>CfrancCyrille</id>
+		</developer>
+		<developer>
+			<name>Nicolas Métivier</name>
+			<url>https://github.com/AT-NicolasMetivier</url>
+			<id>AT-NicolasMetivier</id>
+		</developer>
+	</developers>
+
+	<properties>
+		<jdk.version>1.8</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<sonarqube.version>5.6</sonarqube.version>
+		<slf4j.version>1.7.25</slf4j.version>
+		<junit.version>4.12</junit.version>
+		<project.key>icode</project.key>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.sonarsource.sonarqube</groupId>
+			<artifactId>sonar-plugin-api</artifactId>
+			<version>${sonarqube.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- unit tests -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+				<artifactId>sonar-packaging-maven-plugin</artifactId>
+				<version>1.17</version>
+				<extensions>true</extensions>
+				<configuration>
+					<pluginClass>fr.cnes.sonarqube.plugins.icode.ICodePlugin</pluginClass>
+					<pluginKey>${project.key}</pluginKey>
+					<pluginName>${project.name}</pluginName>
+					<pluginDescription>${project.description}</pluginDescription>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

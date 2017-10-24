@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisProject analysisProjectName="Unknown" analysisProjectVersion="1.0.0">
+  <analysisInformations analysisConfigurationId="analysis1" analysisDate="2017-08-16" author="i-Code CNES Analyzer" />
+  <analysisFile language="f" fileName="f77_1/clanhb.f" />
+  <analysisRule analysisRuleId="F77.MET.ComplexitySimplified">
+    <result resultId="1" fileName="f77_1/clanhb.f" resultLine="132" resultTypePlace="method" resultNamePlace="FUNCTION  CLANHB" resultValue="30.0" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.ComplexitySimplified">
+    <result resultId="2" fileName="f77_1/clanhb.f" resultLine="0" resultTypePlace="class" resultValue="NaN" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.Nesting">
+    <result resultId="3" fileName="f77_1/clanhb.f" resultLine="132" resultTypePlace="method" resultNamePlace="FUNCTION  CLANHB" resultValue="5.0" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.Nesting">
+    <result resultId="4" fileName="f77_1/clanhb.f" resultLine="0" resultTypePlace="class" resultValue="NaN" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.LineOfCode">
+    <result resultId="5" fileName="f77_1/clanhb.f" resultLine="132" resultTypePlace="method" resultNamePlace="FUNCTION  CLANHB" resultValue="107.0" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.LineOfCode">
+    <result resultId="6" fileName="f77_1/clanhb.f" resultLine="0" resultTypePlace="class" resultValue="107.0" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.RatioComment">
+    <result resultId="7" fileName="f77_1/clanhb.f" resultLine="132" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB" resultValue="26.573425" />
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.RatioComment">
+    <result resultId="8" fileName="f77_1/clanhb.f" resultLine="0" resultTypePlace="class" resultValue="NaN" />
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.FloatCompare">
+    <result resultId="9" fileName="f77_1/clanhb.f" resultLine="258" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>It's not allowed to compare float variables ( REAL) with equality.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.Invariant">
+    <result resultId="10" fileName="f77_1/clanhb.f" resultLine="141" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>The variable NORM must be defined as constant.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.Invariant">
+    <result resultId="11" fileName="f77_1/clanhb.f" resultLine="141" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>The variable UPLO must be defined as constant.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.Invariant">
+    <result resultId="12" fileName="f77_1/clanhb.f" resultLine="160" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>The variable LSAME must be defined as constant.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.DATA.Invariant">
+    <result resultId="13" fileName="f77_1/clanhb.f" resultLine="160" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>The variable SISNAN must be defined as constant.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="14" fileName="f77_1/clanhb.f" resultLine="180" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="15" fileName="f77_1/clanhb.f" resultLine="182" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="16" fileName="f77_1/clanhb.f" resultLine="185" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="17" fileName="f77_1/clanhb.f" resultLine="190" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="18" fileName="f77_1/clanhb.f" resultLine="191" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="19" fileName="f77_1/clanhb.f" resultLine="193" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="20" fileName="f77_1/clanhb.f" resultLine="198" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="21" fileName="f77_1/clanhb.f" resultLine="206" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="22" fileName="f77_1/clanhb.f" resultLine="216" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="23" fileName="f77_1/clanhb.f" resultLine="230" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="24" fileName="f77_1/clanhb.f" resultLine="242" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="25" fileName="f77_1/clanhb.f" resultLine="261" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.INST.Brace">
+    <result resultId="26" fileName="f77_1/clanhb.f" resultLine="264" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>Parentheses are needed for readability.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="27" fileName="f77_1/clanhb.f" resultLine="185" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="28" fileName="f77_1/clanhb.f" resultLine="187" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="29" fileName="f77_1/clanhb.f" resultLine="188" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="30" fileName="f77_1/clanhb.f" resultLine="196" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="31" fileName="f77_1/clanhb.f" resultLine="197" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="32" fileName="f77_1/clanhb.f" resultLine="202" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="33" fileName="f77_1/clanhb.f" resultLine="203" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="34" fileName="f77_1/clanhb.f" resultLine="218" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="35" fileName="f77_1/clanhb.f" resultLine="219" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="36" fileName="f77_1/clanhb.f" resultLine="221" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="37" fileName="f77_1/clanhb.f" resultLine="222" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="38" fileName="f77_1/clanhb.f" resultLine="232" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="39" fileName="f77_1/clanhb.f" resultLine="233" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="40" fileName="f77_1/clanhb.f" resultLine="237" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="41" fileName="f77_1/clanhb.f" resultLine="238" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="42" fileName="f77_1/clanhb.f" resultLine="239" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="43" fileName="f77_1/clanhb.f" resultLine="257" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="44" fileName="f77_1/clanhb.f" resultLine="267" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="45" fileName="f77_1/clanhb.f" resultLine="268" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="46" fileName="f77_1/clanhb.f" resultLine="269" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.Indent">
+    <result resultId="47" fileName="f77_1/clanhb.f" resultLine="271" resultTypePlace="method" resultNamePlace="REAL             FUNCTION CLANHB">
+      <resultMessage>The code is not indented.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.LengthLine">
+    <result resultId="48" fileName="f77_1/clanhb.f" resultLine="1" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>There are more than 100 characters in this line.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.LengthLine">
+    <result resultId="49" fileName="f77_1/clanhb.f" resultLine="10" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>There are more than 100 characters in this line.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.LengthLine">
+    <result resultId="50" fileName="f77_1/clanhb.f" resultLine="12" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>There are more than 100 characters in this line.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="COM.PRES.LengthLine">
+    <result resultId="51" fileName="f77_1/clanhb.f" resultLine="14" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>There are more than 100 characters in this line.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.BLOC.Else">
+    <result resultId="52" fileName="f77_1/clanhb.f" resultLine="269" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>The IF instruction shall finish with an ELSE after the last ELSE IF.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.BLOC.Else">
+    <result resultId="53" fileName="f77_1/clanhb.f" resultLine="276" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>The IF instruction shall finish with an ELSE after the last ELSE IF.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Array">
+    <result resultId="54" fileName="f77_1/clanhb.f" resultLine="146" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>The dimension of the array AB is not well declared. A comment who justifies the use of * is needed before.</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="55" fileName="f77_1/clanhb.f" resultLine="243" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>Error in the following parameters: 1 belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="56" fileName="f77_1/clanhb.f" resultLine="244" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>Error in the following parameters: 10 variable belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="57" fileName="f77_1/clanhb.f" resultLine="248" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>Error in the following parameters: 1 belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.DATA.Parameter">
+    <result resultId="58" fileName="f77_1/clanhb.f" resultLine="250" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+      <resultMessage>Error in the following parameters: 20 variable belongs to parameter types forbidden when calling a function: a constant, an expression to be evaluated, a call to another function</resultMessage>
+    </result>
+  </analysisRule>
+  <analysisRule analysisRuleId="F77.MET.Line">
+    <result resultId="59" fileName="f77_1/clanhb.f" resultLine="182" resultTypePlace="method" resultNamePlace="FUNCTION CLANHB">
+      <resultMessage>There are more than 72 characters in this line.</resultMessage>
+    </result>
+  </analysisRule>
+</analysisProject>
