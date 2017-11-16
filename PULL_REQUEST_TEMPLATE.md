@@ -1,6 +1,7 @@
-Fixes #...
+### Fixes :
+- #...
 
-Changes proposed :
+### Changes proposed :
 -
 -
 -
