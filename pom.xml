@@ -9,17 +9,14 @@
 	<name>ICode</name>
 
 	<description>ICode plugin for Sonarqube</description>
-	<!-- TBC : is it the right repository ? -->
-	<url>https://github.com/dupuisa/sonar-icode-plugin</url>
+	<url>https://github.com/lequal/sonar-icode-plugin</url>
 	<inceptionYear>2017</inceptionYear>
 
-	<!-- TBD : Apache license ? (Sonarqube update center required a FLOSS one -->
 	<licenses>
 		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-			<comments>A business-friendly OSS license</comments>
+			<name>GNU General Public License, Version 3.0</name>
+			<url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+			<distribution>manual</distribution>
 		</license>
 	</licenses>
 
