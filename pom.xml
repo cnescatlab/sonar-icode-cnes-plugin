@@ -5,7 +5,7 @@
 	<groupId>fr.cnes.sonarqube.plugins</groupId>
 	<artifactId>sonar-icode-plugin</artifactId>
 	<packaging>sonar-plugin</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>ICode</name>
 
 	<description>ICode plugin for Sonarqube</description>
@@ -42,21 +42,33 @@
 	<properties>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<sonarqube.version>5.6</sonarqube.version>
+		<sonar.apiVersion>6.6</sonar.apiVersion>
 		<slf4j.version>1.7.25</slf4j.version>
 		<junit.version>4.12</junit.version>
 		<project.key>icode</project.key>
+		<sonar.sources>src/main/java,src/main/js</sonar.sources>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.sonarsource.sonarqube</groupId>
 			<artifactId>sonar-plugin-api</artifactId>
-			<version>${sonarqube.version}</version>
+			<version>${sonar.apiVersion}</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<!-- packaged with the plugin -->
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
 		<!-- unit tests -->
+		<dependency>
+			<groupId>org.sonarsource.sonarqube</groupId>
+			<artifactId>sonar-testing-harness</artifactId>
+			<version>${sonar.apiVersion}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -94,6 +106,54 @@
 					<target>${jdk.version}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
+			</plugin>
+						<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<id>install node and yarn</id>
+						<goals>
+							<goal>install-node-and-yarn</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>v8.5.0</nodeVersion>
+							<yarnVersion>v1.1.0</yarnVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>yarn install</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+					</execution>
+					<execution>
+						<phase>generate-resources</phase>
+						<id>yarn run script</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- UTF-8 bundles are not supported by Java, so they must be converted 
+					during build -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>native2ascii-maven-plugin</artifactId>
+				<version>1.0-beta-1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>native2ascii</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

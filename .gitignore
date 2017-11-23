@@ -19,3 +19,6 @@ buildNumber.properties
 # Avoid ignoring Eclipse project specific configuration if someone use another IDE
 # /.project
 /bin/
+# Web
+/node/
+/node_modules/
