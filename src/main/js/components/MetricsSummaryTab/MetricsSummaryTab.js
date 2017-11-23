@@ -9,11 +9,6 @@ class MetricsSummaryTab extends React.Component {
         data: []
     };
     
-    labelF77 = document.createElement("Label");
-    labelF90 = document.createElement("Label");
-	labelSH = document.createElement("Label");
-
-
     componentDidMount() {
 
         this.setState({
@@ -24,24 +19,7 @@ class MetricsSummaryTab extends React.Component {
                 { name: 'Line Of Code', total: 601, min: 101, mean: 110.2, max: 182 }
             ]
         });
-        this.labelF77.setAttribute("for","radio-tab-f77");
-	    this.labelF77.setAttribute("role","tab-pane");
-	    this.labelF77.setAttribute("class","tab-pane");
-	    this.labelF77.setAttribute("id","tab-pane-f77");
-	    this.labelF77.innerHTML = "F77";
-	    
-		this.labelF90.setAttribute("for","radio-tab-f90");
-	    this.labelF90.setAttribute("role","tab-pane");
-	    this.labelF90.setAttribute("class","tab-pane");
-	    this.labelF90.setAttribute("id","tab-pane-f90");
-	    this.labelF90.innerHTML = "F90";
-	    
-		this.labelSH.setAttribute("for","radio-tab-sh");
-	    this.labelSH.setAttribute("role","tab-pane");
-	    this.labelSH.setAttribute("class","tab-pane");
-	    this.labelSH.setAttribute("id","tab-pane-sh");
-	    this.labelSH.innerHTML = "SH";
-        
+
     }
 
     render() {
