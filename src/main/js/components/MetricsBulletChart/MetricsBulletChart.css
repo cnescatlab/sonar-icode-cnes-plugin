@@ -31,3 +31,12 @@
         transform: rotate(360deg);
     }
 }
+
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    padding-left: 2px;
+}
