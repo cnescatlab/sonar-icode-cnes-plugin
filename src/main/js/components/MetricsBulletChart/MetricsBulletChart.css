@@ -1,0 +1,33 @@
+.MetricsBulletChart {
+    text-align: center;
+    padding: 20px;
+}
+
+.MetricsBulletChart-logo {
+    animation: MetricsBulletChart-logo-spin infinite 20s linear;
+    height: 80px;
+}
+
+.MetricsBulletChart-header {
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
+}
+
+.MetricsBulletChart-title {
+    font-size: 1.5em;
+}
+
+.MetricsBulletChart-intro {
+    font-size: large;
+}
+
+@keyframes MetricsBulletChart-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

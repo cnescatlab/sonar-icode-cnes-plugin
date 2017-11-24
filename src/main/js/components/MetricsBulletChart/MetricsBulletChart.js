@@ -1,5 +1,6 @@
 import React from "react";
 import BulletGraph from './BulletGraph/BulletGraph';
+import "./MetricsBulletChart.css";
 
 // PropTypes is a separate package now:
 import PropTypes from 'prop-types';
@@ -32,7 +33,7 @@ class MetricsBulletChart extends React.Component {
 
     render() {
         return ( <
-            div className = "App" >
+            div className = "MetricsBulletChart" >
             <
             div className = "Container" >
 
@@ -41,14 +42,14 @@ class MetricsBulletChart extends React.Component {
                     return ( <
                         BulletGraph className = "BulletGraph"
                         key = { i }
-                        title = { graph.title }
+                        title = { this.props.item.name }
                         textLabel = { graph.textLabel }
                         scaleMin = { graph.scaleMin }
-                        scaleMax = { graph.scaleMax }
-                        performanceVal = { graph.performanceVal }
-                        symbolMarker = { graph.symbolMarker }
-                        badVal = { graph.badVal }
-                        satisfactoryVal = { graph.satisfactoryVal }
+                        scaleMax = { this.props.item.max }
+                        performanceVal = { this.props.item.mean }
+                        symbolMarker = { this.props.item.mean }
+                        badVal = { this.props.item.min }
+                        satisfactoryVal = { this.props.item.max }
                         unitsSuffix = { graph.unitsSuffix }
                         unitsPrefix = { graph.unitsPrefix }
                         height = { graph.height }

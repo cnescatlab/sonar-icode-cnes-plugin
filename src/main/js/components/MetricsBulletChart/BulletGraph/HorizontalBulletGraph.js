@@ -133,7 +133,7 @@ class HorizontalBulletGraph extends React.Component {
                             top: "-0px",
                             width: tickWidth + "px"
                         },
-                        value: i * tickIncrement + this.props.scaleMin
+                        value: (i * tickIncrement + this.props.scaleMin).toFixed(2)
                     }
                 });
 
