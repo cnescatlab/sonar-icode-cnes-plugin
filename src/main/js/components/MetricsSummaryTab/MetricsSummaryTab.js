@@ -10,8 +10,34 @@ class MetricsSummaryTab extends React.Component {
         dataSH: []
     };
 
-    componentDidMount() {
+  findMeasures() {
+/*     fetch('http://192.168.1.25:9000/api/measures/component?metricKeys=framac-sloc-mean&component=fr.cnes.framac:framac-metrics-sq-scanner').then(function (response) {
+      console.log(response.measures);
+    return response.measures;
+   }); */
 
+    return getJSON('/api/measures/component', {
+        metricKeys:'framac-sloc-mean',
+        component:'fr.cnes.framac:framac-metrics-sq-scanner'
+      }).then(function (response) {
+        console.log(response.measures);
+      return response.measures;
+   });
+  }
+
+  constructor(){
+    super();
+    this.findMeasures = this.findMeasures.bind(this);
+  }
+
+    componentDidMount() {
+        
+  this.findMeasures().then((valuesReturnedByAPI) => {
+    this.setState({
+      data: valuesReturnedByAPI
+    });
+  });
+        
         this.setState({
             dataF77: [
                 { name: 'Nesting', total: '-', min: 5, mean: 5.2, max: 6 },
