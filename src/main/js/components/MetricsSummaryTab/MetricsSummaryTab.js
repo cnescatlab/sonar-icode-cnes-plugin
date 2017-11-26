@@ -130,7 +130,21 @@ class MetricsSummaryTab extends React.Component {
     	      dataF77: item
     	    });
     	});
+  }
 
+  constructor(){
+    super();
+    this.findMeasures = this.findMeasures.bind(this);
+  }
+
+    componentDidMount() {
+        
+  this.findMeasures().then((valuesReturnedByAPI) => {
+    this.setState({
+      data: valuesReturnedByAPI
+    });
+  });
+        
         this.setState({
 /*            dataF77: [
                 { name: 'Nesting', total: '-', min: 5, mean: 5.2, max: 6 },
