@@ -5,15 +5,15 @@
  */
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import App from './App';
 import './style.css';
+import MetricsSummaryTab from './components/MetricsSummaryTab';
 
 window.registerExtension('icode/icode_metrics_summary', options => {
 
   const { el } = options;
 
   render(
-          <App/>, el
+          <MetricsSummaryTab project={options.component}/>, el
   );
 
   return () => unmountComponentAtNode(el);
