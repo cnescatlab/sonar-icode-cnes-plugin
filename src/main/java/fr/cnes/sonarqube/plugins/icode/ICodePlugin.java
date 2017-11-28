@@ -50,6 +50,7 @@ import fr.cnes.sonarqube.plugins.icode.measures.ICodeMetricsSHELLRatioComment;
 import fr.cnes.sonarqube.plugins.icode.measures.ICodeSensor;
 import fr.cnes.sonarqube.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonarqube.plugins.icode.settings.ICodeLanguageProperties;
+import fr.cnes.sonarqube.plugins.icode.web.ICodeDashboard;
 
 /**
  * This class is the entry point for all extensions
@@ -94,7 +95,11 @@ public class ICodePlugin implements Plugin {
 
 		// Rules definition
 		context.addExtension(ICodeRulesDefinition.class);
-
+		
+		// Dashboard
+		context.addExtension(
+				ICodeDashboard.class);
+		
 		// Sonar scanner extension
 		context.addExtension(ICodeSensor.class);
 	}

@@ -1,0 +1,121 @@
+.radio-tab {
+    display: none;
+}
+
+/* -- DIVS -- */
+
+input[type="radio"]#radio-tab-f77:checked~div#main-content>div#panel-f77 {
+    display: block;
+}
+
+input[type="radio"]#radio-tab-f90:checked~div#main-content>div#panel-f90 {
+    display: block;
+}
+
+input[type="radio"]#radio-tab-sh:checked~div#main-content>div#panel-sh {
+    display: block;
+}
+
+div.MetricsSummaryTab {
+    max-width: 1280px;
+    margin: 50px auto;
+}
+
+label#tab-pane-f77 {
+    position: relative;
+    left: 0px;
+    z-index: 10;
+}
+
+label#tab-pane-f90 {
+    position: relative;
+    left: -20px;
+    z-index: 9;
+}
+
+label#tab-pane-sh {
+    position: relative;
+    left: -40px;
+    z-index: 8;
+}
+
+input[type="radio"]:checked+label {
+    background: rgba(100, 200, 200, 1);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+
+/* -- DIVS -- */
+
+div[role="main-content"]#main-content {
+    position: relative;
+    border: solid 1px rgba(0, 75, 255, 0.5);
+    display: block;
+    marggin: 20px 50px;
+}
+
+div.panel {
+    display: none;
+}
+
+input[type="radio"]#radio-tab-f77:checked~div#main-content>div#panel-f77 {
+    display: block;
+}
+
+input[type="radio"]#radio-tab-f90:checked~div#main-content>div#panel-f90 {
+    display: block;
+}
+
+input[type="radio"]#radio-tab-sh:checked~div#main-content>div#panel-sh {
+    display: block;
+}
+
+
+/* -- LABELS -- */
+
+.tab-pane {
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    padding: 5px 50px;
+    cursor: pointer;
+    border: solid 1px rgba(0, 75, 255, 1);
+    margin: 0px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 0px 30px 0px 0px;
+    background: rgba(255, 255, 255, 1);
+}
+
+#tab-pane-f77 {
+    position: relative;
+    left: 0px;
+    z-index: 10;
+}
+
+#tab-pane-f90 {
+    position: relative;
+    left: -20px;
+    z-index: 9;
+}
+
+#tab-pane-sh {
+    position: relative;
+    left: -40px;
+    z-index: 8;
+}
+
+label[role="tab-pane"].tab-pane#tab-pane-f90 {
+    position: relative;
+    left: -20px;
+}
+
+input[type="radio"].radio-tab:checked+label[role="tab-pane"].tab-pane {
+    background: rgba(75, 160, 200, 1);
+}
