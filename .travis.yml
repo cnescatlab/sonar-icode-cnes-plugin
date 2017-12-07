@@ -20,10 +20,10 @@ notifications:
 
 addons:
   sonarcloud:
-    organization: "AT-NicolasMetivier"
+    organization: "lequal"
     token:
       secure: projettest  # encrypted value of your token
 # Script to execute.
 
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=at-nicolasmetivier-github -Dsonar.login=d217f2a7b06684f932ec72bbc294e27e87d9c361
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=lequal -Dsonar.login=181e22946e5e05302ceb4513dae3dcc9f7161f2f
