@@ -114,57 +114,174 @@ function findMeasuresF77(componentName) {
 });
 }
 
+function findMeasuresF90(componentName) {
+	return new Promise(function(resolve, reject) {
+
+	let metricKeys = metricKeysTabF90.reduce((accumulator, currentValue) => accumulator + ',' + currentValue);
+
+	let measure_component = getJSON('/api/measures/component', {
+		metricKeys:metricKeys,
+		component:componentName
+	}).then(function (measure_component) {
+		console.log(measure_component);
+		
+		// Build map 'metric:value'
+		let allMetrics = new Map();
+		measure_component.component.measures.forEach(element => {
+		    for (let index = 0; index < metricKeysTabF90.length; index++) {
+		      const key = metricKeysTabF90[index];
+		      if(element.metric === key){
+		    	  allMetrics.set(element.metric, element.value);
+		      }      
+		    }
+		});
+		console.log(allMetrics);
+		
+		// Build result table
+		let res=[
+			{name:'Nesting', 
+				total: '-', 
+				min: allMetrics.get('icode-f90-nesting-min'), 
+				mean: allMetrics.get('icode-f90-nesting-mean'), 
+				max: allMetrics.get('icode-f90-nesting-max')
+			},
+			{name:'Ratio Comment', 
+				total: '-', 
+				min: allMetrics.get('icode-f90-ratio-comment-min'), 
+				mean: allMetrics.get('icode-f90-ratio-comment-mean'), 
+				max: allMetrics.get('icode-f90-ratio-comment-max')
+			},
+			{name:'Complexity Simplified', 
+				total: '-', 
+				min: allMetrics.get('icode-f90-cyclomatic-complexity-min'), 
+				mean: allMetrics.get('icode-f90-cyclomatic-complexity-mean'), 
+				max: allMetrics.get('icode-f90-cyclomatic-complexity-max')
+			},
+			{name:'Line Of Code', 
+				total: allMetrics.get('icode-f90-loc'),
+				min: allMetrics.get('icode-f90-loc-min'), 
+				mean: allMetrics.get('icode-f90-loc-mean'), 
+				max: allMetrics.get('icode-f90-loc-max')
+			}
+		];	
+		console.log(res);
+
+		resolve(res);
+	}).catch(function(error) {
+	    console.log('No measures found: ' + error.message); 
+	    reject(null);
+	});
+});
+}
+
+function findMeasuresShell(componentName) {
+	return new Promise(function(resolve, reject) {
+
+	let metricKeys = metricKeysTabShell.reduce((accumulator, currentValue) => accumulator + ',' + currentValue);
+
+	let measure_component = getJSON('/api/measures/component', {
+		metricKeys:metricKeys,
+		component:componentName
+	}).then(function (measure_component) {
+		console.log(measure_component);
+		
+		// Build map 'metric:value'
+		let allMetrics = new Map();
+		measure_component.component.measures.forEach(element => {
+		    for (let index = 0; index < metricKeysTabShell.length; index++) {
+		      const key = metricKeysTabShell[index];
+		      if(element.metric === key){
+		    	  allMetrics.set(element.metric, element.value);
+		      }      
+		    }
+		});
+		console.log(allMetrics);
+		
+		// Build result table
+		let res=[
+			{name:'Nesting', 
+				total: '-', 
+				min: allMetrics.get('icode-shell-nesting-min'), 
+				mean: allMetrics.get('icode-shell-nesting-mean'), 
+				max: allMetrics.get('icode-shell-nesting-max')
+			},
+			{name:'Ratio Comment', 
+				total: '-', 
+				min: allMetrics.get('icode-shell-ratio-comment-min'), 
+				mean: allMetrics.get('icode-shell-ratio-comment-mean'), 
+				max: allMetrics.get('icode-shell-ratio-comment-max')
+			},
+			{name:'Complexity Simplified', 
+				total: '-', 
+				min: allMetrics.get('icode-shell-cyclomatic-complexity-min'), 
+				mean: allMetrics.get('icode-shell-cyclomatic-complexity-mean'), 
+				max: allMetrics.get('icode-shell-cyclomatic-complexity-max')
+			},
+			{name:'Line Of Code', 
+				total: allMetrics.get('icode-shell-loc'),
+				min: allMetrics.get('icode-shell-loc-min'), 
+				mean: allMetrics.get('icode-shell-loc-mean'), 
+				max: allMetrics.get('icode-shell-loc-max')
+			}
+		];	
+		console.log(res);
+
+		resolve(res);
+	}).catch(function(error) {
+	    console.log('No measures found: ' + error.message); 
+	    reject(null);
+	});
+});
+}
+
+
 class MetricsSummaryTab extends React.Component {
 
     state = {
         dataF77: [],
         dataF90: [],
-        dataSH: [],
-        data:[]
+        dataSH: []
     };
+    
+    this.setState({
+        dataF77: [
+            { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
+            { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
+            { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
+            { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }            ],
+        dataF90: [
+            { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
+            { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
+            { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
+            { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
+        ],
+        dataSH: [
+            { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
+            { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
+            { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
+            { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
+        ]
+    });
 
     componentDidMount() {
     	
-    	findMeasuresF77(this.props.project.key).then((item) => {
+    	findMeasuresF77.then((item) => {
     	    this.setState({
     	      dataF77: item
     	    });
     	});
-  }
-
-  constructor(){
-    super();
-    this.findMeasures = this.findMeasures.bind(this);
-  }
-
-    componentDidMount() {
-        
-  this.findMeasures().then((valuesReturnedByAPI) => {
-    this.setState({
-      data: valuesReturnedByAPI
-    });
-  });
-        
-        this.setState({
-/*            dataF77: [
-                { name: 'Nesting', total: '-', min: 5, mean: 5.2, max: 6 },
-                { name: 'Ratio Comment', total: '-', min: 18.6, mean: 29.8, max: 38.9 },
-                { name: 'Complexity Simplified', total: '-', min: 26, mean: 33.6, max: 58 },
-                { name: 'Line Of Code', total: 601, min: 101, mean: 110.2, max: 182 }
-            ],*/
-            dataF90: [
-                { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
-            ],
-            dataSH: [
-                { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
-            ]
-        });
+    	
+    	findMeasuresF90.then((item) => {
+    	    this.setState({
+    	      dataF90: item
+    	    });
+    	});
+    	
+    	findMeasuresShell.then((item) => {
+    	    this.setState({
+    	      dataSH: item
+    	    });
+    	});
     }
 
     render() {
