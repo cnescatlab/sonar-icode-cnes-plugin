@@ -70,4 +70,29 @@ public final class ICodeLanguage extends AbstractLanguage {
 		}
 		return nonEmptyStrings.toArray(new String[nonEmptyStrings.size()]);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((settings == null) ? 0 : settings.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ICodeLanguage other = (ICodeLanguage) obj;
+		if (settings == null) {
+			if (other.settings != null)
+				return false;
+		} else if (!settings.equals(other.settings))
+			return false;
+		return true;
+	}
 }

@@ -22,26 +22,31 @@ import static java.util.Arrays.asList;
 import java.util.List;
 
 import org.sonar.api.config.PropertyDefinition;
-import org.sonar.api.resources.Qualifiers;
 
 import fr.cnes.sonarqube.plugins.icode.languages.ICodeLanguage;
 
 
 public class ICodeLanguageProperties {
 	
+	private static final String ICODE_DOT = "icode.";
+	
 	/** Report sub directory */
-	public static final String REPORT_SUBDIR_KEY = "icode."+ICodeLanguage.KEY+".report.subdir";
+	public static final String REPORT_SUBDIR_KEY = ICODE_DOT+ICodeLanguage.KEY+".report.subdir";
 	public static final String REPORT_SUBDIR_DEFAULT_VALUE = "icode-reports";
 	
 	/** Report extension */
-	public static final String REPORT_OUT_EXT_KEY = "icode."+ICodeLanguage.KEY+".report.out.ext";
+	public static final String REPORT_OUT_EXT_KEY = ICODE_DOT+ICodeLanguage.KEY+".report.out.ext";
 	public static final String REPORT_OUT_EXT_DEFAULT_VALUE = ".res.xml";
 	
 	/** project code file patterns */
-	public static final String EXPECTED_REPORT_INPUT_FILE_TYPES_KEY = "icode."+ICodeLanguage.KEY+".file.suffixes";
+	public static final String EXPECTED_REPORT_INPUT_FILE_TYPES_KEY = ICODE_DOT+ICodeLanguage.KEY+".file.suffixes";
 	public static final String EXPECTED_REPORT_INPUT_FILE_TYPES_DEFAULT_VALUE = "*.f,*.f77,*.f90,*.sh";
 	public static final String FILE_SUFFIXES_SEPARATOR = ",";
 	
+	private ICodeLanguageProperties() {
+		super();
+	}
+
 	/**
 	 * Plugin properties extensions
 	 */

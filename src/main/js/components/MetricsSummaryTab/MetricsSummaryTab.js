@@ -124,7 +124,27 @@ class MetricsSummaryTab extends React.Component {
     };
 
     componentDidMount() {
-    	
+        this.setState({
+        	           dataF77: [
+         	                { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
+        	                { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
+        	                { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
+        	                { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
+        	            ],
+        	            dataF90: [
+        	                { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
+        	                { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
+        	                { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
+        	                { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
+        	            ],
+        	            dataSH: [
+        	                { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
+        	                { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
+        	                { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
+        	                { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
+        	            ]
+        	        });
+
     	findMeasuresF77(this.props.project.key).then((item) => {
     	    this.setState({
     	      dataF77: item
@@ -134,38 +154,7 @@ class MetricsSummaryTab extends React.Component {
 
   constructor(){
     super();
-    this.findMeasures = this.findMeasures.bind(this);
   }
-
-    componentDidMount() {
-        
-  this.findMeasures().then((valuesReturnedByAPI) => {
-    this.setState({
-      data: valuesReturnedByAPI
-    });
-  });
-        
-        this.setState({
-/*            dataF77: [
-                { name: 'Nesting', total: '-', min: 5, mean: 5.2, max: 6 },
-                { name: 'Ratio Comment', total: '-', min: 18.6, mean: 29.8, max: 38.9 },
-                { name: 'Complexity Simplified', total: '-', min: 26, mean: 33.6, max: 58 },
-                { name: 'Line Of Code', total: 601, min: 101, mean: 110.2, max: 182 }
-            ],*/
-            dataF90: [
-                { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
-            ],
-            dataSH: [
-                { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
-                { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
-            ]
-        });
-    }
 
     render() {
         return (

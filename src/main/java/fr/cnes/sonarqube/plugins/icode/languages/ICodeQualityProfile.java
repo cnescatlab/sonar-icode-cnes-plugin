@@ -20,17 +20,16 @@ package fr.cnes.sonarqube.plugins.icode.languages;
 
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.Rule;
 import org.sonar.api.utils.ValidationMessages;
 
 /**
  * Default Quality profile for the projects having files of language "icode"
  */
 public final class ICodeQualityProfile extends ProfileDefinition {
-	 @Override
-	  public RulesProfile createProfile(ValidationMessages validation) {
-	    RulesProfile profile = RulesProfile.create("ICode Rules", ICodeLanguage.KEY);
+	 static final String I_CODE_RULES_PROFILE_NAME = "ICode Rules";
 
-	    return profile;
+	@Override
+	  public RulesProfile createProfile(ValidationMessages validation) {
+	    return RulesProfile.create(I_CODE_RULES_PROFILE_NAME, ICodeLanguage.KEY);
 	  }
 }

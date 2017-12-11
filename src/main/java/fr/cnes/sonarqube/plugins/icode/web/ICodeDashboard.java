@@ -7,12 +7,19 @@ import org.sonar.api.web.page.PageDefinition;
 
 public class ICodeDashboard implements PageDefinition {
 
-	  @Override
+	static final String PAGE_NAME_I_CODE_CNES_METRICS_SUMMARY = "ICode CNES metrics summary";
+	static final String PAGE_KEY_ICODE_METRICS_SUMMARY = "icode/icode_metrics_summary";
+
+	protected Page buildMetricsSummaryPage(){
+		  return Page.builder(PAGE_KEY_ICODE_METRICS_SUMMARY)
+			        .setName(PAGE_NAME_I_CODE_CNES_METRICS_SUMMARY)
+			        .setScope(Scope.COMPONENT).build();
+	  }
+	
+	@Override
 	  public void define(Context context) {
 	    context
-	      .addPage(Page.builder("icode/icode_metrics_summary")
-	        .setName("ICode CNES metrics summary")
-	        .setScope(Scope.COMPONENT).build());
+	      .addPage(buildMetricsSummaryPage());
 	  }
 
 

@@ -19,7 +19,6 @@ package fr.cnes.sonarqube.plugins.icode.report;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -40,6 +39,10 @@ import org.xml.sax.helpers.DefaultHandler;
 public class XmlReportReader {
 
 	private static final Logger LOGGER = Loggers.get(XmlReportReader.class);
+	
+	private XmlReportReader() {
+		super();
+	}
 
 	/**
 	 * Parse a XML report file.
@@ -49,7 +52,7 @@ public class XmlReportReader {
 	 * 
 	 * @see XmlReportReader#SAXHandler
 	 */
-	static public ReportInterface parse(Path fileReportPath) {
+	public static ReportInterface parse(Path fileReportPath) {
 		AnalysisProject res = new AnalysisProject();
 
 		//  New factory
@@ -61,16 +64,12 @@ public class XmlReportReader {
 			parser.parse(fileReportPath.toFile(), handler);
 		} catch (ParserConfigurationException | SAXException e) {
 			LOGGER.error("Parsing error: "+e.getMessage());
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			LOGGER.error("Report file error: "+e.getMessage());
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		LOGGER.debug("parse("+fileReportPath.getFileName()+")"+handler.getAnalysisProject());
 		return handler.getAnalysisProject();
-	}
+	}	
 }
 
 /**
@@ -123,7 +122,7 @@ class SAXHandler extends DefaultHandler {
 				currentResult.resultTypePlace = attributes.getValue(Result.RESULT_TYPE_PLACE);
 				currentResult.resultValue = attributes.getValue(Result.RESULT_VALUE);
 
-				currentRule.result = currentResult;
+				currentRule.resultField = currentResult;
 			} else {
 				LOGGER.error("Unexpected result element:" + qName);
 			}
@@ -136,19 +135,18 @@ class SAXHandler extends DefaultHandler {
 			analysisProject.analysisInformations.analysisConfigurationId = attributes
 					.getValue(AnalysisInformations.ANALYSIS_CONFIGURATION_ID);
 			analysisProject.analysisInformations.analysisDate = attributes.getValue(AnalysisInformations.ANALYSIS_DATE);
-			analysisProject.analysisInformations.author = attributes.getValue(AnalysisInformations.AUTHOR);
+			analysisProject.analysisInformations.authorField = attributes.getValue(AnalysisInformations.AUTHOR);
 			break;
 		case ANALYSIS_FILE:
 			analysisProject.analysisFile = new AnalysisFile();
-			analysisProject.analysisFile.fileName = attributes.getValue(AnalysisFile.FILE_NAME);
-			analysisProject.analysisFile.language = attributes.getValue(AnalysisFile.LANGUAGE);
+			analysisProject.analysisFile.fileNameField = attributes.getValue(AnalysisFile.FILE_NAME);
+			analysisProject.analysisFile.languageField = attributes.getValue(AnalysisFile.LANGUAGE);
 			break;
 		case ANALYSIS_PROJECT:
 			LOGGER.info("Begin report analysis:" + qName);
 			analysisProject = new AnalysisProject();
 			analysisProject.analysisProjectName = attributes.getValue(AnalysisProject.ANALYSIS_PROJECT_NAME);
 			analysisProject.analysisProjectVersion = attributes.getValue(AnalysisProject.ANALYSIS_PROJECT_VERSION);
-			analysisProject.listOfAnalysisRule = new ArrayList<AnalysisRule>();
 			break;
 		default:
 			LOGGER.error("Unexpected report element:" + qName);
@@ -162,11 +160,11 @@ class SAXHandler extends DefaultHandler {
 			analysisProject.listOfAnalysisRule.add(currentRule);
 			break;
 		case Result.RESULT_MESSAGE:
-			if (currentRule != null && currentRule.result != null) {
+			if (currentRule != null && currentRule.resultField != null) {
 				ResultMessage resultMessage = new ResultMessage();
 				resultMessage.content = content;
 
-				currentRule.result.resultMessage = resultMessage;
+				currentRule.resultField.resultMessage = resultMessage;
 			} else {
 				LOGGER.error("Unexpected result message:" + qName);
 			}
@@ -174,6 +172,8 @@ class SAXHandler extends DefaultHandler {
 		case ANALYSIS_PROJECT:
 			LOGGER.info("End report analysis:" + qName);
 			break;
+		default:
+			LOGGER.error("Unexpected report analysis end element:" + qName);
 		}
 	}
 
@@ -192,10 +192,9 @@ class SAXHandler extends DefaultHandler {
  * @author Cyrille FRANCOIS
  *
  */
-class Result {
+class Result extends AnalysisFields{
 	static final String RESULT_MESSAGE = "resultMessage";
 	static final String RESULT_ID = "resultId";
-	static final String FILE_NAME = "fileName";
 	static final String RESULT_LINE = "resultLine";
 	static final String RESULT_TYPE_PLACE = "resultTypePlace";
 	static final String RESULT_NAME_PLACE = "resultNamePlace";
@@ -241,17 +240,16 @@ class ResultMessage {
  * 
  * @author Cyrille FRANCOIS
  */
-class AnalysisFile {
+class AnalysisFile extends AnalysisFields{
 
 	static final String LANGUAGE = "language";
-	static final String FILE_NAME = "fileName";
 
-	String language;
-	String fileName;
+	String languageField;
+	String fileNameField;
 	
 	@Override
 	public String toString() {
-		return "AnalysisFile [language=" + language + ", fileName=" + fileName + "]";
+		return "AnalysisFile [language=" + languageField + ", fileName=" + fileNameField + "]";
 	}
 }
 
@@ -269,11 +267,20 @@ class AnalysisInformations {
 
 	String analysisConfigurationId;
 	String analysisDate;
-	String author;
+	String authorField;
 	
 	@Override
 	public String toString() {
 		return "AnalysisInformations [analysisConfigurationId=" + analysisConfigurationId + ", analysisDate="
-				+ analysisDate + ", author=" + author + "]";
+				+ analysisDate + ", author=" + authorField + "]";
 	}
+}
+
+class AnalysisFields{
+	static final String FILE_NAME = "fileName";
+
+	protected AnalysisFields() {
+		super();
+	}
+	
 }
