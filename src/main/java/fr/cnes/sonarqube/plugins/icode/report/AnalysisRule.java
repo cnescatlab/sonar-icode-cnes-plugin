@@ -31,61 +31,55 @@ public class AnalysisRule implements ReportFunctionRuleInterface{
 	public static final String RATIO_COMMENT = "MET.RatioComment";
 
 	String analysisRuleId;
-	Result result;
+	Result resultField;
 	
 	@Override
 	public String toString() {
-		return "AnalysisRule [analysisRuleId=" + analysisRuleId + ", result=" + result + "]";
+		return "AnalysisRule [analysisRuleId=" + analysisRuleId + ", result=" + resultField + "]";
 	}
 	
 	/* ReportRuleInterface */
 	
 	@Override
 	public String getValue() {
-		return result.resultValue;
+		return resultField.resultValue;
 	}
 
 	@Override
 	public String getFunction() {
-		// TODO Auto-generated method stub
-		return result.resultNamePlace;
+		return resultField.resultNamePlace;
 	}
 
 	@Override
 	public String getLine() {
-		// TODO Auto-generated method stub
-		return result.resultLine;
+		return resultField.resultLine;
 	}
 
 	@Override
 	public String getLoc() {
-		// TODO Auto-generated method stub
 		return "0";
 	}
 
 	@Override
 	public String getComplexity() {
-		// TODO Auto-generated method stub
 		return "0";
 	}
 
 	@Override
 	public String getLineDescriptor() {
-		// TODO Auto-generated method stub
-		return result.resultLine;
+		return resultField.resultLine;
 	}
 
 	@Override
 	public String getRuleKey() {
-		// TODO Auto-generated method stub
 		return analysisRuleId;
 	}
 
 	@Override
 	public String getDescription() {
 		String res="";
-		if(result != null && result.resultValue != null){
-			res = result.resultValue;
+		if(resultField != null && resultField.resultValue != null){
+			res = resultField.resultValue;
 		}
 		return res;
 	}

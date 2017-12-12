@@ -17,10 +17,9 @@
 */
 package fr.cnes.sonarqube.plugins.icode.measures;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -32,17 +31,18 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
+import org.sonar.api.ce.measure.MeasureComputer;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import fr.cnes.sonarqube.plugins.icode.rules.ICodeRulesDefinition;
-import fr.cnes.sonarqube.plugins.icode.settings.ICodeLanguageProperties;
 import fr.cnes.sonarqube.plugins.icode.report.ErrorInterface;
 import fr.cnes.sonarqube.plugins.icode.report.ReportFunctionRuleInterface;
 import fr.cnes.sonarqube.plugins.icode.report.ReportInterface;
 import fr.cnes.sonarqube.plugins.icode.report.ReportModuleRuleInterface;
 import fr.cnes.sonarqube.plugins.icode.report.XmlReportReader;
+import fr.cnes.sonarqube.plugins.icode.rules.ICodeRulesDefinition;
+import fr.cnes.sonarqube.plugins.icode.settings.ICodeLanguageProperties;
 
 /**
  * Scan ICode report file. For all project code file : <b>FILE</b>, ICode create
@@ -53,21 +53,16 @@ import fr.cnes.sonarqube.plugins.icode.report.XmlReportReader;
  */
 public class ICodeSensor implements Sensor {
 
+	private static final String I_CODE_DEFINE_LINES_OF_CODE_SIMPLIFIED_BY_MODULE = "ICode define lines of code simplified by module";
+
 	private static final Logger LOGGER = Loggers.get(ICodeSensor.class);
 
-	private String expectedReportInputFileTypes = null;
+	String expectedReportInputFileTypes = null;
 
-	private String reportOutExt = null;
+	String reportOutExt = null;
 
-	private String reportSubdir = null;
+	String reportSubdir = null;
 	
-//	/** Report sub directory */
-//	public static final String REPORT_SUBDIR = "reports";
-//	/** Report extension */
-//	public static final String REPORT_EXT = ".res.xml";
-//	/** project code file patterns */
-//	public static final String EXPECTED_REPORT_INPUT_FILE_TYPES = "*.f,*.f77,*.f90";
-
 	@Override
 	public void describe(SensorDescriptor descriptor) {
 		descriptor.name(getClass().getName());
@@ -81,11 +76,7 @@ public class ICodeSensor implements Sensor {
 		FilePredicates p = fs.predicates();
 		LOGGER.info("ICodeSensor : file system base dir = " + fs.hasFiles(p.all()));
 		
-		// Read Plugin settings
-		expectedReportInputFileTypes = context.settings().getString(ICodeLanguageProperties.EXPECTED_REPORT_INPUT_FILE_TYPES_KEY);
-		reportOutExt = context.settings().getString(ICodeLanguageProperties.REPORT_OUT_EXT_KEY);
-		reportSubdir = context.settings().getString(ICodeLanguageProperties.REPORT_SUBDIR_KEY);
-		
+		readPluginSettings(context);		
 
 		// only "main" files, but not "tests"
 		String[] aMatchingPatterns = matchingPatterns();
@@ -102,13 +93,19 @@ public class ICodeSensor implements Sensor {
 		LOGGER.info("ICodeSensor done!");
 	}
 
+	void readPluginSettings(SensorContext context) {
+		// Read Plugin settings
+		expectedReportInputFileTypes = context.settings().getString(ICodeLanguageProperties.EXPECTED_REPORT_INPUT_FILE_TYPES_KEY);
+		reportOutExt = context.settings().getString(ICodeLanguageProperties.REPORT_OUT_EXT_KEY);
+		reportSubdir = context.settings().getString(ICodeLanguageProperties.REPORT_SUBDIR_KEY);
+	}
+
 	/**
 	 * @return all expected file code patterns
 	 */
 	private String[] matchingPatterns() {
 		String patternSeparator = ICodeLanguageProperties.FILE_SUFFIXES_SEPARATOR;
-		String[] res = expectedReportInputFileTypes.trim().split(patternSeparator);
-		return res;
+		return expectedReportInputFileTypes.trim().split(patternSeparator);
 	}
 
 	/**
@@ -128,7 +125,8 @@ public class ICodeSensor implements Sensor {
 	 * @return relative report file for this input code file
 	 */
 	private String relativeReportFileName(InputFile file, String reportOutExt) {
-		String separator = file.file().separator;
+		String separator = File.separator;
+		@SuppressWarnings("deprecation")
 		String name = file.file().getName();
 		return reportSubdir + separator + name + reportOutExt;
 	}
@@ -149,9 +147,9 @@ public class ICodeSensor implements Sensor {
 			InputFile file,
 			String fileRelativePathNameReportOut) {
 		ReportInterface report = null;
-		StringBuffer warningMsgs = new StringBuffer();
+		StringBuilder warningMsgs = new StringBuilder();
 		int nbWarningMsgs = 0;
-		StringBuffer errorMsgs = new StringBuffer();
+		StringBuilder errorMsgs = new StringBuilder();
 		int nbErrorMsgs = 0;
 		LOGGER.debug("file.absolutePath():" + file.absolutePath());
 		LOGGER.debug("Paths.get(file.absolutePath()).getParent():" + Paths.get(file.absolutePath()).getParent());
@@ -179,19 +177,16 @@ public class ICodeSensor implements Sensor {
 			nbErrorMsgs++;
 		}
 		// Add a ICode report warning
-		if (nbWarningMsgs > 0) {
-			context.<String>newMeasure()
-				.forMetric(ICodeMetrics.REPORT_FILES_WARNING)
-				.on(file)
-				.withValue(warningMsgs.toString())
-				.save();
-			context.<Integer>newMeasure()
-				.forMetric(ICodeMetrics.NUMBER_OF_WARNINGS)
-				.on(file)
-				.withValue(nbWarningMsgs)
-				.save();
-		}
+		computeWarnings(context, file, warningMsgs, nbWarningMsgs);
 		// Add a ICode report error
+		computeErrors(context, file, errorMsgs, nbErrorMsgs);
+		if (report != null) {
+			parseReportMeasures(context, file, report);
+			parseReportIssues(context, file, report);
+		}
+	}
+
+	private void computeErrors(SensorContext context, InputFile file, StringBuilder errorMsgs, int nbErrorMsgs) {
 		if (nbErrorMsgs > 0) {
 			context.<String>newMeasure()
 				.forMetric(ICodeMetrics.REPORT_FILES_ERROR)
@@ -204,9 +199,20 @@ public class ICodeSensor implements Sensor {
 				.withValue(nbErrorMsgs)
 				.save();
 		}
-		if (report != null) {
-			parseReportMeasures(context, file, report);
-			parseReportIssues(context, file, report);
+	}
+
+	private void computeWarnings(SensorContext context, InputFile file, StringBuilder warningMsgs, int nbWarningMsgs) {
+		if (nbWarningMsgs > 0) {
+			context.<String>newMeasure()
+				.forMetric(ICodeMetrics.REPORT_FILES_WARNING)
+				.on(file)
+				.withValue(warningMsgs.toString())
+				.save();
+			context.<Integer>newMeasure()
+				.forMetric(ICodeMetrics.NUMBER_OF_WARNINGS)
+				.on(file)
+				.withValue(nbWarningMsgs)
+				.save();
 		}
 	}
 
@@ -262,7 +268,7 @@ public class ICodeSensor implements Sensor {
 			// Read measure value for each elements of this module
 			for (ReportFunctionRuleInterface currentFunctionRuleInterface : reportModuleRuleInterfaces) {
 				try {
-					double currentValue = Double.valueOf(currentFunctionRuleInterface.getValue());
+					double currentValue = Double.parseDouble(currentFunctionRuleInterface.getValue());
 
 					// Sum all elements values for mean computation
 					cyclomaticValueSum += currentValue;
@@ -289,28 +295,43 @@ public class ICodeSensor implements Sensor {
 
 			// Complexity simplified store by module is not defined by ICode,
 			// but ICode sonar plugin expected a module measure...
-			double cyclomaticValue = Double.parseDouble(reportModuleRuleInterface.getValue());
+			double cyclomaticValue = Double.NaN;
+			cyclomaticValue = computeCyclomaticValue(reportModuleRuleInterface, cyclomaticValueSum, cyclomaticValue);
 
+			storeCyclomaticMeasures(context, file, report, cyclomaticValueMin, cyclomaticValueMax, cyclomaticValueMean,
+					cyclomaticValue);
+		}
+	}
+
+	private double computeCyclomaticValue(ReportModuleRuleInterface reportModuleRuleInterface,
+			double cyclomaticValueSum, double cyclomaticValue) {
+		if(reportModuleRuleInterface != null && reportModuleRuleInterface.getValue() != null){
+			cyclomaticValue = Double.parseDouble(reportModuleRuleInterface.getValue());
+		}
+
+		// Cyclomatic
+		if (cyclomaticValue == Double.NaN) {
+			cyclomaticValue = ((int) cyclomaticValueSum);
+		} else {
+			LOGGER.warn("ICode define complexity simplified by module");
+		}
+		return cyclomaticValue;
+	}
+
+	private void storeCyclomaticMeasures(SensorContext context, InputFile file, ReportInterface report,
+			double cyclomaticValueMin, double cyclomaticValueMax, double cyclomaticValueMean, double cyclomaticValue) {
+		if (report.isF77()) {
 			// Cyclomatic
-			if ("NaN".equals(cyclomaticValue)) {
-				cyclomaticValue = ((int) cyclomaticValueSum);
-			} else {
-				LOGGER.warn("ICode define complexity simplified by module");
-			}
-
-			if (report.isF77()) {
-				// Cyclomatic
-				storeCyclomaticMeasuresF77(context, file, cyclomaticValueMin, cyclomaticValueMax, cyclomaticValueMean,
-						cyclomaticValue);
-			} else if (report.isF90()) {
-				// Cyclomatic
-				storeCyclomaticMeasuresF90(context, file, cyclomaticValueMin, cyclomaticValueMax, cyclomaticValueMean,
-						cyclomaticValue);
-			} else {
-				// Cyclomatic
-				storeCyclomaticMeasuresSHELL(context, file, cyclomaticValueMin, cyclomaticValueMax, cyclomaticValueMean,
-						cyclomaticValue);
-			}
+			storeCyclomaticMeasuresF77(context, file, cyclomaticValueMin, cyclomaticValueMax, cyclomaticValueMean,
+					cyclomaticValue);
+		} else if (report.isF90()) {
+			// Cyclomatic
+			storeCyclomaticMeasuresF90(context, file, cyclomaticValueMin, cyclomaticValueMax, cyclomaticValueMean,
+					cyclomaticValue);
+		} else {
+			// Cyclomatic
+			storeCyclomaticMeasuresSHELL(context, file, cyclomaticValueMin, cyclomaticValueMax, cyclomaticValueMean,
+					cyclomaticValue);
 		}
 	}
 
@@ -345,7 +366,7 @@ public class ICodeSensor implements Sensor {
 			// Read measure value for each elements of this module
 			for (ReportFunctionRuleInterface currentFunctionRuleInterface : reportModuleRuleInterfaces) {
 				try {
-					double currentValue = Double.valueOf(currentFunctionRuleInterface.getValue());
+					double currentValue = Double.parseDouble(currentFunctionRuleInterface.getValue());
 
 					// Sum all elements values for mean computation
 					linesOfCodeValueSum += currentValue;
@@ -372,24 +393,41 @@ public class ICodeSensor implements Sensor {
 
 			// Complexity simplified store by module is not defined by ICode,
 			// but ICode sonar plugin expected a module measure...
-			double linesOfCodeValue = Double.parseDouble(reportModuleRuleInterface.getValue());
+			double linesOfCodeValue = Double.NaN;
+			linesOfCodeValue = computeLinesOfCodeValue(reportModuleRuleInterface, linesOfCodeValueSum,
+					linesOfCodeValue);
 
-			if ("NaN".equals(linesOfCodeValue)) {
-				linesOfCodeValue = linesOfCodeValueSum;
-			} else {
-				LOGGER.warn("ICode define lines of code simplified by module");
-			}
+			storeLOCMeasures(context, file, report, linesOfCodeValueMin, linesOfCodeValueMax, linesOfCodeValueMean,
+					linesOfCodeValue);
+		}
+	}
 
-			if (report.isF77()) {
-				storeLOCMeasuresF77(context, file, linesOfCodeValueMin, linesOfCodeValueMax, linesOfCodeValueMean,
-						linesOfCodeValue);
-			} else if (report.isF90()) {
-				storeLOCMeasuresF90(context, file, linesOfCodeValueMin, linesOfCodeValueMax, linesOfCodeValueMean,
-						linesOfCodeValue);
-			} else {
-				storeLOCMeasuresSHELL(context, file, linesOfCodeValueMin, linesOfCodeValueMax, linesOfCodeValueMean,
-						linesOfCodeValue);
-			}
+	private double computeLinesOfCodeValue(ReportModuleRuleInterface reportModuleRuleInterface,
+			double linesOfCodeValueSum, double linesOfCodeValue) {
+		if(reportModuleRuleInterface != null && reportModuleRuleInterface.getValue() != null){
+			linesOfCodeValue = Double.parseDouble(reportModuleRuleInterface.getValue());
+		}
+		
+		if (linesOfCodeValue == Double.NaN) {
+			linesOfCodeValue = linesOfCodeValueSum;
+		} else {
+			LOGGER.warn(I_CODE_DEFINE_LINES_OF_CODE_SIMPLIFIED_BY_MODULE);
+		}
+		return linesOfCodeValue;
+	}
+
+	private void storeLOCMeasures(SensorContext context, InputFile file, ReportInterface report,
+			double linesOfCodeValueMin, double linesOfCodeValueMax, double linesOfCodeValueMean,
+			double linesOfCodeValue) {
+		if (report.isF77()) {
+			storeLOCMeasuresF77(context, file, linesOfCodeValueMin, linesOfCodeValueMax, linesOfCodeValueMean,
+					linesOfCodeValue);
+		} else if (report.isF90()) {
+			storeLOCMeasuresF90(context, file, linesOfCodeValueMin, linesOfCodeValueMax, linesOfCodeValueMean,
+					linesOfCodeValue);
+		} else {
+			storeLOCMeasuresSHELL(context, file, linesOfCodeValueMin, linesOfCodeValueMax, linesOfCodeValueMean,
+					linesOfCodeValue);
 		}
 	}
 
@@ -425,7 +463,7 @@ public class ICodeSensor implements Sensor {
 			// Read measure value for each elements of this module
 			for (ReportFunctionRuleInterface currentFunctionRuleInterface : reportModuleRuleInterfaces) {
 				try {
-					double currentValue = Double.valueOf(currentFunctionRuleInterface.getValue());
+					double currentValue = Double.parseDouble(currentFunctionRuleInterface.getValue());
 
 					// Sum all elements values for mean computation
 					ratioCommentValueSum += currentValue;
@@ -452,26 +490,43 @@ public class ICodeSensor implements Sensor {
 
 			// Complexity simplified store by module is not defined by ICode,
 			// but ICode sonar plugin expected a module measure...
-			String ratioCommentValue = reportModuleRuleInterface.getValue();
-
-			if ("NaN".equals(ratioCommentValue)) {
-				ratioCommentValue = ("" + ratioCommentValueSum);
-			} else {
-				LOGGER.warn("ICode define lines of code simplified by module");
-			}
+			String ratioCommentValue = "NaN";
+			ratioCommentValue = computeRatioCommentValue(reportModuleRuleInterface, ratioCommentValueSum,
+					ratioCommentValue);
 
 			double ratioCommentNewValue = Double.parseDouble(ratioCommentValue);
 
-			if (report.isF77()) {
-				storeRatioCommentMeasuresF77(context, file, ratioCommentValueMin, ratioCommentValueMax,
-						ratioCommentValueMean, ratioCommentNewValue);
-			} else if (report.isF90()) {
-				storeRatioCommentMeasuresF90(context, file, ratioCommentValueMin, ratioCommentValueMax,
-						ratioCommentValueMean, ratioCommentNewValue);
-			} else {
-				storeRatioCommentMeasuresSHELL(context, file, ratioCommentValueMin, ratioCommentValueMax,
-						ratioCommentValueMean, ratioCommentNewValue);
-			}
+			storeRatioCommentMeasures(context, file, report, ratioCommentValueMin, ratioCommentValueMax,
+					ratioCommentValueMean, ratioCommentNewValue);
+		}
+	}
+
+	private String computeRatioCommentValue(ReportModuleRuleInterface reportModuleRuleInterface,
+			double ratioCommentValueSum, String ratioCommentValue) {
+		if(reportModuleRuleInterface != null && reportModuleRuleInterface.getValue() != null){
+			ratioCommentValue = reportModuleRuleInterface.getValue();
+		}
+		
+		if ("NaN".equals(ratioCommentValue)) {
+			ratioCommentValue = ("" + ratioCommentValueSum);
+		} else {
+			LOGGER.warn(I_CODE_DEFINE_LINES_OF_CODE_SIMPLIFIED_BY_MODULE);
+		}
+		return ratioCommentValue;
+	}
+
+	private void storeRatioCommentMeasures(SensorContext context, InputFile file, ReportInterface report,
+			double ratioCommentValueMin, double ratioCommentValueMax, double ratioCommentValueMean,
+			double ratioCommentNewValue) {
+		if (report.isF77()) {
+			storeRatioCommentMeasuresF77(context, file, ratioCommentValueMin, ratioCommentValueMax,
+					ratioCommentValueMean, ratioCommentNewValue);
+		} else if (report.isF90()) {
+			storeRatioCommentMeasuresF90(context, file, ratioCommentValueMin, ratioCommentValueMax,
+					ratioCommentValueMean, ratioCommentNewValue);
+		} else {
+			storeRatioCommentMeasuresSHELL(context, file, ratioCommentValueMin, ratioCommentValueMax,
+					ratioCommentValueMean, ratioCommentNewValue);
 		}
 	}
 
@@ -506,7 +561,7 @@ public class ICodeSensor implements Sensor {
 			// Read measure value for each elements of this module
 			for (ReportFunctionRuleInterface currentFunctionRuleInterface : reportModuleRuleInterfaces) {
 				try {
-					double currentValue = Double.valueOf(currentFunctionRuleInterface.getValue());
+					double currentValue = Double.parseDouble(currentFunctionRuleInterface.getValue());
 
 					// Sum all elements values for mean computation
 					nestingValueSum += currentValue;
@@ -533,24 +588,39 @@ public class ICodeSensor implements Sensor {
 
 			// Complexity simplified store by module is not defined by ICode,
 			// but ICode sonar plugin expected a module measure...
-			double nestingValue = Double.parseDouble(reportModuleRuleInterface.getValue());
+			double nestingValue = Double.NaN;
+			nestingValue = computeNestingValue(reportModuleRuleInterface, nestingValueSum, nestingValue);
 
-			if ("NaN".equals(nestingValue)) {
-				nestingValue = ((int) nestingValueSum);
-			} else {
-				LOGGER.warn("ICode define lines of code simplified by module");
-			}
+			storeNestingMeasures(context, file, report, nestingValueMin, nestingValueMax, nestingValueMean,
+					nestingValue);
+		}
+	}
 
-			if (report.isF77()) {
-				storeNestingMeasuresF77(context, file, nestingValueMin, nestingValueMax, nestingValueMean,
-						nestingValue);
-			} else if (report.isF90()) {
-				storeNestingMeasuresF90(context, file, nestingValueMin, nestingValueMax, nestingValueMean,
-						nestingValue);
-			} else {
-				storeNestingMeasuresSHELL(context, file, nestingValueMin, nestingValueMax, nestingValueMean,
-						nestingValue);
-			}
+	private double computeNestingValue(ReportModuleRuleInterface reportModuleRuleInterface, double nestingValueSum,
+			double nestingValue) {
+		if(reportModuleRuleInterface != null && reportModuleRuleInterface.getValue() != null){
+			nestingValue = Double.parseDouble(reportModuleRuleInterface.getValue());
+		}
+
+		if (nestingValue == Double.NaN) {
+			nestingValue = ((int) nestingValueSum);
+		} else {
+			LOGGER.warn(I_CODE_DEFINE_LINES_OF_CODE_SIMPLIFIED_BY_MODULE);
+		}
+		return nestingValue;
+	}
+
+	private void storeNestingMeasures(SensorContext context, InputFile file, ReportInterface report,
+			double nestingValueMin, double nestingValueMax, double nestingValueMean, double nestingValue) {
+		if (report.isF77()) {
+			storeNestingMeasuresF77(context, file, nestingValueMin, nestingValueMax, nestingValueMean,
+					nestingValue);
+		} else if (report.isF90()) {
+			storeNestingMeasuresF90(context, file, nestingValueMin, nestingValueMax, nestingValueMean,
+					nestingValue);
+		} else {
+			storeNestingMeasuresSHELL(context, file, nestingValueMin, nestingValueMax, nestingValueMean,
+					nestingValue);
 		}
 	}
 
@@ -605,7 +675,6 @@ public class ICodeSensor implements Sensor {
 	 */
 	private void storeCyclomaticMeasuresSHELL(SensorContext context, InputFile file, double cyclomaticValueMin,
 			double cyclomaticValueMax, double cyclomaticValueMean, double cyclomaticValue) {
-		// TODO Auto-generated method stub
 		context.<Integer>newMeasure().forMetric(ICodeMetricsSHELLCyclomatic.SHELL_CYCLOMATIC).on(file)
 				.withValue(Integer.valueOf((int) cyclomaticValue)).save();
 
@@ -640,8 +709,6 @@ public class ICodeSensor implements Sensor {
 	 */
 	private void storeCyclomaticMeasuresF90(SensorContext context, InputFile file, double cyclomaticValueMin,
 			double cyclomaticValueMax, double cyclomaticValueMean, double cyclomaticValue) {
-		// TODO Auto-generated method stub
-
 		context.<Integer>newMeasure().forMetric(ICodeMetricsF90Cyclomatic.F90_CYCLOMATIC).on(file)
 				.withValue(Integer.valueOf((int) cyclomaticValue)).save();
 
@@ -676,7 +743,6 @@ public class ICodeSensor implements Sensor {
 
 	private void storeRatioCommentMeasuresF77(SensorContext context, InputFile file, double ratioCommentValueMin,
 			double ratioCommentValueMax, double ratioCommentValueMean, double value) {
-		// Store module VALUE, MEAN, MIN, MAX
 		context.<Double>newMeasure().forMetric(ICodeMetricsF77RatioComment.F77_RATIO_COMMENT).on(file)
 				.withValue(Double.valueOf(value)).save();
 		context.<Double>newMeasure().forMetric(ICodeMetricsF77RatioComment.F77_RATIO_COMMENT_MAX).on(file)
@@ -734,8 +800,6 @@ public class ICodeSensor implements Sensor {
 	 */
 	private void storeRatioCommentMeasuresF90(SensorContext context, InputFile file, double ratioCommentValueMin,
 			double ratioCommentValueMax, double ratioCommentValueMean, double value) {
-		// TODO Auto-generated method stub
-
 		context.<Double>newMeasure().forMetric(ICodeMetricsF90RatioComment.F90_RATIO_COMMENT).on(file)
 				.withValue(Double.valueOf(value)).save();
 
@@ -955,29 +1019,6 @@ public class ICodeSensor implements Sensor {
 
 		// Read all report issues
 		ErrorInterface[] errors = report.getErrors();
-
-		/*
-		 * // Read all report issues ReportModuleRuleInterface
-		 * reportModuleRuleInterface = report.getModuleCyclomaticMeasure();
-		 * ReportFunctionRuleInterface[] reportModuleRuleInterfaces =
-		 * report.getCyclomaticMeasureByFunction();
-		 * 
-		 * // Create issues for this file if (reportModuleRuleInterface != null)
-		 * { InputFile inputFile = file; int lines = inputFile.lines();
-		 * 
-		 * // Read measure value for each elements of this module for
-		 * (ReportFunctionRuleInterface currentFunctionRuleInterface :
-		 * reportModuleRuleInterfaces) { String line =
-		 * currentFunctionRuleInterface.getLine(); int lineNr =
-		 * getLineAsInt(line, lines); // RuleKey ruleKey =
-		 * ICodeRulesDefinition.RULE_CYCLO;//TODO: TBD // NewIssue newIssue =
-		 * context.newIssue().forRule(ruleKey); // NewIssueLocation location =
-		 * newIssue.newLocation() // .on(inputFile) //
-		 * .at(inputFile.selectLine(lineNr > 0 ? lineNr : 1)) //
-		 * .message(currentFunctionRuleInterface.getValue()); // //
-		 * newIssue.at(location); // newIssue.save(); //
-		 * violationsCount++;//TODO: TBD count number of issues } }
-		 */
 		if (errors != null) {
 			InputFile inputFile = file;
 			for (ErrorInterface error : errors) {
@@ -1020,7 +1061,7 @@ public class ICodeSensor implements Sensor {
 	 *            file line numbers
 	 * @return Sonar complaint fine number (strictly positive)
 	 */
-	private static int getLineAsInt(String line, int maxLine) {
+	static int getLineAsInt(String line, int maxLine) {
 		int lineNr = 0;
 		if (line != null) {
 			try {
@@ -1047,7 +1088,7 @@ public class ICodeSensor implements Sensor {
 	private static boolean existReportFile(Path fileReportPath) {
 		boolean res = false;
 		LOGGER.debug("existFile ?:" + fileReportPath.toAbsolutePath());
-		res = Files.exists(fileReportPath, LinkOption.NOFOLLOW_LINKS);
+		res = fileReportPath.toFile().exists();
 		return res;
 	}
 

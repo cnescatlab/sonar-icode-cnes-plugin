@@ -23,7 +23,6 @@ import java.util.List;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import fr.cnes.sonarqube.plugins.icode.measures.ICodeSensor;
 import fr.cnes.sonarqube.plugins.icode.rules.ICodeRulesDefinition;
 
 /**
@@ -33,6 +32,10 @@ import fr.cnes.sonarqube.plugins.icode.rules.ICodeRulesDefinition;
  */
 public class AnalysisProject implements ReportInterface{
 	
+	private static final String METHOD_TYPE_PLACE = "method";
+
+	private static final String CLASS_TYPE_PLACE = "class";
+
 	private static final Logger LOGGER = Loggers.get(AnalysisProject.class);
 	
 	static final String ANALYSIS_PROJECT_NAME = "analysisProjectName";
@@ -41,7 +44,7 @@ public class AnalysisProject implements ReportInterface{
 	String analysisProjectName = null;
 	String analysisProjectVersion = null;
 	AnalysisFile analysisFile = null;
-	List<AnalysisRule> listOfAnalysisRule = null;
+	List<AnalysisRule> listOfAnalysisRule = new ArrayList<>();
 	AnalysisInformations analysisInformations = null;
 	
 	@Override
@@ -54,51 +57,44 @@ public class AnalysisProject implements ReportInterface{
 	@Override
 	public boolean isF77() {
 		boolean res=false;
-		if(listOfAnalysisRule != null && listOfAnalysisRule.size()>0){
-			if(listOfAnalysisRule.get(0).analysisRuleId.startsWith(AnalysisRule.F77)){
-				res=true;
-			}
+		if(listOfAnalysisRule != null && !listOfAnalysisRule.isEmpty()
+				&& listOfAnalysisRule.get(0).analysisRuleId.startsWith(AnalysisRule.F77)){
+			res=true;
 		}
 		return res;
 	}
 	
 	@Override
 	public boolean isF90() {
-		// TODO Auto-generated method stub
 		boolean res=false;
-		if(listOfAnalysisRule != null && listOfAnalysisRule.size()>0){
-			if(listOfAnalysisRule.get(0).analysisRuleId.startsWith(AnalysisRule.F90)){
-				res=true;
-			}
+		if(listOfAnalysisRule != null && !listOfAnalysisRule.isEmpty()
+				&& listOfAnalysisRule.get(0).analysisRuleId.startsWith(AnalysisRule.F90)){
+			res=true;
 		}
 		return res;
-		//return false;
 	}
 
 	@Override
 	public ReportModuleRuleInterface getModuleCyclomaticMeasure() {
 		ReportModuleRuleInterface res=null;
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
-			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.COMPLEXITY_SIMPLIFIED)){
-				if(analysisRule.result.resultTypePlace.equals("class")){
-					res = analysisRule;
-					break;
-				}
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.COMPLEXITY_SIMPLIFIED) 
+					&& analysisRule.resultField.resultTypePlace.equals(CLASS_TYPE_PLACE)){
+				res = analysisRule;
+				break;
 			}
 		}
-		// TODO Auto-generated method stub
 		return res;
 	}
 	
 	@Override
 	public ReportFunctionRuleInterface[] getCyclomaticMeasureByFunction(){
 		ReportFunctionRuleInterface[] res=null;
-		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<ReportFunctionRuleInterface>();
+		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<>();
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
-			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.COMPLEXITY_SIMPLIFIED)){
-				if(analysisRule.result.resultTypePlace.equals("method")){
-					listOfRes.add(analysisRule);
-				}
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.COMPLEXITY_SIMPLIFIED)
+					&& analysisRule.resultField.resultTypePlace.equals(METHOD_TYPE_PLACE)){
+				listOfRes.add(analysisRule);
 			}
 		}
 		res = listOfRes.toArray(new ReportFunctionRuleInterface[listOfRes.size()]);
@@ -110,26 +106,23 @@ public class AnalysisProject implements ReportInterface{
 	public ReportModuleRuleInterface getModuleLinesOfCodeMeasure() {
 		ReportModuleRuleInterface res=null;
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
-			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.LINE_OF_CODE)){
-				if(analysisRule.result.resultTypePlace.equals("class")){
-					res = analysisRule;
-					break;
-				}
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.LINE_OF_CODE)
+					&& analysisRule.resultField.resultTypePlace.equals(CLASS_TYPE_PLACE)){
+				res = analysisRule;
+				break;
 			}
 		}
-		// TODO Auto-generated method stub
 		return res;
 	}
 	
 	@Override
 	public ReportFunctionRuleInterface[] getLinesOfCodeMeasureByFunction(){
 		ReportFunctionRuleInterface[] res=null;
-		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<ReportFunctionRuleInterface>();
+		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<>();
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
-			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.LINE_OF_CODE)){
-				if(analysisRule.result.resultTypePlace.equals("method")){
-					listOfRes.add(analysisRule);
-				}
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.LINE_OF_CODE)
+					&& analysisRule.resultField.resultTypePlace.equals(METHOD_TYPE_PLACE)){
+				listOfRes.add(analysisRule);
 			}
 		}
 		res = listOfRes.toArray(new ReportFunctionRuleInterface[listOfRes.size()]);
@@ -142,26 +135,23 @@ public class AnalysisProject implements ReportInterface{
 	public ReportModuleRuleInterface getModuleNestingMeasure() {
 		ReportModuleRuleInterface res=null;
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
-			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.NESTING)){
-				if(analysisRule.result.resultTypePlace.equals("class")){
-					res = analysisRule;
-					break;
-				}
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.NESTING)
+					&& analysisRule.resultField.resultTypePlace.equals(CLASS_TYPE_PLACE)){
+				res = analysisRule;
+				break;
 			}
 		}
-		// TODO Auto-generated method stub
 		return res;
 	}
 	
 	@Override
 	public ReportFunctionRuleInterface[] getNestingMeasureByFunction(){
 		ReportFunctionRuleInterface[] res=null;
-		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<ReportFunctionRuleInterface>();
+		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<>();
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
-			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.NESTING)){
-				if(analysisRule.result.resultTypePlace.equals("method")){
-					listOfRes.add(analysisRule);
-				}
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.NESTING)
+					&& analysisRule.resultField.resultTypePlace.equals(METHOD_TYPE_PLACE)){
+				listOfRes.add(analysisRule);
 			}
 		}
 		res = listOfRes.toArray(new ReportFunctionRuleInterface[listOfRes.size()]);
@@ -172,26 +162,23 @@ public class AnalysisProject implements ReportInterface{
 	public ReportModuleRuleInterface getModuleRatioCommentMeasure() {
 		ReportModuleRuleInterface res=null;
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
-			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.RATIO_COMMENT)){
-				if(analysisRule.result.resultTypePlace.equals("class")){
-					res = analysisRule;
-					break;
-				}
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.RATIO_COMMENT)
+					&& analysisRule.resultField.resultTypePlace.equals(CLASS_TYPE_PLACE)){
+				res = analysisRule;
+				break;
 			}
 		}
-		// TODO Auto-generated method stub
 		return res;
 	}
 	
 	@Override
 	public ReportFunctionRuleInterface[] getRatioCommentMeasureByFunction(){
 		ReportFunctionRuleInterface[] res=null;
-		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<ReportFunctionRuleInterface>();
+		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<>();
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
-			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.RATIO_COMMENT)){
-				if(analysisRule.result.resultTypePlace.equals("method")){
-					listOfRes.add(analysisRule);
-				}
+			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.RATIO_COMMENT)
+					&& analysisRule.resultField.resultTypePlace.equals(METHOD_TYPE_PLACE)){
+				listOfRes.add(analysisRule);
 			}
 		}
 		res = listOfRes.toArray(new ReportFunctionRuleInterface[listOfRes.size()]);
@@ -201,39 +188,34 @@ public class AnalysisProject implements ReportInterface{
 	@Override
 	public ErrorInterface[] getErrors() {
 		ReportFunctionRuleInterface[] res=null;
-		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<ReportFunctionRuleInterface>();
+		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<>();
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
 			if((!analysisRule.analysisRuleId.endsWith(AnalysisRule.RATIO_COMMENT)) &&
 					(!analysisRule.analysisRuleId.endsWith(AnalysisRule.COMPLEXITY_SIMPLIFIED)) && 
 					(!analysisRule.analysisRuleId.endsWith(AnalysisRule.LINE_OF_CODE)) && 
-					(!analysisRule.analysisRuleId.endsWith(AnalysisRule.NESTING))){
-				if(analysisRule.result.resultTypePlace.equals("method")){
+					(!analysisRule.analysisRuleId.endsWith(AnalysisRule.NESTING))
+					&& analysisRule.resultField.resultTypePlace.equals(METHOD_TYPE_PLACE)){
 
-					// Check if the rule does not exist into ICodeRulesDefinition
-					if(isUnexpectedRule(analysisRule)){
-						
-						// Unexcepted rule analyse is save as a COM.DEFAULT rule issue...
-						analysisRule.analysisRuleId = "COM.DEFAULT";	
-					}
-					listOfRes.add(analysisRule);
-					LOGGER.debug("AnalysisRule: "+analysisRule.toString());
+				// Check if the rule does not exist into ICodeRulesDefinition
+				if(isUnexpectedRule(analysisRule)){
+					
+					// Unexcepted rule analyse is save as a COM.DEFAULT rule issue...
+					analysisRule.analysisRuleId = "COM.DEFAULT";	
 				}
+				listOfRes.add(analysisRule);
+				LOGGER.debug("AnalysisRule: "+analysisRule.toString());
 			}
 		}
 		res = listOfRes.toArray(new ReportFunctionRuleInterface[listOfRes.size()]);
-		return (ErrorInterface[]) res;
+		return res;
 	}
 	
 	private boolean isUnexpectedRule(AnalysisRule analysisRule){
 		boolean res=true;
 		
-//		if(analysisRule.analysisRuleId.equals("COM.DATA.FloatCompare")){
-//			res=false;
-//		}
 		res = !ICodeRulesDefinition.existRule(analysisRule.analysisRuleId);
 		
 		return res;
 	}	
 
-	/* ReportInterface */
 }

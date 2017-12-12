@@ -83,7 +83,7 @@ public class ICodeMetricsSHELLRatioComment implements Metrics {
 	
 	@SuppressWarnings({ "rawtypes" })
 	public List<Metric> getMetrics() {
-		ArrayList<Metric> res = new ArrayList<Metric>();
+		ArrayList<Metric> res = new ArrayList<>();
 		
 		res.addAll(Arrays.asList(
 				SHELL_RATIO_COMMENT, 

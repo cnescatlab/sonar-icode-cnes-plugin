@@ -83,7 +83,7 @@ public class ICodeMetricsF77RatioComment implements Metrics {
 	
 	@SuppressWarnings({ "rawtypes" })
 	public List<Metric> getMetrics() {
-		ArrayList<Metric> res = new ArrayList<Metric>();
+		ArrayList<Metric> res = new ArrayList<>();
 		
 		res.addAll(Arrays.asList(
 				F77_RATIO_COMMENT, 
