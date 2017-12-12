@@ -38,9 +38,10 @@ public class ComputePluginErrors implements MeasureComputer {
 	
 	@Override
 	public MeasureComputerDefinition define(MeasureComputerDefinitionContext defContext) {
-	    return defContext.newDefinitionBuilder()
-	    		.setInputMetrics(new String[] {NUMBER_OF_ERRORS.key(), REPORT_FILES_ERROR.key()})
-	    		.setOutputMetrics(new String[] {NUMBER_OF_ERRORS.key(), REPORT_FILES_ERROR.key()})
+	    String[] metricTab = new String[] {NUMBER_OF_ERRORS.key(), REPORT_FILES_ERROR.key()};
+		return defContext.newDefinitionBuilder()
+	    		.setInputMetrics(metricTab)
+	    		.setOutputMetrics(metricTab)
 	    		.build();
 	}
 
@@ -51,14 +52,15 @@ public class ComputePluginErrors implements MeasureComputer {
 	    if (context.getComponent().getType() != Component.Type.FILE) {
 	      int sum = 0;
 	      for (Measure child : context.getChildrenMeasures(NUMBER_OF_ERRORS.key())) {
-	        sum += child.getIntValue();
+	    	  sum += child.getIntValue();
 	      }
 	      context.addMeasure(NUMBER_OF_ERRORS.key(), sum);
 	      
 	      int sumOfReportFiles = 0;
 	      for (Measure child : context.getChildrenMeasures(REPORT_FILES_ERROR.key())) {
-	        sumOfReportFiles++;
-	      }
+	    	  child.hashCode();
+	    	  sumOfReportFiles++;
+		  }
 	      
 		  context.addMeasure(REPORT_FILES_ERROR.key(), "Number of report files : "+sumOfReportFiles+" parse "+REPORT_FILES_ERROR.getName()+" for each file...");	 
 	    }

@@ -41,9 +41,10 @@ public class ComputeModuleF90LinesOfCodeStatistics implements MeasureComputer {
 	@Override
 	public MeasureComputerDefinition define(MeasureComputerDefinitionContext defContext) {
 		
-	    return defContext.newDefinitionBuilder()
-	    		.setInputMetrics(new String[] {F90_LOC.key(),F90_LOC_MEAN.key(),F90_LOC_MIN.key(),F90_LOC_MAX.key()})
-	    		.setOutputMetrics(new String[] {F90_LOC.key(),F90_LOC_MEAN.key(),F90_LOC_MIN.key(),F90_LOC_MAX.key()})//,DBG.key()})
+	    String[] metricTab = new String[] {F90_LOC.key(),F90_LOC_MEAN.key(),F90_LOC_MIN.key(),F90_LOC_MAX.key()};
+		return defContext.newDefinitionBuilder()
+	    		.setInputMetrics(metricTab)
+	    		.setOutputMetrics(metricTab)
 	    		.build();
 	}
 
@@ -55,49 +56,65 @@ public class ComputeModuleF90LinesOfCodeStatistics implements MeasureComputer {
 			
 			// Search Lines of Code measure for children files
 			childrenMeasures = context.getChildrenMeasures(F90_LOC.key());
-			if(childrenMeasures.iterator().hasNext()){
-				int sum = 0;
-				for (Measure child : childrenMeasures) {
-					sum += child.getIntValue();
-				}			
-				context.addMeasure(F90_LOC.key(),sum);				
-			}
+			compute(context, childrenMeasures);
 			
 			// Search Lines of Code mean measure for children files
 			childrenMeasures = context.getChildrenMeasures(F90_LOC_MEAN.key());
-			if(childrenMeasures.iterator().hasNext()){
-				double sum = 0;
-				int nbItem = 0;
-				for (Measure child : childrenMeasures) {
-					sum += child.getDoubleValue();
-					nbItem++;
-				}
-				context.addMeasure(F90_LOC_MEAN.key(),(nbItem!=0)?sum/nbItem:sum);							
-			}
+			computeMean(context, childrenMeasures);
 
 			// Search Lines of Code minimum measure for children files
 			childrenMeasures = context.getChildrenMeasures(F90_LOC_MIN.key());
-			if(childrenMeasures.iterator().hasNext()){
-				int min = 1000;
-				for (Measure child : childrenMeasures){
-					if(child.getIntValue() < min){
-						min = child.getIntValue();
-					}
-				}
-				context.addMeasure(F90_LOC_MIN.key(), min);
-			}
+			computeMin(context, childrenMeasures);
 						
 			// Search Lines of Code minimum measure for children files
 			childrenMeasures = context.getChildrenMeasures(F90_LOC_MAX.key());
-			if(childrenMeasures.iterator().hasNext()){
-				int max = 0;
-				for (Measure child : childrenMeasures){
-					if(child.getIntValue() > max){
-						max = child.getIntValue();
-					}
+			computeMax(context, childrenMeasures);
+		}
+	}
+
+	private void computeMax(MeasureComputerContext context, Iterable<Measure> childrenMeasures) {
+		if(childrenMeasures.iterator().hasNext()){
+			int max = 0;
+			for (Measure child : childrenMeasures){
+				if(child.getIntValue() > max){
+					max = child.getIntValue();
 				}
-				context.addMeasure(F90_LOC_MAX.key(), max);
 			}
+			context.addMeasure(F90_LOC_MAX.key(), max);
+		}
+	}
+
+	private void computeMin(MeasureComputerContext context, Iterable<Measure> childrenMeasures) {
+		if(childrenMeasures.iterator().hasNext()){
+			int min = 1000;
+			for (Measure child : childrenMeasures){
+				if(child.getIntValue() < min){
+					min = child.getIntValue();
+				}
+			}
+			context.addMeasure(F90_LOC_MIN.key(), min);
+		}
+	}
+
+	private void computeMean(MeasureComputerContext context, Iterable<Measure> childrenMeasures) {
+		if(childrenMeasures.iterator().hasNext()){
+			double sum = 0;
+			int nbItem = 0;
+			for (Measure child : childrenMeasures) {
+				sum += child.getDoubleValue();
+				nbItem++;
+			}
+			context.addMeasure(F90_LOC_MEAN.key(),(nbItem!=0)?sum/nbItem:sum);							
+		}
+	}
+
+	private void compute(MeasureComputerContext context, Iterable<Measure> childrenMeasures) {
+		if(childrenMeasures.iterator().hasNext()){
+			int sum = 0;
+			for (Measure child : childrenMeasures) {
+				sum += child.getIntValue();
+			}			
+			context.addMeasure(F90_LOC.key(),sum);				
 		}
 	}
 }

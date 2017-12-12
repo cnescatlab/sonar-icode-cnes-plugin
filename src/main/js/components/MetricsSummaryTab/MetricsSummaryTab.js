@@ -242,42 +242,45 @@ class MetricsSummaryTab extends React.Component {
         dataF90: [],
         dataSH: []
     };
-    
-    this.setState({
-        dataF77: [
-            { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
-            { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
-            { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
-            { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }            ],
-        dataF90: [
-            { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
-            { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
-            { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
-            { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
-        ],
-        dataSH: [
-            { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
-            { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
-            { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
-            { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
-        ]
-    });
 
+    constructor(){
+        super();
+
+	    this.setState({
+	        dataF77: [
+	            { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
+	            { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
+	            { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
+	            { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }            ],
+	        dataF90: [
+	            { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
+	            { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
+	            { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
+	            { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
+	        ],
+	        dataSH: [
+	            { name: 'Nesting', total: '-', min: '-', mean: '-', max: '-' },
+	            { name: 'Ratio Comment', total: '-', min: '-', mean: '-', max: '-' },
+	            { name: 'Complexity Simplified', total: '-', min: '-', mean: '-', max: '-' },
+	            { name: 'Line Of Code', total: '-', min: '-', mean: '-', max: '-' }
+	        ]
+	    });
+    }    
     componentDidMount() {
-    	
-    	findMeasuresF77.then((item) => {
+        
+    	findMeasuresF77(this.props.project.key).then((item) => {
     	    this.setState({
     	      dataF77: item
     	    });
     	});
     	
-    	findMeasuresF90.then((item) => {
+    	findMeasuresF90(this.props.project.key).then((item) => {
     	    this.setState({
     	      dataF90: item
     	    });
     	});
     	
-    	findMeasuresShell.then((item) => {
+    	findMeasuresShell(this.props.project.key).then((item) => {
     	    this.setState({
     	      dataSH: item
     	    });
