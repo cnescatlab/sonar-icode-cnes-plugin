@@ -39,7 +39,7 @@ const metricKeysTabF90 = [
 	'icode-f90-loc-mean',
 	'icode-f90-loc-max'];
 
-const metricKeysTabSH = [
+const metricKeysTabShell = [
 	'icode-shell-nesting-min',
 	'icode-shell-nesting-mean',
 	'icode-shell-nesting-max',
