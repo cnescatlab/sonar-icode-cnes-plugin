@@ -1,18 +1,18 @@
-.radio-tab {
+div.MetricsSummaryTab .radio-tab {
     display: none;
 }
 
 /* -- DIVS -- */
 
-input[type="radio"]#radio-tab-f77:checked~div#main-content>div#panel-f77 {
+div.MetricsSummaryTab input[type="radio"]#radio-tab-f77:checked~div#main-content>div#panel-f77 {
     display: block;
 }
 
-input[type="radio"]#radio-tab-f90:checked~div#main-content>div#panel-f90 {
+div.MetricsSummaryTab input[type="radio"]#radio-tab-f90:checked~div#main-content>div#panel-f90 {
     display: block;
 }
 
-input[type="radio"]#radio-tab-sh:checked~div#main-content>div#panel-sh {
+div.MetricsSummaryTab input[type="radio"]#radio-tab-sh:checked~div#main-content>div#panel-sh {
     display: block;
 }
 
@@ -21,62 +21,62 @@ div.MetricsSummaryTab {
     margin: 50px auto;
 }
 
-label#tab-pane-f77 {
+div.MetricsSummaryTab label#tab-pane-f77 {
     position: relative;
     left: 0px;
     z-index: 10;
 }
 
-label#tab-pane-f90 {
+div.MetricsSummaryTab label#tab-pane-f90 {
     position: relative;
     left: -20px;
     z-index: 9;
 }
 
-label#tab-pane-sh {
+div.MetricsSummaryTab label#tab-pane-sh {
     position: relative;
     left: -40px;
     z-index: 8;
 }
 
-input[type="radio"]:checked+label {
+div.MetricsSummaryTab input[type="radio"]:checked+label {
     background: rgba(100, 200, 200, 1);
 }
 
-input[type="radio"] {
+div.MetricsSummaryTab input[type="radio"] {
     display: none;
 }
 
 
 /* -- DIVS -- */
 
-div[role="main-content"]#main-content {
+div.MetricsSummaryTab div[role="main-content"]#main-content {
     position: relative;
     border: solid 1px rgba(0, 75, 255, 0.5);
     display: block;
-    marggin: 20px 50px;
+    margin: 20px 50px;
 }
 
-div.panel {
+div.MetricsSummaryTab div.panel {
     display: none;
 }
 
-input[type="radio"]#radio-tab-f77:checked~div#main-content>div#panel-f77 {
+div.MetricsSummaryTab input[type="radio"]#radio-tab-f77:checked~div#main-content>div#panel-f77 {
     display: block;
 }
 
-input[type="radio"]#radio-tab-f90:checked~div#main-content>div#panel-f90 {
+div.MetricsSummaryTab input[type="radio"]#radio-tab-f90:checked~div#main-content>div#panel-f90 {
     display: block;
 }
 
-input[type="radio"]#radio-tab-sh:checked~div#main-content>div#panel-sh {
+div.MetricsSummaryTab input[type="radio"]#radio-tab-sh:checked~div#main-content>div#panel-sh {
     display: block;
 }
 
 
 /* -- LABELS -- */
 
-.tab-pane {
+div.MetricsSummaryTab .tab-pane {
     display: inline-block;
     width: 50px;
     text-align: center;
@@ -93,29 +93,29 @@ input[type="radio"]#radio-tab-sh:checked~div#main-content>div#panel-sh {
     background: rgba(255, 255, 255, 1);
 }
 
-#tab-pane-f77 {
+div.MetricsSummaryTab #tab-pane-f77 {
     position: relative;
     left: 0px;
     z-index: 10;
 }
 
-#tab-pane-f90 {
+div.MetricsSummaryTab #tab-pane-f90 {
     position: relative;
     left: -20px;
     z-index: 9;
 }
 
-#tab-pane-sh {
+div.MetricsSummaryTab #tab-pane-sh {
     position: relative;
     left: -40px;
     z-index: 8;
 }
 
-label[role="tab-pane"].tab-pane#tab-pane-f90 {
+div.MetricsSummaryTab label[role="tab-pane"].tab-pane#tab-pane-f90 {
     position: relative;
     left: -20px;
 }
 
-input[type="radio"].radio-tab:checked+label[role="tab-pane"].tab-pane {
+div.MetricsSummaryTab input[type="radio"].radio-tab:checked+label[role="tab-pane"].tab-pane {
     background: rgba(75, 160, 200, 1);
 }

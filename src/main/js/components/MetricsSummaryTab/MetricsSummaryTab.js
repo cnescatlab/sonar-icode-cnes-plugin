@@ -63,7 +63,6 @@ function findMeasuresF77(componentName) {
 		metricKeys:metricKeys,
 		component:componentName
 	}).then(function (measure_component) {
-		console.log(measure_component);
 		
 		// Build map 'metric:value'
 		let allMetrics = new Map();
@@ -75,7 +74,7 @@ function findMeasuresF77(componentName) {
 		      }      
 		    }
 		});
-		console.log(allMetrics);
+		// console.log(allMetrics);
 		
 		// Build result table
 		let res=[
@@ -104,11 +103,11 @@ function findMeasuresF77(componentName) {
 				max: allMetrics.get('icode-f77-loc-max')
 			}
 		];	
-		console.log(res);
+		// console.log(res);
 
 		resolve(res);
 	}).catch(function(error) {
-	    console.log('No measures found: ' + error.message); 
+	    // console.log('No measures found: ' + error.message); 
 	    reject(null);
 	});
 });
@@ -123,7 +122,7 @@ function findMeasuresF90(componentName) {
 		metricKeys:metricKeys,
 		component:componentName
 	}).then(function (measure_component) {
-		console.log(measure_component);
+		// console.log(measure_component);
 		
 		// Build map 'metric:value'
 		let allMetrics = new Map();
@@ -135,7 +134,7 @@ function findMeasuresF90(componentName) {
 		      }      
 		    }
 		});
-		console.log(allMetrics);
+		// console.log(allMetrics);
 		
 		// Build result table
 		let res=[
@@ -164,11 +163,11 @@ function findMeasuresF90(componentName) {
 				max: allMetrics.get('icode-f90-loc-max')
 			}
 		];	
-		console.log(res);
+		// console.log(res);
 
 		resolve(res);
 	}).catch(function(error) {
-	    console.log('No measures found: ' + error.message); 
+	    // console.log('No measures found: ' + error.message); 
 	    reject(null);
 	});
 });
@@ -183,7 +182,7 @@ function findMeasuresShell(componentName) {
 		metricKeys:metricKeys,
 		component:componentName
 	}).then(function (measure_component) {
-		console.log(measure_component);
+		// console.log(measure_component);
 		
 		// Build map 'metric:value'
 		let allMetrics = new Map();
@@ -195,7 +194,7 @@ function findMeasuresShell(componentName) {
 		      }      
 		    }
 		});
-		console.log(allMetrics);
+		// console.log(allMetrics);
 		
 		// Build result table
 		let res=[
@@ -224,11 +223,11 @@ function findMeasuresShell(componentName) {
 				max: allMetrics.get('icode-shell-loc-max')
 			}
 		];	
-		console.log(res);
+		// console.log(res);
 
 		resolve(res);
 	}).catch(function(error) {
-	    console.log('No measures found: ' + error.message); 
+	    // console.log('No measures found: ' + error.message); 
 	    reject(null);
 	});
 });
@@ -289,14 +288,14 @@ class MetricsSummaryTab extends React.Component {
 
     render() {
         return (
-            <div className = "MetricsSummaryTab" >
+            <div className="MetricsSummaryTab" >
 
-                <input type="radio" name="radio-tab-chart" className="radio-tab" id="radio-tab-f77" value="f77" checked />
-                <label role="tab-pane" className="tab-pane" id="tab-pane-f77" htmlFor="radio-tab-f77">F77</label>
+                <input type="radio" name="radio-tab-chart" className="radio-tab" id="radio-tab-f77" value="f77" checked={true} />
+                <label role="tab-pane" className="tab-pane" id="tab-pane-f77" htmlFor="radio-tab-f77" onClick={this.showF77Panel}>F77</label>
                 <input type="radio" name="radio-tab-chart" className="radio-tab" id="radio-tab-f90" value="f90" />
-                <label role="tab-pane" className="tab-pane" id="tab-pane-f90" htmlFor="radio-tab-f90">F90</label>
+                <label role="tab-pane" className="tab-pane" id="tab-pane-f90" htmlFor="radio-tab-f90" onClick={this.showF90Panel}>F90</label>
                 <input type="radio" name="radio-tab-chart" className="radio-tab" id="radio-tab-sh" value="sh" />
-                <label role="tab-pane" className="tab-pane" id="tab-pane-sh" htmlFor="radio-tab-sh">SH</label>
+                <label role="tab-pane" className="tab-pane" id="tab-pane-sh" htmlFor="radio-tab-sh" onClick={this.showSHPanel}>SH</label>
                 
                 <div data-reactroot="" role="main-content" className="main-content" id="main-content">
                     <div role="panel" className="panel" id="panel-f77">
@@ -311,7 +310,25 @@ class MetricsSummaryTab extends React.Component {
                 </div>
             </div>
         );
-    };
+	};
+	
+	showF77Panel() {
+		document.getElementById('radio-tab-sh').checked = false;
+		document.getElementById('radio-tab-f90').checked = false;
+		document.getElementById('radio-tab-f77').checked = true;
+	}
+
+	showF90Panel() {
+		document.getElementById('radio-tab-sh').checked = false;
+		document.getElementById('radio-tab-f77').checked = false;
+		document.getElementById('radio-tab-f90').checked = true;
+	}
+
+	showSHPanel() {
+		document.getElementById('radio-tab-f77').checked = false;
+		document.getElementById('radio-tab-f90').checked = false;
+		document.getElementById('radio-tab-sh').checked = true;
+	}
 }
 
 export default MetricsSummaryTab;
