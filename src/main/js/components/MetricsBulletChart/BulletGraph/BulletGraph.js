@@ -36,28 +36,26 @@ class BulletGraph extends React.Component {
     }
 
     render() {
-        return ( <
-            div className = "BulletGraph" >
-            <
-            HorizontalBulletGraph title = { this.props.title }
-            textLabel = { this.props.textLabel }
-            scaleMin = { this.props.scaleMin }
-            scaleMax = { this.props.scaleMax }
-            performanceVal = { this.props.performanceVal }
-            symbolMarker = { this.props.symbolMarker }
-            badVal = { this.props.badVal }
-            satisfactoryVal = { this.props.satisfactoryVal }
-            unitsSuffix = { this.props.unitsSuffix }
-            unitsPrefix = { this.props.unitsPrefix }
-            titleStyle = { this.props.titleStyle }
-            textFont = { this.props.textFont }
-            badColor = { this.props.badColor }
-            satisfactoryColor = { this.props.satisfactoryColor }
-            goodColor = { this.props.goodColor }
-            height = { this.props.height }
-            width = { this.props.width }
-            /> < /
-            div >
+        return ( 
+            <div className = "BulletGraph" >
+                <HorizontalBulletGraph title = { this.props.title }
+                    textLabel = { this.props.textLabel }
+                    scaleMin = { this.props.scaleMin }
+                    scaleMax = { this.props.scaleMax }
+                    performanceVal = { this.props.performanceVal }
+                    symbolMarker = { this.props.symbolMarker }
+                    badVal = { this.props.badVal }
+                    satisfactoryVal = { this.props.satisfactoryVal }
+                    unitsSuffix = { this.props.unitsSuffix }
+                    unitsPrefix = { this.props.unitsPrefix }
+                    titleStyle = { this.props.titleStyle }
+                    textFont = { this.props.textFont }
+                    badColor = { this.props.badColor }
+                    satisfactoryColor = { this.props.satisfactoryColor }
+                    goodColor = { this.props.goodColor }
+                    height = { this.props.height }
+                    width = { this.props.width } />
+                </div>
         );
     }
 };

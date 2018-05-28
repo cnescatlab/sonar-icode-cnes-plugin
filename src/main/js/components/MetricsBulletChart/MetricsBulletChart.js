@@ -32,38 +32,32 @@ class MetricsBulletChart extends React.Component {
     }
 
     render() {
-        return ( <
-            div className = "MetricsBulletChart" >
-            <
-            div className = "Container" >
-
-            {
-                this.state.mocks.map((graph, i) => {
-                    return ( <
-                        BulletGraph className = "BulletGraph"
-                        key = { i }
-                        title = { this.props.item.name }
-                        textLabel = { graph.textLabel }
-                        scaleMin = { graph.scaleMin }
-                        scaleMax = { this.props.item.max }
-                        performanceVal = { this.props.item.mean }
-                        symbolMarker = { this.props.item.mean }
-                        badVal = { this.props.item.min }
-                        satisfactoryVal = { this.props.item.max }
-                        unitsSuffix = { graph.unitsSuffix }
-                        unitsPrefix = { graph.unitsPrefix }
-                        height = { graph.height }
-                        width = { graph.width }
-                        />
-                    )
-                })
-            }
-
-            <
-            /div>
-
-            <
-            /div>
+        return (
+            <div className = "MetricsBulletChart" >
+                <div className = "Container" >
+                    {
+                        this.state.mocks.map((graph, i) => {
+                            return ( <
+                                BulletGraph className = "BulletGraph"
+                                key = { i }
+                                title = { this.props.item.name }
+                                textLabel = { graph.textLabel }
+                                scaleMin = { graph.scaleMin }
+                                scaleMax = { this.props.item.max }
+                                performanceVal = { this.props.item.mean }
+                                symbolMarker = { this.props.item.mean }
+                                badVal = { this.props.item.min }
+                                satisfactoryVal = { this.props.item.max }
+                                unitsSuffix = { graph.unitsSuffix }
+                                unitsPrefix = { graph.unitsPrefix }
+                                height = { graph.height }
+                                width = { graph.width }
+                                />
+                            )
+                        })
+                    }
+                </div>
+            </div>
         );
     }
 

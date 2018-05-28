@@ -1,8 +1,12 @@
-
-th#empty-cell {
+div.MetricsSummaryPanel th#empty-cell {
     border: none;
 }
 
-table {
+div.MetricsSummaryPanel table {
     margin: 20px;
+}
+
+div.MetricsSummaryPanel > table,
+div.MetricsSummaryPanel > div.MetricsBulletChart {
+    vertical-align: top;
 }
