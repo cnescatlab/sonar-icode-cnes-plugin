@@ -172,6 +172,15 @@ class SAXHandler extends DefaultHandler {
 		case ANALYSIS_PROJECT:
 			LOGGER.info("End report analysis:" + qName);
 			break;
+		case ANALYSIS_INFORMATIONS:
+			LOGGER.info("End report analysis:" + qName);
+			break;
+		case ANALYSIS_FILE:
+			LOGGER.info("End report analysis:" + qName);
+			break;
+		case AnalysisRule.RESULT:
+			LOGGER.info("End report analysis:" + qName);
+			break;
 		default:
 			LOGGER.error("Unexpected report analysis end element:" + qName);
 		}
