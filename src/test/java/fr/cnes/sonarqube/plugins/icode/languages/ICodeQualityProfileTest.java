@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.Context;
 
 public class ICodeQualityProfileTest {
 

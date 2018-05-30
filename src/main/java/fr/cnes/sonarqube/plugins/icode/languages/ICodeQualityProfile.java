@@ -30,6 +30,6 @@ public final class ICodeQualityProfile extends ProfileDefinition {
 
 	@Override
 	  public RulesProfile createProfile(ValidationMessages validation) {
-	    return RulesProfile.create(I_CODE_RULES_PROFILE_NAME, ICodeLanguage.KEY);
+		return  RulesProfile.create(I_CODE_RULES_PROFILE_NAME, ICodeLanguage.KEY);
 	  }
 }

@@ -21,6 +21,9 @@ import org.sonar.api.Plugin;
 
 import fr.cnes.sonarqube.plugins.icode.languages.ICodeLanguage;
 import fr.cnes.sonarqube.plugins.icode.languages.ICodeQualityProfile;
+import fr.cnes.sonarqube.plugins.icode.languages.ICodeQualityProfileF77;
+import fr.cnes.sonarqube.plugins.icode.languages.ICodeQualityProfileF90;
+import fr.cnes.sonarqube.plugins.icode.languages.ICodeQualityProfileSH;
 import fr.cnes.sonarqube.plugins.icode.measures.ComputeModuleF77CyclomaticStatistics;
 import fr.cnes.sonarqube.plugins.icode.measures.ComputeModuleF77LinesOfCodeStatistics;
 import fr.cnes.sonarqube.plugins.icode.measures.ComputeModuleF77NestingStatistics;
@@ -61,7 +64,12 @@ public class ICodePlugin implements Plugin {
 
 	public void define(Context context) {
 		// Setting plugin ICode
-		context.addExtensions(ICodeLanguage.class, ICodeQualityProfile.class);
+		context.addExtensions(
+				ICodeLanguage.class, 
+				ICodeQualityProfile.class, 
+				ICodeQualityProfileF77.class, 
+				ICodeQualityProfileF90.class, 
+				ICodeQualityProfileSH.class);
 		context.addExtensions(ICodeLanguageProperties.getProperties());
 
 		// Metrics definition and computed measures
