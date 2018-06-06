@@ -57,8 +57,8 @@ public class AnalysisProject implements ReportInterface{
 	@Override
 	public boolean isF77() {
 		boolean res=false;
-		if(listOfAnalysisRule != null && !listOfAnalysisRule.isEmpty()
-				&& listOfAnalysisRule.get(0).analysisRuleId.startsWith(AnalysisRule.F77)){
+		if(analysisFile != null && analysisFile.languageField != null && !analysisFile.languageField.isEmpty()
+				&& analysisFile.languageField.toLowerCase().endsWith(AnalysisRule.F77.toLowerCase())){
 			res=true;
 		}
 		return res;
@@ -67,8 +67,8 @@ public class AnalysisProject implements ReportInterface{
 	@Override
 	public boolean isF90() {
 		boolean res=false;
-		if(listOfAnalysisRule != null && !listOfAnalysisRule.isEmpty()
-				&& listOfAnalysisRule.get(0).analysisRuleId.startsWith(AnalysisRule.F90)){
+		if(analysisFile != null && analysisFile.languageField != null && !analysisFile.languageField.isEmpty()
+				&& analysisFile.languageField.toLowerCase().endsWith(AnalysisRule.F90.toLowerCase())){
 			res=true;
 		}
 		return res;
@@ -177,7 +177,8 @@ public class AnalysisProject implements ReportInterface{
 		List<ReportFunctionRuleInterface> listOfRes = new ArrayList<>();
 		for (AnalysisRule analysisRule : listOfAnalysisRule) {
 			if(analysisRule.analysisRuleId.endsWith(AnalysisRule.RATIO_COMMENT)
-					&& analysisRule.resultField.resultTypePlace.equals(METHOD_TYPE_PLACE)){
+					&& analysisRule.resultField.resultTypePlace.equals(METHOD_TYPE_PLACE)
+					&& !Double.isNaN(Double.parseDouble(analysisRule.resultField.resultValue))){
 				listOfRes.add(analysisRule);
 			}
 		}
