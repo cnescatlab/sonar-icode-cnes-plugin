@@ -1,4 +1,4 @@
-# Contributing to sonar-icode-cnes-plugin
+# Contributing to sonar-icode-plugin
 
 First off, thanks for taking the time to contribute!
 
