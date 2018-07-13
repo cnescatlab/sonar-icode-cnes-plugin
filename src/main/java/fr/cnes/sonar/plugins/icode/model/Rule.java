@@ -12,35 +12,43 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with sonar-icode-cnes-plugin.  If not, see <http://www.gnu.org/licenses/>.
+ * along with sonar-icode-cnes-plugin.  If not, see @XmlElement
+    public String http://www.gnu.org/licenses/;.
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Class used to unmarshal i-Code xml file.
  *
- * It contains an issue or a metric.
+ * It contains data about defined rule.
  *
  * @author lequal
  */
-public class Result {
+public class Rule {
 
-    @XmlAttribute
-    public String resultId;
-    @XmlAttribute
-    public String fileName;
-    @XmlAttribute
-    public String resultLine;
-    @XmlAttribute
-    public String resultTypePlace;
-    @XmlAttribute
-    public String resultNamePlace;
-    @XmlAttribute
-    public String resultValue;
     @XmlElement
-    public String resultMessage;
+    public String key;
+    @XmlElement
+    public String name;
+    @XmlElement
+    public String internalKey;
+    @XmlElement
+    public String description;
+    @XmlElement
+    public String severity;
+    @XmlElement
+    public String cardinality;
+    @XmlElement
+    public String status;
+    @XmlElement
+    public String type;
+    @XmlElement
+    public String tag;
+    @XmlElement
+    public String remediationFunction;
+    @XmlElement
+    public String remediationFunctionBaseEffort;
 
 }

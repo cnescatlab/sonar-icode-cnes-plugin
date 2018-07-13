@@ -16,10 +16,12 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
+import fr.cnes.sonar.plugins.icode.languages.ICodeLanguage;
 import fr.cnes.sonar.plugins.icode.measures.ICodeMetricsProcessor;
 import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
+import fr.cnes.sonar.plugins.icode.model.XMLHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 import org.sonar.api.batch.fs.FilePredicate;
@@ -36,9 +38,7 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,16 +66,16 @@ public class ICodeSensor implements Sensor {
     @Override
     public void describe(SensorDescriptor sensorDescriptor) {
         // Prevents sensor to be run during all analysis.
-        //sensorDescriptor.onlyOnLanguage(ICodeLanguage.KEY);
+        sensorDescriptor.onlyOnLanguage(ICodeLanguage.KEY);
 
         // Defines sensor name
         sensorDescriptor.name(getClass().getName());
 
         // Only main files are concerned, not tests.
-        //sensorDescriptor.onlyOnFileType(InputFile.Type.MAIN);
+        sensorDescriptor.onlyOnFileType(InputFile.Type.MAIN);
 
         // This sensor is activated only if a rule from the following repo is activated.
-        //sensorDescriptor.createIssuesForRuleRepository(ICodeRulesDefinition.REPO_KEY);
+        sensorDescriptor.createIssuesForRuleRepository(ICodeRulesDefinition.getRepositoryKeyForLanguage());
     }
 
     /**
@@ -95,11 +95,12 @@ public class ICodeSensor implements Sensor {
         // Report files found in file system and corresponding to SQ property.
         final List<String> reportFiles = getReportFiles(config, fileSystem);
 
-        // If exists, unmarshall each xml result file.
+        // If exists, unmarshal each xml result file.
         for(final String reportPath : reportFiles) {
             try {
-                // Unmarshall the xml
-                final AnalysisProject analysisProject = unmarshall(reportPath);
+                // Unmarshall the xml.
+                final File file = new File(reportPath);
+                final AnalysisProject analysisProject = (AnalysisProject) XMLHandler.unmarshal(file, AnalysisProject.class);
                 // Retrieve file in a SonarQube format.
                 final Map<String, InputFile> scannedFiles = getScannedFiles(fileSystem, analysisProject);
 
@@ -123,24 +124,6 @@ public class ICodeSensor implements Sensor {
                 sensorContext.newAnalysisError().message(e.getMessage()).save();
             }
         }
-
-    }
-
-    /**
-     * This method use JAXB to unmarshall XML report: it transform simply
-     * XML into our Java Object by reading annotations on model classes.
-     *
-     * @param filename Name of the report to import as Java Objects.
-     * @return AnalysisReport: the main structure of the report.
-     * @throws JAXBException Exception during conversion can be met.
-     */
-    static AnalysisProject unmarshall(final String filename) throws JAXBException {
-
-        final File file = new File(filename);
-        final JAXBContext jaxbContext = JAXBContext.newInstance(AnalysisProject.class);
-        final Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
-        return (AnalysisProject) jaxbUnmarshaller.unmarshal(file);
 
     }
 

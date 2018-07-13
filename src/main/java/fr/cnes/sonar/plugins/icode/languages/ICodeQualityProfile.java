@@ -16,7 +16,17 @@
  */
 package fr.cnes.sonar.plugins.icode.languages;
 
+import fr.cnes.sonar.plugins.icode.model.Rule;
+import fr.cnes.sonar.plugins.icode.model.RulesDefinition;
+import fr.cnes.sonar.plugins.icode.model.XMLHandler;
+import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
+
+import javax.xml.bind.JAXBException;
+import java.io.File;
+import java.io.InputStream;
 
 /**
  * Built-in quality profile format since SonarQube 6.6.
@@ -25,8 +35,13 @@ import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
  */
 public final class ICodeQualityProfile implements BuiltInQualityProfilesDefinition {
 
+    /**
+     * Logger for this class.
+     */
+    private static final Logger LOGGER = Loggers.get(ICodeQualityProfile.class);
+
     /** Display name for the built-in quality profile. **/
-    private static final String I_CODE_RULES_PROFILE_NAME = "Built-in i-Code Quality Profile";
+    private static final String I_CODE_RULES_PROFILE_NAME = "Sonar way";
 
     /**
      * Allow to create a plugin.
@@ -35,6 +50,24 @@ public final class ICodeQualityProfile implements BuiltInQualityProfilesDefiniti
      */
     @Override
     public void define(Context context) {
-        context.createBuiltInQualityProfile(I_CODE_RULES_PROFILE_NAME, ICodeLanguage.KEY);
+
+        // Create a builder for the rules' repository.
+        final NewBuiltInQualityProfile defaultProfile =
+                context.createBuiltInQualityProfile(I_CODE_RULES_PROFILE_NAME, ICodeLanguage.KEY);
+
+        try {
+            // Retrieve all defined rules.
+            final InputStream stream = getClass().getResourceAsStream(ICodeRulesDefinition.PATH_TO_RULES_XML);
+            final RulesDefinition rules = (RulesDefinition) XMLHandler.unmarshal(stream, RulesDefinition.class);
+            // Activate all i-Code CNES rules.
+            for(final Rule rule : rules.getRules()) {
+                defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(), rule.key);
+            }
+        } catch (JAXBException e) {
+            LOGGER.warn(e.getLocalizedMessage(), e);
+        }
+        // Save the default profile.
+        defaultProfile.setDefault(true);
+        defaultProfile.done();
     }
 }

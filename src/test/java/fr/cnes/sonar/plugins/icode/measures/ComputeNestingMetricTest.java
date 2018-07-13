@@ -52,7 +52,7 @@ public class ComputeNestingMetricTest {
         Mockito.when(componentFile.getType()).thenReturn(Component.Type.DIRECTORY);
         MeasureComputerContext context = Mockito.mock(MeasureComputerContext.class);
         Mockito.when(context.getComponent()).thenReturn(componentFile);
-        ArrayList<Measure> childsMeasures = new ArrayList<Measure>();
+        ArrayList<Measure> childsMeasures = new ArrayList<>();
         Measure aMeasureMin = Mockito.mock(Measure.class);
         Mockito.when(aMeasureMin.getIntValue()).thenReturn(1);
         Mockito.when(aMeasureMin.getDoubleValue()).thenReturn(1.);

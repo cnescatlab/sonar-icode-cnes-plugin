@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Class used to unmarshall i-Code xml file.
+ * Class used to unmarshal i-Code xml file.
  *
  * It contains an issue and a violated rule.
  *

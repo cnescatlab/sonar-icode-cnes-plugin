@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Class used to unmarshall i-Code xml file.
+ * Class used to unmarshal i-Code xml file.
  *
  * It contains meta data about the analyzed project.
  *

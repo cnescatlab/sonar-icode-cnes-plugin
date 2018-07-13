@@ -16,31 +16,38 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class used to unmarshal i-Code xml file.
  *
- * It contains an issue or a metric.
+ * It contains meta data about rules definition.
  *
  * @author lequal
  */
-public class Result {
+@XmlRootElement(name = "icodelint-rules")
+public class RulesDefinition {
 
-    @XmlAttribute
-    public String resultId;
-    @XmlAttribute
-    public String fileName;
-    @XmlAttribute
-    public String resultLine;
-    @XmlAttribute
-    public String resultTypePlace;
-    @XmlAttribute
-    public String resultNamePlace;
-    @XmlAttribute
-    public String resultValue;
-    @XmlElement
-    public String resultMessage;
+    @XmlElement( name = "rule" )
+    private Rule[] icodeRules;
+
+    /**
+     * Getter for accessing rules (definition).
+     * @return A list of Rule.
+     */
+    public List<Rule> getRules() {
+        // Retrieve issues (called rules)
+        List<Rule> rules;
+        if(icodeRules!=null) {
+            rules = Arrays.asList(icodeRules);
+        } else {
+            rules = new ArrayList<>();
+        }
+        return rules;
+    }
 
 }

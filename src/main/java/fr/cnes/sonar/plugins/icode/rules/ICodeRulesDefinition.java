@@ -30,9 +30,11 @@ import java.nio.charset.StandardCharsets;
  */
 public class ICodeRulesDefinition implements RulesDefinition {
 
-	private static final String PATH_TO_RULES_XML = "/rules/icode-rules.xml";
-
+	/** Partial key for repository. **/
 	private static final String KEY = "rules";
+
+	/** Path to xml file in resources tree. **/
+	public static final String PATH_TO_RULES_XML = "/rules/icode-rules.xml";
 
 	@Override
 	public void define(Context context) {
