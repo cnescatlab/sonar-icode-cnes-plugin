@@ -7,7 +7,7 @@
 
 SonarQube plugin for the code analysis tool: i-Code CNES.
 
-SonarQube is an open platform to manage code quality. This plugin adds the ability to launch C/C++ tools automatically.
+SonarQube is an open platform to manage code quality. This plugin adds the ability to import i-Code results for Fortran (77 & 90) & Shell.
 
 This plugin is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
@@ -31,7 +31,7 @@ If you want to do a PR, please put inside of it the reason of this pull request.
 ### Feedback and Support
 Contact : L-lequal@cnes.fr
 
-Bugs and Feature requests: https://github.com/dupuisa/sonar-cnes-cxx-plugin/issues
+Bugs and Feature requests: https://github.com/lequal/sonar-icode-cnes-plugin/issues
 
 ### License
 Licensed under the [GNU General Public License, Version 3.0](https://www.gnu.org/licenses/gpl.txt)
