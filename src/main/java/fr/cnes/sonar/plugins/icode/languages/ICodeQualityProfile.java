@@ -18,14 +18,13 @@ package fr.cnes.sonar.plugins.icode.languages;
 
 import fr.cnes.sonar.plugins.icode.model.Rule;
 import fr.cnes.sonar.plugins.icode.model.RulesDefinition;
-import fr.cnes.sonar.plugins.icode.model.XMLHandler;
+import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 import javax.xml.bind.JAXBException;
-import java.io.File;
 import java.io.InputStream;
 
 /**
@@ -58,7 +57,7 @@ public final class ICodeQualityProfile implements BuiltInQualityProfilesDefiniti
         try {
             // Retrieve all defined rules.
             final InputStream stream = getClass().getResourceAsStream(ICodeRulesDefinition.PATH_TO_RULES_XML);
-            final RulesDefinition rules = (RulesDefinition) XMLHandler.unmarshal(stream, RulesDefinition.class);
+            final RulesDefinition rules = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
             // Activate all i-Code CNES rules.
             for(final Rule rule : rules.getRules()) {
                 defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(), rule.key);

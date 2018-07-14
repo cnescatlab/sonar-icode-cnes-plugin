@@ -24,14 +24,29 @@ import org.sonar.api.resources.AbstractLanguage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Declared language i-Code corresponding to Fortran 77, Fortran 90 & Shell.
+ *
+ * @author lequal
+ */
 public final class ICodeLanguage extends AbstractLanguage {
+
+	/**
+	 * Name of the language.
+	 */
 	public static final String NAME = "i-Code";
+	/**
+	 * Key of the language.
+	 */
 	public static final String KEY = "icode";
 
+	/**
+	 * Injected SonarQube configuration.
+	 */
 	private final Configuration configuration;
 
 	/**
-	 * ICode extension for ICode specific properties, Metrics and Rules.
+	 * i-Code extension for i-Code specific properties, Metrics and Rules.
 	 * 
 	 * @param configuration Inject SonarQube configuration into this extension
 	 */
@@ -40,6 +55,11 @@ public final class ICodeLanguage extends AbstractLanguage {
 		this.configuration = configuration;
 	}
 
+	/**
+	 * Returns the list of suffixes which should be associated to this language.
+	 *
+	 * @return A strings' array with file's suffixes.
+	 */
 	@Override
 	public String[] getFileSuffixes() {
 		String[] suffixes = filterEmptyStrings(
@@ -67,4 +87,15 @@ public final class ICodeLanguage extends AbstractLanguage {
         }
         return nonEmptyStrings.toArray(new String[nonEmptyStrings.size()]);
     }
+
+	/**
+	 * Assert obj is the same object as this.
+	 *
+	 * @param obj Object to compare with this.
+	 * @return True if obj is this.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return obj==this;
+	}
 }

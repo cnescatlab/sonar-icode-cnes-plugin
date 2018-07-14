@@ -21,7 +21,7 @@ import fr.cnes.sonar.plugins.icode.measures.ICodeMetricsProcessor;
 import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
-import fr.cnes.sonar.plugins.icode.model.XMLHandler;
+import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 import org.sonar.api.batch.fs.FilePredicate;
@@ -100,7 +100,7 @@ public class ICodeSensor implements Sensor {
             try {
                 // Unmarshall the xml.
                 final File file = new File(reportPath);
-                final AnalysisProject analysisProject = (AnalysisProject) XMLHandler.unmarshal(file, AnalysisProject.class);
+                final AnalysisProject analysisProject = (AnalysisProject) XmlHandler.unmarshal(file, AnalysisProject.class);
                 // Retrieve file in a SonarQube format.
                 final Map<String, InputFile> scannedFiles = getScannedFiles(fileSystem, analysisProject);
 

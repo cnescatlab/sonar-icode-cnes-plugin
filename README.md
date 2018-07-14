@@ -1,6 +1,9 @@
 # sonar-icode-cnes-plugin
 [![Build Status](https://travis-ci.org/lequal/sonar-icode-cnes-plugin.svg?branch=master)](https://travis-ci.org/lequal/sonar-icode-cnes-plugin)
-[![SonarQube Coverage](https://sonarcloud.io/api/badges/gate?key=fr.cnes.sonarqube.plugins:sonar-icode-plugin)](https://sonarcloud.io/dashboard?id=fr.cnes.sonarqube.plugins%3Asonar-icode-plugin)
+![SonarQube Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=fr.cnes.sonarqube.plugins%3Asonar-icode-plugin&metric=alert_status)
+![SonarQube Bugs](https://sonarcloud.io/api/project_badges/measure?project=fr.cnes.sonarqube.plugins%3Asonar-icode-plugin&metric=bugs)
+![SonarQube Coverage](https://sonarcloud.io/api/project_badges/measure?project=fr.cnes.sonarqube.plugins%3Asonar-icode-plugin&metric=coverage)
+![SonarQube Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=fr.cnes.sonarqube.plugins%3Asonar-icode-plugin&metric=sqale_index)
 
 SonarQube plugin for the code analysis tool: i-Code CNES.
 

@@ -29,7 +29,14 @@ import java.io.InputStream;
  *
  * @author lequal
  */
-public class XMLHandler {
+public class XmlHandler {
+
+    /**
+     * Private constructor for this utility class.
+     */
+    private XmlHandler() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * This method use JAXB to unmarshal XML report: it transform simply
@@ -40,7 +47,7 @@ public class XMLHandler {
      * @return AnalysisReport: the main structure of the report.
      * @throws JAXBException Exception during conversion can be met.
      */
-    static public Object unmarshal(final File file, final Class<?> cls) throws JAXBException {
+    public static Object unmarshal(final File file, final Class<?> cls) throws JAXBException {
         final JAXBContext jaxbContext = JAXBContext.newInstance(cls);
         final Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         return jaxbUnmarshaller.unmarshal(file);
@@ -55,7 +62,7 @@ public class XMLHandler {
      * @return AnalysisReport: the main structure of the report.
      * @throws JAXBException Exception during conversion can be met.
      */
-    static public Object unmarshal(final InputStream file, final Class<?> cls) throws JAXBException {
+    public static Object unmarshal(final InputStream file, final Class<?> cls) throws JAXBException {
         final JAXBContext jaxbContext = JAXBContext.newInstance(cls);
         final Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         return jaxbUnmarshaller.unmarshal(file);
