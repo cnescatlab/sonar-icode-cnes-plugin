@@ -16,12 +16,14 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
-import fr.cnes.sonar.plugins.icode.languages.ICodeLanguage;
+import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
+import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
+import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
 import fr.cnes.sonar.plugins.icode.measures.ICodeMetricsProcessor;
 import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
-import fr.cnes.sonar.plugins.icode.model.XMLHandler;
+import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 import org.sonar.api.batch.fs.FilePredicate;
@@ -66,7 +68,7 @@ public class ICodeSensor implements Sensor {
     @Override
     public void describe(SensorDescriptor sensorDescriptor) {
         // Prevents sensor to be run during all analysis.
-        sensorDescriptor.onlyOnLanguage(ICodeLanguage.KEY);
+        sensorDescriptor.onlyOnLanguages(ShellLanguage.KEY, Fortran77Language.KEY, Fortran90Language.KEY);
 
         // Defines sensor name
         sensorDescriptor.name(getClass().getName());
@@ -75,7 +77,10 @@ public class ICodeSensor implements Sensor {
         sensorDescriptor.onlyOnFileType(InputFile.Type.MAIN);
 
         // This sensor is activated only if a rule from the following repo is activated.
-        sensorDescriptor.createIssuesForRuleRepository(ICodeRulesDefinition.getRepositoryKeyForLanguage());
+        sensorDescriptor.createIssuesForRuleRepositories(
+                ICodeRulesDefinition.getRepositoryKeyForLanguage(ShellLanguage.KEY),
+                ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran77Language.KEY),
+                ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran90Language.KEY));
     }
 
     /**
@@ -100,7 +105,7 @@ public class ICodeSensor implements Sensor {
             try {
                 // Unmarshall the xml.
                 final File file = new File(reportPath);
-                final AnalysisProject analysisProject = (AnalysisProject) XMLHandler.unmarshal(file, AnalysisProject.class);
+                final AnalysisProject analysisProject = (AnalysisProject) XmlHandler.unmarshal(file, AnalysisProject.class);
                 // Retrieve file in a SonarQube format.
                 final Map<String, InputFile> scannedFiles = getScannedFiles(fileSystem, analysisProject);
 
@@ -141,7 +146,7 @@ public class ICodeSensor implements Sensor {
 
         if(inputFile!=null) {
             // Retrieve the ruleKey if it exists.
-            final RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(), issue.analysisRuleId);
+            final RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(inputFile.language()), issue.analysisRuleId);
 
             // Create a new issue for SonarQube, but it must be saved using NewIssue.save().
             final NewIssue newIssue = context.newIssue();
@@ -234,8 +239,10 @@ public class ICodeSensor implements Sensor {
      * @return True if the rule is active and false if not or not exists.
      */
     private boolean isRuleActive(final ActiveRules activeRules, final String rule) {
-        final RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(), rule);
-        return activeRules.find(ruleKey)!=null;
+        final RuleKey ruleKeyShell = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(ShellLanguage.KEY), rule);
+        final RuleKey ruleKeyF77 = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran77Language.KEY), rule);
+        final RuleKey ruleKeyF90 = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran90Language.KEY), rule);
+        return activeRules.find(ruleKeyShell)!=null || activeRules.find(ruleKeyF77)!=null || activeRules.find(ruleKeyF90)!=null;
     }
 
 }

@@ -32,7 +32,7 @@ import java.util.List;
 public class ComputeNestingMetricTest {
 
     @Test
-    public void callDefine() {
+    public void test_metric_definition() {
         MeasureComputerDefinition measureComputerDefinition = Mockito.mock(MeasureComputerDefinition.class);
         MeasureComputer.MeasureComputerDefinition.Builder builder = Mockito.mock(MeasureComputer.MeasureComputerDefinition.Builder.class);
         List<Metric> allMetrics = (new ICodeNestingMetric()).getMetrics();
@@ -47,7 +47,7 @@ public class ComputeNestingMetricTest {
     }
 
     @Test
-    public void given_context_when_compute_then_newComputedMeasures() {
+    public void test_given_context_when_compute_then_newComputedMeasures() {
         org.sonar.api.ce.measure.Component componentFile = Mockito.mock(org.sonar.api.ce.measure.Component.class);
         Mockito.when(componentFile.getType()).thenReturn(Component.Type.DIRECTORY);
         MeasureComputerContext context = Mockito.mock(MeasureComputerContext.class);

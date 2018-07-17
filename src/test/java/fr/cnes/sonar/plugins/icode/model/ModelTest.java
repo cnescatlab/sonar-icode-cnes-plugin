@@ -20,11 +20,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.xml.bind.JAXBException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+
 public class ModelTest {
 
     private AnalysisProject project;
     private AnalysisFile file;
     private AnalysisRule rule;
+    private RulesDefinition rulesDefinition;
+    private Rule check;
 
     @Before
     public void before() {
@@ -43,7 +51,7 @@ public class ModelTest {
 
         rule = new AnalysisRule();
         rule.analysisRuleId = "WOW";
-        rule.result =new Result();
+        rule.result = new Result();
         rule.result.fileName = "a";
         rule.result.resultId = "z";
         rule.result.resultLine = "e";
@@ -51,11 +59,43 @@ public class ModelTest {
         rule.result.resultNamePlace = "t";
         rule.result.resultTypePlace = "y";
         rule.result.resultValue = "u";
+
+        check = new Rule();
+        check.key = "a";
+        check.cardinality = "a";
+        check.description = "a";
+        check.internalKey = "a";
+        check.name = "a";
+        check.remediationFunction = "a";
+        check.remediationFunctionBaseEffort = "a";
+        check.severity = "a";
+        check.status = "a";
+        check.tag = "a";
+        check.type = "a";
+
+        rulesDefinition = new RulesDefinition();
     }
 
     @Test
     public void test_getters() {
         Assert.assertEquals(0, project.getAnalysisFiles().size());
         Assert.assertEquals(0, project.getAnalysisRules().size());
+        Assert.assertEquals(0, rulesDefinition.getRules().size());
+        rulesDefinition.icodeRules = new Rule[]{check};
+        Assert.assertEquals(1, rulesDefinition.getRules().size());
+    }
+
+    @Test
+    public void test_unmarshal_from_file() throws JAXBException, URISyntaxException {
+        File file = new File(this.getClass().getResource("/rules/icode-shell-rules.xml").toURI());
+        RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(file, RulesDefinition.class);
+        Assert.assertEquals(33, def.getRules().size());
+    }
+
+    @Test
+    public void test_unmarshal_from_stream() throws JAXBException {
+        InputStream stream = this.getClass().getResourceAsStream("/rules/icode-shell-rules.xml");
+        RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
+        Assert.assertEquals(33, def.getRules().size());
     }
 }

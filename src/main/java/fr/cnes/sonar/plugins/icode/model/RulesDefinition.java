@@ -33,7 +33,7 @@ import java.util.List;
 public class RulesDefinition {
 
     @XmlElement( name = "rule" )
-    private Rule[] icodeRules;
+    public Rule[] icodeRules;
 
     /**
      * Getter for accessing rules (definition).

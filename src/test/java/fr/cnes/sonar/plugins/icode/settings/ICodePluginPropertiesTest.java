@@ -16,7 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.settings;
 
-import fr.cnes.sonar.plugins.icode.languages.ICodeLanguage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sonar.api.config.PropertyDefinition;
@@ -28,15 +27,15 @@ import static org.junit.Assert.assertEquals;
 public class ICodePluginPropertiesTest {
 
 	@Test
-	public void test() {
+	public void test_plugin_properties_definition() {
 		List<PropertyDefinition> actual = ICodePluginProperties.getProperties();
-		assertEquals(2, actual.size());
+		assertEquals(4, actual.size());
 		PropertyDefinition codeSuffix = actual.get(0);
-		Assert.assertEquals(ICodeLanguage.NAME, codeSuffix.category());
-		assertEquals(ICodePluginProperties.CODE_SUFFIX_KEY, codeSuffix.key());
-		assertEquals(ICodePluginProperties.CODE_SUFFIX_DEFAULT, codeSuffix.defaultValue());
-		PropertyDefinition reportPath = actual.get(1);
-		assertEquals(ICodeLanguage.NAME, reportPath.category());
+		Assert.assertEquals(ICodePluginProperties.ICODE_NAME, codeSuffix.category());
+		assertEquals(ICodePluginProperties.SHELL_SUFFIX_KEY, codeSuffix.key());
+		assertEquals(ICodePluginProperties.SHELL_SUFFIX_DEFAULT, codeSuffix.defaultValue());
+		PropertyDefinition reportPath = actual.get(3);
+		assertEquals(ICodePluginProperties.ICODE_NAME, reportPath.category());
 		assertEquals(ICodePluginProperties.REPORT_PATH_KEY, reportPath.key());
 		assertEquals(ICodePluginProperties.REPORT_PATH_DEFAULT, reportPath.defaultValue());
 	}

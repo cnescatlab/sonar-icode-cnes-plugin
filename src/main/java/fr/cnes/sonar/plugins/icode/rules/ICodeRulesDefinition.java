@@ -16,7 +16,10 @@
  */
 package fr.cnes.sonar.plugins.icode.rules;
 
-import fr.cnes.sonar.plugins.icode.languages.ICodeLanguage;
+import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
+import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
+import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
+import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 
@@ -26,23 +29,49 @@ import java.nio.charset.StandardCharsets;
 /**
  * Specific i-Code rules definition provided by resource file.
  *
- * @author Cyrille FRANCOIS
+ * @author lequal
  */
 public class ICodeRulesDefinition implements RulesDefinition {
 
 	/** Partial key for repository. **/
-	private static final String KEY = "rules";
+	private static final String REPO_KEY_SUFFIX = "-rules";
 
-	/** Path to xml file in resources tree. **/
-	public static final String PATH_TO_RULES_XML = "/rules/icode-rules.xml";
+	/** Path to xml file in resources tree (shell rules). **/
+	public static final String PATH_TO_SHELL_RULES_XML = "/rules/icode-shell-rules.xml";
 
+	/** Path to xml file in resources tree (fortran 77 rules). **/
+	public static final String PATH_TO_F77_RULES_XML = "/rules/icode-f77-rules.xml";
+
+	/** Path to xml file in resources tree (fortran 90 rules). **/
+	public static final String PATH_TO_F90_RULES_XML = "/rules/icode-f90-rules.xml";
+
+	/**
+	 * Define i-Code rules in SonarQube thanks to xml configuration files.
+	 *
+	 * @param context SonarQube context.
+	 */
 	@Override
 	public void define(Context context) {
+		createRepository(context, ShellLanguage.KEY);
+		createRepository(context, Fortran77Language.KEY);
+		createRepository(context, Fortran90Language.KEY);
+	}
+
+	/**
+	 * Create repositories for each language.
+	 *
+	 * @param context SonarQube context.
+	 * @param language Key of the language.
+	 */
+	protected void createRepository(final Context context, final String language) {
+		// Create a repository to put rules inside.
 		final NewRepository repository = context
-                .createRepository(getRepositoryKeyForLanguage(), ICodeLanguage.KEY)
+                .createRepository(getRepositoryKeyForLanguage(language), language)
                 .setName(getRepositoryName());
 
-		final InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath());
+		// Get XML file describing rules for language.
+		final InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath(language));
+		// Add rules in repository.
 		if (rulesXml != null) {
 			final RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
 			rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
@@ -50,13 +79,14 @@ public class ICodeRulesDefinition implements RulesDefinition {
 		repository.done();
 	}
 
-    /**
+	/**
      * Getter for repository key.
-     *
+	 *
+	 * @param language Key of the related language.
      * @return A string "language-key".
      */
-    public static String getRepositoryKeyForLanguage() {
-        return ICodeLanguage.KEY + "-" + KEY;
+    public static String getRepositoryKeyForLanguage(final String language) {
+        return language + REPO_KEY_SUFFIX;
     }
 
     /**
@@ -65,16 +95,31 @@ public class ICodeRulesDefinition implements RulesDefinition {
      * @return A string.
      */
     public static String getRepositoryName() {
-        return ICodeLanguage.NAME;
+        return ICodePluginProperties.ICODE_NAME;
     }
 
     /**
      * Getter for the path to rules file.
      *
+	 * @param language Key of the language.
      * @return A path in String format.
      */
-	public String rulesDefinitionFilePath() {
-		return PATH_TO_RULES_XML;
+	public String rulesDefinitionFilePath(final String language) {
+		String path = "bad_file";
+		switch (language) {
+			case ShellLanguage.KEY:
+				path = PATH_TO_SHELL_RULES_XML;
+				break;
+			case Fortran77Language.KEY:
+				path = PATH_TO_F77_RULES_XML;
+				break;
+			case Fortran90Language.KEY:
+				path = PATH_TO_F90_RULES_XML;
+				break;
+			default:
+				break;
+		}
+		return path;
 	}
 }
 

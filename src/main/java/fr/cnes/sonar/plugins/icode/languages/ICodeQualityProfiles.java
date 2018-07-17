@@ -18,14 +18,13 @@ package fr.cnes.sonar.plugins.icode.languages;
 
 import fr.cnes.sonar.plugins.icode.model.Rule;
 import fr.cnes.sonar.plugins.icode.model.RulesDefinition;
-import fr.cnes.sonar.plugins.icode.model.XMLHandler;
+import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 import javax.xml.bind.JAXBException;
-import java.io.File;
 import java.io.InputStream;
 
 /**
@@ -33,12 +32,10 @@ import java.io.InputStream;
  *
  * @author lequal
  */
-public final class ICodeQualityProfile implements BuiltInQualityProfilesDefinition {
+public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinition {
 
-    /**
-     * Logger for this class.
-     */
-    private static final Logger LOGGER = Loggers.get(ICodeQualityProfile.class);
+    /** Logger for this class. **/
+    private static final Logger LOGGER = Loggers.get(ICodeQualityProfiles.class);
 
     /** Display name for the built-in quality profile. **/
     private static final String I_CODE_RULES_PROFILE_NAME = "Sonar way";
@@ -50,18 +47,30 @@ public final class ICodeQualityProfile implements BuiltInQualityProfilesDefiniti
      */
     @Override
     public void define(Context context) {
+        createBuiltInProfile(context, ShellLanguage.KEY, ICodeRulesDefinition.PATH_TO_SHELL_RULES_XML);
+        createBuiltInProfile(context, Fortran77Language.KEY, ICodeRulesDefinition.PATH_TO_F77_RULES_XML);
+        createBuiltInProfile(context, Fortran90Language.KEY, ICodeRulesDefinition.PATH_TO_F90_RULES_XML);
+    }
 
+    /**
+     * Create a built in quality profile for a specific language.
+     *
+     * @param context SonarQube context in which create the profile.
+     * @param language Language key of the associated profile.
+     * @param path Path to the xml definition of all rules.
+     */
+    private void createBuiltInProfile(final Context context, final String language, final String path) {
         // Create a builder for the rules' repository.
         final NewBuiltInQualityProfile defaultProfile =
-                context.createBuiltInQualityProfile(I_CODE_RULES_PROFILE_NAME, ICodeLanguage.KEY);
+                context.createBuiltInQualityProfile(I_CODE_RULES_PROFILE_NAME, language);
 
         try {
             // Retrieve all defined rules.
-            final InputStream stream = getClass().getResourceAsStream(ICodeRulesDefinition.PATH_TO_RULES_XML);
-            final RulesDefinition rules = (RulesDefinition) XMLHandler.unmarshal(stream, RulesDefinition.class);
+            final InputStream stream = getClass().getResourceAsStream(path);
+            final RulesDefinition rules = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
             // Activate all i-Code CNES rules.
             for(final Rule rule : rules.getRules()) {
-                defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(), rule.key);
+                defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(language), rule.key);
             }
         } catch (JAXBException e) {
             LOGGER.warn(e.getLocalizedMessage(), e);

@@ -16,56 +16,125 @@
  */
 package fr.cnes.sonar.plugins.icode.settings;
 
-import fr.cnes.sonar.plugins.icode.languages.ICodeLanguage;
 import org.sonar.api.config.PropertyDefinition;
 
+import java.util.Arrays;
 import java.util.List;
 
-import static java.util.Arrays.asList;
-
-
+/**
+ * Define all SonarQube properties provided by this plugin.
+ */
 public class ICodePluginProperties {
 
-    /** Prefix used by all properties of this plugin. **/
-	private static final String PROPERTIES_PREFIX = "sonar.icode.";
-	
-	// project code file patterns
-    /** Key for the code suffix property **/
-	public static final String CODE_SUFFIX_KEY = PROPERTIES_PREFIX + "file.suffixes";
-    /** Default value for the code suffix property **/
-	public static final String CODE_SUFFIX_DEFAULT = ".f,.f77,.f90,.F,.F77,.F90,.sh";
-    /** Name for the code suffix property **/
-	public static final String CODE_SUFFIX_NAME = "File Suffixes";
-    /** Description for the code suffix property **/
-    public static final String CODE_SUFFIX_DESC = "List of suffixes for files to analyze.";
+    /**
+     * Prefix used by all properties of this plugin.
+     **/
+    private static final String PROPERTIES_PREFIX = "sonar.icode.";
 
-	// Reports path
-	/** Key for the report path property **/
-	public static final String REPORT_PATH_KEY = PROPERTIES_PREFIX + "reports.path";
-	/** Name for the report path property **/
-	public static final String REPORT_PATH_NAME = "Report files";
-	/** Description for the report path property **/
-	public static final String REPORT_PATH_DESC = "Path to the i-Code reports. Multiple path can be provided.";
-	/** Default value for the report path property **/
-	public static final String REPORT_PATH_DEFAULT = "result.res";
+    /**
+     * i-Code name.
+     **/
+    public static final String ICODE_NAME = "i-Code CNES";
 
-	private ICodePluginProperties() {
-		super();
-	}
+    // project code file patterns
+    /**
+     * Key for the Shell suffix property
+     **/
+    public static final String SHELL_SUFFIX_KEY = PROPERTIES_PREFIX + "shell.file.suffixes";
+    /**
+     * Default value for the code suffix property
+     **/
+    public static final String SHELL_SUFFIX_DEFAULT = ".sh";
+    /**
+     * Name for the code suffix property
+     **/
+    public static final String SHELL_SUFFIX_NAME = "Shell File Suffixes";
+    /**
+     * Description for the code suffix property
+     **/
+    public static final String SHELL_SUFFIX_DESC = "List of suffixes for Shell files to analyze.";
 
-	/**
-	 * Plugin properties extensions
-	 */
-	public static List<PropertyDefinition> getProperties() {
-		return asList(
-				PropertyDefinition.builder(CODE_SUFFIX_KEY).multiValues(true)
-				.defaultValue(CODE_SUFFIX_DEFAULT).category(ICodeLanguage.NAME)
-				.name(CODE_SUFFIX_NAME).description(CODE_SUFFIX_DESC)
-				.build(),
-				PropertyDefinition.builder(REPORT_PATH_KEY).multiValues(true)
-				.defaultValue(REPORT_PATH_DEFAULT).category(ICodeLanguage.NAME)
-				.name(REPORT_PATH_NAME).description(REPORT_PATH_DESC)
-				.build());
-	}
+    // project code file patterns
+    /**
+     * Key for the F77 suffix property
+     **/
+    public static final String F77_SUFFIX_KEY = PROPERTIES_PREFIX + "f77.file.suffixes";
+    /**
+     * Default value for the code suffix property
+     **/
+    public static final String F77_SUFFIX_DEFAULT = ".f,.f77,.F,.F77";
+    /**
+     * Name for the code suffix property
+     **/
+    public static final String F77_SUFFIX_NAME = "Fortran 77 File Suffixes";
+    /**
+     * Description for the code suffix property
+     **/
+    public static final String F77_SUFFIX_DESC = "List of suffixes for Fortran 77 files to analyze.";
+
+    // project code file patterns
+    /**
+     * Key for the F90 suffix property
+     **/
+    public static final String F90_SUFFIX_KEY = PROPERTIES_PREFIX + "f90.file.suffixes";
+    /**
+     * Default value for the code suffix property
+     **/
+    public static final String F90_SUFFIX_DEFAULT = ".f90,.F90";
+    /**
+     * Name for the code suffix property
+     **/
+    public static final String F90_SUFFIX_NAME = "Fortran 90 File Suffixes";
+    /**
+     * Description for the code suffix property
+     **/
+    public static final String F90_SUFFIX_DESC = "List of suffixes for Fortran 90 files to analyze.";
+
+    // Reports path
+    /**
+     * Key for the report path property
+     **/
+    public static final String REPORT_PATH_KEY = PROPERTIES_PREFIX + "reports.path";
+    /**
+     * Name for the report path property
+     **/
+    public static final String REPORT_PATH_NAME = "Report files";
+    /**
+     * Description for the report path property
+     **/
+    public static final String REPORT_PATH_DESC = "Path to the i-Code reports. Multiple path can be provided.";
+    /**
+     * Default value for the report path property
+     **/
+    public static final String REPORT_PATH_DEFAULT = "result.res";
+
+    private ICodePluginProperties() {
+        super();
+    }
+
+    /**
+     * Plugin properties extensions.
+     *
+     * @return The list of built properties.
+     */
+    public static List<PropertyDefinition> getProperties() {
+        return Arrays.asList(
+            PropertyDefinition.builder(SHELL_SUFFIX_KEY).multiValues(true)
+                .defaultValue(SHELL_SUFFIX_DEFAULT).category(ICODE_NAME)
+                .name(SHELL_SUFFIX_NAME).description(SHELL_SUFFIX_DESC)
+                .build(),
+            PropertyDefinition.builder(F77_SUFFIX_KEY).multiValues(true)
+                .defaultValue(F77_SUFFIX_DEFAULT).category(ICODE_NAME)
+                .name(F77_SUFFIX_NAME).description(F77_SUFFIX_DESC)
+                .build(),
+            PropertyDefinition.builder(F90_SUFFIX_KEY).multiValues(true)
+                .defaultValue(F90_SUFFIX_DEFAULT).category(ICODE_NAME)
+                .name(F90_SUFFIX_NAME).description(F90_SUFFIX_DESC)
+                .build(),
+            PropertyDefinition.builder(REPORT_PATH_KEY).multiValues(true)
+                .defaultValue(REPORT_PATH_DEFAULT).category(ICODE_NAME)
+                .name(REPORT_PATH_NAME).description(REPORT_PATH_DESC)
+                .build());
+    }
 
 }

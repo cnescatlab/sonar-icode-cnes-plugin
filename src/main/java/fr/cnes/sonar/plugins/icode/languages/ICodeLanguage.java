@@ -16,7 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.languages;
 
-import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.resources.AbstractLanguage;
@@ -24,39 +23,64 @@ import org.sonar.api.resources.AbstractLanguage;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class ICodeLanguage extends AbstractLanguage {
-	public static final String NAME = "i-Code";
-	public static final String KEY = "icode";
+/**
+ * Declared language i-Code as the parent language for Fortran 77, Fortran 90 & Shell.
+ *
+ * @author lequal
+ */
+public abstract class ICodeLanguage extends AbstractLanguage {
 
+	/**
+	 * Injected SonarQube configuration.
+	 */
 	private final Configuration configuration;
 
 	/**
-	 * ICode extension for ICode specific properties, Metrics and Rules.
-	 * 
-	 * @param configuration Inject SonarQube configuration into this extension
+	 * i-Code extension for i-Code specific properties, Metrics and Rules.
+	 *
+	 * @param configuration Inject SonarQube configuration into this extension.
+	 * @param key Key of the language to set.
+	 * @param name Name of the language to set.
 	 */
-	public ICodeLanguage(Configuration configuration) {
-		super(KEY, NAME);
+	public ICodeLanguage(final Configuration configuration, final String key, final String name) {
+		super(key, name);
 		this.configuration = configuration;
 	}
 
+	/**
+	 * Returns the list of suffixes which should be associated to this language.
+	 *
+	 * @return A strings' array with file's suffixes.
+	 */
 	@Override
 	public String[] getFileSuffixes() {
-		String[] suffixes = filterEmptyStrings(
-				configuration.getStringArray(ICodePluginProperties.CODE_SUFFIX_KEY));
+		String[] suffixes = filterEmptyStrings(configuration.getStringArray(getSuffixKey()));
 		if (suffixes.length == 0) {
-			suffixes = ICodePluginProperties.CODE_SUFFIX_DEFAULT
-					.split(",");
+			suffixes = getDefaultSuffixes().split(",");
 		}
 		return suffixes;
 	}
 
 	/**
-	 * Delete all empty string values into a input String array
+	 * Return the ey corresponding to the property with suffixes.
+	 *
+	 * @return A String with the key.
+	 */
+	public abstract String getSuffixKey();
+
+	/**
+	 * Return default suffixes for the language.
+	 *
+	 * @return A String containing a coma-separated list.
+	 */
+	public abstract String getDefaultSuffixes();
+
+	/**
+	 * Delete all empty string values into a input String array.
 	 * 
-	 * @param stringArray Input String array
-	 * 
-	 * @return Output String array without empty string values
+	 * @param stringArray Input String array.
+	 *
+	 * @return Output String array without empty string values.
 	 */
     private static String[] filterEmptyStrings(String[] stringArray) {
         List<String> nonEmptyStrings = new ArrayList<>();
@@ -67,4 +91,25 @@ public final class ICodeLanguage extends AbstractLanguage {
         }
         return nonEmptyStrings.toArray(new String[nonEmptyStrings.size()]);
     }
+
+	/**
+	 * Assert obj is the same object as this.
+	 *
+	 * @param obj Object to compare with this.
+	 * @return True if obj is this.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return obj==this;
+	}
+
+	/**
+	 * Override hashcode because equals is overridden.
+	 *
+	 * @return An integer hashcode.
+	 */
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 }

@@ -16,41 +16,35 @@
  */
 package fr.cnes.sonar.plugins.icode.rules;
 
-import fr.cnes.sonar.plugins.icode.languages.ICodeLanguage;
+import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.sonar.api.server.rule.RulesDefinition.Context;
-import org.sonar.api.server.rule.RulesDefinition.NewRepository;
-
-import static org.junit.Assert.assertEquals;
+import org.sonar.api.server.rule.RulesDefinition;
 
 public class ICodeRulesDefinitionTest {
 
-	
 	@Test
-	public void given_context_when_define_then_repositoryDone() {
-		String repositoryKey = ICodeRulesDefinition.getRepositoryKeyForLanguage();
-		String languageKey = ICodeLanguage.KEY;
-		String repositoryName = ICodeRulesDefinition.getRepositoryName();
-		NewRepository repository = Mockito.mock(NewRepository.class);
-		Context context = Mockito.mock(Context.class);
-		Mockito.when(context.createRepository(repositoryKey, languageKey)).thenReturn(repository);
-		Mockito.when(repository.setName(repositoryName)).thenReturn(repository);
-		ICodeRulesDefinition iCodeRulesDefinition = new ICodeRulesDefinition(){
-			public String rulesDefinitionFilePath() {
-				return "/default/bad-icode-rules.xml";
-			}
-		};
-		iCodeRulesDefinition.define(context);
-		Mockito.verify(repository).done();
+	public void test_creation_of_repositories_and_rules() {
+		RulesDefinition.Context context = new RulesDefinition.Context();
+		Assert.assertEquals(0, context.repositories().size());
+		new ICodeRulesDefinition().define(context);
+		Assert.assertEquals(3, context.repositories().size());
+		Assert.assertEquals(33, context.repository("shell-rules").rules().size());
+		Assert.assertEquals(57, context.repository("f77-rules").rules().size());
+		Assert.assertEquals(63, context.repository("f90-rules").rules().size());
 	}
-	
+
 	@Test
-	public void testRulesDefinitionFilePath(){
-		ICodeRulesDefinition icodeRulesDefinition = new ICodeRulesDefinition();
-		String expected = new ICodeRulesDefinition().rulesDefinitionFilePath();
-		String actual = icodeRulesDefinition.rulesDefinitionFilePath();
-		assertEquals(expected, actual);
+	public void test_creation_of_repositories_and_rules_for_bad_language() {
+		RulesDefinition.Context context = new RulesDefinition.Context();
+		Assert.assertEquals(0, context.repositories().size());
+		new ICodeRulesDefinition(){
+			@Override
+			public void define(Context context) {
+				createRepository(context, "bad");
+			}
+		}.define(context);
+		Assert.assertEquals(1, context.repositories().size());
+		Assert.assertEquals(0, context.repository("bad-rules").rules().size());
 	}
 
 }

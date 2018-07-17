@@ -17,29 +17,33 @@
 package fr.cnes.sonar.plugins.icode;
 
 import fr.cnes.sonar.plugins.icode.check.ICodeSensor;
-import fr.cnes.sonar.plugins.icode.languages.ICodeLanguage;
-import fr.cnes.sonar.plugins.icode.languages.ICodeQualityProfile;
+import fr.cnes.sonar.plugins.icode.languages.*;
 import fr.cnes.sonar.plugins.icode.measures.ICodeNestingMetric;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 import org.sonar.api.Plugin;
 
 /**
- * This class is the entry point for all extensions
+ * This class is the entry point for all extensions.
  * 
  * @author Cyrille FRANCOIS
  */
 public class ICodePlugin implements Plugin {
 
+	/**
+	 * Define all extensions implemented by the plugin.
+	 *
+	 * @param context SonarQube context.
+	 */
+	@Override
 	public void define(Context context) {
 		// Setting plugin ICode
-		context.addExtensions(ICodeLanguage.class, ICodeQualityProfile.class);
+		context.addExtensions(ShellLanguage.class, Fortran77Language.class, Fortran90Language.class);
+		context.addExtension(ICodeQualityProfiles.class);
 		context.addExtensions(ICodePluginProperties.getProperties());
 
 		// Metrics definition and computed measures
-		context.addExtension(
-				ICodeNestingMetric.class
-		);
+		context.addExtension(ICodeNestingMetric.class);
 
 		// Rules definition
 		context.addExtension(ICodeRulesDefinition.class);

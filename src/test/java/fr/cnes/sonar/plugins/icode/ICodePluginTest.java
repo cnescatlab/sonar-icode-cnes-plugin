@@ -16,23 +16,26 @@
  */
 package fr.cnes.sonar.plugins.icode;
 
-import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
+import org.junit.Assert;
 import org.junit.Test;
 import org.sonar.api.Plugin;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import org.sonar.api.SonarQubeSide;
+import org.sonar.api.SonarRuntime;
+import org.sonar.api.internal.SonarRuntimeImpl;
+import org.sonar.api.utils.Version;
 
 
 public class ICodePluginTest {
 
+	private static final Version VERSION_6_7 = Version.create(6, 7);
+
 	@Test
-	public void testExtension() {
-		Plugin.Context context = mock(Plugin.Context.class);
-		ICodePlugin plugin = new ICodePlugin();
-		plugin.define(context);
-		
-		verify(context).addExtension(ICodeRulesDefinition.class);
+	public void test_extensions_are_all_set() {
+		ICodePlugin iCodePlugin = new ICodePlugin();
+		SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(VERSION_6_7, SonarQubeSide.SERVER);
+		Plugin.Context context = new Plugin.Context(runtime);
+		iCodePlugin.define(context);
+		Assert.assertEquals(11, context.getExtensions().size());
 	}
 
 }

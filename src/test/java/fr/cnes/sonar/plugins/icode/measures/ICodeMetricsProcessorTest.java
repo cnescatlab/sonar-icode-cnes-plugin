@@ -47,7 +47,7 @@ public class ICodeMetricsProcessorTest {
 
     @Before
     public void prepare() throws URISyntaxException {
-        fs = new DefaultFileSystem(new File(ICodeMetricsProcessor.class.getResource("/TestsPluginICode/metrics/").toURI()));
+        fs = new DefaultFileSystem(new File(ICodeMetricsProcessor.class.getResource("/project/").toURI()));
         fs.setEncoding(Charset.forName("UTF-8"));
 
         bash_sh = TestInputFileBuilder.create(

@@ -46,12 +46,11 @@ public class ICodeSensorTest {
 
     private DefaultInputFile bash_sh;
     private DefaultInputFile clanhb_f;
-    private DefaultInputFile example_res;
     private AnalysisRule rule;
 
     @Before
     public void prepare() throws URISyntaxException {
-        fs = new DefaultFileSystem(new File(ICodeSensor.class.getResource("/TestsPluginICode/metrics/").toURI()));
+        fs = new DefaultFileSystem(new File(getClass().getResource("/project").toURI()));
         fs.setEncoding(Charset.forName("UTF-8"));
 
         bash_sh = TestInputFileBuilder.create(
@@ -86,12 +85,12 @@ public class ICodeSensorTest {
         context = SensorContextTester.create(fs.baseDir());
         context.setFileSystem(fs);
         MapSettings settings = new MapSettings();
-        settings.setProperty("sonar.icode.reports.path", "example.res");
+        settings.setProperty("sonar.icode.reports.path", "");
         context.setSettings(settings);
     }
 
 	@Test
-	public void given_sensorDescriptor_when_describe_then_callSensorDescriptorName() {
+	public void test_given_sensorDescriptor_when_describe_then_callSensorDescriptorName() {
 		SensorDescriptor sensorDescriptor = Mockito.mock(SensorDescriptor.class);
 		ICodeSensor icodeMetricsSensor = new ICodeSensor();
 		icodeMetricsSensor.describe(sensorDescriptor);
