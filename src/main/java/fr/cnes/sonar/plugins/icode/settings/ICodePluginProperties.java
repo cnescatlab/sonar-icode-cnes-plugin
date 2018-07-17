@@ -44,7 +44,7 @@ public class ICodePluginProperties {
     /**
      * Default value for the code suffix property
      **/
-    public static final String SHELL_SUFFIX_DEFAULT = ".sh";
+    public static final String SHELL_SUFFIX_DEFAULT = ".sh,.ksh,.bash";
     /**
      * Name for the code suffix property
      **/
@@ -62,7 +62,7 @@ public class ICodePluginProperties {
     /**
      * Default value for the code suffix property
      **/
-    public static final String F77_SUFFIX_DEFAULT = ".f,.f77,.F,.F77";
+    public static final String F77_SUFFIX_DEFAULT = ".f,.f77,.for,.fpp,.ftn,.F,.F77,.FOR,.FPP,.FTN";
     /**
      * Name for the code suffix property
      **/

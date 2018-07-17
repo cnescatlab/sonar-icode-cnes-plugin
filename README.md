@@ -11,6 +11,8 @@ SonarQube is an open platform to manage code quality. This plugin adds the abili
 
 This plugin is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
+You can get i-Code CNES on GitHub: [lequal/i-CodeCNES](https://github.com/lequal/i-CodeCNES).
+
 ### Quickstart
 - Setup a SonarQube instance
 - Install i-Code

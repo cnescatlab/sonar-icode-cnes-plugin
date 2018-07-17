@@ -43,7 +43,7 @@ public class ICodeNestingMetric implements Metrics, MeasureComputer {
             KEY,
             "Nesting (Maximum)",
             Metric.ValueType.INT)
-            .setDescription("Maximum number of nested statements' levels.")
+            .setDescription("Maximum number of nested statements levels.")
             .setDirection(Metric.DIRECTION_WORST)
             .setQualitative(false)
             .setHidden(false)

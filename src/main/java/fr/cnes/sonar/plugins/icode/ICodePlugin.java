@@ -26,7 +26,7 @@ import org.sonar.api.Plugin;
 /**
  * This class is the entry point for all extensions.
  * 
- * @author Cyrille FRANCOIS
+ * @author lequal
  */
 public class ICodePlugin implements Plugin {
 

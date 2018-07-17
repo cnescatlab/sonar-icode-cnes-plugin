@@ -32,9 +32,9 @@ public class ICodeLanguagesTest {
         ShellLanguage shellLanguage = new ShellLanguage(settings);
         Fortran77Language fortran77Language = new Fortran77Language(settings);
         Fortran90Language fortran90Language = new Fortran90Language(settings);
-        String[] expected = new String[]{".sh"};
+        String[] expected = new String[]{".sh",".ksh",".bash"};
         assertArrayEquals(expected, shellLanguage.getFileSuffixes());
-        expected = new String[]{".f",".f77",".F",".F77"};
+        expected = new String[]{".f",".f77",".for",".fpp",".ftn",".F",".F77",".FOR",".FPP",".FTN"};
         assertArrayEquals(expected, fortran77Language.getFileSuffixes());
         expected = new String[]{".f90",".F90"};
         assertArrayEquals(expected, fortran90Language.getFileSuffixes());
@@ -56,8 +56,10 @@ public class ICodeLanguagesTest {
 
             ICodeLanguage l1 = new ShellLanguage(settings);
 
-            Assert.assertEquals(1, l1.getFileSuffixes().length);
+            Assert.assertEquals(3, l1.getFileSuffixes().length);
             Assert.assertEquals(".sh", l1.getFileSuffixes()[0]);
+            Assert.assertEquals(".ksh", l1.getFileSuffixes()[1]);
+            Assert.assertEquals(".bash", l1.getFileSuffixes()[2]);
         }
     }
 
