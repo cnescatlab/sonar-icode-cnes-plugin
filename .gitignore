@@ -22,3 +22,9 @@ buildNumber.properties
 # Web
 /node/
 /node_modules/
+
+# Ignore SonarQube files
+.scannerwork
+
+# Ignore IntelliJ files
+.idea

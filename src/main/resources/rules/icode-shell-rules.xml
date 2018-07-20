@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<icodelint-rules>
+	<rule>
+		<key>SH.DATA.IFS</key>
+		<name>SH.DATA.IFS</name>
+		<internalKey>*</internalKey>
+		<description>It is forbidden to modify IFS variable.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.DATA.Integer</key>
+		<name>SH.DATA.Integer</name>
+		<internalKey>*</internalKey>
+		<description>Integer declaration should be done with ‘typeset –i’.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.DESIGN.Bash</key>
+		<name>SH.DESIGN.Bash</name>
+		<internalKey>*</internalKey>
+		<description>Script first line should be # !/bin/bash, # !/bin/ksh or # !/bin/false.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.DESIGN.Options</key>
+		<name>SH.DESIGN.Options</name>
+		<internalKey>*</internalKey>
+		<description>Getopts should be followed by a case where options are evaluated.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.ERR.Help</key>
+		<name>SH.ERR.Help</name>
+		<internalKey>*</internalKey>
+		<description>Options should be managed with getopts or getopt followed by a case. One of these cases should be –h or --help.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.ERR.NoPipe</key>
+		<name>SH.ERR.NoPipe</name>
+		<internalKey>*</internalKey>
+		<description>Use ‘set –o pipefail’ before using pipes.
+			Limitations:
+			- The use of “|” into a string or command line options will raise an error except in a printf or sed.
+			- The use of “|” followed by ‘#’ are not detected.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.ERR.String</key>
+		<name>SH.ERR.String</name>
+		<internalKey>*</internalKey>
+		<description>The use of « if » or « while » with strings, empty strings should be managed.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.FLOW.CheckArguments</key>
+		<name>SH.FLOW.CheckArguments</name>
+		<internalKey>*</internalKey>
+		<description>In a function, first instruction should be the parameters check.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.FLOW.CheckUser</key>
+		<name>SH.FLOW.CheckUser</name>
+		<internalKey>*</internalKey>
+		<description>If root rights are needed, the administration intervention should be asked right after the user check.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.INST.Basename</key>
+		<name>SH.INST.Basename</name>
+		<internalKey>*</internalKey>
+		<description>Do not use $0, replace it by ‘basename $0‘.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.INST.Find</key>
+		<name>SH.INST.Find</name>
+		<internalKey>*</internalKey>
+		<description>LS instruction is forbidden.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.INST.GetOpts</key>
+		<name>SH.INST.GetOpts</name>
+		<internalKey>*</internalKey>
+		<description>GETOPS should be used to check parameters.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.INST.Interpreter</key>
+		<name>SH.INST.Interpreter</name>
+		<internalKey>*</internalKey>
+		<description>First line should be the access to interpretor.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.INST.Keywords</key>
+		<name>SH.INST.Keywords</name>
+		<internalKey>*</internalKey>
+		<description>Keyword should not be used as variable name.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.INST.Logical</key>
+		<name>SH.INST.Logical</name>
+		<internalKey>*</internalKey>
+		<description>After « &amp;&amp; » or « || », only echo and exit are allowed.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.INST.POSIX</key>
+		<name>SH.INST.POSIX</name>
+		<internalKey>*</internalKey>
+		<description>POSIX commands should be used.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.INST.SetShift</key>
+		<name>SH.INST.SetShift</name>
+		<internalKey>*</internalKey>
+		<description>Instructions SET and SHIFT are forbidden.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.INST.Variables</key>
+		<name>SH.INST.Variables</name>
+		<internalKey>*</internalKey>
+		<description>Every variable should be written as : ${variable_name}.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.IO.Redirect</key>
+		<name>SH.IO.Redirect</name>
+		<internalKey>*</internalKey>
+		<description>Nonstandard redirections should be commented, the comment should contains the redirection name.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.MET.LimitAWK</key>
+		<name>SH.MET.LimitAWK</name>
+		<internalKey>*</internalKey>
+		<description>AWK instruction should not exceed 5 actions.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.MET.LimitSed</key>
+		<name>SH.MET.LimitSed</name>
+		<internalKey>*</internalKey>
+		<description>SED instruction should not exceed 5 actions.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>shell</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.MET.PipeLine</key>
+		<name>SH.MET.PipeLine</name>
+		<internalKey>*</internalKey>
+		<description>Every command pipeline should be commented.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>value</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.DATA.LoopCondition</key>
+		<name>COM.DATA.LoopCondition</name>
+		<internalKey>*</internalKey>
+		<description>It is forbidden to modify loop condition inside the loop.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.DATA.NotUsed</key>
+		<name>COM.DATA.NotUsed</name>
+		<internalKey>*</internalKey>
+		<description>Every declared variable should be used.
+			Limitations: a variable is considered as used if used with ${variable}.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.DESIGN.ActiveWait</key>
+		<name>COM.DESIGN.ActiveWait</name>
+		<internalKey>*</internalKey>
+		<description>WHILE[1] and keyword READ are forbidden.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.FLOW.Abort</key>
+		<name>COM.FLOW.Abort</name>
+		<internalKey>*</internalKey>
+		<description>Keyword KILL, PKILL and KILLALL are forbidden.
+			Limitation: i-Code CNES do not consider keyword “RETURN”, “BREAK” and “EXIT”.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.FLOW.BooleanExpression</key>
+		<name>COM.FLOW.BooleanExpression</name>
+		<internalKey>*</internalKey>
+		<description>In a condition (IF,DO), maximum number of operands is 5 (AND, OR, NEQV, XOR, EQV, NOT, LT, &lt;, LE, &lt;=, GT, &gt;, GE, &gt;=, EQ, ==, NE, /=).</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.FLOW.CaseSwitch</key>
+		<name>COM.FLOW.CaseSwitch</name>
+		<internalKey>*</internalKey>
+		<description>CASE instruction should finish with *).</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>f77</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.FLOW.ExitLoop</key>
+		<name>COM.FLOW.ExitLoop</name>
+		<internalKey>*</internalKey>
+		<description>Loops should have a unique exit point.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.FLOW.FileExistence</key>
+		<name>COM.FLOW.FileExistence</name>
+		<internalKey>*</internalKey>
+		<description>A file access (> file_name) should be preceded by the check : if[ ! -f $file_name]
+			Limitations:
+			- No detection in commands $(…) or `…`.
+			- A redirection or a redirected variable could be considered as a file.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.INST.CodeComment</key>
+		<name>COM.INST.CodeComment</name>
+		<internalKey>*</internalKey>
+		<description>Code comments are forbidden. I-Code CNES checks all keywords in comments (after #).
+			Limitation: False positive will be raised due to common word used as keyword, for example “date”.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.INST.Line</key>
+		<name>COM.INST.Line</name>
+		<internalKey>*</internalKey>
+		<description>Each line should be limited to only one expression.
+			Limitation: The use of keywords in command messages without using « » could produce false positive.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.PRES.Header</key>
+		<name>COM.PRES.Header</name>
+		<internalKey>*</internalKey>
+		<description>Headers are mandatory for each module and function.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>common</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+</icodelint-rules>
