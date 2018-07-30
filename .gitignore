@@ -17,7 +17,7 @@ buildNumber.properties
 /.project
 =======
 # Avoid ignoring Eclipse project specific configuration if someone use another IDE
-# /.project
+/.project
 /bin/
 # Web
 /node/
@@ -28,3 +28,4 @@ buildNumber.properties
 
 # Ignore IntelliJ files
 .idea
+*.iml
