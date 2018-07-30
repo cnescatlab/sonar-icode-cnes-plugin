@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.cnes.sonarqube.plugins</groupId>
-    <artifactId>sonar-icode-cnes-plugin</artifactId>
+    <artifactId>sonaricode</artifactId>
     <packaging>sonar-plugin</packaging>
     <version>1.0.0</version>
     <name>Sonar i-Code CNES plugin</name>
