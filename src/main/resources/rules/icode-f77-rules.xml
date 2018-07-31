@@ -9,7 +9,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -22,7 +21,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -35,7 +33,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -48,7 +45,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -61,7 +57,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -74,7 +69,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -87,7 +81,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -100,7 +93,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -113,7 +105,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -126,7 +117,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -139,7 +129,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -152,7 +141,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -165,7 +153,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -178,7 +165,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -191,7 +177,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -204,7 +189,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -217,7 +201,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -230,7 +213,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -243,7 +225,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -256,7 +237,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -269,7 +249,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -282,7 +261,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -295,7 +273,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -308,7 +285,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -321,7 +297,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -334,7 +309,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -347,7 +321,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -360,7 +333,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -373,7 +345,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -386,7 +357,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -399,7 +369,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -412,7 +381,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -425,7 +393,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -438,7 +405,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -451,7 +417,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -464,7 +429,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -477,7 +441,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -490,7 +453,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -503,7 +465,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -516,7 +477,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>value</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -529,7 +489,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -542,7 +501,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -555,7 +513,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -568,7 +525,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -581,7 +537,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -594,7 +549,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -607,7 +561,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -620,7 +573,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -633,7 +585,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -646,7 +597,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -659,7 +609,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -672,7 +621,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -685,7 +633,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -698,7 +645,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -711,7 +657,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -724,7 +669,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -737,7 +681,6 @@
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
