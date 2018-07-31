@@ -4,7 +4,7 @@
 		<key>COM.DATA.FloatCompare</key>
 		<name>COM.DATA.FloatCompare</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Equality and non equality (.EQ., ==, .NE., /=) are forbidden on reals (REAL, DOUBLE PRECISION, COMPLEX).</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -16,7 +16,7 @@
 		<key>COM.DATA.Initialisation</key>
 		<name>COM.DATA.Initialisation</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Variables have to be initialized before being used. When a variable is used, the algorithm should checked if it is initialized and if not throw an error.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -28,7 +28,7 @@
 		<key>COM.DATA.Invariant</key>
 		<name>COM.DATA.Invariant</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Data declared into subroutine, function, ... and which are never modified then should be declared as constant.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -40,7 +40,7 @@
 		<key>COM.DATA.LoopCondition</key>
 		<name>COM.DATA.LoopCondition</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>It is forbidden to modify loop condition inside the loop.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -52,7 +52,7 @@
 		<key>COM.DATA.NotUsed</key>
 		<name>COM.DATA.NotUsed</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Every declared variable should be used.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -64,7 +64,7 @@
 		<key>COM.DESIGN.Alloc</key>
 		<name>COM.DESIGN.Alloc</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Allocation and desallocation of ressources should be in the same level. For each “DEALLOCATE” keyword found, i-Code CNES checks that the keyword “ALLOCATE” is also found and checks that they are relative to the same resource.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -76,7 +76,7 @@
 		<key>COM.DESIGN.ActiveWait</key>
 		<name>COM.DESIGN.ActiveWait</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In a loop, SLEEP, WAIT and PAUSE instructions are forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -88,7 +88,7 @@
 		<key>COM.FLOW.Abort</key>
 		<name>COM.FLOW.Abort</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Keyword STOP is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -100,7 +100,7 @@
 		<key>COM.FLOW.BooleanExpression</key>
 		<name>COM.FLOW.BooleanExpression</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In a condition (IF,DO), maximum number of operands is 5 (AND, OR, NEQV, XOR, EQV, NOT, LT, &lt;, LE, &lt;=, GT, &gt;, GE, &gt;=, EQ, ==, NE, /=).</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -112,7 +112,7 @@
 		<key>COM.FLOW.CheckCodeReturn</key>
 		<name>COM.FLOW.CheckCodeReturn</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Function return values should be checked.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -124,7 +124,7 @@
 		<key>COM.FLOW.CheckUser</key>
 		<name>COM.FLOW.CheckUser</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>The identity of the user running the program should be checked.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -136,7 +136,7 @@
 		<key>COM.FLOW.Exit</key>
 		<name>COM.FLOW.Exit</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Function, procedure and method should have a unique exit point.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -148,7 +148,7 @@
 		<key>COM.FLOW.ExitLoop</key>
 		<name>COM.FLOW.ExitLoop</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Function, procedure and method should have a unique exit point.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -160,7 +160,7 @@
 		<key>COM.FLOW.FileExistence</key>
 		<name>COM.FLOW.FileExistence</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>File opening (OPEN, READ, WRITE) should be done after using INQUIRE and EXIST instruction of this file.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -172,7 +172,7 @@
 		<key>COM.FLOW.FilePath</key>
 		<name>COM.FLOW.FilePath</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In the OPEN instruction, it is forbidden to use directly the file name (file.txt). Path should be defined through a variable.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -184,7 +184,9 @@
 		<key>COM.INST.BoolNegation</key>
 		<name>COM.INST.BoolNegation</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Double negation is forbidden on Boolean expressions. Negations are defined with the keyword « NOT ». Following expressions are not allowed:
+			NOT. (.NOT. a)		-> ( a )
+			.NOT. ( a .AND. .NOT. b)	-> .NOT. a .OR. b</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -196,7 +198,7 @@
 		<key>COM.INST.Brace</key>
 		<name>COM.INST.Brace</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Every expression should be braced.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -208,7 +210,7 @@
 		<key>COM.INST.CodeComment</key>
 		<name>COM.INST.CodeComment</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Commented code is forbidden. i-Code CNES checks all keywords in comments, except in the header.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -220,7 +222,7 @@
 		<key>COM.INST.GoTo</key>
 		<name>COM.INST.GoTo</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>"GO TO" is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -232,7 +234,7 @@
 		<key>COM.INST.LoopCondition</key>
 		<name>COM.INST.LoopCondition</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In a loop instruction, comparison using (.EQ., ==, .NE., \=) are forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -244,7 +246,7 @@
 		<key>COM.NAME.Homonymy</key>
 		<name>COM.NAME.Homonymy</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Variable name should be unique.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -256,7 +258,7 @@
 		<key>COM.PROJECT.Header</key>
 		<name>COM.PROJECT.Header</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Headers are mandatory for each module and function.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -268,7 +270,15 @@
 		<key>COM.PRES.Indent</key>
 		<name>COM.PRES.Indent</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Source code should be indented with spaces:
+			DO i = 2, nb
+			    somme = somme + x(i)
+			    IF (isnan(somme)) THEN
+			        print *, 'somme is a NaN'
+			        moy = -1.0
+			    END IF
+			END DO
+		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -280,7 +290,7 @@
 		<key>COM.PRES.LengthLine</key>
 		<name>COM.PRES.LengthLine</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>A line of source code should contain 100 characters maximum.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -292,7 +302,7 @@
 		<key>COM.TYPE.Expression</key>
 		<name>COM.TYPE.Expression</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In a expression (defined by operator like +, -, /, *, **) all variables should have the same type : REAL, INTEGER, …</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -304,7 +314,7 @@
 		<key>F77.BLOC.Common</key>
 		<name>F77.BLOC.Common</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>White COMMON are forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -316,7 +326,7 @@
 		<key>F77.BLOC.Else</key>
 		<name>F77.BLOC.Else</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In an instruction IF, the last ELSE IF should be follow by ELSE.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -328,7 +338,7 @@
 		<key>F77.BLOC.Function</key>
 		<name>F77.BLOC.Function</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Parameter’s braces should be used when defining a FUNCTION whenever there is no parameter.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -340,7 +350,7 @@
 		<key>F77.BLOC.Loop</key>
 		<name>F77.BLOC.Loop</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Nested DO loop should have different end instructions (one for each).</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -352,7 +362,7 @@
 		<key>F77.DATA.Array</key>
 		<name>F77.DATA.Array</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Arrays dimension should be declared explicitly. The use of * is tolerated for the last one if justified with a comment.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -364,7 +374,7 @@
 		<key>F77.DATA.Common</key>
 		<name>F77.DATA.Common</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>INCLUDE must be used to declare COMMON in program units referencing it.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -376,7 +386,7 @@
 		<key>F77.DATA.Double</key>
 		<name>F77.DATA.Double</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In a constant initialisation or in an expression evaluation, the use of (D) (as double precision is mandatory.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -388,7 +398,7 @@
 		<key>F77.DATA.Initialisation</key>
 		<name>F77.DATA.Initialisation</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Variable initialisation should be done using DATA or BLOCKDATA.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -400,7 +410,7 @@
 		<key>F77.DATA.IO</key>
 		<name>F77.DATA.IO</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Implicit logical units defined by * are forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -412,7 +422,7 @@
 		<key>F77.DATA.LoopDO</key>
 		<name>F77.DATA.LoopDO</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>DO loop condition parameter should use INTEGER.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -424,7 +434,7 @@
 		<key>F77.DATA.Parameter</key>
 		<name>F77.DATA.Parameter</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>The use of constants, computed values or function calls as function parameters is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -436,7 +446,7 @@
 		<key>F77.ERR.OpenRead</key>
 		<name>F77.ERR.OpenRead</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>The check of return status for instructions OPEN and READ is mandatory. It is recommended to use “IOSTAT = “ to do it.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -448,7 +458,7 @@
 		<key>F77.INST.Assign</key>
 		<name>F77.INST.Assign</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>ASSIGN instruction is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -460,7 +470,7 @@
 		<key>F77.INST.Dimension</key>
 		<name>F77.INST.Dimension</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>DIMENSION instruction is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -472,7 +482,7 @@
 		<key>F77.INST.Equivalence</key>
 		<name>F77.INST.Equivalence</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>EQUIVALENCE instruction is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -484,7 +494,7 @@
 		<key>F77.INST.Function</key>
 		<name>F77.INST.Function</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>FUNCTION instruction should be used with an explicite type declaration, at function definition.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -496,7 +506,7 @@
 		<key>F77.INST.If</key>
 		<name>F77.INST.If</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Arithmetic IF is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -508,7 +518,7 @@
 		<key>F77.INST.Include</key>
 		<name>F77.INST.Include</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>If instruction INCLUDE is used, the included file should not contain executable instructions. (ASSIGN, GOTO, IF, ELSE, CONTINUE, STOP, PAUSE ; DO, READ, WRITE, PRINT, REWIND ; BACKSPACE, ENDFILE, OPEN, CLOSE, INQUIER, CALL, RETURN, END).</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -520,7 +530,7 @@
 		<key>F77.INST.Pause</key>
 		<name>F77.INST.Pause</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>PAUSE instruction is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -532,7 +542,7 @@
 		<key>F77.INST.Return</key>
 		<name>F77.INST.Return</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>RETURN(i) instruction is forbidden in subprogram.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -544,7 +554,7 @@
 		<key>F77.INST.Save</key>
 		<name>F77.INST.Save</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>SAVE instruction is forbidden except for local variables with justification in a comment.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -556,7 +566,7 @@
 		<key>F77.MET.Line</key>
 		<name>F77.MET.Line</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Each line should contain less than 72 characters.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -568,7 +578,7 @@
 		<key>F77.NAME.GenericIntrinsic</key>
 		<name>F77.NAME.GenericIntrinsic</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>The use of generic names for intrinseque functions is mandatory.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -580,7 +590,7 @@
 		<key>F77.NAME.Intrinsic</key>
 		<name>F77.NAME.Intrinsic</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Intrinsic function names reuse is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -592,7 +602,7 @@
 		<key>F77.NAME.KeyWords</key>
 		<name>F77.NAME.KeyWords</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Fortran 77 keywords should not be reused for variable names.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -604,7 +614,7 @@
 		<key>F77.NAME.Label</key>
 		<name>F77.NAME.Label</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Label usage is restricted to instruction FORMAT and CONTINUE.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -616,7 +626,7 @@
 		<key>F77.PROTO.Declaration</key>
 		<name>F77.PROTO.Declaration</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>External functions should be declared with EXTERNAL keyword.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -628,7 +638,7 @@
 		<key>F77.REF.IO</key>
 		<name>F77.REF.IO</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Logical unit should be identified with symbolic name.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -640,7 +650,7 @@
 		<key>F77.REF.Open</key>
 		<name>F77.REF.Open</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>OPEN parameters FILE, STATUS and POSITION should be defined.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -652,7 +662,7 @@
 		<key>F77.REF.Parameter</key>
 		<name>F77.REF.Parameter</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>It is forbidden to set as subroutine parameter variables which are already in a COMMON bloc accessible from the subroutine and the program which calls it.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -664,7 +674,7 @@
 		<key>F77.TYPE.Basic</key>
 		<name>F77.TYPE.Basic</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Only standard types (INTEGER, REAL, DOUBLE PRECISION, COMPLEX, LOGICAL, CHARACTER) are allowed.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -676,7 +686,7 @@
 		<key>F77.TYPE.Hollerith</key>
 		<name>F77.TYPE.Hollerith</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Data and constant of type Hollerith are forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
