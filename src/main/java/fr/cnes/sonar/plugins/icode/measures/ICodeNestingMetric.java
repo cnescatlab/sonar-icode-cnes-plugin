@@ -33,7 +33,7 @@ import java.util.List;
 public class ICodeNestingMetric implements Metrics, MeasureComputer {
 
     /** Name of the category in which defined metrics should be displayed **/
-    public static final String DOMAIN = "i-Code";
+    public static final String DOMAIN = "Size";
 
     /** Key of the nesting metric. **/
     public static final String KEY = "icode-nesting-max";

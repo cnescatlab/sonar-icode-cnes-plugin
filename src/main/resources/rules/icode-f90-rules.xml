@@ -4,12 +4,11 @@
 		<key>COM.DATA.FloatCompare</key>
 		<name>COM.DATA.FloatCompare</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Equality and non equality (.EQ., ==, .NE., /=) are forbidden on reals (REAL, DOUBLE PRECISION, COMPLEX).</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -17,12 +16,11 @@
 		<key>COM.DATA.Initialisation</key>
 		<name>COM.DATA.Initialisation</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Variables have to be initialized before being used. When a variable is used, the algorithm should checked if it is initialized and if not throw an error.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -30,12 +28,11 @@
 		<key>COM.DATA.Invariant</key>
 		<name>COM.DATA.Invariant</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Data declared into subroutine, function, ... and which are never modified then should be declared as constant.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -43,12 +40,11 @@
 		<key>COM.DATA.LoopCondition</key>
 		<name>COM.DATA.LoopCondition</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>It is forbidden to modify loop condition inside the loop.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -56,12 +52,11 @@
 		<key>COM.DATA.NotUsed</key>
 		<name>COM.DATA.NotUsed</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Every declared variable should be used.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -69,12 +64,11 @@
 		<key>COM.DESIGN.Alloc</key>
 		<name>COM.DESIGN.Alloc</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Allocation and deallocation of ressources should be in the same level. For each “DEALLOCATE” keyword found, i-Code CNES checks that the keyword “ALLOCATE” is also found and checks that they are relative to the same resource.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -82,12 +76,11 @@
 		<key>COM.DESIGN.ActiveWait</key>
 		<name>COM.DESIGN.ActiveWait</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In a loop, SLEEP, WAIT and PAUSE instructions are forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -95,12 +88,11 @@
 		<key>COM.FLOW.Abort</key>
 		<name>COM.FLOW.Abort</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Keyword STOP is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -108,12 +100,11 @@
 		<key>COM.FLOW.BooleanExpression</key>
 		<name>COM.FLOW.BooleanExpression</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In a condition (IF,DO), maximum number of operands is 5 (AND, OR, NEQV, XOR, EQV, NOT, LT, &lt;, LE, &lt;=, GT, &gt;, GE, &gt;=, EQ, ==, NE, /=).</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -121,12 +112,11 @@
 		<key>COM.FLOW.CheckCodeReturn</key>
 		<name>COM.FLOW.CheckCodeReturn</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Function return values should be checked.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -134,12 +124,11 @@
 		<key>COM.FLOW.CheckUser</key>
 		<name>COM.FLOW.CheckUser</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>The identity of the user running the program should be checked.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -147,12 +136,11 @@
 		<key>COM.FLOW.Exit</key>
 		<name>COM.FLOW.Exit</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Function, procedure and method should have a unique exit point.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -160,12 +148,11 @@
 		<key>COM.FLOW.ExitLoop</key>
 		<name>COM.FLOW.ExitLoop</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Function, procedure and method should have a unique exit point.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -173,12 +160,11 @@
 		<key>COM.FLOW.FileExistence</key>
 		<name>COM.FLOW.FileExistence</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>File opening (OPEN, READ, WRITE) should be done after using INQUIRE and EXIST instruction of this file.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -186,12 +172,11 @@
 		<key>COM.FLOW.FilePath</key>
 		<name>COM.FLOW.FilePath</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In the OPEN instruction, it is forbidden to use directly the file name (file.txt). Path should be defined through a variable.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -199,12 +184,13 @@
 		<key>COM.INST.BoolNegation</key>
 		<name>COM.INST.BoolNegation</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Double negation is forbidden on Boolean expressions. Negations are defined with the keyword « NOT ». Following expressions are not allowed:
+			NOT. (.NOT. a)		-> ( a )
+			.NOT. ( a .AND. .NOT. b)	-> .NOT. a .OR. b</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -212,12 +198,11 @@
 		<key>COM.INST.Brace</key>
 		<name>COM.INST.Brace</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Every expression should be braced.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -225,12 +210,11 @@
 		<key>COM.INST.CodeComment</key>
 		<name>COM.INST.CodeComment</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Commented code is forbidden. i-Code CNES checks all keywords in comments, except in the header.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -238,12 +222,11 @@
 		<key>COM.INST.GoTo</key>
 		<name>COM.INST.GoTo</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>"GO TO" is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -251,12 +234,11 @@
 		<key>COM.INST.LoopCondition</key>
 		<name>COM.INST.LoopCondition</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In a loop instruction, comparison using (.EQ., ==, .NE., \=) are forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -264,12 +246,11 @@
 		<key>COM.NAME.Homonymy</key>
 		<name>COM.NAME.Homonymy</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Variable name should be unique.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -277,12 +258,11 @@
 		<key>COM.PROJECT.Header</key>
 		<name>COM.PROJECT.Header</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Headers are mandatory for each module and function.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -290,12 +270,19 @@
 		<key>COM.PRES.Indent</key>
 		<name>COM.PRES.Indent</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Source code should be indented with spaces:
+			DO i = 2, nb
+			    somme = somme + x(i)
+			    IF (isnan(somme)) THEN
+			        print *, 'somme is a NaN'
+			        moy = -1.0
+			    END IF
+			END DO
+		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -303,12 +290,11 @@
 		<key>COM.PRES.LengthLine</key>
 		<name>COM.PRES.LengthLine</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>A line of source code should contain 100 characters maximum.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -316,12 +302,11 @@
 		<key>COM.TYPE.Expression</key>
 		<name>COM.TYPE.Expression</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In a expression (defined by operator like +, -, /, *, **) all variables should have the same type : REAL, INTEGER, …</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -329,12 +314,11 @@
 		<key>COM.FLOW.CaseSwitch</key>
 		<name>COM.FLOW.CaseSwitch</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>SWITCH instruction should define the DEFAULT case as last one.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f77</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -342,12 +326,11 @@
 		<key>COM.INST.Line</key>
 		<name>COM.INST.Line</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Each line should be limited to only one expression.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -355,12 +338,11 @@
 		<key>COM.FLOW.Recursion</key>
 		<name>COM.FLOW.Recursion</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Recursion is forbidden. In Fortran, i-Code CNES checks that "RECURSIVE FUNCTION(params)" is not found.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>common</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -368,12 +350,11 @@
 		<key>F90.BLOC.File</key>
 		<name>F90.BLOC.File</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Every open file should be closed.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -381,12 +362,11 @@
 		<key>F90.DATA.Array</key>
 		<name>F90.DATA.Array</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Array dimensions should be respected.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -394,12 +374,11 @@
 		<key>F90.DATA.ArrayAccess</key>
 		<name>F90.DATA.ArrayAccess</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In an array of indirections, it is not possible to define the same item several times. </description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -407,12 +386,11 @@
 		<key>F90.DATA.Constant</key>
 		<name>F90.DATA.Constant</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Constants which appear in several subprograms should be defined into a module.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -420,12 +398,11 @@
 		<key>F90.DATA.ConstantFloat</key>
 		<name>F90.DATA.ConstantFloat</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Numerical constants (see above) should be followed by subtype parameter.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -433,12 +410,12 @@
 		<key>F90.DATA.Declaration</key>
 		<name>F90.DATA.Declaration</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>The use of IMPLICIT NONE instruction is mandatory for each method header.
+			Limitations : this rule is not checked for function and array.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -446,12 +423,11 @@
 		<key>F90.DATA.Float</key>
 		<name>F90.DATA.Float</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>It is forbidden to use * output format (WRITE instruction) for REAL.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -459,12 +435,11 @@
 		<key>F90.DATA.Parameter</key>
 		<name>F90.DATA.Parameter</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Functions SELECTED_REAL_KIND and SELECTED_INT_KIND should be grouped in the same module.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -472,12 +447,11 @@
 		<key>F90.DESIGN.Free</key>
 		<name>F90.DESIGN.Free</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Allocated memory should be free in the same conceptual level.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -485,12 +459,11 @@
 		<key>F90.DESIGN.Include</key>
 		<name>F90.DESIGN.Include</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>File inclusion is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -498,12 +471,11 @@
 		<key>F90.DESIGN.Interface</key>
 		<name>F90.DESIGN.Interface</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Modules should only contains USE, PRIVATE and PUBLIC clauses.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -511,12 +483,11 @@
 		<key>F90.DESIGN.IO</key>
 		<name>F90.DESIGN.IO</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>In an OPEN function, units number should depend on another function or array.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -524,12 +495,21 @@
 		<key>F90.DESIGN.Obsolete</key>
 		<name>F90.DESIGN.Obsolete</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>This rule checks the following points:
+			- Do not use computed GO TO
+			- Do not use syntaxe: CHARACTER*N
+			- Do not use arithmetic IF
+			- In a DO loop, do not use REAL variables, neither as indice, nor as interval limits, nor as increment step
+			- Do not exit a DO loop with other than END DO or CONTINUE
+			- Do not branch on ENDIF
+			- Do not use PAUSE
+			- Do not use assigned GOTO
+			- Do not use FORMAT label
+			- Do not use descriptor H (Hollerith) in formats</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -537,12 +517,11 @@
 		<key>F90.ERR.Allocate</key>
 		<name>F90.ERR.Allocate</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Allocation and deallocation should contain “STAT” parameter. Then, « STAT » value should be tested. </description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -550,12 +529,11 @@
 		<key>F90.ERR.OpenRead</key>
 		<name>F90.ERR.OpenRead</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>OPEN and READ instructions, which work on files, should contain IOSTAT parameter and check this variable value. To check this, OPEN instruction should contain FILE attribute.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -563,12 +541,11 @@
 		<key>F90.INST.Associated</key>
 		<name>F90.INST.Associated</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Between declaration and ASSOCIATED instruction, it is mandatory to call NULLIFY.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -576,12 +553,11 @@
 		<key>F90.INST.Entry</key>
 		<name>F90.INST.Entry</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>ENTRY instruction is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -589,12 +565,11 @@
 		<key>F90.INST.Equivalence</key>
 		<name>F90.INST.Equivalence</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>EQUIVALENCE instruction is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -602,12 +577,11 @@
 		<key>F90.INST.If</key>
 		<name>F90.INST.If</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>IF followed by one of these instructions : EXIT, GOTO, CYCLE, RETURN is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -615,12 +589,11 @@
 		<key>F90.INST.Intent</key>
 		<name>F90.INST.Intent</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Each subprogram parameter should be declared with INTENT keyword.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -628,12 +601,11 @@
 		<key>F90.INST.Nullify</key>
 		<name>F90.INST.Nullify</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>After deallocate, the use of NULLIFY into the same logical unit is mandatory.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -641,12 +613,11 @@
 		<key>F90.INST.Only</key>
 		<name>F90.INST.Only</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>The use of keyword ONLY without comment is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -654,12 +625,11 @@
 		<key>F90.INST.Operator</key>
 		<name>F90.INST.Operator</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Do not use old notation. Replace .EQ., .NE., .LT., .LE., .GT., .GE. by ==, /=, &lt;, &lt;=, &gt;, &gt;=.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -667,12 +637,14 @@
 		<key>F90.INST.Pointer</key>
 		<name>F90.INST.Pointer</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>POINTER is forbidden except in those cases:
+			- Complex data structure creation
+			- Manage array references
+			- Dynamic allocation into components with derived types</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -680,12 +652,13 @@
 		<key>F90.NAME.GenericIntrinsic</key>
 		<name>F90.NAME.GenericIntrinsic</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Do not use specific functions (see below), use generic ones:
+		    BAD: result = AMOD (argument, divider)
+		    GOOD: result = MOD (argument, divider)</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -693,12 +666,11 @@
 		<key>F90.NAME.KeyWords</key>
 		<name>F90.NAME.KeyWords</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Fortran keywords should not be used as variable names.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -706,12 +678,11 @@
 		<key>F90.PROTO.Overload</key>
 		<name>F90.PROTO.Overload</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Overriding operators is forbidden.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -719,12 +690,11 @@
 		<key>F90.REF.Array</key>
 		<name>F90.REF.Array</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>The use of a whole array should be represented using the notation (:).</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -732,12 +702,11 @@
 		<key>F90.REF.Interface</key>
 		<name>F90.REF.Interface</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Called subprogram should be visible.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -745,12 +714,11 @@
 		<key>F90.REF.Label</key>
 		<name>F90.REF.Label</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>END keyword should be followed by the type (function, subroutine…) and the name.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -758,12 +726,11 @@
 		<key>F90.REF.Open</key>
 		<name>F90.REF.Open</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Every OPEN instruction should have parameters FILE, STATUS, IOSTAT and POSITION.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -771,12 +738,11 @@
 		<key>F90.REF.Variable</key>
 		<name>F90.REF.Variable</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>A variable should be referenced with the same name in subprogram.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -784,12 +750,11 @@
 		<key>F90.TYPE.Derivate</key>
 		<name>F90.TYPE.Derivate</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>Every type declaration should be placed into a module.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -797,12 +762,11 @@
 		<key>F90.TYPE.Integer</key>
 		<name>F90.TYPE.Integer</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>INTEGER parameters should be followed by SELECTED_INT_KIND expression.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -810,12 +774,11 @@
 		<key>F90.TYPE.Real</key>
 		<name>F90.TYPE.Real</name>
 		<internalKey>*</internalKey>
-		<description>Unreferenced rule</description>
+		<description>REAL parameters should be followed by SELECTED_REAL_KIND.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>f90</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
