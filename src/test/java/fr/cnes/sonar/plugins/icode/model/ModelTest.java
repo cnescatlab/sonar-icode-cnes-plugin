@@ -89,13 +89,13 @@ public class ModelTest {
     public void test_unmarshal_from_file() throws JAXBException, URISyntaxException {
         File file = new File(this.getClass().getResource("/rules/icode-shell-rules.xml").toURI());
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(file, RulesDefinition.class);
-        Assert.assertEquals(33, def.getRules().size());
+        Assert.assertEquals(39, def.getRules().size());
     }
 
     @Test
     public void test_unmarshal_from_stream() throws JAXBException {
         InputStream stream = this.getClass().getResourceAsStream("/rules/icode-shell-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
-        Assert.assertEquals(33, def.getRules().size());
+        Assert.assertEquals(39, def.getRules().size());
     }
 }
