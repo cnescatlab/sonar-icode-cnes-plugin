@@ -28,7 +28,7 @@ public class ICodeRulesDefinitionTest {
 		Assert.assertEquals(0, context.repositories().size());
 		new ICodeRulesDefinition().define(context);
 		Assert.assertEquals(3, context.repositories().size());
-		Assert.assertEquals(33, context.repository("shell-rules").rules().size());
+		Assert.assertEquals(39, context.repository("shell-rules").rules().size());
 		Assert.assertEquals(57, context.repository("f77-rules").rules().size());
 		Assert.assertEquals(63, context.repository("f90-rules").rules().size());
 	}
