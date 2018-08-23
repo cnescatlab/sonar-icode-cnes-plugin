@@ -16,6 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.settings;
 
+import org.sonar.api.PropertyType;
 import org.sonar.api.config.PropertyDefinition;
 
 import java.util.Arrays;
@@ -25,6 +26,12 @@ import java.util.List;
  * Define all SonarQube properties provided by this plugin.
  */
 public class ICodePluginProperties {
+
+
+    /**
+     * i-Code CNES default location's path value.
+     */
+    public static final String ICODE_PATH_DEFAULT = "${HOME}/icode-cnes/icode.exe";
 
     /**
      * Prefix used by all properties of this plugin.
@@ -107,6 +114,34 @@ public class ICodePluginProperties {
      * Default value for the report path property
      **/
     public static final String REPORT_PATH_DEFAULT = "result.res";
+    /**
+     * i-Code CNES launching mode key
+     */
+    public static final String AUTOLAUNCH_PROP_KEY = PROPERTIES_PREFIX + "launch";
+    /**
+     * i-Code CNES launching mode default value
+     */
+    public static final String AUTOLAUNCH_PROP_DEFAULT = "false";
+    /**
+     * Launching mode name
+     */
+    public static final String AUTOLAUNCH_PROP_NAME = "i-Code CNES auto-launch";
+    /**
+     * Launching mode description
+     */
+    public static final String AUTOLAUNCH_PROP_DESC = "Auto-launch i-Code CNES on analysis using indicated location.";
+    /**
+     * i-Code CNES location's path key
+     */
+    public static final String ICODE_PATH_KEY = PROPERTIES_PREFIX + "path";
+    /**
+     * i-Code CNES location's path key
+     */
+    public static final String ICODE_PATH_NAME = "i-Code CNES location";
+    /**
+     * i-Code CNES location's path key
+     */
+    public static final String ICODE_PATH_DESC = "Define i-Code CNES executable path to auto-launch it on analysis.";
 
     private ICodePluginProperties() {
         super();
@@ -119,6 +154,21 @@ public class ICodePluginProperties {
      */
     public static List<PropertyDefinition> getProperties() {
         return Arrays.asList(
+            PropertyDefinition.builder(AUTOLAUNCH_PROP_KEY)
+                    .defaultValue(AUTOLAUNCH_PROP_DEFAULT)
+                    .category(ICODE_NAME)
+                    .name(AUTOLAUNCH_PROP_NAME)
+                    .description(AUTOLAUNCH_PROP_DESC)
+                    .type(PropertyType.BOOLEAN)
+                    .build()
+            ,
+            PropertyDefinition.builder(ICODE_PATH_KEY)
+                    .defaultValue(ICODE_PATH_DEFAULT)
+                    .category(ICODE_NAME)
+                    .name(ICODE_PATH_NAME)
+                    .description(ICODE_PATH_DESC)
+                    .build()
+            ,
             PropertyDefinition.builder(SHELL_SUFFIX_KEY).multiValues(true)
                 .defaultValue(SHELL_SUFFIX_DEFAULT).category(ICODE_NAME)
                 .name(SHELL_SUFFIX_NAME).description(SHELL_SUFFIX_DESC)

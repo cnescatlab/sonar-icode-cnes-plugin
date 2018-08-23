@@ -16,6 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
+import fr.cnes.sonar.plugins.icode.ICodePlugin;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
@@ -26,6 +27,7 @@ import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
+import org.apache.commons.lang.SystemUtils;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -37,15 +39,18 @@ import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.utils.PathUtils;
+import org.sonar.api.utils.System2;
+import org.sonar.api.utils.command.Command;
+import org.sonar.api.utils.command.CommandExecutor;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.*;
 
 /**
  * Executed during sonar-scanner call.
@@ -97,6 +102,34 @@ public class ICodeSensor implements Sensor {
         final Configuration config = sensorContext.config();
         // Represent the active rules used for the analysis.
         final ActiveRules activeRules = sensorContext.activeRules();
+        // run i-Code CNES execution
+        if(config.getBoolean(ICodePluginProperties.AUTOLAUNCH_PROP_KEY).orElse(Boolean.getBoolean(ICodePluginProperties.AUTOLAUNCH_PROP_DEFAULT))) {
+            LOGGER.info("i-Code CNES auto-launch enabled.");
+            final String executable = config.get(ICodePluginProperties.ICODE_PATH_KEY).orElse(ICodePluginProperties.ICODE_PATH_DEFAULT);
+            final String[] files = sensorContext.fileSystem().baseDir().list();
+            final String outputFile = config.get(ICodePluginProperties.REPORT_PATH_KEY).orElse(ICodePluginProperties.REPORT_PATH_DEFAULT);
+            final String outputPath = Paths.get(sensorContext.fileSystem().baseDir().toString(),outputFile).toString();
+            final String outputOption = "-o";
+            final String command = String.join(" ", executable, String.join(" ",files), outputOption, outputPath);
+
+            LOGGER.info("running i-Code CNES and generating results to "+ outputPath);
+            LOGGER.debug("command : " + command);
+            try {
+                final Process icode =  Runtime.getRuntime().exec(command);
+                int success = icode.waitFor();
+                    if(success==0){
+                        LOGGER.info("Auto-launch successfully executed i-Code CNES");
+                    }else{
+                        LOGGER.error("i-Code CNES auto-launch analysis failed with exit code "+success);
+                    }
+            } catch (InterruptedException | IOException e) {
+                LOGGER.error(e.getMessage(), e);
+                sensorContext.newAnalysisError().message(e.getMessage()).save();
+            }
+
+
+        }
+
         // Report files found in file system and corresponding to SQ property.
         final List<String> reportFiles = getReportFiles(config, fileSystem);
 
