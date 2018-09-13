@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <icodelint-rules>
 	<rule>
+		<key>Parsing Error</key>
+		<name>Parsing Error</name>
+		<internalKey>*</internalKey>
+		<description>An error occurs when parsing a file.</description>
+		<severity>BLOCKER</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>BUG</type>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>Unknown Rule</key>
+		<name>Unknown Rule</name>
+		<internalKey>*</internalKey>
+		<description>The sonaricode plugin found a rule with an unknown key. The plugin may be incompatible with the i-Code version used to analyze the project.</description>
+		<severity>CRITICAL</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>BUG</type>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
 		<key>SH.DATA.IFS</key>
 		<name>SH.DATA.IFS</name>
 		<internalKey>*</internalKey>
@@ -99,11 +123,11 @@
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
-		<rule>
+	<rule>
 		<key>SH.FLOW.CheckCodeReturn</key>
 		<name>SH.FLOW.CheckCodeReturn</name>
 		<internalKey>*</internalKey>
-		<description>TO DEFINE</description>
+		<description>For each function and command call in the script, it’s mandatory to verify the code return of the execution using $#.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -283,7 +307,7 @@
 		<key>SH.REF.Export</key>
 		<name>SH.REF.Export</name>
 		<internalKey>*</internalKey>
-		<description>TO DEFINE</description>
+		<description>It’s forbidden to export function self defined by the script.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -295,7 +319,7 @@
 		<key>COM.DATA.Initialisation</key>
 		<name>COM.DATA.Initialisation</name>
 		<internalKey>*</internalKey>
-		<description>TO DEFINE</description>
+		<description>Variables have to be initialized before being used. When a variable is used, the algorithm should checked if it is initialized and if not throw an error.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -305,9 +329,9 @@
 	</rule>
 	<rule>
 		<key>COM.DATA.Invariant</key>
-		<name>COM.DATA.Initialisation</name>
+		<name>COM.DATA.Invariant</name>
 		<internalKey>*</internalKey>
-		<description>TO DEFINE</description>
+		<description>Data declared into subroutine, function, ... and which are never modified then should be declared as constant.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -420,11 +444,11 @@
 		<key>COM.FLOW.Recursion</key>
 		<name>COM.FLOW.Recursion</name>
 		<internalKey>*</internalKey>
-		<description>TO DEFINE</description>
+		<description>The use of recursivity is not allowed.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
-		<type>CODE_SMELL</type>
+		<type>BUG</type>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
@@ -470,7 +494,67 @@
 		<key>COM.PRES.Indent</key>
 		<name>COM.PRES.Indent</name>
 		<internalKey>*</internalKey>
-		<description>TO DEFINE</description>
+		<description>The code is not indented.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.FLOW.FilePath</key>
+		<name>COM.FLOW.FilePath</name>
+		<internalKey>*</internalKey>
+		<description>In the OPEN instruction, it is forbidden to use directly the file name (file.txt). Path should be defined through a variable.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.INST.BoolNegation</key>
+		<name>COM.INST.BoolNegation</name>
+		<internalKey>*</internalKey>
+		<description>Double negation is not allowed.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.NAME.Homonymy</key>
+		<name>COM.NAME.Homonymy</name>
+		<internalKey>*</internalKey>
+		<description>Names must be unique. The name "variable" is already defined in this file.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>COM.PRES.LengthLine</key>
+		<name>COM.PRES.LengthLine</name>
+		<internalKey>*</internalKey>
+		<description>There are more than 100 characters in this line.</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>SH.SYNC.Signals</key>
+		<name>SH.SYNC.Signals</name>
+		<internalKey>*</internalKey>
+		<description>The keyword TRAP must be followed by a variable, not an integer.</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
