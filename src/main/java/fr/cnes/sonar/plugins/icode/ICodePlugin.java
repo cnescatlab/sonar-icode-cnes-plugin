@@ -17,7 +17,10 @@
 package fr.cnes.sonar.plugins.icode;
 
 import fr.cnes.sonar.plugins.icode.check.ICodeSensor;
-import fr.cnes.sonar.plugins.icode.languages.*;
+import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
+import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
+import fr.cnes.sonar.plugins.icode.languages.ICodeQualityProfiles;
+import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
 import fr.cnes.sonar.plugins.icode.measures.ICodeNestingMetric;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;

@@ -96,6 +96,13 @@ public class ICodeMetricsProcessor {
                 value = Double.valueOf(measureValue).intValue();
                 isCalculated = true;
             }
+            // Take SHELL / F77 / F90 number of comment lines into account
+            else if (metricKey.contains("MET.LineOfComment")) {
+                metric = CoreMetrics.COMMENT_LINES;
+                component = files.getOrDefault(metricComponent, null);
+                value = Double.valueOf(measureValue).intValue();
+                isCalculated = true;
+            }
             // Take SHELL complexity into account
             else if (metricKey.contains("SH.MET.ComplexitySimplified")) {
                 metric = CoreMetrics.COMPLEXITY;
@@ -150,52 +157,6 @@ public class ICodeMetricsProcessor {
         computeComplexity(context, scannedFiles, measures);
         // Compute function count metric.
         computeFunctions(context, scannedFiles, measures);
-        // Compute comment measures.
-        computeComment(context, scannedFiles, measures);
-
-    }
-
-    /**
-     * Compute comment measures.
-     *
-     * @param context Context of the analysis containing services.
-     * @param scannedFiles Available files.
-     * @param measures Map containing list of measure by metrics.
-     */
-    private static void computeComment(SensorContext context, Map<String, InputFile> scannedFiles, Map<String, List<AnalysisRule>> measures) {
-
-        final Map<String, Integer> coms = new HashMap<>();
-        final Map<String, Double> rawNcloc = new HashMap<>();
-        final Map<String, Double> rawRatio = new HashMap<>();
-
-        // Collect all ncloc and ratio comment by functions in two different maps.
-        measures.forEach((x,y) -> {
-            if(x.contains(".MET.LineOfCode")) {
-                y.forEach(z -> rawNcloc.put(
-                        String.format("%s@%s", z.result.fileName, z.result.resultNamePlace),
-                        Double.valueOf(z.result.resultValue)));
-            } else if(x.contains(".MET.RatioComment")) {
-                y.forEach(z -> rawRatio.put(
-                        String.format("%s@%s", z.result.fileName, z.result.resultNamePlace),
-                        Double.valueOf(z.result.resultValue)));
-            }
-        });
-
-        // Compute approximation of comment line value by file.
-        rawNcloc.forEach((key, value) -> {
-            final String file = key.split("@")[0];
-            Integer sum = coms.getOrDefault(file, 0);
-            Double ratio = rawRatio.getOrDefault(key, null);
-            if(ratio!=null) { // if ratio is NaN then it is null
-                ratio = ratio / 100.0;
-                final Double tempComments = ((ratio * value) / (1 - ratio));
-                sum = sum + tempComments.intValue();
-                coms.put(file, sum);
-            }
-        });
-
-        // create measures for comment lines number
-        coms.forEach((key, value) -> saveMeasure(context, scannedFiles, key, value, CoreMetrics.COMMENT_LINES));
 
     }
 

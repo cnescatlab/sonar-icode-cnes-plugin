@@ -221,7 +221,7 @@ public class ICodeMetricsProcessorTest {
         rule.result.resultMessage = "Small file";
 
         rule2.result = new Result();
-        rule2.analysisRuleId = "SH.MET.RatioComment";
+        rule2.analysisRuleId = "SH.MET.Nesting";
         rule2.result.fileName = "bash.sh";
         rule2.result.resultValue = "50";
         rule2.result.resultLine = "3";
@@ -235,8 +235,8 @@ public class ICodeMetricsProcessorTest {
         ICodeMetricsProcessor.saveExtraMeasures(context, files, project);
         Assert.assertEquals(2, context.measures(key).size());
         Assert.assertEquals("functions", ((DefaultMeasure)context.measures(key).toArray()[0]).metric().key());
-        Assert.assertEquals("comment_lines", ((DefaultMeasure)context.measures(key).toArray()[1]).metric().key());
-        Assert.assertEquals(20, ((DefaultMeasure)context.measures(key).toArray()[1]).value());
+        Assert.assertEquals("icode-nesting-max", ((DefaultMeasure)context.measures(key).toArray()[1]).metric().key());
+        Assert.assertEquals(50, ((DefaultMeasure)context.measures(key).toArray()[1]).value());
     }
 
 }

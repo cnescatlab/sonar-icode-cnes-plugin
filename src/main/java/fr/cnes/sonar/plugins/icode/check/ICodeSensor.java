@@ -16,7 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
-import fr.cnes.sonar.plugins.icode.ICodePlugin;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
@@ -27,7 +26,6 @@ import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
-import org.apache.commons.lang.SystemUtils;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -39,10 +37,6 @@ import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.rule.RuleKey;
-import org.sonar.api.utils.PathUtils;
-import org.sonar.api.utils.System2;
-import org.sonar.api.utils.command.Command;
-import org.sonar.api.utils.command.CommandExecutor;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
@@ -50,7 +44,10 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Executed during sonar-scanner call.
@@ -179,7 +176,12 @@ public class ICodeSensor implements Sensor {
 
         if(inputFile!=null) {
             // Retrieve the ruleKey if it exists.
-            final RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(inputFile.language()), issue.analysisRuleId);
+            RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(inputFile.language()), issue.analysisRuleId);
+
+            // If rule is unknown then we attribute the issue to generic "Unkown rule" rule.
+            if(null==ruleKey) {
+                ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(inputFile.language()), "Unknown Rule");
+            }
 
             // Create a new issue for SonarQube, but it must be saved using NewIssue.save().
             final NewIssue newIssue = context.newIssue();
