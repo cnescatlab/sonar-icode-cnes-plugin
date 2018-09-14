@@ -176,12 +176,7 @@ public class ICodeSensor implements Sensor {
 
         if(inputFile!=null) {
             // Retrieve the ruleKey if it exists.
-            RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(inputFile.language()), issue.analysisRuleId);
-
-            // If rule is unknown then we attribute the issue to generic "Unkown rule" rule.
-            if(null==ruleKey) {
-                ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(inputFile.language()), "Unknown Rule");
-            }
+            final RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(inputFile.language()), issue.analysisRuleId);
 
             // Create a new issue for SonarQube, but it must be saved using NewIssue.save().
             final NewIssue newIssue = context.newIssue();
