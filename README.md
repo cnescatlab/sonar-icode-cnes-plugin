@@ -17,7 +17,7 @@ You can get i-Code CNES on GitHub: [lequal/i-CodeCNES](https://github.com/lequal
 - Setup a SonarQube instance
 - Install i-Code
 - Install i-Code plugin
-- Run i-Code
+- Run i-Code or configure auto-launch in plugin configuration
 - Run an analysis
 
 ### Features
