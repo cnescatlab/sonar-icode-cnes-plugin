@@ -16,7 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
-import fr.cnes.sonar.plugins.icode.ICodePlugin;
+import fr.cnes.sonar.plugins.icode.exceptions.ICodeException;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
@@ -27,7 +27,6 @@ import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
-import org.apache.commons.lang.SystemUtils;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -39,10 +38,6 @@ import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.rule.RuleKey;
-import org.sonar.api.utils.PathUtils;
-import org.sonar.api.utils.System2;
-import org.sonar.api.utils.command.Command;
-import org.sonar.api.utils.command.CommandExecutor;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
@@ -50,7 +45,10 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Executed during sonar-scanner call.
@@ -112,17 +110,16 @@ public class ICodeSensor implements Sensor {
             final String outputOption = "-o";
             final String command = String.join(" ", executable, String.join(" ",files), outputOption, outputPath);
 
-            LOGGER.info("running i-Code CNES and generating results to "+ outputPath);
-            LOGGER.debug("command : " + command);
+            LOGGER.info("Running i-Code CNES and generating results to "+ outputPath);
             try {
                 final Process icode =  Runtime.getRuntime().exec(command);
                 int success = icode.waitFor();
-                    if(success==0){
-                        LOGGER.info("Auto-launch successfully executed i-Code CNES");
-                    }else{
-                        LOGGER.error("i-Code CNES auto-launch analysis failed with exit code "+success);
-                    }
-            } catch (InterruptedException | IOException e) {
+                if(0!=success){
+                    final String message = String.format("i-Code CNES auto-launch analysis failed with exit code %d.",success);
+                    throw new ICodeException(message);
+                }
+                LOGGER.info("Auto-launch successfully executed i-Code CNES.");
+            } catch (InterruptedException | IOException | ICodeException e) {
                 LOGGER.error(e.getMessage(), e);
                 sensorContext.newAnalysisError().message(e.getMessage()).save();
             }
