@@ -16,6 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
+import fr.cnes.sonar.plugins.icode.exceptions.ICodeException;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
@@ -109,17 +110,16 @@ public class ICodeSensor implements Sensor {
             final String outputOption = "-o";
             final String command = String.join(" ", executable, String.join(" ",files), outputOption, outputPath);
 
-            LOGGER.info("running i-Code CNES and generating results to "+ outputPath);
-            LOGGER.debug("command : " + command);
+            LOGGER.info("Running i-Code CNES and generating results to "+ outputPath);
             try {
                 final Process icode =  Runtime.getRuntime().exec(command);
                 int success = icode.waitFor();
-                    if(success==0){
-                        LOGGER.info("Auto-launch successfully executed i-Code CNES");
-                    }else{
-                        LOGGER.error("i-Code CNES auto-launch analysis failed with exit code "+success);
-                    }
-            } catch (InterruptedException | IOException e) {
+                if(0!=success){
+                    final String message = String.format("i-Code CNES auto-launch analysis failed with exit code %d.",success);
+                    throw new ICodeException(message);
+                }
+                LOGGER.info("Auto-launch successfully executed i-Code CNES.");
+            } catch (InterruptedException | IOException | ICodeException e) {
                 LOGGER.error(e.getMessage(), e);
                 sensorContext.newAnalysisError().message(e.getMessage()).save();
             }
