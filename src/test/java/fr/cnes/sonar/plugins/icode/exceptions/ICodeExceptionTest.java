@@ -17,12 +17,14 @@
 package fr.cnes.sonar.plugins.icode.exceptions;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 public class ICodeExceptionTest {
 
 	final String message = "This is a text message.";
 	final ICodeException exception = new ICodeException(message);
 
+	@Test
 	public void test_exception_is_reliable() {
 		try {
 			throw exception;
