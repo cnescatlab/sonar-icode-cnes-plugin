@@ -145,6 +145,34 @@ public class ICodeSensorTest {
     }
 
     @Test
+    public void test_normal_work_with_icode_launch_other_exit() {
+        final ICodeSensor sensor = new ICodeSensor() {
+            @Override
+            protected int runICode(final String command) {
+                return 2;
+            }
+        };
+
+        final MapSettings settings = new MapSettings();
+        settings.setProperty("sonar.icode.launch",true);
+        context.setSettings(settings);
+
+        sensor.execute(context);
+        assert(true);
+    }
+
+
+
+    @Test
+    public void test_run_a_command() throws IOException, InterruptedException {
+        final ICodeSensor sensor = new ICodeSensor();
+
+        final int value = sensor.runICode("java --version");
+        
+        Assert.assertEquals(1, value);
+    }
+
+    @Test
     public void test_get_scanned_files() {
         final ICodeSensor sensor = new ICodeSensor();
 

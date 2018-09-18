@@ -166,7 +166,6 @@ public class ICodeSensor implements Sensor {
             LOGGER.info("Auto-launch successfully executed i-Code CNES.");
         } catch (InterruptedException | IOException | ICodeException e) {
             LOGGER.error(e.getMessage(), e);
-            sensorContext.newAnalysisError().message(e.getMessage()).save();
         }
     }
 
