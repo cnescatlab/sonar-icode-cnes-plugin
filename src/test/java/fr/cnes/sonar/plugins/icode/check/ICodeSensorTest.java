@@ -16,12 +16,15 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
+import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
+import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.Result;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
@@ -117,6 +120,27 @@ public class ICodeSensorTest {
         context.setSettings(settings);
 
         sensor.execute(context);
+    }
+
+    @Test
+    public void test_get_scanned_files() {
+        final ICodeSensor sensor = new ICodeSensor();
+
+        final AnalysisProject project = new AnalysisProject();
+        final AnalysisFile file = new AnalysisFile();
+        final AnalysisFile file2 = new AnalysisFile();
+        final String key = bash_sh.key();
+
+        file.fileName = key;
+        file2.fileName = "bash.sh";
+
+        project.analysisFile = new AnalysisFile[]{file, file2};
+
+        Assert.assertNotNull(sensor);
+
+        Map<String, InputFile> relevantFile = sensor.getScannedFiles(context.fileSystem(), project);
+
+        Assert.assertEquals(0, relevantFile.size());
     }
 
 	@Test
