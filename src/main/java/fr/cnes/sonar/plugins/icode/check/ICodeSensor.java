@@ -210,7 +210,7 @@ public class ICodeSensor implements Sensor {
      * @param analysisProject The i-Code report content.
      * @return A possibly empty Map of InputFile.
      */
-    private Map<String, InputFile> getScannedFiles(final FileSystem fileSystem, final AnalysisProject analysisProject) {
+    protected Map<String, InputFile> getScannedFiles(final FileSystem fileSystem, final AnalysisProject analysisProject) {
         // Contains the result to be returned.
         final Map<String, InputFile> result = new HashMap<>();
         final List<AnalysisFile> files = analysisProject.getAnalysisFiles();
