@@ -129,9 +129,8 @@ public class ICodeSensorTest {
         final AnalysisProject project = new AnalysisProject();
         final AnalysisFile file = new AnalysisFile();
         final AnalysisFile file2 = new AnalysisFile();
-        final String key = bash_sh.key();
 
-        file.fileName = key;
+        file.fileName = "badaboum.sh";
         file2.fileName = "bash.sh";
 
         project.analysisFile = new AnalysisFile[]{file, file2};
@@ -173,6 +172,15 @@ public class ICodeSensorTest {
 
         ICodeSensor.saveIssue(context, files, rule);
         Assert.assertEquals(0, context.allIssues().size());
+    }
+
+    @Test
+    public void test_check_rules_activation() {
+        final ICodeSensor sensor = new ICodeSensor();
+
+        final boolean active = sensor.isRuleActive(context.activeRules(), "No rules are activated");
+
+        Assert.assertFalse(active);
     }
 
 }
