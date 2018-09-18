@@ -102,6 +102,24 @@ public class ICodeMetricsProcessorTest {
     }
 
     @Test
+    public void test_save_line_of_comment_measures() {
+
+        rule.result = new Result();
+        rule.analysisRuleId = "SH.MET.LineOfComment";
+        rule.result.fileName = "bash.sh";
+        rule.result.resultValue = "3";
+        rule.result.resultLine = "3";
+        rule.result.resultTypePlace = "class";
+        rule.result.resultNamePlace = "yolo";
+        rule.result.resultId = "11";
+        rule.result.resultMessage = "Small file";
+        final String key = bash_sh.key();
+
+        ICodeMetricsProcessor.saveMeasure(context, files, rule);
+        Assert.assertEquals(1, context.measures(key).size());
+    }
+
+    @Test
     public void test_save_shell_complexity_measures() {
 
         rule.result = new Result();
@@ -125,6 +143,24 @@ public class ICodeMetricsProcessorTest {
         rule.result = new Result();
         rule.analysisRuleId = "F90.MET.Nesting";
         rule.result.fileName = "bash.sh";
+        rule.result.resultValue = "3";
+        rule.result.resultLine = "3";
+        rule.result.resultTypePlace = "class";
+        rule.result.resultNamePlace = "yolo";
+        rule.result.resultId = "11";
+        rule.result.resultMessage = "Small file";
+        final String key = bash_sh.key();
+
+        ICodeMetricsProcessor.saveMeasure(context, files, rule);
+        Assert.assertEquals(0, context.measures(key).size());
+    }
+
+    @Test
+    public void test_save_other_measures_on_inexistant_file() {
+
+        rule.result = new Result();
+        rule.analysisRuleId = "F90.MET.LineOfCode";
+        rule.result.fileName = "zoulou.sh";
         rule.result.resultValue = "3";
         rule.result.resultLine = "3";
         rule.result.resultTypePlace = "class";

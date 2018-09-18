@@ -269,7 +269,7 @@ public class ICodeSensor implements Sensor {
      * @param rule Key (i-Code) of the rule to check.
      * @return True if the rule is active and false if not or not exists.
      */
-    private boolean isRuleActive(final ActiveRules activeRules, final String rule) {
+    protected boolean isRuleActive(final ActiveRules activeRules, final String rule) {
         final RuleKey ruleKeyShell = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(ShellLanguage.KEY), rule);
         final RuleKey ruleKeyF77 = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran77Language.KEY), rule);
         final RuleKey ruleKeyF90 = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran90Language.KEY), rule);
