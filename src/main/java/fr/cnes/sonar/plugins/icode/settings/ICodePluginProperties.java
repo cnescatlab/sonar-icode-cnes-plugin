@@ -18,6 +18,7 @@ package fr.cnes.sonar.plugins.icode.settings;
 
 import org.sonar.api.PropertyType;
 import org.sonar.api.config.PropertyDefinition;
+import org.sonar.api.resources.Qualifiers;
 
 import java.util.Arrays;
 import java.util.List;
@@ -160,6 +161,7 @@ public class ICodePluginProperties {
                     .name(AUTOLAUNCH_PROP_NAME)
                     .description(AUTOLAUNCH_PROP_DESC)
                     .type(PropertyType.BOOLEAN)
+                    .onQualifiers(Qualifiers.PROJECT)
                     .build()
             ,
             PropertyDefinition.builder(ICODE_PATH_KEY)
@@ -167,24 +169,32 @@ public class ICodePluginProperties {
                     .category(ICODE_NAME)
                     .name(ICODE_PATH_NAME)
                     .description(ICODE_PATH_DESC)
+                    .onQualifiers(Qualifiers.PROJECT)
                     .build()
             ,
             PropertyDefinition.builder(SHELL_SUFFIX_KEY).multiValues(true)
-                .defaultValue(SHELL_SUFFIX_DEFAULT).category(ICODE_NAME)
-                .name(SHELL_SUFFIX_NAME).description(SHELL_SUFFIX_DESC)
-                .build(),
+                    .defaultValue(SHELL_SUFFIX_DEFAULT).category(ICODE_NAME)
+                    .name(SHELL_SUFFIX_NAME).description(SHELL_SUFFIX_DESC)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .build()
+            ,
             PropertyDefinition.builder(F77_SUFFIX_KEY).multiValues(true)
-                .defaultValue(F77_SUFFIX_DEFAULT).category(ICODE_NAME)
-                .name(F77_SUFFIX_NAME).description(F77_SUFFIX_DESC)
-                .build(),
+                    .defaultValue(F77_SUFFIX_DEFAULT).category(ICODE_NAME)
+                    .name(F77_SUFFIX_NAME).description(F77_SUFFIX_DESC)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .build()
+            ,
             PropertyDefinition.builder(F90_SUFFIX_KEY).multiValues(true)
-                .defaultValue(F90_SUFFIX_DEFAULT).category(ICODE_NAME)
-                .name(F90_SUFFIX_NAME).description(F90_SUFFIX_DESC)
-                .build(),
+                    .defaultValue(F90_SUFFIX_DEFAULT).category(ICODE_NAME)
+                    .name(F90_SUFFIX_NAME).description(F90_SUFFIX_DESC)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .build()
+            ,
             PropertyDefinition.builder(REPORT_PATH_KEY).multiValues(true)
-                .defaultValue(REPORT_PATH_DEFAULT).category(ICODE_NAME)
-                .name(REPORT_PATH_NAME).description(REPORT_PATH_DESC)
-                .build());
+                    .defaultValue(REPORT_PATH_DEFAULT).category(ICODE_NAME)
+                    .name(REPORT_PATH_NAME).description(REPORT_PATH_DESC)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .build());
     }
 
 }

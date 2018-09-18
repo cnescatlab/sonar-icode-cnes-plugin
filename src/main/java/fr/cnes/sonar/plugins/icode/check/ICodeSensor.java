@@ -250,11 +250,12 @@ public class ICodeSensor implements Sensor {
         // Check if each path is known by the file system and add it to the processable path list,
         // otherwise print a warning and ignore this result file.
         for(String path : pathArray) {
-            if(fileSystem.hasFiles(fileSystem.predicates().hasPath(path))) {
+            final File file = new File(fileSystem.baseDir(), path);
+            if(file.exists() && file.isFile()) {
                 result.add(path);
                 LOGGER.info(String.format("Results file %s has been found and will be processed.", path));
             } else {
-                LOGGER.error(String.format("Results file %s has not been found and wont be processed.", path));
+                LOGGER.warn(String.format("Results file %s has not been found and wont be processed.", path));
             }
         }
 

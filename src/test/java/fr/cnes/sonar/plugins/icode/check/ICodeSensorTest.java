@@ -31,6 +31,7 @@ import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.config.internal.MapSettings;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -97,15 +98,26 @@ public class ICodeSensorTest {
 		verify(sensorDescriptor).name(ICodeSensor.class.getName());
 	}
 
-	@Test
-	public void test_normal_work() {
-		final ICodeSensor sensor = new ICodeSensor();
+    @Test
+    public void test_normal_work() {
+        final ICodeSensor sensor = new ICodeSensor();
 
-		sensor.execute(context);
+        sensor.execute(context);
 
-		Assert.assertNotNull(sensor);
-		Assert.assertTrue(context.config().hasKey("sonar.icode.reports.path"));
-	}
+        Assert.assertNotNull(sensor);
+        Assert.assertTrue(context.config().hasKey("sonar.icode.reports.path"));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void test_normal_work_with_icode_launch_failed() {
+        final ICodeSensor sensor = new ICodeSensor();
+
+        final MapSettings settings = new MapSettings();
+        settings.setProperty("sonar.icode.launch",true);
+        context.setSettings(settings);
+
+        sensor.execute(context);
+    }
 
 	@Test
     public void test_save_issue() {
