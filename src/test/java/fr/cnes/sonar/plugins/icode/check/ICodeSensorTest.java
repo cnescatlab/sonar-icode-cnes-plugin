@@ -24,6 +24,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.mockito.internal.matchers.Null;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
@@ -111,7 +112,7 @@ public class ICodeSensorTest {
         Assert.assertTrue(context.config().hasKey("sonar.icode.reports.path"));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void test_normal_work_with_icode_launch_failed() {
         final ICodeSensor sensor = new ICodeSensor();
 
@@ -119,7 +120,28 @@ public class ICodeSensorTest {
         settings.setProperty("sonar.icode.launch",true);
         context.setSettings(settings);
 
+        try {
+            sensor.execute(context);
+        } catch(Exception e) {
+            assert(true);
+        }
+    }
+
+    @Test
+    public void test_normal_work_with_icode_launch_success() {
+        final ICodeSensor sensor = new ICodeSensor() {
+            @Override
+            protected int runICode(final String command) {
+                return 0;
+            }
+        };
+
+        final MapSettings settings = new MapSettings();
+        settings.setProperty("sonar.icode.launch",true);
+        context.setSettings(settings);
+
         sensor.execute(context);
+        assert(true);
     }
 
     @Test
@@ -130,8 +152,8 @@ public class ICodeSensorTest {
         final AnalysisFile file = new AnalysisFile();
         final AnalysisFile file2 = new AnalysisFile();
 
-        file.fileName = "badaboum.sh";
-        file2.fileName = "bash.sh";
+        file.fileName = "badaboum.sh";file.language="shell";
+        file2.fileName = "bash.sh";file2.language="shell";
 
         project.analysisFile = new AnalysisFile[]{file, file2};
 

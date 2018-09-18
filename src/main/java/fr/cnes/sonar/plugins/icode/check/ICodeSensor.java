@@ -100,31 +100,10 @@ public class ICodeSensor implements Sensor {
         final Configuration config = sensorContext.config();
         // Represent the active rules used for the analysis.
         final ActiveRules activeRules = sensorContext.activeRules();
+
         // run i-Code CNES execution
         if(config.getBoolean(ICodePluginProperties.AUTOLAUNCH_PROP_KEY).orElse(Boolean.getBoolean(ICodePluginProperties.AUTOLAUNCH_PROP_DEFAULT))) {
-            LOGGER.info("i-Code CNES auto-launch enabled.");
-            final String executable = config.get(ICodePluginProperties.ICODE_PATH_KEY).orElse(ICodePluginProperties.ICODE_PATH_DEFAULT);
-            final String[] files = sensorContext.fileSystem().baseDir().list();
-            final String outputFile = config.get(ICodePluginProperties.REPORT_PATH_KEY).orElse(ICodePluginProperties.REPORT_PATH_DEFAULT);
-            final String outputPath = Paths.get(sensorContext.fileSystem().baseDir().toString(),outputFile).toString();
-            final String outputOption = "-o";
-            final String command = String.join(" ", executable, String.join(" ",files), outputOption, outputPath);
-
-            LOGGER.info("Running i-Code CNES and generating results to "+ outputPath);
-            try {
-                final Process icode =  Runtime.getRuntime().exec(command);
-                int success = icode.waitFor();
-                if(0!=success){
-                    final String message = String.format("i-Code CNES auto-launch analysis failed with exit code %d.",success);
-                    throw new ICodeException(message);
-                }
-                LOGGER.info("Auto-launch successfully executed i-Code CNES.");
-            } catch (InterruptedException | IOException | ICodeException e) {
-                LOGGER.error(e.getMessage(), e);
-                sensorContext.newAnalysisError().message(e.getMessage()).save();
-            }
-
-
+            executeICode(sensorContext);
         }
 
         // Report files found in file system and corresponding to SQ property.
@@ -160,6 +139,48 @@ public class ICodeSensor implements Sensor {
             }
         }
 
+    }
+
+    /**
+     * Execute i-Code through a system process.
+     *
+     * @param sensorContext Context of the sensor.
+     */
+    protected void executeICode(final SensorContext sensorContext) {
+        LOGGER.info("i-Code CNES auto-launch enabled.");
+        final Configuration config = sensorContext.config();
+        final String executable = config.get(ICodePluginProperties.ICODE_PATH_KEY).orElse(ICodePluginProperties.ICODE_PATH_DEFAULT);
+        final String[] files = sensorContext.fileSystem().baseDir().list();
+        final String outputFile = config.get(ICodePluginProperties.REPORT_PATH_KEY).orElse(ICodePluginProperties.REPORT_PATH_DEFAULT);
+        final String outputPath = Paths.get(sensorContext.fileSystem().baseDir().toString(),outputFile).toString();
+        final String outputOption = "-o";
+        final String command = String.join(" ", executable, String.join(" ",files), outputOption, outputPath);
+
+        LOGGER.info("Running i-Code CNES and generating results to "+ outputPath);
+        try {
+            int success = runICode(command);
+            if(0!=success){
+                final String message = String.format("i-Code CNES auto-launch analysis failed with exit code %d.",success);
+                throw new ICodeException(message);
+            }
+            LOGGER.info("Auto-launch successfully executed i-Code CNES.");
+        } catch (InterruptedException | IOException | ICodeException e) {
+            LOGGER.error(e.getMessage(), e);
+            sensorContext.newAnalysisError().message(e.getMessage()).save();
+        }
+    }
+
+    /**
+     * Run the i-Code command.
+     *
+     * @param command The i-Code Command to execute.
+     * @return 0 if all was fine.
+     * @throws IOException On possible unknown file.
+     * @throws InterruptedException On possible process problem.
+     */
+    protected int runICode(final String command) throws IOException, InterruptedException {
+        final Process icode =  Runtime.getRuntime().exec(command);
+        return icode.waitFor();
     }
 
     /**
