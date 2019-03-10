@@ -16,6 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.measures;
 
+import fr.cnes.analysis.tools.analyzer.datas.CheckResult;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.Result;
@@ -99,6 +100,20 @@ public class ICodeMetricsProcessorTest {
 
         ICodeMetricsProcessor.saveMeasure(context, files, rule);
         Assert.assertEquals(1, context.measures(key).size());
+    }
+
+    @Test
+    public void test_save_checkresult_measures() {
+        final String key = bash_sh.key();
+        CheckResult checkResult = new CheckResult("SH.MET.LineOfCode", "11", "Shell");
+        checkResult.setMessage("bim");
+        checkResult.setFile(new File(getClass().getResource("/project/bash.sh").getPath()));
+        checkResult.setLine(4);
+        checkResult.setValue(3f);
+        checkResult.setLocation(null);
+
+        ICodeMetricsProcessor.saveMeasure(context, checkResult);
+        Assert.assertEquals(0, context.measures(key).size());
     }
 
     @Test

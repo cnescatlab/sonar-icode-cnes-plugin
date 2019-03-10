@@ -16,6 +16,10 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
+import fr.cnes.analysis.tools.analyzer.Analyzer;
+import fr.cnes.analysis.tools.analyzer.datas.CheckResult;
+import fr.cnes.analysis.tools.analyzer.exception.JFlexException;
+import fr.cnes.analysis.tools.analyzer.services.languages.LanguageService;
 import fr.cnes.sonar.plugins.icode.exceptions.ICodeException;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
@@ -27,9 +31,7 @@ import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
-import org.sonar.api.batch.fs.FilePredicate;
-import org.sonar.api.batch.fs.FileSystem;
-import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.*;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -45,14 +47,14 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Executed during sonar-scanner call.
- * Import i-Code reports into SonarQube.
+ * This Sensor is able to:
+ *  - Run i-Code checks.
+ *  - Import i-Code reports into SonarQube.
+ *  - Run a specified external version of i-Code.
  *
  * @author lequal
  */
@@ -92,7 +94,34 @@ public class ICodeSensor implements Sensor {
      * @param sensorContext Provide SonarQube services to register results.
      */
     @Override
-    public void execute(SensorContext sensorContext) {
+    public void execute(final SensorContext sensorContext) {
+
+        // Represent the configuration used for the analysis.
+        final Configuration config = sensorContext.config();
+
+        // Run external version of i-Code CNES on during analysis.
+        if(config.getBoolean(ICodePluginProperties.AUTOLAUNCH_PROP_KEY)
+                .orElse(Boolean.getBoolean(ICodePluginProperties.AUTOLAUNCH_PROP_DEFAULT))) {
+            executeExternalICode(sensorContext);
+        }
+
+        // Run embedded version of i-Code CNES on during analysis.
+        if(config.getBoolean(ICodePluginProperties.USE_EMBEDDED_PROP_KEY)
+                .orElse(Boolean.getBoolean(ICodePluginProperties.USE_EMBEDDED_PROP_DEFAULT))) {
+            executeEmbeddedICode(sensorContext);
+        }
+
+        // Import i-Code issues from external result files.
+        executeExternalResultsImport(sensorContext);
+
+    }
+
+    /**
+     * Import i-Code issues from external result files.
+     *
+     * @param sensorContext Context of the sensor.
+     */
+    protected void executeExternalResultsImport(final SensorContext sensorContext) {
 
         // Represent the file system used for the analysis.
         final FileSystem fileSystem = sensorContext.fileSystem();
@@ -100,11 +129,6 @@ public class ICodeSensor implements Sensor {
         final Configuration config = sensorContext.config();
         // Represent the active rules used for the analysis.
         final ActiveRules activeRules = sensorContext.activeRules();
-
-        // run i-Code CNES execution
-        if(config.getBoolean(ICodePluginProperties.AUTOLAUNCH_PROP_KEY).orElse(Boolean.getBoolean(ICodePluginProperties.AUTOLAUNCH_PROP_DEFAULT))) {
-            executeICode(sensorContext);
-        }
 
         // Report files found in file system and corresponding to SQ property.
         final List<String> reportFiles = getReportFiles(config, fileSystem);
@@ -138,7 +162,51 @@ public class ICodeSensor implements Sensor {
                 sensorContext.newAnalysisError().message(e.getMessage()).save();
             }
         }
+    }
 
+    /**
+     * Execute the embedded version of i-Code.
+     *
+     * @param sensorContext Context of the sensor.
+     */
+    private void executeEmbeddedICode(final SensorContext sensorContext) {
+        // Initialisation of tools for analysis.
+        final Analyzer analyzer = new Analyzer();
+        final FileSystem fileSystem = sensorContext.fileSystem();
+        final FilePredicates predicates = fileSystem.predicates();
+        final ActiveRules activeRules = sensorContext.activeRules();
+        final Iterable<InputFile> inputFiles = fileSystem.inputFiles(predicates.hasType(InputFile.Type.MAIN));
+        final HashSet<File> files = new HashSet<>();
+        final HashMap<String,InputFile> filesMap = new HashMap<>();
+
+        try {
+            // Gather all files in a Set.
+            for(final InputFile inputFile : inputFiles) {
+                files.add(inputFile.file());
+                filesMap.put(inputFile.file().getPath(), inputFile);
+            }
+
+            // Run all checkers on all files.
+            final List<CheckResult> results = analyzer.stableCheck(files, LanguageService.getLanguagesIds(), null);
+
+            // Add each issue to SonarQube.
+            for(final CheckResult result : results) {
+                if(isRuleActive(activeRules, result.getName())) { // manage active rules
+                    saveIssue(sensorContext, result);
+                } else if (ICodeMetricsProcessor.isMetric(result.getName())) { // manage trivial measures
+                    ICodeMetricsProcessor.saveMeasure(sensorContext, result);
+                } else { // log ignored data
+                    LOGGER.info(String.format(
+                            "An issue for rule '%s' was detected by i-Code but this rule is deactivated in current analysis.",
+                            result.getName()));
+                }
+            }
+
+            ICodeMetricsProcessor.saveExtraMeasures(sensorContext, filesMap, results);
+
+        } catch (final JFlexException e) {
+            LOGGER.warn(e.getMessage(), e);
+        }
     }
 
     /**
@@ -146,25 +214,29 @@ public class ICodeSensor implements Sensor {
      *
      * @param sensorContext Context of the sensor.
      */
-    protected void executeICode(final SensorContext sensorContext) {
+    private void executeExternalICode(final SensorContext sensorContext) {
         LOGGER.info("i-Code CNES auto-launch enabled.");
         final Configuration config = sensorContext.config();
+        final FileSystem fileSystem = sensorContext.fileSystem();
+        final FilePredicates predicates = fileSystem.predicates();
+        final Iterable<InputFile> inputFiles = fileSystem.inputFiles(predicates.hasType(InputFile.Type.MAIN));
+        final StringBuilder files = new StringBuilder();
+        inputFiles.forEach(file -> files.append(file.file().getPath()).append(" "));
         final String executable = config.get(ICodePluginProperties.ICODE_PATH_KEY).orElse(ICodePluginProperties.ICODE_PATH_DEFAULT);
-        final String[] files = sensorContext.fileSystem().baseDir().list();
         final String outputFile = config.get(ICodePluginProperties.REPORT_PATH_KEY).orElse(ICodePluginProperties.REPORT_PATH_DEFAULT);
         final String outputPath = Paths.get(sensorContext.fileSystem().baseDir().toString(),outputFile).toString();
         final String outputOption = "-o";
-        final String command = String.join(" ", executable, String.join(" ",files), outputOption, outputPath);
+        final String command = String.join(" ", executable, files.toString(), outputOption, outputPath);
 
         LOGGER.info("Running i-Code CNES and generating results to "+ outputPath);
         try {
             int success = runICode(command);
             if(0!=success){
-                final String message = String.format("i-Code CNES auto-launch analysis failed with exit code %d.",success);
+                final String message = String.format("i-Code CNES auto-launch analysis failed with exit code %d.", success);
                 throw new ICodeException(message);
             }
             LOGGER.info("Auto-launch successfully executed i-Code CNES.");
-        } catch (InterruptedException | IOException | ICodeException e) {
+        } catch (final InterruptedException | IOException | ICodeException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }
@@ -180,6 +252,32 @@ public class ICodeSensor implements Sensor {
     protected int runICode(final String command) throws IOException, InterruptedException {
         final Process icode =  Runtime.getRuntime().exec(command);
         return icode.waitFor();
+    }
+
+    /**
+     * This method save an issue into the SonarQube service.
+     *
+     * @param sensorContext A SensorContext to reach SonarQube services.
+     * @param result A CheckResult with the convenient format for i-Code.
+     */
+    static void saveIssue(final SensorContext sensorContext, final CheckResult result) {
+        final FileSystem fileSystem = sensorContext.fileSystem();
+        final FilePredicates predicates = fileSystem.predicates();
+        final NewIssue issue = sensorContext.newIssue();
+        final InputFile file = fileSystem.inputFile(predicates.hasPath(result.getFile().getPath()));
+        if(Objects.nonNull(file)) {
+            final String repositoryKey = ICodeRulesDefinition.getRepositoryKeyForLanguage(file.language());
+            final RuleKey ruleKey = RuleKey.of(repositoryKey, result.getName());
+            final NewIssueLocation location = issue.newLocation();
+            final TextRange textRange = file.selectLine(result.getLine());
+            location.on(file);
+            location.at(textRange);
+            location.message(result.getMessage());
+            issue.at(location);
+            issue.forRule(ruleKey);
+
+            issue.save();
+        }
     }
 
     /**

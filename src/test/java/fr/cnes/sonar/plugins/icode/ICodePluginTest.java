@@ -35,7 +35,7 @@ public class ICodePluginTest {
 		SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(VERSION_6_7, SonarQubeSide.SERVER);
 		Plugin.Context context = new Plugin.Context(runtime);
 		iCodePlugin.define(context);
-		Assert.assertEquals(13, context.getExtensions().size());
+		Assert.assertEquals(14, context.getExtensions().size());
 	}
 
 }
