@@ -28,6 +28,7 @@ import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 import org.sonar.api.batch.fs.FilePredicate;
+import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.rule.ActiveRules;
@@ -150,12 +151,25 @@ public class ICodeSensor implements Sensor {
         LOGGER.info("i-Code CNES auto-launch enabled.");
         final Configuration config = sensorContext.config();
         final String executable = config.get(ICodePluginProperties.ICODE_PATH_KEY).orElse(ICodePluginProperties.ICODE_PATH_DEFAULT);
-        final String[] files = sensorContext.fileSystem().baseDir().list();
+
+        ArrayList<String> filesToUse = new ArrayList<String>();
+
+	FilePredicates p = sensorContext.fileSystem().predicates();
+
+	final Iterable<InputFile> files = sensorContext.fileSystem().inputFiles(p.or(p.hasLanguage("shell"),p.hasLanguage("f70"),p.hasLanguage("f90")));
+	//sensorContext.fileSystem().predicates().all());
+	for(InputFile f : files)
+	{
+		LOGGER.debug("Prise en compte du fichier : "+f.absolutePath());
+		filesToUse.add(f.absolutePath());
+	}
+
         final String outputFile = config.get(ICodePluginProperties.REPORT_PATH_KEY).orElse(ICodePluginProperties.REPORT_PATH_DEFAULT);
         final String outputPath = Paths.get(sensorContext.fileSystem().baseDir().toString(),outputFile).toString();
         final String outputOption = "-o";
-        final String command = String.join(" ", executable, String.join(" ",files), outputOption, outputPath);
+        final String command = String.join(" ", executable, String.join(" ",filesToUse.toArray(new String[0])), outputOption, outputPath);
 
+	LOGGER.debug("Command : "+command);
         LOGGER.info("Running i-Code CNES and generating results to "+ outputPath);
         try {
             int success = runICode(command);
