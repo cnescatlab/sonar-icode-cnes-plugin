@@ -16,7 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
-import fr.cnes.analysis.tools.analyzer.datas.CheckResult;
+import fr.cnes.icode.datas.CheckResult;
 import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;

@@ -16,7 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import fr.cnes.analysis.tools.analyzer.datas.CheckResult;
+import fr.cnes.icode.datas.CheckResult;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

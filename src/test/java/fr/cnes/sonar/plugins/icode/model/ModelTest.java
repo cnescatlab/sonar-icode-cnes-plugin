@@ -16,7 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import fr.cnes.analysis.tools.analyzer.datas.CheckResult;
+import fr.cnes.icode.datas.CheckResult;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

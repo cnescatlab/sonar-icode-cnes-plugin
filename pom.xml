@@ -83,7 +83,7 @@
         <dependency>
             <groupId>com.github.Facthunder.i-CodeCNES</groupId>
             <artifactId>icode-library</artifactId>
-            <version>dev-SNAPSHOT</version>
+            <version>3.2.0-dev-RC2</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>

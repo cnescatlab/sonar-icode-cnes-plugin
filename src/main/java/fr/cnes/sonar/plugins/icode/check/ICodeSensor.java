@@ -16,10 +16,10 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
-import fr.cnes.analysis.tools.analyzer.Analyzer;
-import fr.cnes.analysis.tools.analyzer.datas.CheckResult;
-import fr.cnes.analysis.tools.analyzer.exception.JFlexException;
-import fr.cnes.analysis.tools.analyzer.services.languages.LanguageService;
+import fr.cnes.icode.Analyzer;
+import fr.cnes.icode.datas.CheckResult;
+import fr.cnes.icode.exception.JFlexException;
+import fr.cnes.icode.services.languages.LanguageService;
 import fr.cnes.sonar.plugins.icode.exceptions.ICodeException;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
