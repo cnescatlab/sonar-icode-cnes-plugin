@@ -7,7 +7,7 @@
 
 SonarQube plugin for the code analysis tool: i-Code CNES.
 
-SonarQube is an open platform to manage code quality. This plugin adds the ability to import i-Code results for Fortran (77 & 90) & Shell.
+SonarQube is an open platform to manage code quality. This plugin adds the ability to check Fortran (77 & 90) & Shell with i-Code or import pre-existing results of i-Code.
 
 This plugin is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
@@ -15,9 +15,9 @@ You can get i-Code CNES on GitHub: [lequal/i-CodeCNES](https://github.com/lequal
 
 ### Quickstart
 - Setup a SonarQube instance.
-- Install i-Code command line application as described in [official documentation](https://github.com/lequal/i-CodeCNES/blob/master/documentation/i-Code%20CNES%20-%20Installation%20Manual%20-%20EN.pdf).
+- **[Optional]** Install i-Code command line application as described in [official documentation](https://github.com/lequal/i-CodeCNES/blob/master/documentation/i-Code%20CNES%20-%20Installation%20Manual%20-%20EN.pdf).
 - Install `sonaricode-*.jar` in `<SONARQUBE_HOME>/extensions/plugins/`.
-- Run i-Code manually or configure auto-launch in plugin configuration.
+- **[Optional]** Run i-Code manually or configure auto-launch in plugin configuration.
 - Run an analysis with *sonar-scanner*, *maven*, *gradle*, *msbuild*, etc.
 
 #### Get i-Code help
@@ -41,11 +41,21 @@ Analyze Shell, F77 & F90 code to find defects & bugs.
 Please report issues at https://github.com/lequal/i-CodeCNES/issues
 ````
 
+#### Run i-Code automatically
+This SonarQube plugin is now able to run automaticcaly an embedded version of i-Code. If you do not specify properties to run i-Code [manually](####Run-i-Code-manually) or [from a specific version](####Run-a-specific-i-Code-version-through-sonaricode-plugin), embedded version of i-Code will be executed.
+
+Here is the compatibility matrix of the plugin:
+
+| sonaricode version | embedded i-Code version |
+|:------------------:|:-----------------------:|
+|       < 2.0.0      |           none          |
+|        2.0.0       |          3.2.0          |
+
 #### Run i-Code manually
 If you need help to run i-Code please refer to the [official user manual](https://github.com/lequal/i-CodeCNES/blob/master/documentation/i-Code%20CNES%20-%20User%20Manual.pdf) or [i-Code issue tracker](https://github.com/lequal/i-CodeCNES/issues).
 
-#### Run i-Code through sonaricode plugin
-In order to run i-Code automatically when running *sonar-scanner*, following SoanrQube properties have to be given:
+#### Run a specific i-Code version through sonaricode plugin
+If embedded version of i-Code does not match your need, you can set the execution of another installed version of i-Code through the following properties:
 - `sonar.icode.launch`: Activate autolaunch for i-Code if `true`. Default: `false`.
 - `sonar.icode.path`: Define i-Code CNES executable path to auto-launch it on analysis. Default: `${HOME}/icode-cnes/icode.exe`.
 
