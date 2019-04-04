@@ -20,27 +20,6 @@ You can get i-Code CNES on GitHub: [lequal/i-CodeCNES](https://github.com/lequal
 - **[Optional]** Run i-Code manually or configure auto-launch in plugin configuration.
 - Run an analysis with *sonar-scanner*, *maven*, *gradle*, *msbuild*, etc.
 
-#### Get i-Code help
-Use `icode -h` to get the following help about i-Code:
-````
-usage: icode [<FILE> [...]] [-c <arg>] [-e] [-f <arg>] [-h] [-l] [-o <arg>] [-p <arg>] [-q <arg>] [-r] [-x <arg>]
-Analyze Shell, F77 & F90 code to find defects & bugs.
-
- -c,--checked-languages <arg>        Comma separated list of languages checked during analysis. All by default.
- -e,--exporters                      Display all available exporters.
- -f,--export-format <arg>            Set the format for result file. Default format is XML.
- -h,--help                           Display this message.
- -l,--languages                      Display all available languages.
- -o,--output <arg>                   Set the name for result file. Results are displayed in standard output by default.
- -p,--export-parameters <arg>        Comma separated list of parameters for the export. Format is:
-                                     key1=value1,key2=value2,key3=value3. Default values depend on the chosen export plugin.
- -q,--list-export-parameters <arg>   Display all available parameters for the given export.
- -r,--rules                          Display all available rules.
- -x,--excluded-rules <arg>           Comma separated list of rules id to exclude from analysis. None by default.
-
-Please report issues at https://github.com/lequal/i-CodeCNES/issues
-````
-
 #### Run i-Code automatically
 This SonarQube plugin is now able to run automaticcaly an embedded version of i-Code. If you do not specify properties to run i-Code [manually](####Run-i-Code-manually) or [from a specific version](####Run-a-specific-i-Code-version-through-sonaricode-plugin), embedded version of i-Code will be executed.
 
@@ -69,6 +48,28 @@ If embedded version of i-Code does not match your need, you can set the executio
 - Fortran 77 analysis
 - Fortran 90 analysis
 - Shell analysis
+- Import i-Code results
+
+#### Get i-Code help
+Use `icode -h` to get the following help about i-Code:
+````
+usage: icode [<FILE> [...]] [-c <arg>] [-e] [-f <arg>] [-h] [-l] [-o <arg>] [-p <arg>] [-q <arg>] [-r] [-x <arg>]
+Analyze Shell, F77 & F90 code to find defects & bugs.
+
+ -c,--checked-languages <arg>        Comma separated list of languages checked during analysis. All by default.
+ -e,--exporters                      Display all available exporters.
+ -f,--export-format <arg>            Set the format for result file. Default format is XML.
+ -h,--help                           Display this message.
+ -l,--languages                      Display all available languages.
+ -o,--output <arg>                   Set the name for result file. Results are displayed in standard output by default.
+ -p,--export-parameters <arg>        Comma separated list of parameters for the export. Format is:
+                                     key1=value1,key2=value2,key3=value3. Default values depend on the chosen export plugin.
+ -q,--list-export-parameters <arg>   Display all available parameters for the given export.
+ -r,--rules                          Display all available rules.
+ -x,--excluded-rules <arg>           Comma separated list of rules id to exclude from analysis. None by default.
+
+Please report issues at https://github.com/lequal/i-CodeCNES/issues
+````
 
 ### How to contribute
 If you experienced a problem with the plugin please open an issue. Inside this issue please explain us how to reproduce this issue and paste the log. 
