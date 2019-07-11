@@ -106,7 +106,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.9.0</version>
+            <version>2.28.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -141,11 +141,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.2</version>
+                <version>3.8.0</version>
                 <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <release>11</release>
                 </configuration>
             </plugin>
             <plugin>
