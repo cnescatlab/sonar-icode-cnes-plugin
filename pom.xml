@@ -52,7 +52,7 @@
     </developers>
 
     <properties>
-        <jdk.version>1.11</jdk.version>
+        <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.apiVersion>6.7.1</sonar.apiVersion>
         <slf4j.version>1.7.25</slf4j.version>
@@ -143,8 +143,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <release>11</release>
                 </configuration>
             </plugin>
             <plugin>
