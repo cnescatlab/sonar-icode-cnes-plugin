@@ -169,7 +169,7 @@ public class ICodeSensorTest {
 
         final int value = sensor.runICode("java -version");
         
-        Assert.assertEquals(1, value);
+        Assert.assertEquals(0, value);
     }
 
     @Test
