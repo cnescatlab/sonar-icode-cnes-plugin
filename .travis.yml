@@ -1,29 +1,34 @@
 language: java
-
 sudo: false
 install: true
-
-jdk:
-  - oraclejdk8
-
-cache:
-  directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
-    - '$HOME/.sonar/installs'
-
-addons:
-  sonarqube: true
-
-notifications:
-  email: false
 
 addons:
   sonarcloud:
     organization: "lequal"
-    token:
-      secure: projettest  # encrypted value of your token
-# Script to execute.
+
+jdk:
+- openjdk8
+- openjdk11
 
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=lequal -Dsonar.login=181e22946e5e05302ceb4513dae3dcc9f7161f2f
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+
+cache:
+  directories:
+  - '$HOME/.m2/repository'
+  - '$HOME/.sonar/cache'
+
+notifications:
+  email: false
+
+deploy:
+  provider: releases
+  api_key: "$GITHUB_TOKEN"
+  file_glob: true
+  file: "target/sonar-icode-cnes-plugin-*.jar"
+  skip_cleanup: true
+  name: "Sonar i-Code CNES plugin"
+  draft: true
+  on:
+    branch: master
+    jdk: 'openjdk11'

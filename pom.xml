@@ -2,10 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>fr.cnes.sonarqube.plugins</groupId>
-    <artifactId>sonaricode</artifactId>
+
+    <groupId>fr.cnes.sonar.plugins</groupId>
+    <artifactId>sonar-icode-cnes-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
-    <version>1.1.0</version>
+    <version>1.2.0-dev</version>
+
     <name>Sonar i-Code CNES plugin</name>
 
     <description>i-Code CNES plugin for SonarQube</description>
@@ -28,16 +30,6 @@
 
     <developers>
         <developer>
-            <name>Cyrille Francois</name>
-            <url>https://github.com/CfrancCyrille</url>
-            <id>CfrancCyrille</id>
-        </developer>
-        <developer>
-            <name>Nicolas Métivier</name>
-            <url>https://github.com/AT-NicolasMetivier</url>
-            <id>AT-NicolasMetivier</id>
-        </developer>
-        <developer>
             <name>Benoît Garçon</name>
             <organization>CNES</organization>
             <url>https://github.com/begarco</url>
@@ -52,15 +44,34 @@
     </developers>
 
     <properties>
-        <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk.version>1.8</jdk.version>
+        <jdk.min.version>1.8</jdk.min.version>
+        <jdk.max.version>1.8</jdk.max.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <sonar.apiVersion>6.7.1</sonar.apiVersion>
+        <sonar.sslr-squid-bridge.version>2.6.1</sonar.sslr-squid-bridge.version>
+        <sonar-packaging-maven-plugin.version>1.17</sonar-packaging-maven-plugin.version>
+        <commons-lang.version>3.7</commons-lang.version>
+        <gson.version>2.8.2</gson.version>
         <slf4j.version>1.7.25</slf4j.version>
         <junit.version>4.12</junit.version>
-        <project.key>icode</project.key>
+        <jacoco.version>0.8.0</jacoco.version>
+        <sonar.pluginKey>sonaricode</sonar.pluginKey>
+        <sonar.pluginClass>fr.cnes.sonar.plugins.icode.ICodePlugin</sonar.pluginClass>
+        <sonar.pluginUrl>https://github.com/lequal/sonar-icode-cnes-plugin</sonar.pluginUrl>
+        <sonar.pluginOrganizationName>CNES</sonar.pluginOrganizationName>
         <sonar.sources>src/main/java</sonar.sources>
         <sonar.test>src/test/java</sonar.test>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -70,7 +81,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <!-- packaged with the plugin -->
+            <groupId>com.github.Facthunder.i-CodeCNES</groupId>
+            <artifactId>icode-library</artifactId>
+            <version>3.2.0-dev-RC2</version>
+        </dependency>
+        <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
@@ -98,44 +113,26 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.6.201602180812</version>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
                 <artifactId>sonar-packaging-maven-plugin</artifactId>
-                <version>1.17</version>
+                <version>${sonar-packaging-maven-plugin.version}</version>
                 <extensions>true</extensions>
-                <configuration>
-                    <pluginClass>fr.cnes.sonar.plugins.icode.ICodePlugin</pluginClass>
-                    <pluginKey>${project.key}</pluginKey>
-                    <pluginName>${project.name}</pluginName>
-                    <pluginDescription>${project.description}</pluginDescription>
-                </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.2</version>
+                <version>3.5.1</version>
                 <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${jdk.min.version}</source>
+                    <target>${jdk.min.version}</target>
                 </configuration>
             </plugin>
+
             <plugin>
-                <!-- UTF-8 bundles are not supported by Java, so they must be converted
-                    during build -->
+                <!-- UTF-8 bundles are not supported by Java, so they must be converted during build -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
                 <version>1.0-beta-1</version>
@@ -147,6 +144,50 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <dataFile>target/jacoco.exec</dataFile>
+                            <!-- Sets the output directory for the code coverage report. -->
+                            <outputDirectory>target/jacoco-ut</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>

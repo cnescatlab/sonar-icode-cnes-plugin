@@ -16,8 +16,11 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
+import fr.cnes.icode.datas.CheckResult;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import java.util.Objects;
 
 /**
  * Class used to unmarshal i-Code xml file.
@@ -32,5 +35,37 @@ public class AnalysisRule {
     public String analysisRuleId;
     @XmlElement
     public Result result;
+
+    /**
+     * Default constructor.
+     */
+    public AnalysisRule() {
+        this.analysisRuleId = "";
+        this.result = new Result();
+        this.result.fileName = "";
+        this.result.resultId = "";
+        this.result.resultMessage = "";
+        this.result.resultLine = "";
+        this.result.resultNamePlace = "";
+        this.result.resultTypePlace = "";
+        this.result.resultValue = "";
+    }
+
+    /**
+     * Construct a new AnalysisRule from a CheckResult from i-Code core library.
+     *
+     * @param checkResult A CheckResult from i-Code library.
+     */
+    public AnalysisRule(final CheckResult checkResult) {
+        this.analysisRuleId = checkResult.getName();
+        this.result = new Result();
+        this.result.fileName = checkResult.getFile().getPath();
+        this.result.resultId = checkResult.getId();
+        this.result.resultMessage = checkResult.getMessage();
+        this.result.resultLine = String.valueOf(checkResult.getLine());
+        this.result.resultNamePlace = checkResult.getLocation();
+        this.result.resultTypePlace = Objects.isNull(checkResult.getLocation()) || checkResult.getLocation().isEmpty() ? "class" : "method";
+        this.result.resultValue = String.valueOf(checkResult.getValue());
+    }
 
 }

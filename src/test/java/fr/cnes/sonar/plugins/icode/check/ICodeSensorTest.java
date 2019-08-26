@@ -16,6 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
+import fr.cnes.icode.datas.CheckResult;
 import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
@@ -24,8 +25,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Null;
-import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
@@ -91,6 +90,7 @@ public class ICodeSensorTest {
         context.setFileSystem(fs);
         MapSettings settings = new MapSettings();
         settings.setProperty("sonar.icode.reports.path", "");
+        settings.setProperty("sonar.icode.embedded", false);
         context.setSettings(settings);
     }
 
@@ -118,6 +118,7 @@ public class ICodeSensorTest {
 
         final MapSettings settings = new MapSettings();
         settings.setProperty("sonar.icode.launch",true);
+        settings.setProperty("sonar.icode.embedded",false);
         context.setSettings(settings);
 
         try {
@@ -138,6 +139,7 @@ public class ICodeSensorTest {
 
         final MapSettings settings = new MapSettings();
         settings.setProperty("sonar.icode.launch",true);
+        settings.setProperty("sonar.icode.embedded",false);
         context.setSettings(settings);
 
         sensor.execute(context);
@@ -155,13 +157,12 @@ public class ICodeSensorTest {
 
         final MapSettings settings = new MapSettings();
         settings.setProperty("sonar.icode.launch",true);
+        settings.setProperty("sonar.icode.embedded",false);
         context.setSettings(settings);
 
         sensor.execute(context);
         assert(true);
     }
-
-
 
     @Test
     public void test_run_a_command() throws IOException, InterruptedException {
@@ -192,7 +193,7 @@ public class ICodeSensorTest {
         Assert.assertEquals(0, relevantFile.size());
     }
 
-	@Test
+    @Test
     public void test_save_issue() {
         rule.result = new Result();
         rule.analysisRuleId = "SH.ERR.Help";
@@ -206,6 +207,19 @@ public class ICodeSensorTest {
 
         ICodeSensor.saveIssue(context, files, rule);
         Assert.assertEquals(1, context.allIssues().size());
+    }
+
+    @Test
+    public void test_save_issue_with_CheckResult() {
+        CheckResult result = new CheckResult("SH.ERR.Help", "11", bash_sh.file());
+        result.setValue(3.0f);
+        result.setLine(4);
+        result.setLocation("yolo");
+        result.setMessage("Small file");
+        result.setLangageId("Shell");
+
+        ICodeSensor.saveIssue(context, result);
+        Assert.assertEquals(0, context.allIssues().size());
     }
 
     @Test
