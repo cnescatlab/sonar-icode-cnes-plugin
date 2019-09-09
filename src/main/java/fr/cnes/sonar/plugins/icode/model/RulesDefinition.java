@@ -37,7 +37,7 @@ import java.util.List;
 public class RulesDefinition {
 
     @XStreamAlias("rule")
-    public List<Rule> icodeRules;
+    private List<Rule> icodeRules;
 
     /**
      * Getter for accessing definedRules (definition).
@@ -46,12 +46,19 @@ public class RulesDefinition {
     public List<Rule> getRules() {
         // Retrieve issues (called rules)
         List<Rule> rules;
-        if(this.icodeRules !=null) {
-            rules = this.icodeRules;
+        if(this.getIcodeRules() !=null) {
+            rules = this.getIcodeRules();
         } else {
             rules = new ArrayList<>();
         }
         return rules;
     }
 
+    public List<Rule> getIcodeRules() {
+        return icodeRules;
+    }
+
+    public void setIcodeRules(List<Rule> icodeRules) {
+        this.icodeRules = icodeRules;
+    }
 }

@@ -25,12 +25,67 @@ package fr.cnes.sonar.plugins.icode.model;
  */
 public class Result {
 
-    public String resultId;
-    public String fileName;
-    public String resultLine;
-    public String resultTypePlace;
-    public String resultNamePlace;
-    public String resultValue;
-    public String resultMessage;
+    private String resultId;
+    private String fileName;
+    private String resultLine;
+    private String resultTypePlace;
+    private String resultNamePlace;
+    private String resultValue;
+    private String resultMessage;
 
+    public String getResultId() {
+        return resultId;
+    }
+
+    public void setResultId(String resultId) {
+        this.resultId = resultId;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getResultLine() {
+        return resultLine;
+    }
+
+    public void setResultLine(String resultLine) {
+        this.resultLine = resultLine;
+    }
+
+    public String getResultTypePlace() {
+        return resultTypePlace;
+    }
+
+    public void setResultTypePlace(String resultTypePlace) {
+        this.resultTypePlace = resultTypePlace;
+    }
+
+    public String getResultNamePlace() {
+        return resultNamePlace;
+    }
+
+    public void setResultNamePlace(String resultNamePlace) {
+        this.resultNamePlace = resultNamePlace;
+    }
+
+    public String getResultValue() {
+        return resultValue;
+    }
+
+    public void setResultValue(String resultValue) {
+        this.resultValue = resultValue;
+    }
+
+    public String getResultMessage() {
+        return resultMessage;
+    }
+
+    public void setResultMessage(String resultMessage) {
+        this.resultMessage = resultMessage;
+    }
 }

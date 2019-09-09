@@ -68,7 +68,7 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
         final RulesDefinition rules = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
         // Activate all i-Code CNES rules.
         for(final Rule rule : rules.getRules()) {
-            defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(language), rule.key);
+            defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(language), rule.getKey());
         }
         // Save the default profile.
         defaultProfile.setDefault(true);

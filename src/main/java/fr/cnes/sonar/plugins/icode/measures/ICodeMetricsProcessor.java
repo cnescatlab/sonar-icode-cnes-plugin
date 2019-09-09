@@ -73,13 +73,13 @@ public class ICodeMetricsProcessor {
         // Create a new measure from the scan context.
         final NewMeasure<Integer> newMeasure = context.newMeasure();
         // i-Code rule id.
-        final String metricKey = rule.analysisRuleId;
+        final String metricKey = rule.getAnalysisRuleId();
         // Determine if a measure is relative to a file or a method.
-        final String metricScope = rule.result.resultTypePlace;
+        final String metricScope = rule.getResult().getResultTypePlace();
         // Component concerned by the measure.
-        final String metricComponent = rule.result.fileName;
+        final String metricComponent = rule.getResult().getFileName();
         // Component concerned by the measure.
-        final String measureValue = rule.result.resultValue;
+        final String measureValue = rule.getResult().getResultValue();
 
         // Is true if the metric must be interpreted by the plugin.
         boolean isCalculated = false;
@@ -142,8 +142,8 @@ public class ICodeMetricsProcessor {
 
         // Collect all measures on methods into specific list
         for(final AnalysisRule rule : project.getAnalysisRules()) {
-            final String type = rule.result.resultTypePlace;
-            final String id = rule.analysisRuleId;
+            final String type = rule.getResult().getResultTypePlace();
+            final String id = rule.getAnalysisRuleId();
             if(id.contains(COMMON_METRICS_KEY_PART) && type.equals("method")) {
                 final List<AnalysisRule> sub = measures.getOrDefault(id, new ArrayList<>());
                 sub.add(rule);
@@ -182,7 +182,7 @@ public class ICodeMetricsProcessor {
 
         // Compute number of functions by file.
         for(final AnalysisRule measure : rawMeasures) {
-            final String file = measure.result.fileName;
+            final String file = measure.getResult().getFileName();
             Integer sum = functions.getOrDefault(file, 0) + 1;
             functions.put(file, sum);
         }
@@ -213,8 +213,8 @@ public class ICodeMetricsProcessor {
 
         // Compute complexity sum value by file.
         for(final AnalysisRule measure : rawMeasures) {
-            final String file = measure.result.fileName;
-            final Integer value = Double.valueOf((measure.result.resultValue)).intValue();
+            final String file = measure.getResult().getFileName();
+            final Integer value = Double.valueOf((measure.getResult().getResultValue())).intValue();
             Integer sum = complexity.getOrDefault(file, 0);
             sum += value;
             complexity.put(file, sum);
@@ -246,8 +246,8 @@ public class ICodeMetricsProcessor {
 
         // compute max nesting value by file
         for(final AnalysisRule measure : rawMeasures) {
-            final String file = measure.result.fileName;
-            final Integer value = Double.valueOf((measure.result.resultValue)).intValue();
+            final String file = measure.getResult().getFileName();
+            final Integer value = Double.valueOf((measure.getResult().getResultValue())).intValue();
             Integer max = nesting.getOrDefault(file, 0);
             max = Math.max(max,value);
             nesting.put(file, max);

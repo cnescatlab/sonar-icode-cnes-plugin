@@ -21,7 +21,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class ModelTest {
@@ -36,40 +35,40 @@ public class ModelTest {
     public void before() {
         project = new AnalysisProject();
 
-        project.analysisInformations = new AnalysisInformations();
-        project.analysisInformations.analysisConfigurationId = "azerty";
-        project.analysisInformations.analysisDate = "10/10/10";
-        project.analysisInformations.author = "Me";
-        project.analysisProjectName = "My Project";
-        project.analysisProjectVersion = "1.0";
+        project.setAnalysisInformations(new AnalysisInformations());
+        project.getAnalysisInformations().setAnalysisConfigurationId("azerty");
+        project.getAnalysisInformations().setAnalysisDate("10/10/10");
+        project.getAnalysisInformations().setAuthor("Me");
+        project.setAnalysisProjectName("My Project");
+        project.setAnalysisProjectVersion("1.0");
 
         file = new AnalysisFile();
-        file.fileName = "foo.sh";
-        file.language = "shell";
+        file.setFileName("foo.sh");
+        file.setLanguage("shell");
 
         rule = new AnalysisRule();
-        rule.analysisRuleId = "WOW";
-        rule.result = new Result();
-        rule.result.fileName = "a";
-        rule.result.resultId = "z";
-        rule.result.resultLine = "e";
-        rule.result.resultMessage = "r";
-        rule.result.resultNamePlace = "t";
-        rule.result.resultTypePlace = "y";
-        rule.result.resultValue = "u";
+        rule.setAnalysisRuleId("WOW");
+        rule.setResult(new Result());
+        rule.getResult().setFileName("a");
+        rule.getResult().setResultId("z");
+        rule.getResult().setResultLine("e");
+        rule.getResult().setResultMessage("r");
+        rule.getResult().setResultNamePlace("t");
+        rule.getResult().setResultTypePlace("y");
+        rule.getResult().setResultValue("u");
 
         check = new Rule();
-        check.key = "a";
-        check.cardinality = "a";
-        check.description = "a";
-        check.internalKey = "a";
-        check.name = "a";
-        check.remediationFunction = "a";
-        check.remediationFunctionBaseEffort = "a";
-        check.severity = "a";
-        check.status = "a";
-        check.tag = "a";
-        check.type = "a";
+        check.setKey("a");
+        check.setCardinality("a");
+        check.setDescription("a");
+        check.setInternalKey("a");
+        check.setName("a");
+        check.setRemediationFunction("a");
+        check.setRemediationFunctionBaseEffort("a");
+        check.setSeverity("a");
+        check.setStatus("a");
+        check.setTag("a");
+        check.setType("a");
 
         rulesDefinition = new RulesDefinition();
     }
@@ -81,7 +80,7 @@ public class ModelTest {
         Assert.assertEquals(0, rulesDefinition.getRules().size());
         ArrayList<Rule> rules = new ArrayList<>();
         rules.add(check);
-        rulesDefinition.icodeRules = new ArrayList(rules);
+        rulesDefinition.setIcodeRules(new ArrayList(rules));
         Assert.assertEquals(1, rulesDefinition.getRules().size());
     }
 

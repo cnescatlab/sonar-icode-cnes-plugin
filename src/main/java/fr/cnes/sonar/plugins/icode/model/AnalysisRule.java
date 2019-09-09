@@ -26,7 +26,24 @@ package fr.cnes.sonar.plugins.icode.model;
  */
 public class AnalysisRule {
 
-    public String analysisRuleId;
-    public Result result;
+    public String getAnalysisRuleId() {
+        return analysisRuleId;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    private String analysisRuleId;
+
+    public void setAnalysisRuleId(String analysisRuleId) {
+        this.analysisRuleId = analysisRuleId;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
+    private Result result;
 
 }

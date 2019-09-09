@@ -28,16 +28,103 @@ package fr.cnes.sonar.plugins.icode.model;
 public class Rule {
 
 
-    public String key;
-    public String name;
-    public String internalKey;
-    public String description;
-    public String severity;
-    public String cardinality;
-    public String status;
-    public String type;
-    public String tag;
-    public String remediationFunction;
-    public String remediationFunctionBaseEffort;
+    private String key;
+    private String name;
+    private String internalKey;
+    private String description;
+    private String severity;
+    private String cardinality;
+    private String status;
+    private String type;
+    private String tag;
+    private String remediationFunction;
+    private String remediationFunctionBaseEffort;
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getInternalKey() {
+        return internalKey;
+    }
+
+    public void setInternalKey(String internalKey) {
+        this.internalKey = internalKey;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public String getCardinality() {
+        return cardinality;
+    }
+
+    public void setCardinality(String cardinality) {
+        this.cardinality = cardinality;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getRemediationFunction() {
+        return remediationFunction;
+    }
+
+    public void setRemediationFunction(String remediationFunction) {
+        this.remediationFunction = remediationFunction;
+    }
+
+    public String getRemediationFunctionBaseEffort() {
+        return remediationFunctionBaseEffort;
+    }
+
+    public void setRemediationFunctionBaseEffort(String remediationFunctionBaseEffort) {
+        this.remediationFunctionBaseEffort = remediationFunctionBaseEffort;
+    }
 }

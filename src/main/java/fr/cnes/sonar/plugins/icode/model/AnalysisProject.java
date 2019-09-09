@@ -28,11 +28,11 @@ import java.util.List;
  * @author lequal
  */
 public class AnalysisProject {
-    public String analysisProjectName;
-    public String analysisProjectVersion;
-    public AnalysisInformations analysisInformations;
-    public AnalysisFile[] analysisFile;
-    public AnalysisRule[] analysisRule;
+    private String analysisProjectName;
+    private String analysisProjectVersion;
+    private AnalysisInformations analysisInformations;
+    private AnalysisFile[] analysisFile;
+    private AnalysisRule[] analysisRule;
 
     /**
      * Getter for accessing analysis rules (issues).
@@ -41,8 +41,8 @@ public class AnalysisProject {
     public List<AnalysisRule> getAnalysisRules() {
         // Retrieve issues (called rules)
         List<AnalysisRule> rules;
-        if(analysisRule!=null) {
-            rules = Arrays.asList(analysisRule);
+        if(getAnalysisRule() !=null) {
+            rules = Arrays.asList(getAnalysisRule());
         } else {
             rules = new ArrayList<>();
         }
@@ -56,11 +56,51 @@ public class AnalysisProject {
     public List<AnalysisFile> getAnalysisFiles() {
         // Retrieve files
         List<AnalysisFile> files;
-        if(analysisFile!=null) {
-            files = Arrays.asList(analysisFile);
+        if(getAnalysisFile() !=null) {
+            files = Arrays.asList(getAnalysisFile());
         } else {
             files = new ArrayList<>();
         }
         return files;
+    }
+
+    public String getAnalysisProjectName() {
+        return analysisProjectName;
+    }
+
+    public void setAnalysisProjectName(String analysisProjectName) {
+        this.analysisProjectName = analysisProjectName;
+    }
+
+    public String getAnalysisProjectVersion() {
+        return analysisProjectVersion;
+    }
+
+    public void setAnalysisProjectVersion(String analysisProjectVersion) {
+        this.analysisProjectVersion = analysisProjectVersion;
+    }
+
+    public AnalysisInformations getAnalysisInformations() {
+        return analysisInformations;
+    }
+
+    public void setAnalysisInformations(AnalysisInformations analysisInformations) {
+        this.analysisInformations = analysisInformations;
+    }
+
+    public AnalysisFile[] getAnalysisFile() {
+        return analysisFile;
+    }
+
+    public void setAnalysisFile(AnalysisFile[] analysisFile) {
+        this.analysisFile = analysisFile;
+    }
+
+    public AnalysisRule[] getAnalysisRule() {
+        return analysisRule;
+    }
+
+    public void setAnalysisRule(AnalysisRule[] analysisRule) {
+        this.analysisRule = analysisRule;
     }
 }

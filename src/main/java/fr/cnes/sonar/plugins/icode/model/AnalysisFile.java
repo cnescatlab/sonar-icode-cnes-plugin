@@ -25,6 +25,22 @@ package fr.cnes.sonar.plugins.icode.model;
  * @author lequal
  */
 public class AnalysisFile {
-    public String language;
-    public String fileName;
+    private String language;
+    private String fileName;
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 }
