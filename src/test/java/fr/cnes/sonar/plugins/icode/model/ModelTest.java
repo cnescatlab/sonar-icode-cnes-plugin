@@ -20,10 +20,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBException;
-import java.io.File;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 public class ModelTest {
 
@@ -80,19 +79,21 @@ public class ModelTest {
         Assert.assertEquals(0, project.getAnalysisFiles().size());
         Assert.assertEquals(0, project.getAnalysisRules().size());
         Assert.assertEquals(0, rulesDefinition.getRules().size());
-        rulesDefinition.icodeRules = new Rule[]{check};
+        ArrayList<Rule> rules = new ArrayList<>();
+        rules.add(check);
+        rulesDefinition.icodeRules = new ArrayList(rules);
         Assert.assertEquals(1, rulesDefinition.getRules().size());
     }
 
     @Test
-    public void test_unmarshal_from_file() throws JAXBException, URISyntaxException {
-        File file = new File(this.getClass().getResource("/rules/icode-shell-rules.xml").toURI());
+    public void test_unmarshal_from_file()  {
+        InputStream file = this.getClass().getResourceAsStream("/rules/icode-shell-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(file, RulesDefinition.class);
         Assert.assertEquals(45, def.getRules().size());
     }
 
     @Test
-    public void test_unmarshal_from_stream() throws JAXBException {
+    public void test_unmarshal_from_stream() {
         InputStream stream = this.getClass().getResourceAsStream("/rules/icode-shell-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
         Assert.assertEquals(45, def.getRules().size());

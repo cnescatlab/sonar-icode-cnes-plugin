@@ -17,7 +17,6 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Class used to unmarshal i-Code xml file.
@@ -28,27 +27,17 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class Rule {
 
-    @XmlElement
+
     public String key;
-    @XmlElement
     public String name;
-    @XmlElement
     public String internalKey;
-    @XmlElement
     public String description;
-    @XmlElement
     public String severity;
-    @XmlElement
     public String cardinality;
-    @XmlElement
     public String status;
-    @XmlElement
     public String type;
-    @XmlElement
     public String tag;
-    @XmlElement
     public String remediationFunction;
-    @XmlElement
     public String remediationFunctionBaseEffort;
 
 }

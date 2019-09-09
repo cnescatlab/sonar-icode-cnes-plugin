@@ -16,10 +16,12 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicitCollection;
+import com.thoughtworks.xstream.annotations.XStreamInclude;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,21 +31,23 @@ import java.util.List;
  *
  * @author lequal
  */
-@XmlRootElement(name = "icodelint-rules")
+@XStreamAlias("icodelint-rules")
+@XStreamImplicitCollection("icodeRules")
+@XStreamInclude(Rule.class)
 public class RulesDefinition {
 
-    @XmlElement( name = "rule" )
-    public Rule[] icodeRules;
+    @XStreamAlias("rule")
+    public List<Rule> icodeRules;
 
     /**
-     * Getter for accessing rules (definition).
+     * Getter for accessing definedRules (definition).
      * @return A list of Rule.
      */
     public List<Rule> getRules() {
         // Retrieve issues (called rules)
         List<Rule> rules;
-        if(icodeRules!=null) {
-            rules = Arrays.asList(icodeRules);
+        if(this.icodeRules !=null) {
+            rules = this.icodeRules;
         } else {
             rules = new ArrayList<>();
         }

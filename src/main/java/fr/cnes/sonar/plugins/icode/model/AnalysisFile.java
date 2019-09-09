@@ -16,7 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  * Class used to unmarshal i-Code xml file.
@@ -26,8 +25,6 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author lequal
  */
 public class AnalysisFile {
-    @XmlAttribute
     public String language;
-    @XmlAttribute
     public String fileName;
 }

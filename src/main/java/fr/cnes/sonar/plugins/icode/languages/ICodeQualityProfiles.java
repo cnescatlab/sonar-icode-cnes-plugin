@@ -24,7 +24,6 @@ import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import javax.xml.bind.JAXBException;
 import java.io.InputStream;
 
 /**
@@ -64,16 +63,12 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
         final NewBuiltInQualityProfile defaultProfile =
                 context.createBuiltInQualityProfile(I_CODE_RULES_PROFILE_NAME, language);
 
-        try {
-            // Retrieve all defined rules.
-            final InputStream stream = getClass().getResourceAsStream(path);
-            final RulesDefinition rules = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
-            // Activate all i-Code CNES rules.
-            for(final Rule rule : rules.getRules()) {
-                defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(language), rule.key);
-            }
-        } catch (JAXBException e) {
-            LOGGER.warn(e.getLocalizedMessage(), e);
+        // Retrieve all defined rules.
+        final InputStream stream = getClass().getResourceAsStream(path);
+        final RulesDefinition rules = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
+        // Activate all i-Code CNES rules.
+        for(final Rule rule : rules.getRules()) {
+            defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(language), rule.key);
         }
         // Save the default profile.
         defaultProfile.setDefault(true);

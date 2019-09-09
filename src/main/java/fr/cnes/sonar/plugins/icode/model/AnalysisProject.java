@@ -16,9 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,17 +27,11 @@ import java.util.List;
  *
  * @author lequal
  */
-@XmlRootElement
 public class AnalysisProject {
-    @XmlAttribute
     public String analysisProjectName;
-    @XmlAttribute
     public String analysisProjectVersion;
-    @XmlElement
     public AnalysisInformations analysisInformations;
-    @XmlElement
     public AnalysisFile[] analysisFile;
-    @XmlElement
     public AnalysisRule[] analysisRule;
 
     /**

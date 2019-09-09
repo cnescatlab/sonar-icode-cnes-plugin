@@ -16,9 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-
 /**
  * Class used to unmarshal i-Code xml file.
  *
@@ -28,19 +25,12 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class Result {
 
-    @XmlAttribute
     public String resultId;
-    @XmlAttribute
     public String fileName;
-    @XmlAttribute
     public String resultLine;
-    @XmlAttribute
     public String resultTypePlace;
-    @XmlAttribute
     public String resultNamePlace;
-    @XmlAttribute
     public String resultValue;
-    @XmlElement
     public String resultMessage;
 
 }

@@ -41,8 +41,9 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -113,7 +114,7 @@ public class ICodeSensor implements Sensor {
         for(final String reportPath : reportFiles) {
             try {
                 // Unmarshall the xml.
-                final File file = new File(reportPath);
+                final FileInputStream file = new FileInputStream(reportPath);
                 final AnalysisProject analysisProject = (AnalysisProject) XmlHandler.unmarshal(file, AnalysisProject.class);
                 // Retrieve file in a SonarQube format.
                 final Map<String, InputFile> scannedFiles = getScannedFiles(fileSystem, analysisProject);
@@ -133,7 +134,7 @@ public class ICodeSensor implements Sensor {
 
                 ICodeMetricsProcessor.saveExtraMeasures(sensorContext, scannedFiles, analysisProject);
 
-            } catch (JAXBException e) {
+            } catch (FileNotFoundException e) {
                 LOGGER.error(e.getMessage(), e);
                 sensorContext.newAnalysisError().message(e.getMessage()).save();
             }

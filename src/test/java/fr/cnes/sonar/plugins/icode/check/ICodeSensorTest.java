@@ -167,9 +167,9 @@ public class ICodeSensorTest {
     public void test_run_a_command() throws IOException, InterruptedException {
         final ICodeSensor sensor = new ICodeSensor();
 
-        final int value = sensor.runICode("java --version");
+        final int value = sensor.runICode("java -version");
         
-        Assert.assertEquals(1, value);
+        Assert.assertEquals(0, value);
     }
 
     @Test
