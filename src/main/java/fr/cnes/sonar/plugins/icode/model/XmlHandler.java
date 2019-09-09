@@ -51,7 +51,7 @@ public class XmlHandler {
                 return new MapperWrapper(next) {
                     @Override
                     public boolean shouldSerializeMember(Class definedIn, String fieldName) {
-                        return definedIn != Object.class && super.shouldSerializeMember(definedIn, fieldName);
+                        return (definedIn != Object.class) && super.shouldSerializeMember(definedIn, fieldName);
                     }
                 };
             }
