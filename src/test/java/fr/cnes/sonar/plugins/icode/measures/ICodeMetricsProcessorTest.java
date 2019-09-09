@@ -92,8 +92,6 @@ public class ICodeMetricsProcessorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
         final String key = bash_sh.key();
 
@@ -110,8 +108,6 @@ public class ICodeMetricsProcessorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
         final String key = bash_sh.key();
 
@@ -128,8 +124,6 @@ public class ICodeMetricsProcessorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
         final String key = bash_sh.key();
 
@@ -146,8 +140,6 @@ public class ICodeMetricsProcessorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
         final String key = bash_sh.key();
 
@@ -164,8 +156,6 @@ public class ICodeMetricsProcessorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
         final String key = bash_sh.key();
 
@@ -185,8 +175,6 @@ public class ICodeMetricsProcessorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("method");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
 
         project.setAnalysisRule(new AnalysisRule[]{rule});
@@ -207,8 +195,6 @@ public class ICodeMetricsProcessorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("method");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
 
         project.setAnalysisRule(new AnalysisRule[]{rule});
@@ -229,8 +215,6 @@ public class ICodeMetricsProcessorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("method");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
 
         project.setAnalysisRule(new AnalysisRule[]{rule});
@@ -252,8 +236,6 @@ public class ICodeMetricsProcessorTest {
         rule.getResult().setResultValue("20");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("method");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
 
         rule2.setResult(new Result());
@@ -262,8 +244,6 @@ public class ICodeMetricsProcessorTest {
         rule2.getResult().setResultValue("50");
         rule2.getResult().setResultLine("3");
         rule2.getResult().setResultTypePlace("method");
-        rule2.getResult().setResultNamePlace("yolo");
-        rule2.getResult().setResultId("11");
         rule2.getResult().setResultMessage("Small file");
 
         project.setAnalysisRule(new AnalysisRule[]{rule, rule2});

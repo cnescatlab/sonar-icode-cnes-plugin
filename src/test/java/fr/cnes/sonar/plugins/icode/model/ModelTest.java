@@ -36,11 +36,7 @@ public class ModelTest {
         project = new AnalysisProject();
 
         project.setAnalysisInformations(new AnalysisInformations());
-        project.getAnalysisInformations().setAnalysisConfigurationId("azerty");
-        project.getAnalysisInformations().setAnalysisDate("10/10/10");
         project.getAnalysisInformations().setAuthor("Me");
-        project.setAnalysisProjectName("My Project");
-        project.setAnalysisProjectVersion("1.0");
 
         file = new AnalysisFile();
         file.setFileName("foo.sh");
@@ -50,24 +46,14 @@ public class ModelTest {
         rule.setAnalysisRuleId("WOW");
         rule.setResult(new Result());
         rule.getResult().setFileName("a");
-        rule.getResult().setResultId("z");
         rule.getResult().setResultLine("e");
         rule.getResult().setResultMessage("r");
-        rule.getResult().setResultNamePlace("t");
         rule.getResult().setResultTypePlace("y");
         rule.getResult().setResultValue("u");
 
         check = new Rule();
         check.setKey("a");
-        check.setCardinality("a");
-        check.setDescription("a");
-        check.setInternalKey("a");
         check.setName("a");
-        check.setRemediationFunction("a");
-        check.setRemediationFunctionBaseEffort("a");
-        check.setSeverity("a");
-        check.setStatus("a");
-        check.setTag("a");
         check.setType("a");
 
         rulesDefinition = new RulesDefinition();
@@ -78,10 +64,6 @@ public class ModelTest {
         Assert.assertEquals(0, project.getAnalysisFiles().size());
         Assert.assertEquals(0, project.getAnalysisRules().size());
         Assert.assertEquals(0, rulesDefinition.getRules().size());
-        ArrayList<Rule> rules = new ArrayList<>();
-        rules.add(check);
-        rulesDefinition.setIcodeRules(new ArrayList(rules));
-        Assert.assertEquals(1, rulesDefinition.getRules().size());
     }
 
     @Test

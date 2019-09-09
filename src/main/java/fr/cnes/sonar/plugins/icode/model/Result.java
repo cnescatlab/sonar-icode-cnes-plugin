@@ -25,21 +25,11 @@ package fr.cnes.sonar.plugins.icode.model;
  */
 public class Result {
 
-    private String resultId;
     private String fileName;
     private String resultLine;
     private String resultTypePlace;
-    private String resultNamePlace;
     private String resultValue;
     private String resultMessage;
-
-    public String getResultId() {
-        return resultId;
-    }
-
-    public void setResultId(String resultId) {
-        this.resultId = resultId;
-    }
 
     public String getFileName() {
         return fileName;
@@ -63,14 +53,6 @@ public class Result {
 
     public void setResultTypePlace(String resultTypePlace) {
         this.resultTypePlace = resultTypePlace;
-    }
-
-    public String getResultNamePlace() {
-        return resultNamePlace;
-    }
-
-    public void setResultNamePlace(String resultNamePlace) {
-        this.resultNamePlace = resultNamePlace;
     }
 
     public String getResultValue() {

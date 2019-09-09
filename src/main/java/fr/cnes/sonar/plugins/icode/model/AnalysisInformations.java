@@ -25,25 +25,7 @@ package fr.cnes.sonar.plugins.icode.model;
  * @author lequal
  */
 public class AnalysisInformations {
-    private String analysisConfigurationId;
-    private String analysisDate;
     private String author;
-
-    public String getAnalysisConfigurationId() {
-        return analysisConfigurationId;
-    }
-
-    public void setAnalysisConfigurationId(String analysisConfigurationId) {
-        this.analysisConfigurationId = analysisConfigurationId;
-    }
-
-    public String getAnalysisDate() {
-        return analysisDate;
-    }
-
-    public void setAnalysisDate(String analysisDate) {
-        this.analysisDate = analysisDate;
-    }
 
     public String getAuthor() {
         return author;

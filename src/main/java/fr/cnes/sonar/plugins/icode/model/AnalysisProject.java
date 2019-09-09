@@ -28,8 +28,6 @@ import java.util.List;
  * @author lequal
  */
 public class AnalysisProject {
-    private String analysisProjectName;
-    private String analysisProjectVersion;
     private AnalysisInformations analysisInformations;
     private AnalysisFile[] analysisFile;
     private AnalysisRule[] analysisRule;
@@ -64,21 +62,6 @@ public class AnalysisProject {
         return files;
     }
 
-    public String getAnalysisProjectName() {
-        return analysisProjectName;
-    }
-
-    public void setAnalysisProjectName(String analysisProjectName) {
-        this.analysisProjectName = analysisProjectName;
-    }
-
-    public String getAnalysisProjectVersion() {
-        return analysisProjectVersion;
-    }
-
-    public void setAnalysisProjectVersion(String analysisProjectVersion) {
-        this.analysisProjectVersion = analysisProjectVersion;
-    }
 
     public AnalysisInformations getAnalysisInformations() {
         return analysisInformations;

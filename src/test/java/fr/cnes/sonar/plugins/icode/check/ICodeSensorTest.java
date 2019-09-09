@@ -200,8 +200,6 @@ public class ICodeSensorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("4");
         rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
 
         ICodeSensor.saveIssue(context, files, rule);
@@ -216,8 +214,6 @@ public class ICodeSensorTest {
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("110");
         rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultNamePlace("yolo");
-        rule.getResult().setResultId("11");
         rule.getResult().setResultMessage("Small file");
 
         ICodeSensor.saveIssue(context, files, rule);
