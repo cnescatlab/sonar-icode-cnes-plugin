@@ -16,9 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,18 +27,10 @@ import java.util.List;
  *
  * @author lequal
  */
-@XmlRootElement
 public class AnalysisProject {
-    @XmlAttribute
-    public String analysisProjectName;
-    @XmlAttribute
-    public String analysisProjectVersion;
-    @XmlElement
-    public AnalysisInformations analysisInformations;
-    @XmlElement
-    public AnalysisFile[] analysisFile;
-    @XmlElement
-    public AnalysisRule[] analysisRule;
+    private AnalysisInformations analysisInformations;
+    private AnalysisFile[] analysisFile;
+    private AnalysisRule[] analysisRule;
 
     /**
      * Getter for accessing analysis rules (issues).
@@ -50,8 +39,8 @@ public class AnalysisProject {
     public List<AnalysisRule> getAnalysisRules() {
         // Retrieve issues (called rules)
         List<AnalysisRule> rules;
-        if(analysisRule!=null) {
-            rules = Arrays.asList(analysisRule);
+        if(getAnalysisRule() !=null) {
+            rules = Arrays.asList(getAnalysisRule());
         } else {
             rules = new ArrayList<>();
         }
@@ -65,11 +54,36 @@ public class AnalysisProject {
     public List<AnalysisFile> getAnalysisFiles() {
         // Retrieve files
         List<AnalysisFile> files;
-        if(analysisFile!=null) {
-            files = Arrays.asList(analysisFile);
+        if(getAnalysisFile() !=null) {
+            files = Arrays.asList(getAnalysisFile());
         } else {
             files = new ArrayList<>();
         }
         return files;
+    }
+
+
+    public AnalysisInformations getAnalysisInformations() {
+        return analysisInformations;
+    }
+
+    public void setAnalysisInformations(AnalysisInformations analysisInformations) {
+        this.analysisInformations = analysisInformations;
+    }
+
+    public AnalysisFile[] getAnalysisFile() {
+        return analysisFile;
+    }
+
+    public void setAnalysisFile(AnalysisFile[] analysisFile) {
+        this.analysisFile = analysisFile;
+    }
+
+    public AnalysisRule[] getAnalysisRule() {
+        return analysisRule;
+    }
+
+    public void setAnalysisRule(AnalysisRule[] analysisRule) {
+        this.analysisRule = analysisRule;
     }
 }
