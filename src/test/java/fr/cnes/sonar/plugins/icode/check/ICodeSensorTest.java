@@ -24,8 +24,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Null;
-import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
@@ -167,9 +165,9 @@ public class ICodeSensorTest {
     public void test_run_a_command() throws IOException, InterruptedException {
         final ICodeSensor sensor = new ICodeSensor();
 
-        final int value = sensor.runICode("java --version");
+        final int value = sensor.runICode("java -version");
         
-        Assert.assertEquals(1, value);
+        Assert.assertEquals(0, value);
     }
 
     @Test
@@ -180,10 +178,12 @@ public class ICodeSensorTest {
         final AnalysisFile file = new AnalysisFile();
         final AnalysisFile file2 = new AnalysisFile();
 
-        file.fileName = "badaboum.sh";file.language="shell";
-        file2.fileName = "bash.sh";file2.language="shell";
+        file.setFileName("badaboum.sh");
+        file.setLanguage("shell");
+        file2.setFileName("bash.sh");
+        file2.setLanguage("shell");
 
-        project.analysisFile = new AnalysisFile[]{file, file2};
+        project.setAnalysisFile(new AnalysisFile[]{file, file2});
 
         Assert.assertNotNull(sensor);
 
@@ -194,15 +194,13 @@ public class ICodeSensorTest {
 
 	@Test
     public void test_save_issue() {
-        rule.result = new Result();
-        rule.analysisRuleId = "SH.ERR.Help";
-        rule.result.fileName = "bash.sh";
-        rule.result.resultValue = "3";
-        rule.result.resultLine = "4";
-        rule.result.resultTypePlace = "class";
-        rule.result.resultNamePlace = "yolo";
-        rule.result.resultId = "11";
-        rule.result.resultMessage = "Small file";
+        rule.setResult(new Result());
+        rule.setAnalysisRuleId("SH.ERR.Help");
+        rule.getResult().setFileName("bash.sh");
+        rule.getResult().setResultValue("3");
+        rule.getResult().setResultLine("4");
+        rule.getResult().setResultTypePlace("class");
+        rule.getResult().setResultMessage("Small file");
 
         ICodeSensor.saveIssue(context, files, rule);
         Assert.assertEquals(1, context.allIssues().size());
@@ -210,15 +208,13 @@ public class ICodeSensorTest {
 
     @Test
     public void test_save_issue_with_unknown_file() {
-        rule.result = new Result();
-        rule.analysisRuleId = "SH.ERR.Help";
-        rule.result.fileName = "lalalalalala.sh";
-        rule.result.resultValue = "3";
-        rule.result.resultLine = "110";
-        rule.result.resultTypePlace = "class";
-        rule.result.resultNamePlace = "yolo";
-        rule.result.resultId = "11";
-        rule.result.resultMessage = "Small file";
+        rule.setResult(new Result());
+        rule.setAnalysisRuleId("SH.ERR.Help");
+        rule.getResult().setFileName("lalalalalala.sh");
+        rule.getResult().setResultValue("3");
+        rule.getResult().setResultLine("110");
+        rule.getResult().setResultTypePlace("class");
+        rule.getResult().setResultMessage("Small file");
 
         ICodeSensor.saveIssue(context, files, rule);
         Assert.assertEquals(0, context.allIssues().size());

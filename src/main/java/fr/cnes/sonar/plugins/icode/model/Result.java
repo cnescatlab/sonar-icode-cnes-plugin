@@ -16,9 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-
 /**
  * Class used to unmarshal i-Code xml file.
  *
@@ -28,19 +25,49 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class Result {
 
-    @XmlAttribute
-    public String resultId;
-    @XmlAttribute
-    public String fileName;
-    @XmlAttribute
-    public String resultLine;
-    @XmlAttribute
-    public String resultTypePlace;
-    @XmlAttribute
-    public String resultNamePlace;
-    @XmlAttribute
-    public String resultValue;
-    @XmlElement
-    public String resultMessage;
+    private String fileName;
+    private String resultLine;
+    private String resultTypePlace;
+    private String resultValue;
+    private String resultMessage;
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getResultLine() {
+        return resultLine;
+    }
+
+    public void setResultLine(String resultLine) {
+        this.resultLine = resultLine;
+    }
+
+    public String getResultTypePlace() {
+        return resultTypePlace;
+    }
+
+    public void setResultTypePlace(String resultTypePlace) {
+        this.resultTypePlace = resultTypePlace;
+    }
+
+    public String getResultValue() {
+        return resultValue;
+    }
+
+    public void setResultValue(String resultValue) {
+        this.resultValue = resultValue;
+    }
+
+    public String getResultMessage() {
+        return resultMessage;
+    }
+
+    public void setResultMessage(String resultMessage) {
+        this.resultMessage = resultMessage;
+    }
 }

@@ -5,7 +5,7 @@
     <groupId>fr.cnes.sonarqube.plugins</groupId>
     <artifactId>sonaricode</artifactId>
     <packaging>sonar-plugin</packaging>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <name>Sonar i-Code CNES plugin</name>
 
     <description>i-Code CNES plugin for SonarQube</description>
@@ -42,6 +42,12 @@
             <organization>CNES</organization>
             <url>https://github.com/begarco</url>
             <id>begarco</id>
+        </developer>
+        <developer>
+            <name>Louis Martin</name>
+            <organization>CNES</organization>
+            <url>https://github.com/louisjdmartin</url>
+            <id>louisjdmartin</id>
         </developer>
         <developer>
             <name>Omar Waldmann</name>
@@ -91,8 +97,13 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.9.0</version>
+            <version>3.0.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.11.1</version>
         </dependency>
     </dependencies>
 
@@ -101,7 +112,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.6.201602180812</version>
+                <version>0.8.4</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>

@@ -16,7 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  * Class used to unmarshal i-Code xml file.
@@ -26,10 +25,13 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author lequal
  */
 public class AnalysisInformations {
-    @XmlAttribute
-    public String analysisConfigurationId;
-    @XmlAttribute
-    public String analysisDate;
-    @XmlAttribute
-    public String author;
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 }
