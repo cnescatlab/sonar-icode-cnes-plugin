@@ -17,6 +17,10 @@
 package fr.cnes.sonar.plugins.icode.model;
 
 
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.annotations.XStreamInclude;
+import fr.cnes.sonar.plugins.icode.converter.AnalysisConverter;
+
 /**
  * Class used to unmarshal i-Code xml file.
  *
@@ -24,7 +28,12 @@ package fr.cnes.sonar.plugins.icode.model;
  *
  * @author lequal
  */
+@XStreamInclude(Result.class)
+@XStreamConverter(value = AnalysisConverter.class, strings = {"result"})
 public class AnalysisRule {
+
+    private String analysisRuleId;
+    private Result result;
 
     public String getAnalysisRuleId() {
         return analysisRuleId;
@@ -34,7 +43,6 @@ public class AnalysisRule {
         return result;
     }
 
-    private String analysisRuleId;
 
     public void setAnalysisRuleId(String analysisRuleId) {
         this.analysisRuleId = analysisRuleId;
@@ -44,6 +52,7 @@ public class AnalysisRule {
         this.result = result;
     }
 
-    private Result result;
 
 }
+
+
