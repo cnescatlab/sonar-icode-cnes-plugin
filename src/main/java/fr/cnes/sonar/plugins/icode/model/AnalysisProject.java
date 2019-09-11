@@ -17,10 +17,8 @@
 package fr.cnes.sonar.plugins.icode.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import com.thoughtworks.xstream.annotations.XStreamInclude;
-import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

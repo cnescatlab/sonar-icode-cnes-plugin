@@ -41,8 +41,6 @@ public class AnalysisConverter extends ToAttributedValueConverter {
             reader.moveUp();
             ((AnalysisRule) r).setResult(result);
         }
-        else r = super.unmarshal(reader, unmarshallingContext);
-
         return r;
     }
 }
