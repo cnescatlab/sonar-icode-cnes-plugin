@@ -16,6 +16,12 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import com.thoughtworks.xstream.annotations.XStreamInclude;
+import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,10 +33,14 @@ import java.util.List;
  *
  * @author lequal
  */
+@XStreamAlias("analysisProject")
+@XStreamInclude({AnalysisFile.class, AnalysisRule.class, AnalysisInformations.class})
 public class AnalysisProject {
     private AnalysisInformations analysisInformations;
-    private AnalysisFile[] analysisFile;
-    private AnalysisRule[] analysisRule;
+    @XStreamImplicit(itemFieldName = "analysisFile")
+    private List<AnalysisFile> analysisFile;
+    @XStreamImplicit(itemFieldName = "analysisRule")
+    private List<AnalysisRule> analysisRule;
 
     /**
      * Getter for accessing analysis rules (issues).
@@ -39,8 +49,8 @@ public class AnalysisProject {
     public List<AnalysisRule> getAnalysisRules() {
         // Retrieve issues (called rules)
         List<AnalysisRule> rules;
-        if(getAnalysisRule() !=null) {
-            rules = Arrays.asList(getAnalysisRule());
+        if(analysisRule !=null) {
+            rules = this.analysisRule;
         } else {
             rules = new ArrayList<>();
         }
@@ -54,8 +64,8 @@ public class AnalysisProject {
     public List<AnalysisFile> getAnalysisFiles() {
         // Retrieve files
         List<AnalysisFile> files;
-        if(getAnalysisFile() !=null) {
-            files = Arrays.asList(getAnalysisFile());
+        if(analysisFile !=null) {
+            files = this.analysisFile;
         } else {
             files = new ArrayList<>();
         }
@@ -71,19 +81,11 @@ public class AnalysisProject {
         this.analysisInformations = analysisInformations;
     }
 
-    public AnalysisFile[] getAnalysisFile() {
-        return analysisFile;
-    }
-
     public void setAnalysisFile(AnalysisFile[] analysisFile) {
-        this.analysisFile = analysisFile;
-    }
-
-    public AnalysisRule[] getAnalysisRule() {
-        return analysisRule;
+        this.analysisFile = Arrays.asList(analysisFile);
     }
 
     public void setAnalysisRule(AnalysisRule[] analysisRule) {
-        this.analysisRule = analysisRule;
+        this.analysisRule = Arrays.asList(analysisRule);
     }
 }
