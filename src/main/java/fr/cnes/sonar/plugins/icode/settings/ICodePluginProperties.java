@@ -32,7 +32,7 @@ public class ICodePluginProperties {
     /**
      * i-Code CNES default location's path value.
      */
-    public static final String ICODE_PATH_DEFAULT = "/usr/bin/icodegit";
+    public static final String ICODE_PATH_DEFAULT = "/usr/bin/icode";
 
     /**
      * Prefix used by all properties of this plugin.
