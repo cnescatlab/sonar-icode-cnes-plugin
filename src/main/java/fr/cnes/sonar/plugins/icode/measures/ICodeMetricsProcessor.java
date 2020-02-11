@@ -16,7 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.measures;
 
-import fr.cnes.icode.datas.CheckResult;
+import fr.cnes.icode.data.CheckResult;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import org.sonar.api.batch.fs.FilePredicates;
@@ -35,8 +35,6 @@ import java.util.*;
 /**
  * Executed during sonar-scanner call.
  * Import i-Code metrics into SonarQube.
- *
- * @author lequal
  */
 public class ICodeMetricsProcessor {
 

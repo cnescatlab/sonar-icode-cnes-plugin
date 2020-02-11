@@ -21,8 +21,6 @@ import org.sonar.api.config.Configuration;
 
 /**
  * Declares language Shell.
- *
- * @author lequal
  */
 public final class ShellLanguage extends ICodeLanguage {
 

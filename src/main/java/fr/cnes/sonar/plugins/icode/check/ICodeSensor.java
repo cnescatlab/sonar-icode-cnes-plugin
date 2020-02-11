@@ -17,7 +17,7 @@
 package fr.cnes.sonar.plugins.icode.check;
 
 import fr.cnes.icode.Analyzer;
-import fr.cnes.icode.datas.CheckResult;
+import fr.cnes.icode.data.CheckResult;
 import fr.cnes.icode.exception.JFlexException;
 import fr.cnes.icode.services.languages.LanguageService;
 import fr.cnes.sonar.plugins.icode.exceptions.ICodeException;
@@ -43,8 +43,9 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
@@ -55,8 +56,6 @@ import java.util.*;
  *  - Run i-Code checks.
  *  - Import i-Code reports into SonarQube.
  *  - Run a specified external version of i-Code.
- *
- * @author lequal
  */
 public class ICodeSensor implements Sensor {
 
@@ -71,7 +70,7 @@ public class ICodeSensor implements Sensor {
      * @param sensorDescriptor Descriptor injected to set the sensor.
      */
     @Override
-    public void describe(SensorDescriptor sensorDescriptor) {
+    public void describe(final SensorDescriptor sensorDescriptor) {
         // Prevents sensor to be run during all analysis.
         sensorDescriptor.onlyOnLanguages(ShellLanguage.KEY, Fortran77Language.KEY, Fortran90Language.KEY);
 
@@ -137,27 +136,27 @@ public class ICodeSensor implements Sensor {
         for(final String reportPath : reportFiles) {
             try {
                 // Unmarshall the xml.
-                final File file = new File(reportPath);
+                final FileInputStream file = new FileInputStream(reportPath);
                 final AnalysisProject analysisProject = (AnalysisProject) XmlHandler.unmarshal(file, AnalysisProject.class);
                 // Retrieve file in a SonarQube format.
                 final Map<String, InputFile> scannedFiles = getScannedFiles(fileSystem, analysisProject);
 
                 // Handles issues.
                 for (final AnalysisRule rule : analysisProject.getAnalysisRules()) {
-                    if(isRuleActive(activeRules, rule.analysisRuleId)) { // manage active rules
+                    if(isRuleActive(activeRules, rule.getAnalysisRuleId())) { // manage active rules
                         saveIssue(sensorContext, scannedFiles, rule);
-                    } else if (ICodeMetricsProcessor.isMetric(rule.analysisRuleId)) { // manage trivial measures
+                    } else if (ICodeMetricsProcessor.isMetric(rule.getAnalysisRuleId())) { // manage trivial measures
                         ICodeMetricsProcessor.saveMeasure(sensorContext, scannedFiles, rule);
                     } else { // log ignored data
                         LOGGER.info(String.format(
                                 "An issue for rule '%s' was detected by i-Code but this rule is deactivated in current analysis.",
-                                rule.analysisRuleId));
+                                rule.getAnalysisRuleId()));
                     }
                 }
 
                 ICodeMetricsProcessor.saveExtraMeasures(sensorContext, scannedFiles, analysisProject);
 
-            } catch (JAXBException e) {
+            } catch (FileNotFoundException e) {
                 LOGGER.error(e.getMessage(), e);
                 sensorContext.newAnalysisError().message(e.getMessage()).save();
             }
@@ -290,11 +289,11 @@ public class ICodeSensor implements Sensor {
     static void saveIssue(final SensorContext context, final Map<String, InputFile> files, final AnalysisRule issue) {
 
         // Retrieve the file containing the issue.
-        final InputFile inputFile = files.getOrDefault(issue.result.fileName, null);
+        final InputFile inputFile = files.getOrDefault(issue.getResult().getFileName(), null);
 
         if(inputFile!=null) {
             // Retrieve the ruleKey if it exists.
-            final RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(inputFile.language()), issue.analysisRuleId);
+            final RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(inputFile.language()), issue.getAnalysisRuleId());
 
             // Create a new issue for SonarQube, but it must be saved using NewIssue.save().
             final NewIssue newIssue = context.newIssue();
@@ -302,20 +301,20 @@ public class ICodeSensor implements Sensor {
             final NewIssueLocation newIssueLocation = newIssue.newLocation();
 
             // Calculate the line number of the issue (must be between 1 and max, otherwise 1).
-            int issueLine = Integer.parseInt(issue.result.resultLine);
+            int issueLine = Integer.parseInt(issue.getResult().getResultLine());
             issueLine = issueLine > 0 && issueLine <= inputFile.lines() ? issueLine : 1;
 
             // Set trivial issue's attributes from AnalysisRule fields.
             newIssueLocation.on(inputFile);
             newIssueLocation.at(inputFile.selectLine(issueLine));
-            newIssueLocation.message(issue.result.resultMessage);
+            newIssueLocation.message(issue.getResult().getResultMessage());
             newIssue.forRule(ruleKey);
             newIssue.at(newIssueLocation);
             newIssue.save();
         } else {
             LOGGER.error(String.format(
                     "Issue '%s' on file '%s' has not been saved because source file was not found.",
-                    issue.analysisRuleId, issue.result.fileName
+                    issue.getAnalysisRuleId(), issue.getResult().getFileName()
             ));
         }
 
@@ -336,14 +335,14 @@ public class ICodeSensor implements Sensor {
         // Looks for each file in file system, print an error if not found.
         for(final AnalysisFile file : files) {
             // Checks if the file system contains a file with corresponding path (relative or absolute).
-            FilePredicate predicate = fileSystem.predicates().hasPath(file.fileName);
+            FilePredicate predicate = fileSystem.predicates().hasPath(file.getFileName());
             InputFile inputFile = fileSystem.inputFile(predicate);
             if(inputFile!=null) {
-                result.put(file.fileName, inputFile);
+                result.put(file.getFileName(), inputFile);
             } else {
                 LOGGER.error(String.format(
                         "The source file '%s' was not found.",
-                        file.fileName
+                        file.getFileName()
                 ));
             }
         }

@@ -16,7 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
-import fr.cnes.icode.datas.CheckResult;
+import fr.cnes.icode.data.CheckResult;
 import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
@@ -72,7 +72,7 @@ public class ICodeSensorTest {
                 "ProjectKey",
                 fs.resolvePath("clanhb.f").getPath())
                 .setLanguage("icode")
-                .setType(InputFile.Type.MAIN).setLines(10)
+                .setType(InputFile.Type.MAIN)
                 .setLines(10)
                 .setOriginalLineOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
                 .setLastValidOffset(100)
@@ -168,9 +168,9 @@ public class ICodeSensorTest {
     public void test_run_a_command() throws IOException, InterruptedException {
         final ICodeSensor sensor = new ICodeSensor();
 
-        final int value = sensor.runICode("java --version");
+        final int value = sensor.runICode("java -version");
         
-        Assert.assertEquals(1, value);
+        Assert.assertEquals(0, value);
     }
 
     @Test

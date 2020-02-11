@@ -29,8 +29,6 @@ import java.io.InputStream;
 
 /**
  * Built-in quality profile format since SonarQube 6.6.
- *
- * @author lequal
  */
 public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinition {
 
@@ -46,7 +44,7 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
      * @param context Context of the plugin.
      */
     @Override
-    public void define(Context context) {
+    public void define(final Context context) {
         createBuiltInProfile(context, ShellLanguage.KEY, ICodeRulesDefinition.PATH_TO_SHELL_RULES_XML);
         createBuiltInProfile(context, Fortran77Language.KEY, ICodeRulesDefinition.PATH_TO_F77_RULES_XML);
         createBuiltInProfile(context, Fortran90Language.KEY, ICodeRulesDefinition.PATH_TO_F90_RULES_XML);
@@ -64,17 +62,18 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
         final NewBuiltInQualityProfile defaultProfile =
                 context.createBuiltInQualityProfile(I_CODE_RULES_PROFILE_NAME, language);
 
-        try {
-            // Retrieve all defined rules.
-            final InputStream stream = getClass().getResourceAsStream(path);
-            final RulesDefinition rules = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
-            // Activate all i-Code CNES rules.
-            for(final Rule rule : rules.getRules()) {
-                defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(language), rule.key);
-            }
-        } catch (JAXBException e) {
-            LOGGER.warn(e.getLocalizedMessage(), e);
+        // Retrieve all defined rules.
+        final InputStream stream = getClass().getResourceAsStream(path);
+        final RulesDefinition rules = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
+        final String repositoryKey = ICodeRulesDefinition.getRepositoryKeyForLanguage(language);
+
+        // Activate all i-Code CNES rules.
+        for(final Rule rule : rules.getRules()) {
+            defaultProfile.activateRule(repositoryKey, rule.key);
+            LOGGER.info(String.format("Rule %s added to repository %s.", rule.key, repositoryKey));
         }
+        LOGGER.info(String.format("%s rules are activated.", defaultProfile.activeRules().size()));
+
         // Save the default profile.
         defaultProfile.setDefault(true);
         defaultProfile.done();

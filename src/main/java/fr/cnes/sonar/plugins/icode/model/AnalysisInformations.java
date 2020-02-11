@@ -22,8 +22,6 @@ import javax.xml.bind.annotation.XmlAttribute;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains meta data about the i-Code analysis.
- *
- * @author lequal
  */
 public class AnalysisInformations {
     @XmlAttribute

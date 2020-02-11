@@ -16,7 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import fr.cnes.icode.datas.CheckResult;
+import fr.cnes.icode.data.CheckResult;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -26,8 +26,6 @@ import java.util.Objects;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains an issue and a violated rule.
- *
- * @author lequal
  */
 public class AnalysisRule {
 

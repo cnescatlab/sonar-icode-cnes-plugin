@@ -28,7 +28,7 @@ Here is the compatibility matrix of the plugin:
 | sonaricode version | embedded i-Code version |
 |:------------------:|:-----------------------:|
 |       < 2.0.0      |           none          |
-|        2.0.0       |          3.2.0          |
+|        2.0.0       |          4.0.0          |
 
 #### Run i-Code manually
 If you need help to run i-Code please refer to the [official user manual](https://github.com/lequal/i-CodeCNES/blob/master/documentation/i-Code%20CNES%20-%20User%20Manual.pdf) or [i-Code issue tracker](https://github.com/lequal/i-CodeCNES/issues).

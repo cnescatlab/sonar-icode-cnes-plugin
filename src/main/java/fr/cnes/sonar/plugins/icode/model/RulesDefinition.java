@@ -26,8 +26,6 @@ import java.util.List;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains meta data about rules definition.
- *
- * @author lequal
  */
 @XmlRootElement(name = "icodelint-rules")
 public class RulesDefinition {

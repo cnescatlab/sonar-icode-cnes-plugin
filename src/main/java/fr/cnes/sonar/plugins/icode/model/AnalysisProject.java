@@ -27,8 +27,6 @@ import java.util.List;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains meta data about the analyzed project.
- *
- * @author lequal
  */
 @XmlRootElement
 public class AnalysisProject {

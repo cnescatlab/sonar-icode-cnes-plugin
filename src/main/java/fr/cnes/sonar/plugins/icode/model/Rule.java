@@ -23,8 +23,6 @@ import javax.xml.bind.annotation.XmlElement;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains data about defined rule.
- *
- * @author lequal
  */
 public class Rule {
 
