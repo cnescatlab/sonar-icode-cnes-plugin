@@ -21,10 +21,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.InputStream;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 public class ModelTest {
 
@@ -38,40 +37,26 @@ public class ModelTest {
     public void before() {
         project = new AnalysisProject();
 
-        project.analysisInformations = new AnalysisInformations();
-        project.analysisInformations.analysisConfigurationId = "azerty";
-        project.analysisInformations.analysisDate = "10/10/10";
-        project.analysisInformations.author = "Me";
-        project.analysisProjectName = "My Project";
-        project.analysisProjectVersion = "1.0";
+        project.setAnalysisInformations(new AnalysisInformations());
+        project.getAnalysisInformations().setAuthor("Me");
 
         file = new AnalysisFile();
-        file.fileName = "foo.sh";
-        file.language = "shell";
+        file.setFileName("foo.sh");
+        file.setLanguage("shell");
 
         rule = new AnalysisRule();
-        rule.analysisRuleId = "WOW";
-        rule.result = new Result();
-        rule.result.fileName = "a";
-        rule.result.resultId = "z";
-        rule.result.resultLine = "e";
-        rule.result.resultMessage = "r";
-        rule.result.resultNamePlace = "t";
-        rule.result.resultTypePlace = "y";
-        rule.result.resultValue = "u";
+        rule.setAnalysisRuleId("WOW");
+        rule.setResult(new Result());
+        rule.getResult().setFileName("a");
+        rule.getResult().setResultLine("e");
+        rule.getResult().setResultMessage("r");
+        rule.getResult().setResultTypePlace("y");
+        rule.getResult().setResultValue("u");
 
         check = new Rule();
-        check.key = "a";
-        check.cardinality = "a";
-        check.description = "a";
-        check.internalKey = "a";
-        check.name = "a";
-        check.remediationFunction = "a";
-        check.remediationFunctionBaseEffort = "a";
-        check.severity = "a";
-        check.status = "a";
-        check.tag = "a";
-        check.type = "a";
+        check.setKey("a");
+        check.setName("a");
+        check.setType("a");
 
         rulesDefinition = new RulesDefinition();
     }
@@ -81,19 +66,17 @@ public class ModelTest {
         Assert.assertEquals(0, project.getAnalysisFiles().size());
         Assert.assertEquals(0, project.getAnalysisRules().size());
         Assert.assertEquals(0, rulesDefinition.getRules().size());
-        rulesDefinition.icodeRules = new Rule[]{check};
-        Assert.assertEquals(1, rulesDefinition.getRules().size());
     }
 
     @Test
-    public void test_unmarshal_from_file() throws JAXBException, URISyntaxException {
-        File file = new File(this.getClass().getResource("/rules/icode-shell-rules.xml").toURI());
+    public void test_unmarshal_from_file()  {
+        InputStream file = this.getClass().getResourceAsStream("/rules/icode-shell-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(file, RulesDefinition.class);
         Assert.assertEquals(45, def.getRules().size());
     }
 
     @Test
-    public void test_unmarshal_from_stream() throws JAXBException {
+    public void test_unmarshal_from_stream() {
         InputStream stream = this.getClass().getResourceAsStream("/rules/icode-shell-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
         Assert.assertEquals(45, def.getRules().size());
@@ -103,7 +86,7 @@ public class ModelTest {
     public void test_CheckResult_to_AnalysisRule_conversion() {
         CheckResult checkResult = new CheckResult("blue", "white", new File("phantom.sh"));
         AnalysisRule analysisRule = new AnalysisRule(checkResult);
-        Assert.assertEquals(checkResult.getName(), analysisRule.analysisRuleId);
-        Assert.assertEquals(checkResult.getId(), analysisRule.result.resultId);
+        Assert.assertEquals(checkResult.getName(), analysisRule.getAnalysisRuleId());
+        Assert.assertEquals(checkResult.getId(), analysisRule.getResult().getResultId());
     }
 }

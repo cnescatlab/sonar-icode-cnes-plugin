@@ -16,18 +16,24 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
+
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
 /**
  * Class used to unmarshal i-Code xml file.
  *
  * It contains meta data about the i-Code analysis.
  */
+@XStreamConverter(ToAttributedValueConverter.class)
 public class AnalysisInformations {
-    @XmlAttribute
-    public String analysisConfigurationId;
-    @XmlAttribute
-    public String analysisDate;
-    @XmlAttribute
-    public String author;
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 }

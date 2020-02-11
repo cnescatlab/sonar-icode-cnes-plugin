@@ -268,7 +268,7 @@ public class ICodeSensor implements Sensor {
             final String repositoryKey = ICodeRulesDefinition.getRepositoryKeyForLanguage(file.language());
             final RuleKey ruleKey = RuleKey.of(repositoryKey, result.getName());
             final NewIssueLocation location = issue.newLocation();
-            final TextRange textRange = file.selectLine(result.getLine());
+            final TextRange textRange = file.selectLine(result.getLine()>0?result.getLine():1);
             location.on(file);
             location.at(textRange);
             location.message(result.getMessage());

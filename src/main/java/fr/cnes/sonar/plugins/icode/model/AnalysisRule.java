@@ -16,23 +16,40 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.annotations.XStreamInclude;
 import fr.cnes.icode.data.CheckResult;
+import fr.cnes.sonar.plugins.icode.converter.AnalysisConverter;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import java.util.Objects;
 
 /**
  * Class used to unmarshal i-Code xml file.
- *
+ * <p>
  * It contains an issue and a violated rule.
  */
+@XStreamInclude(Result.class)
+@XStreamConverter(value = AnalysisConverter.class, strings = {"result"})
 public class AnalysisRule {
 
-    @XmlAttribute
-    public String analysisRuleId;
-    @XmlElement
-    public Result result;
+    private String analysisRuleId;
+    private Result result;
+
+    public String getAnalysisRuleId() {
+        return analysisRuleId;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setAnalysisRuleId(String analysisRuleId) {
+        this.analysisRuleId = analysisRuleId;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
 
     /**
      * Default constructor.
@@ -40,13 +57,12 @@ public class AnalysisRule {
     public AnalysisRule() {
         this.analysisRuleId = "";
         this.result = new Result();
-        this.result.fileName = "";
-        this.result.resultId = "";
-        this.result.resultMessage = "";
-        this.result.resultLine = "";
-        this.result.resultNamePlace = "";
-        this.result.resultTypePlace = "";
-        this.result.resultValue = "";
+        this.result.setFileName("");
+        this.result.setResultId("");
+        this.result.setResultLine("");
+        this.result.setResultMessage("");
+        this.result.setResultTypePlace("");
+        this.result.setResultValue("");
     }
 
     /**
@@ -57,13 +73,14 @@ public class AnalysisRule {
     public AnalysisRule(final CheckResult checkResult) {
         this.analysisRuleId = checkResult.getName();
         this.result = new Result();
-        this.result.fileName = checkResult.getFile().getPath();
-        this.result.resultId = checkResult.getId();
-        this.result.resultMessage = checkResult.getMessage();
-        this.result.resultLine = String.valueOf(checkResult.getLine());
-        this.result.resultNamePlace = checkResult.getLocation();
-        this.result.resultTypePlace = Objects.isNull(checkResult.getLocation()) || checkResult.getLocation().isEmpty() ? "class" : "method";
-        this.result.resultValue = String.valueOf(checkResult.getValue());
+        this.result.setFileName(checkResult.getFile().getPath());
+        this.result.setResultId(checkResult.getId());
+        this.result.setResultLine(String.valueOf(checkResult.getLine()));
+        this.result.setResultMessage(checkResult.getMessage());
+        this.result.setResultTypePlace(Objects.isNull(checkResult.getLocation()) || checkResult.getLocation().isEmpty() ? "class" : "method");
+        this.result.setResultValue(String.valueOf(checkResult.getValue()));
     }
 
 }
+
+

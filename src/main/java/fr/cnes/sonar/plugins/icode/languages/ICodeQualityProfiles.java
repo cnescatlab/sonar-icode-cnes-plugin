@@ -24,7 +24,6 @@ import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import javax.xml.bind.JAXBException;
 import java.io.InputStream;
 
 /**
@@ -69,10 +68,10 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
 
         // Activate all i-Code CNES rules.
         for(final Rule rule : rules.getRules()) {
-            defaultProfile.activateRule(repositoryKey, rule.key);
-            LOGGER.info(String.format("Rule %s added to repository %s.", rule.key, repositoryKey));
+            defaultProfile.activateRule(repositoryKey, rule.getKey());
+            LOGGER.debug(String.format("Rule %s added to repository %s.", rule.getKey(), repositoryKey));
         }
-        LOGGER.info(String.format("%s rules are activated.", defaultProfile.activeRules().size()));
+        LOGGER.debug(String.format("%s rules are activated.", defaultProfile.activeRules().size()));
 
         // Save the default profile.
         defaultProfile.setDefault(true);
