@@ -28,8 +28,6 @@ import java.util.List;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains meta data about rules definition.
- *
- * @author lequal
  */
 @XStreamAlias("icodelint-rules")
 @XStreamImplicitCollection("icodeRules")

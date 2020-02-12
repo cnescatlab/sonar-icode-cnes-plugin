@@ -28,8 +28,6 @@ import java.io.InputStream;
 
 /**
  * Built-in quality profile format since SonarQube 6.6.
- *
- * @author lequal
  */
 public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinition {
 
@@ -45,7 +43,7 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
      * @param context Context of the plugin.
      */
     @Override
-    public void define(Context context) {
+    public void define(final Context context) {
         createBuiltInProfile(context, ShellLanguage.KEY, ICodeRulesDefinition.PATH_TO_SHELL_RULES_XML);
         createBuiltInProfile(context, Fortran77Language.KEY, ICodeRulesDefinition.PATH_TO_F77_RULES_XML);
         createBuiltInProfile(context, Fortran90Language.KEY, ICodeRulesDefinition.PATH_TO_F90_RULES_XML);
@@ -66,10 +64,15 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
         // Retrieve all defined rules.
         final InputStream stream = getClass().getResourceAsStream(path);
         final RulesDefinition rules = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
+        final String repositoryKey = ICodeRulesDefinition.getRepositoryKeyForLanguage(language);
+
         // Activate all i-Code CNES rules.
         for(final Rule rule : rules.getRules()) {
-            defaultProfile.activateRule(ICodeRulesDefinition.getRepositoryKeyForLanguage(language), rule.getKey());
+            defaultProfile.activateRule(repositoryKey, rule.getKey());
+            LOGGER.debug(String.format("Rule %s added to repository %s.", rule.getKey(), repositoryKey));
         }
+        LOGGER.debug(String.format("%s rules are activated.", defaultProfile.activeRules().size()));
+
         // Save the default profile.
         defaultProfile.setDefault(true);
         defaultProfile.done();

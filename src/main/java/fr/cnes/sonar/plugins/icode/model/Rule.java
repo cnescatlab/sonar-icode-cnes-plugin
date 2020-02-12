@@ -22,8 +22,6 @@ package fr.cnes.sonar.plugins.icode.model;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains data about defined rule.
- *
- * @author lequal
  */
 public class Rule {
 

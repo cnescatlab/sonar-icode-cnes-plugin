@@ -28,11 +28,10 @@ import java.util.List;
  */
 public class ICodePluginProperties {
 
-
     /**
      * i-Code CNES default location's path value.
      */
-    public static final String ICODE_PATH_DEFAULT = "/usr/bin/icode";
+    public static final String ICODE_PATH_DEFAULT = "icode";
 
     /**
      * Prefix used by all properties of this plugin.
@@ -114,7 +113,7 @@ public class ICodePluginProperties {
     /**
      * Default value for the report path property
      **/
-    public static final String REPORT_PATH_DEFAULT = "result.res";
+    public static final String REPORT_PATH_DEFAULT = "";
     /**
      * i-Code CNES launching mode key
      */
@@ -131,6 +130,22 @@ public class ICodePluginProperties {
      * Launching mode description
      */
     public static final String AUTOLAUNCH_PROP_DESC = "Auto-launch i-Code CNES on analysis using indicated location.";
+    /**
+     * Embedded i-Code CNES execution activation
+     */
+    public static final String USE_EMBEDDED_PROP_KEY = PROPERTIES_PREFIX + "embedded";
+    /**
+     * Embedded i-Code CNES execution activation default value
+     */
+    public static final String USE_EMBEDDED_PROP_DEFAULT = "true";
+    /**
+     * Embedded i-Code CNES execution activation name
+     */
+    public static final String USE_EMBEDDED_PROP_NAME = "Run embedded i-Code CNES";
+    /**
+     * Embedded i-Code CNES execution activation description
+     */
+    public static final String USE_EMBEDDED_PROP_DESC = "Run i-Code CNES version provided with this plugin during the analysis.";
     /**
      * i-Code CNES location's path key
      */
@@ -155,6 +170,15 @@ public class ICodePluginProperties {
      */
     public static List<PropertyDefinition> getProperties() {
         return Arrays.asList(
+            PropertyDefinition.builder(USE_EMBEDDED_PROP_KEY)
+                    .defaultValue(USE_EMBEDDED_PROP_DEFAULT)
+                    .category(ICODE_NAME)
+                    .name(USE_EMBEDDED_PROP_NAME)
+                    .description(USE_EMBEDDED_PROP_DESC)
+                    .type(PropertyType.BOOLEAN)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .build()
+            ,
             PropertyDefinition.builder(AUTOLAUNCH_PROP_KEY)
                     .defaultValue(AUTOLAUNCH_PROP_DEFAULT)
                     .category(ICODE_NAME)

@@ -16,17 +16,17 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamInclude;
+import fr.cnes.icode.data.CheckResult;
 import fr.cnes.sonar.plugins.icode.converter.AnalysisConverter;
+
+import java.util.Objects;
 
 /**
  * Class used to unmarshal i-Code xml file.
- *
+ * <p>
  * It contains an issue and a violated rule.
- *
- * @author lequal
  */
 @XStreamInclude(Result.class)
 @XStreamConverter(value = AnalysisConverter.class, strings = {"result"})
@@ -43,7 +43,6 @@ public class AnalysisRule {
         return result;
     }
 
-
     public void setAnalysisRuleId(String analysisRuleId) {
         this.analysisRuleId = analysisRuleId;
     }
@@ -52,6 +51,35 @@ public class AnalysisRule {
         this.result = result;
     }
 
+    /**
+     * Default constructor.
+     */
+    public AnalysisRule() {
+        this.analysisRuleId = "";
+        this.result = new Result();
+        this.result.setFileName("");
+        this.result.setResultId("");
+        this.result.setResultLine("");
+        this.result.setResultMessage("");
+        this.result.setResultTypePlace("");
+        this.result.setResultValue("");
+    }
+
+    /**
+     * Construct a new AnalysisRule from a CheckResult from i-Code core library.
+     *
+     * @param checkResult A CheckResult from i-Code library.
+     */
+    public AnalysisRule(final CheckResult checkResult) {
+        this.analysisRuleId = checkResult.getName();
+        this.result = new Result();
+        this.result.setFileName(checkResult.getFile().getPath());
+        this.result.setResultId(checkResult.getId());
+        this.result.setResultLine(String.valueOf(checkResult.getLine()));
+        this.result.setResultMessage(checkResult.getMessage());
+        this.result.setResultTypePlace(Objects.isNull(checkResult.getLocation()) || checkResult.getLocation().isEmpty() ? "class" : "method");
+        this.result.setResultValue(String.valueOf(checkResult.getValue()));
+    }
 
 }
 

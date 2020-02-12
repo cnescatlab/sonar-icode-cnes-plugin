@@ -24,8 +24,6 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains an analyzed file.
- *
- * @author lequal
  */
 @XStreamConverter(value = ToAttributedValueConverter.class)
 public class AnalysisFile {

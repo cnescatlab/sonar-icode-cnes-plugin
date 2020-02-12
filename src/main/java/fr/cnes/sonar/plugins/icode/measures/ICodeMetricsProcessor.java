@@ -16,8 +16,11 @@
  */
 package fr.cnes.sonar.plugins.icode.measures;
 
+import fr.cnes.icode.data.CheckResult;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
+import org.sonar.api.batch.fs.FilePredicates;
+import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputComponent;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -27,16 +30,11 @@ import org.sonar.api.measures.Metric;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Executed during sonar-scanner call.
  * Import i-Code metrics into SonarQube.
- *
- * @author lequal
  */
 public class ICodeMetricsProcessor {
 
@@ -146,6 +144,40 @@ public class ICodeMetricsProcessor {
             final String id = rule.getAnalysisRuleId();
             if(id.contains(COMMON_METRICS_KEY_PART) && type.equals("method")) {
                 final List<AnalysisRule> sub = measures.getOrDefault(id, new ArrayList<>());
+                sub.add(rule);
+                measures.put(id, sub);
+            }
+        }
+
+        // Compute nesting for shell and fortran.
+        computeNesting(context, scannedFiles, measures);
+        // Compute complexity for Fortran.
+        computeComplexity(context, scannedFiles, measures);
+        // Compute function count metric.
+        computeFunctions(context, scannedFiles, measures);
+
+    }
+
+    /**
+     * Save extra measures from report analysis.
+     *
+     * @param context Context of the analysis containing services.
+     * @param scannedFiles Available files.
+     * @param results Complete i-Code report.
+     */
+    public static void saveExtraMeasures(final SensorContext context, final Map<String, InputFile> scannedFiles,
+                                         final List<CheckResult> results) {
+
+        // Contains all measures
+        final Map<String, List<AnalysisRule>> measures = new HashMap<>();
+
+        // Collect all measures on methods into specific list
+        for(final CheckResult result : results) {
+            final String type = Objects.isNull(result.getLocation()) || result.getLocation().isEmpty() ? "class" : "method";
+            final String id = result.getName();
+            if(id.contains(COMMON_METRICS_KEY_PART) && type.equals("method")) {
+                final List<AnalysisRule> sub = measures.getOrDefault(id, new ArrayList<>());
+                final AnalysisRule rule = new AnalysisRule(result);
                 sub.add(rule);
                 measures.put(id, sub);
             }
@@ -287,4 +319,72 @@ public class ICodeMetricsProcessor {
         }
     }
 
+    /**
+     * Save a measure in a SQ or CNES metric.
+     *
+     * @param sensorContext Context of the analysis containing services.
+     * @param result Measure considered like a rule in i-Code.
+     */
+    public static void saveMeasure(final SensorContext sensorContext, final CheckResult result) {
+
+        // Filesystem provided by SonarQube.
+        final FileSystem fileSystem = sensorContext.fileSystem();
+        // Factory for SonarQube predicates.
+        final FilePredicates predicates = fileSystem.predicates();
+        // Create a new measure from the scan context.
+        final NewMeasure<Integer> newMeasure = sensorContext.newMeasure();
+        // i-Code rule id.
+        final String metricKey = result.getName();
+        // Determine if a measure is relative to a file or a method.
+        final String metricScope = Objects.isNull(result.getLocation()) || result.getLocation().isEmpty() ? "class" : "method";
+        // Component concerned by the measure.
+        final String metricComponent = result.getFile().getPath();
+        // Component concerned by the measure.
+        final String measureValue = String.valueOf(result.getValue());
+
+        // Is true if the metric must be interpreted by the plugin.
+        boolean isCalculated = false;
+
+        // Local attribute to set
+        Metric<Integer> metric = null;
+        InputComponent component = null;
+        Integer value = null;
+        if(metricScope.equals("class")) {
+            // Take SHELL / F77 / F90 ncloc into account
+            if (metricKey.contains("MET.LineOfCode")) {
+                metric = CoreMetrics.NCLOC;
+                component = fileSystem.inputFile(predicates.hasPath(metricComponent));
+                value = Double.valueOf(measureValue).intValue();
+                isCalculated = true;
+            }
+            // Take SHELL / F77 / F90 number of comment lines into account
+            else if (metricKey.contains("MET.LineOfComment")) {
+                metric = CoreMetrics.COMMENT_LINES;
+                component = fileSystem.inputFile(predicates.hasPath(metricComponent));
+                value = Double.valueOf(measureValue).intValue();
+                isCalculated = true;
+            }
+            // Take SHELL complexity into account
+            else if (metricKey.contains("SH.MET.ComplexitySimplified")) {
+                metric = CoreMetrics.COMPLEXITY;
+                component = fileSystem.inputFile(predicates.hasPath(metricComponent));
+                value = Double.valueOf(measureValue).intValue();
+                isCalculated = true;
+            }
+        }
+
+        // Finally save the measure if all value are filled.
+        if(isCalculated) {
+            if (metric != null && value != null && component != null) {
+                newMeasure.forMetric(metric);
+                newMeasure.withValue(value);
+                newMeasure.on(component);
+                newMeasure.save();
+            } else {
+                LOGGER.warn(String.format("Measure '%s' for '%s' is ignored on '%s'.",
+                        metricKey, metricScope, metricComponent));
+            }
+        }
+
+    }
 }
