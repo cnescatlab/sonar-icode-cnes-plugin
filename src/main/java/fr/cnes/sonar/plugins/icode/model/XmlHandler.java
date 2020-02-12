@@ -35,7 +35,6 @@ public class XmlHandler {
      */
     private XmlHandler(){}
 
-
     /**
      * This method use XStream to unmarshal XML report: it transform simply
      * XML into our Java Object by reading annotations on model classes.

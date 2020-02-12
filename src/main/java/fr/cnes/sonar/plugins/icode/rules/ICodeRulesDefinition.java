@@ -28,8 +28,6 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Specific i-Code rules definition provided by resource file.
- *
- * @author lequal
  */
 public class ICodeRulesDefinition implements RulesDefinition {
 
@@ -51,7 +49,7 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	 * @param context SonarQube context.
 	 */
 	@Override
-	public void define(Context context) {
+	public void define(final Context context) {
 		createRepository(context, ShellLanguage.KEY);
 		createRepository(context, Fortran77Language.KEY);
 		createRepository(context, Fortran90Language.KEY);

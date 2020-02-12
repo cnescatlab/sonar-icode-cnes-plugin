@@ -28,8 +28,6 @@ import java.util.List;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains meta data about the analyzed project.
- *
- * @author lequal
  */
 @XStreamAlias("analysisProject")
 @XStreamInclude({AnalysisFile.class, AnalysisRule.class, AnalysisInformations.class})

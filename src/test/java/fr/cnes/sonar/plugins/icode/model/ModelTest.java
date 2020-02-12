@@ -16,10 +16,12 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
+import fr.cnes.icode.data.CheckResult;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -78,5 +80,13 @@ public class ModelTest {
         InputStream stream = this.getClass().getResourceAsStream("/rules/icode-shell-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
         Assert.assertEquals(45, def.getRules().size());
+    }
+
+    @Test
+    public void test_CheckResult_to_AnalysisRule_conversion() {
+        CheckResult checkResult = new CheckResult("blue", "white", new File("phantom.sh"));
+        AnalysisRule analysisRule = new AnalysisRule(checkResult);
+        Assert.assertEquals(checkResult.getName(), analysisRule.getAnalysisRuleId());
+        Assert.assertEquals(checkResult.getId(), analysisRule.getResult().getResultId());
     }
 }

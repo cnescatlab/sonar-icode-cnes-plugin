@@ -16,6 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.measures;
 
+import fr.cnes.icode.data.CheckResult;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.Result;
@@ -30,6 +31,7 @@ import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.batch.sensor.measure.internal.DefaultMeasure;
 
 import java.io.File;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -47,19 +49,20 @@ public class ICodeMetricsProcessorTest {
 
     @Before
     public void prepare() throws URISyntaxException {
-        fs = new DefaultFileSystem(new File(ICodeMetricsProcessor.class.getResource("/project/").toURI()));
+        final URI projectPath = ICodeMetricsProcessor.class.getResource("/project/").toURI();
+        fs = new DefaultFileSystem(new File(projectPath));
         fs.setEncoding(Charset.forName("UTF-8"));
 
         bash_sh = TestInputFileBuilder.create(
                 "ProjectKey",
-                fs.resolvePath("bash.sh").getPath())
+                fs.resolvePath(projectPath.getRawPath()+"bash.sh").getPath())
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .build();
         fs.add(bash_sh);
         clanhb_f = TestInputFileBuilder.create(
                 "ProjectKey",
-                fs.resolvePath("clanhb.f").getPath())
+                fs.resolvePath(projectPath.getRawPath()+"clanhb.f").getPath())
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .build();
@@ -97,6 +100,20 @@ public class ICodeMetricsProcessorTest {
 
         ICodeMetricsProcessor.saveMeasure(context, files, rule);
         Assert.assertEquals(1, context.measures(key).size());
+    }
+
+    @Test
+    public void test_save_checkresult_measures() {
+        final String key = bash_sh.key();
+        CheckResult checkResult = new CheckResult("SH.MET.LineOfCode", "11", "Shell");
+        checkResult.setMessage("bim");
+        checkResult.setFile(new File(getClass().getResource("/project/bash.sh").getPath()));
+        checkResult.setLine(4);
+        checkResult.setValue(3f);
+        checkResult.setLocation(null);
+
+        ICodeMetricsProcessor.saveMeasure(context, checkResult);
+        Assert.assertEquals(0, context.measures(key).size());
     }
 
     @Test

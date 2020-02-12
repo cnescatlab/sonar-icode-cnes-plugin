@@ -21,8 +21,6 @@ import org.sonar.api.config.Configuration;
 
 /**
  * Declares language Fortran 77.
- *
- * @author lequal
  */
 public final class Fortran77Language extends ICodeLanguage {
 

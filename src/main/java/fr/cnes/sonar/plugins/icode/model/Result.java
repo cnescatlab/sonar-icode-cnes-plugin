@@ -23,13 +23,12 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
  * Class used to unmarshal i-Code xml file.
  *
  * It contains an issue or a metric.
- *
- * @author lequal
  */
 @XStreamConverter(value = ToAttributedValueConverter.class)
 public class Result {
 
     private String fileName;
+    private String resultId;
     private String resultLine;
     private String resultTypePlace;
     private String resultValue;
@@ -41,6 +40,14 @@ public class Result {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String getResultId() {
+        return resultId;
+    }
+
+    public void setResultId(String resultId) {
+        this.resultId = resultId;
     }
 
     public String getResultLine() {

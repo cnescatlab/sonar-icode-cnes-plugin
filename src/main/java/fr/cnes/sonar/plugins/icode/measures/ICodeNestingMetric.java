@@ -27,8 +27,6 @@ import java.util.List;
 /**
  * Executed during sonar-scanner call.
  * Import i-Code nesting metric into SonarQube.
- *
- * @author lequal
  */
 public class ICodeNestingMetric implements Metrics, MeasureComputer {
 
