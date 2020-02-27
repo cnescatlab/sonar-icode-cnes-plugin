@@ -25,10 +25,11 @@ This SonarQube plugin is now able to run automaticcaly an embedded version of i-
 
 Here is the compatibility matrix of the plugin:
 
-| sonaricode version | embedded i-Code version |
-|:------------------:|:-----------------------:|
-|       < 2.0.0      |           none          |
-|        2.0.0       |          4.0.0          |
+| sonaricode version | embedded i-Code version | supported SonarQube version |
+|:------------------:|:-----------------------:|:---------------------------:|
+|       < 2.0.0      |           none          |          6.7.x              |
+|        2.0.0       |          4.0.0          |        7.9 -> 8.1           |
+|        2.0.1       |          4.0.0          |        7.9 -> 8.1           |
 
 #### Run i-Code manually
 If you need help to run i-Code please refer to the [official user manual](https://github.com/lequal/i-CodeCNES/blob/master/documentation/i-Code%20CNES%20-%20User%20Manual.pdf) or [i-Code issue tracker](https://github.com/lequal/i-CodeCNES/issues).
