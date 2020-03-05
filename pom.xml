@@ -6,7 +6,7 @@
     <groupId>fr.cnes.sonar.plugins</groupId>
     <artifactId>sonar-icode-cnes-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
 
     <name>Sonar i-Code CNES plugin</name>
 
@@ -67,6 +67,7 @@
         <sonar.pluginKey>icode</sonar.pluginKey>
         <sonar.pluginClass>fr.cnes.sonar.plugins.icode.ICodePlugin</sonar.pluginClass>
         <sonar.pluginUrl>https://github.com/lequal/sonar-icode-cnes-plugin</sonar.pluginUrl>
+        <sonar.pluginSourcesUrl>https://github.com/lequal/sonar-icode-cnes-plugin</sonar.pluginSourcesUrl>
         <sonar.pluginOrganizationName>CNES</sonar.pluginOrganizationName>
         <sonar.sources>src/main/java</sonar.sources>
         <sonar.test>src/test/java</sonar.test>

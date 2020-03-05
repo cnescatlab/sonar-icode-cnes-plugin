@@ -21,15 +21,16 @@ You can get i-Code CNES on GitHub: [lequal/i-CodeCNES](https://github.com/lequal
 - Run an analysis with *sonar-scanner*, *maven*, *gradle*, *msbuild*, etc.
 
 #### Run i-Code automatically
-This SonarQube plugin is now able to run automaticcaly an embedded version of i-Code. If you do not specify properties to run i-Code [manually](#run-i-Code-manually) or [from a specific version](#Run-a-specific-i-Code-version-through-sonaricode-plugin), embedded version of i-Code will be executed.
+This SonarQube plugin is now able to run automatically an embedded version of i-Code. If you do not specify properties to run i-Code [manually](#run-i-Code-manually) or [from a specific version](#Run-a-specific-i-Code-version-through-sonaricode-plugin), embedded version of i-Code will be executed.
 
 Here is the compatibility matrix of the plugin:
 
 | sonaricode version | embedded i-Code version | supported SonarQube version |
 |:------------------:|:-----------------------:|:---------------------------:|
 |       < 2.0.0      |           none          |          6.7.x              |
-|        2.0.0       |          4.0.0          |        7.9 -> 8.1           |
-|        2.0.1       |          4.0.0          |        7.9 -> 8.1           |
+|        2.0.0       |          4.0.0          |        7.9 -> 8.2           |
+|        2.0.1       |          4.0.0          |        7.9 -> 8.2           |
+|        2.0.2       |          4.0.0          |        7.9 -> 8.2           |
 
 #### Run i-Code manually
 If you need help to run i-Code please refer to the [official user manual](https://github.com/lequal/i-CodeCNES/blob/master/documentation/i-Code%20CNES%20-%20User%20Manual.pdf) or [i-Code issue tracker](https://github.com/lequal/i-CodeCNES/issues).
