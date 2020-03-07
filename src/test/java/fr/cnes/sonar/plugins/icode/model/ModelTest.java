@@ -23,7 +23,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class ModelTest {
 
@@ -32,6 +31,7 @@ public class ModelTest {
     private AnalysisRule rule;
     private RulesDefinition rulesDefinition;
     private Rule check;
+    private CheckResult checkResult;
 
     @Before
     public void before() {
@@ -59,6 +59,13 @@ public class ModelTest {
         check.setType("a");
 
         rulesDefinition = new RulesDefinition();
+
+        checkResult = new CheckResult("a", "b", "c");
+        checkResult.setFile(new File("test-file"));
+        checkResult.setValue(0.0f);
+        checkResult.setLine(1);
+        checkResult.setLocation(null);
+        checkResult.setMessage("d");
     }
 
     @Test
@@ -66,6 +73,8 @@ public class ModelTest {
         Assert.assertEquals(0, project.getAnalysisFiles().size());
         Assert.assertEquals(0, project.getAnalysisRules().size());
         Assert.assertEquals(0, rulesDefinition.getRules().size());
+        Assert.assertEquals("a", check.getName());
+        Assert.assertEquals("a", check.getType());
     }
 
     @Test
@@ -89,4 +98,40 @@ public class ModelTest {
         Assert.assertEquals(checkResult.getName(), analysisRule.getAnalysisRuleId());
         Assert.assertEquals(checkResult.getId(), analysisRule.getResult().getResultId());
     }
+
+    @Test
+    public void test_CheckResult_to_AnalysisRule_conversion_with_method_location() {
+        checkResult.setLocation("method");
+        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
+        Assert.assertEquals("method", analysisRule.getResult().getResultTypePlace());
+    }
+
+    @Test
+    public void test_CheckResult_to_AnalysisRule_conversion_with_class_location() {
+        checkResult.setLocation("class");
+        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
+        Assert.assertEquals("class", analysisRule.getResult().getResultTypePlace());
+    }
+
+    @Test
+    public void test_CheckResult_to_AnalysisRule_conversion_with_empty_location() {
+        checkResult.setLocation("");
+        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
+        Assert.assertEquals("class", analysisRule.getResult().getResultTypePlace());
+    }
+
+    @Test
+    public void test_CheckResult_to_AnalysisRule_conversion_with_null_location() {
+        checkResult.setLocation(null);
+        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
+        Assert.assertEquals("class", analysisRule.getResult().getResultTypePlace());
+    }
+
+    @Test
+    public void test_CheckResult_to_AnalysisRule_conversion_with_yolo_location() {
+        checkResult.setLocation("yolo");
+        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
+        Assert.assertEquals("yolo", analysisRule.getResult().getResultTypePlace());
+    }
+
 }

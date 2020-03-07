@@ -64,7 +64,7 @@ public class ICodeNestingMetric implements Metrics, MeasureComputer {
      * @return The definition of the computer.
      */
     @Override
-    public MeasureComputerDefinition define(MeasureComputerDefinitionContext defContext) {
+    public MeasureComputerDefinition define(final MeasureComputerDefinitionContext defContext) {
         MeasureComputerDefinition.Builder def = defContext.newDefinitionBuilder();
         def.setInputMetrics(KEY);
         def.setOutputMetrics(KEY);
@@ -77,11 +77,11 @@ public class ICodeNestingMetric implements Metrics, MeasureComputer {
      * @param context Context of the computation.
      */
     @Override
-    public void compute(MeasureComputerContext context) {
+    public void compute(final MeasureComputerContext context) {
         Iterable<Measure> children = context.getChildrenMeasures(KEY);
         if(children.iterator().hasNext()){
             int max = 0;
-            for (Measure child : children){
+            for (final Measure child : children){
                 max = Math.max(max, child.getIntValue());
             }
             context.addMeasure(KEY, max);

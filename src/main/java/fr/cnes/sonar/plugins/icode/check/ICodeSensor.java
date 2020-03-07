@@ -52,7 +52,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -210,14 +209,11 @@ public class ICodeSensor implements Sensor {
     }
 
     /**
-     * <h1>{@link #sonarCheck(Set, List, List)}</h1>
-     * <p>
      * This method apply all rules of the different contributions set in
      * parameter except the one excluded. File in parameters are being analyzed
      * by each contribution able to handle it or none if it isn't.
-     * </p>
-     * <p>
-     * <strong>Important :</strong> Default configurations to run analysis are
+     *
+     * Important: Default configurations to run analysis are
      * available when setting parameters.
      *
      * @param pInputFiles
@@ -368,7 +364,6 @@ public class ICodeSensor implements Sensor {
         final FilePredicates predicates = fileSystem.predicates();
         final NewIssue issue = sensorContext.newIssue();
         final String fileToFind = result.getFile().getPath();
-        System.err.println(fileToFind);
         final FilePredicate predicate = predicates.hasRelativePath(fileToFind);
         final InputFile file = fileSystem.inputFile(predicate);
         if(Objects.nonNull(file)) {

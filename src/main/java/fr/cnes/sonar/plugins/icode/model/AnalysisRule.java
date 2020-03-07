@@ -77,7 +77,8 @@ public class AnalysisRule {
         this.result.setResultId(checkResult.getId());
         this.result.setResultLine(String.valueOf(checkResult.getLine()));
         this.result.setResultMessage(checkResult.getMessage());
-        this.result.setResultTypePlace(Objects.isNull(checkResult.getLocation()) || checkResult.getLocation().isEmpty() ? "class" : "method");
+        this.result.setResultTypePlace(Objects.isNull(checkResult.getLocation()) || checkResult.getLocation().isEmpty() ?
+                "class" : checkResult.getLocation());
         this.result.setResultValue(String.valueOf(checkResult.getValue()));
     }
 

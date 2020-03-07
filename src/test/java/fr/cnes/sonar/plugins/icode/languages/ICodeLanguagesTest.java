@@ -41,6 +41,34 @@ public class ICodeLanguagesTest {
     }
 
     @Test
+    public void test_get_file_suffixes_with_strange_language_suffixes() {
+        final Configuration settings = new MapSettings()
+                .setProperty("toto", ".notstrange,,strange,.,                 ")
+                .asConfig();
+        final ICodeLanguage strangeLanguage = new ICodeLanguage(settings, "strange", "Strange") {
+            @Override
+            public String getSuffixKey() {
+                return "toto";
+            }
+
+            @Override
+            public String getDefaultSuffixes() {
+                return ".notstrange,,strange,.,                 ";
+            }
+        };
+        String[] expected = new String[]{".notstrange","strange","."};
+        String[] actual = strangeLanguage.getFileSuffixes();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void test_all_possibilities_with_filter_empty_strings() {
+        String[] expected = new String[]{".notstrange","strange","."};
+        String[] actual = ICodeLanguage.filterEmptyStrings(new String[]{".notstrange","","strange",".","       "});
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
     public void test_strange_properties() {
         final String[] values = {
                 "",
@@ -70,6 +98,7 @@ public class ICodeLanguagesTest {
         ICodeLanguage l2 = new Fortran77Language(settings);
 
         Assert.assertFalse(l1.equals(l2));
+        Assert.assertTrue(l1.equals(l1));
         Assert.assertFalse(l1.equals(new ShellLanguage(settings)));
 
         Assert.assertNotEquals(l1.hashCode(), l2.hashCode());

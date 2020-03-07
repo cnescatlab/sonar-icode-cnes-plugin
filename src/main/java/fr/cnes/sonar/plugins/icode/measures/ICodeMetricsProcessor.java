@@ -175,7 +175,8 @@ public class ICodeMetricsProcessor {
 
         // Collect all measures on methods into specific list
         for(final CheckResult result : results) {
-            final String type = Objects.isNull(result.getLocation()) || result.getLocation().isEmpty() ? CLASS : METHOD;
+            final String type = Objects.isNull(result.getLocation()) || result.getLocation().isEmpty() ?
+                    CLASS : result.getLocation();
             final String id = result.getName();
             if(id.contains(COMMON_METRICS_KEY_PART) && type.equals(METHOD)) {
                 final List<AnalysisRule> sub = measures.getOrDefault(id, new ArrayList<>());

@@ -52,8 +52,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.version>1.8</jdk.version>
-        <jdk.min.version>1.8</jdk.min.version>
-        <jdk.max.version>1.8</jdk.max.version>
+        <jdk.min.version>11</jdk.min.version>
+        <jdk.max.version>11</jdk.max.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <sonar.apiVersion>6.7.7</sonar.apiVersion>
