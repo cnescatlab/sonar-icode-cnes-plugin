@@ -1,3 +1,19 @@
+/*
+ * This file is part of sonar-icode-cnes-plugin.
+ *
+ * sonar-icode-cnes-plugin is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * sonar-icode-cnes-plugin is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with sonar-icode-cnes-plugin.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package fr.cnes.sonar.plugins.icode.converter;
 
 import com.thoughtworks.xstream.converters.ConverterLookup;
@@ -9,18 +25,13 @@ import com.thoughtworks.xstream.mapper.Mapper;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.Result;
 
+/**
+ * Single purpose class to convert i-Code result into usable java objects.
+ */
 public class AnalysisConverter extends ToAttributedValueConverter {
-
-    public AnalysisConverter(Class type, Mapper mapper, ReflectionProvider reflectionProvider, ConverterLookup lookup) {
-        super(type, mapper, reflectionProvider, lookup);
-    }
 
     public AnalysisConverter(Class type, Mapper mapper, ReflectionProvider reflectionProvider, ConverterLookup lookup, String valueFieldName) {
         super(type, mapper, reflectionProvider, lookup, valueFieldName);
-    }
-
-    public AnalysisConverter(Class type, Mapper mapper, ReflectionProvider reflectionProvider, ConverterLookup lookup, String valueFieldName, Class valueDefinedIn) {
-        super(type, mapper, reflectionProvider, lookup, valueFieldName, valueDefinedIn);
     }
 
     @Override

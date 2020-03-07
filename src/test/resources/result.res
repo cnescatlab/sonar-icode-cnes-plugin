@@ -8,6 +8,7 @@
   <analysisFile language="fr.cnes.analysis.tools.languages.shell" fileName="activatesyncTMArchive.sh" />
   <analysisFile language="fr.cnes.analysis.tools.languages.shell" fileName="activatesyncbackupnominal.sh" />
   <analysisFile language="fr.cnes.analysis.tools.languages.shell" fileName="cat-scan-script.sh" />
+  <analysisFile language="fr.cnes.analysis.tools.languages.shell" fileName="bash.sh" />
   <analysisRule analysisRuleId="F77.MET.ComplexitySimplified">
     <result resultId="1" fileName="brdf.f" resultLine="13" resultTypePlace="method" resultNamePlace="FUNCTION  BDREF" resultValue="7.0" />
   </analysisRule>
@@ -2237,7 +2238,7 @@
     </result>
   </analysisRule>
   <analysisRule analysisRuleId="COM.FLOW.FileExistence">
-    <result resultId="501" fileName="activatesyncTMArchive.sh" resultLine="43" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
+    <result resultId="501" fileName="bash.sh" resultLine="2" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
       <resultMessage>The existence of the file syncTMArchive.sh has not been checked.</resultMessage>
     </result>
   </analysisRule>

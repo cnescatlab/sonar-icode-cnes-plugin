@@ -20,7 +20,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import fr.cnes.icode.data.AbstractChecker;
 import fr.cnes.icode.data.CheckResult;
-import fr.cnes.icode.exception.JFlexException;
 import fr.cnes.icode.logger.ICodeLogger;
 import fr.cnes.icode.services.checkers.CheckerContainer;
 import fr.cnes.icode.services.checkers.CheckerService;
@@ -53,6 +52,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -136,13 +136,13 @@ public class ICodeSensor implements Sensor {
         final ActiveRules activeRules = sensorContext.activeRules();
 
         // Report files found in file system and corresponding to SQ property.
-        final List<String> reportFiles = getReportFiles(config, fileSystem);
+        final List<File> reportFiles = getReportFiles(config, fileSystem);
 
         // If exists, unmarshal each xml result file.
-        for(final String reportPath : reportFiles) {
+        for(final File reportFile : reportFiles) {
             try {
-                // Unmarshall the xml.
-                final FileInputStream file = new FileInputStream(reportPath);
+                // Unmarshal the xml.
+                final FileInputStream file = new FileInputStream(reportFile);
                 final AnalysisProject analysisProject = (AnalysisProject) XmlHandler.unmarshal(file, AnalysisProject.class);
                 // Retrieve file in a SonarQube format.
                 final Map<String, InputFile> scannedFiles = getScannedFiles(fileSystem, analysisProject);
@@ -185,8 +185,8 @@ public class ICodeSensor implements Sensor {
 
         // Gather all files in a Set.
         for(final InputFile inputFile : inputFiles) {
-            files.add(inputFile.file());
-            filesMap.put(inputFile.file().getPath(), inputFile);
+            files.add(new File(inputFile.uri()));
+            filesMap.put(inputFile.uri().getPath(), inputFile);
         }
 
         // Run all checkers on all files.
@@ -324,7 +324,7 @@ public class ICodeSensor implements Sensor {
         final FilePredicates predicates = fileSystem.predicates();
         final Iterable<InputFile> inputFiles = fileSystem.inputFiles(predicates.hasType(InputFile.Type.MAIN));
         final StringBuilder files = new StringBuilder();
-        inputFiles.forEach(file -> files.append(file.file().getPath()).append(" "));
+        inputFiles.forEach(file -> files.append(file.uri().getPath()).append(" "));
         final String executable = config.get(ICodePluginProperties.ICODE_PATH_KEY).orElse(ICodePluginProperties.ICODE_PATH_DEFAULT);
         final String outputFile = config.get(ICodePluginProperties.REPORT_PATH_KEY).orElse(ICodePluginProperties.REPORT_PATH_DEFAULT);
         final String outputPath = Paths.get(sensorContext.fileSystem().baseDir().toString(),outputFile).toString();
@@ -367,7 +367,10 @@ public class ICodeSensor implements Sensor {
         final FileSystem fileSystem = sensorContext.fileSystem();
         final FilePredicates predicates = fileSystem.predicates();
         final NewIssue issue = sensorContext.newIssue();
-        final InputFile file = fileSystem.inputFile(predicates.hasPath(result.getFile().getPath()));
+        final String fileToFind = result.getFile().getPath();
+        System.err.println(fileToFind);
+        final FilePredicate predicate = predicates.hasRelativePath(fileToFind);
+        final InputFile file = fileSystem.inputFile(predicate);
         if(Objects.nonNull(file)) {
             final String repositoryKey = ICodeRulesDefinition.getRepositoryKeyForLanguage(file.language());
             final RuleKey ruleKey = RuleKey.of(repositoryKey, result.getName());
@@ -439,15 +442,13 @@ public class ICodeSensor implements Sensor {
         // Looks for each file in file system, print an error if not found.
         for(final AnalysisFile file : files) {
             // Checks if the file system contains a file with corresponding path (relative or absolute).
-            FilePredicate predicate = fileSystem.predicates().hasPath(file.getFileName());
-            InputFile inputFile = fileSystem.inputFile(predicate);
+            final String fileToFind = new File(fileSystem.baseDir(), file.getFileName()).getPath();
+            final FilePredicate predicate = fileSystem.predicates().hasRelativePath(fileToFind);
+            final InputFile inputFile = fileSystem.inputFile(predicate);
             if(inputFile!=null) {
                 result.put(file.getFileName(), inputFile);
             } else {
-                LOGGER.error(String.format(
-                        "The source file '%s' was not found.",
-                        file.getFileName()
-                ));
+                LOGGER.error(String.format("The source file '%s' was not found.", file.getFileName()));
             }
         }
 
@@ -455,25 +456,25 @@ public class ICodeSensor implements Sensor {
     }
 
     /**
-     * Returns a list of processable result file's path.
+     * Returns a list of processable result files.
      *
      * @param config Configuration of the analysis where properties are put.
      * @param fileSystem The current file system.
      * @return Return a list of path 'findable' in the file system.
      */
-    private List<String> getReportFiles(final Configuration config, final FileSystem fileSystem) {
+    protected List<File> getReportFiles(final Configuration config, final FileSystem fileSystem) {
         // Contains the result to be returned.
-        final List<String> result = new ArrayList<>();
+        final List<File> result = new ArrayList<>();
 
         // Retrieves the non-verified path list from the SonarQube property.
         final String[] pathArray = config.getStringArray(ICodePluginProperties.REPORT_PATH_KEY);
 
         // Check if each path is known by the file system and add it to the processable path list,
         // otherwise print a warning and ignore this result file.
-        for(String path : pathArray) {
+        for(final String path : pathArray) {
             final File file = new File(fileSystem.baseDir(), path);
             if(file.exists() && file.isFile()) {
-                result.add(path);
+                result.add(file);
                 LOGGER.info(String.format("Results file %s has been found and will be processed.", path));
             } else {
                 LOGGER.warn(String.format("Results file %s has not been found and wont be processed.", path));

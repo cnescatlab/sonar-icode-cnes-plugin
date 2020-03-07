@@ -17,14 +17,12 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-
 /**
  * Class used to unmarshal i-Code xml file.
  *
  * It contains data about defined rule.
  */
 public class Rule {
-
 
     private String key;
     private String name;
@@ -53,4 +51,5 @@ public class Rule {
     public void setType(String type) {
         this.type = type;
     }
+
 }

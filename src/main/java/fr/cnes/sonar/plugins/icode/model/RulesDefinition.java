@@ -16,7 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicitCollection;
 import com.thoughtworks.xstream.annotations.XStreamInclude;
