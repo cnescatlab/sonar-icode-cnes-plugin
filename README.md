@@ -15,7 +15,7 @@ You can get i-Code CNES on GitHub: [lequal/i-CodeCNES](https://github.com/lequal
 
 ### Quickstart
 - Setup a SonarQube instance.
-- **[Optional]** Install i-Code command line application as described in [official documentation](https://github.com/lequal/i-CodeCNES/blob/master/documentation/i-Code%20CNES%20-%20Installation%20Manual%20-%20EN.pdf).
+- **[Optional]** Install i-Code command line application as described in [official documentation](https://github.com/lequal/i-CodeCNES/wiki/Installation-Manual).
 - Install `sonaricode-*.jar` in `<SONARQUBE_HOME>/extensions/plugins/`.
 - **[Optional]** Run i-Code manually or configure auto-launch in plugin configuration.
 - Run an analysis with *sonar-scanner*, *maven*, *gradle*, *msbuild*, etc.
@@ -32,7 +32,7 @@ Here is the compatibility matrix of the plugin:
 |        2.0.1       |          4.0.0          |        7.9 -> 8.1           |
 
 #### Run i-Code manually
-If you need help to run i-Code please refer to the [official user manual](https://github.com/lequal/i-CodeCNES/blob/master/documentation/i-Code%20CNES%20-%20User%20Manual.pdf) or [i-Code issue tracker](https://github.com/lequal/i-CodeCNES/issues).
+If you need help to run i-Code please refer to the [official user manual](https://github.com/lequal/i-CodeCNES/wiki/User-Manual) or [i-Code issue tracker](https://github.com/lequal/i-CodeCNES/issues).
 
 #### Run a specific i-Code version through sonaricode plugin
 If embedded version of i-Code does not match your need, you can set the execution of another installed version of i-Code through the following properties:
