@@ -204,25 +204,6 @@ public class ICodeSensor implements Sensor {
     }
 
     /**
-     * Return the file extension without the final point '.'.
-     *
-     * @param pFileName
-     *            to retrieve the extension
-     * @return The extension name of the file
-     */
-    private String getFileExtension(final String pFileName) {
-        String extension = null;
-
-        final int i = pFileName.lastIndexOf('.');
-        final int p = Math.max(pFileName.lastIndexOf('/'), pFileName.lastIndexOf('\\'));
-
-        if (i > p) {
-            extension = pFileName.substring(i + 1);
-        }
-        return extension;
-    }
-
-    /**
      * Execute i-Code through a system process.
      *
      * @param sensorContext Context of the sensor.
