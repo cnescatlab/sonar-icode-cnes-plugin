@@ -90,7 +90,7 @@
         <dependency>
             <groupId>com.github.lequal.i-CodeCNES</groupId>
             <artifactId>icode-library</artifactId>
-            <version>4.0.0</version>
+            <version>4.1.0-beta</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>

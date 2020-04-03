@@ -52,6 +52,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -364,7 +365,7 @@ public class ICodeSensor implements Sensor {
         final FilePredicates predicates = fileSystem.predicates();
         final NewIssue issue = sensorContext.newIssue();
         final String fileToFind = result.getFile().getPath();
-        final FilePredicate predicate = predicates.hasRelativePath(fileToFind);
+        final FilePredicate predicate = predicates.or(predicates.hasPath(fileToFind), predicates.hasRelativePath(fileToFind));
         final InputFile file = fileSystem.inputFile(predicate);
         if(Objects.nonNull(file)) {
             final String repositoryKey = ICodeRulesDefinition.getRepositoryKeyForLanguage(file.language());
