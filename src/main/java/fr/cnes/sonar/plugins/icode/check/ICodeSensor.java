@@ -16,14 +16,8 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import fr.cnes.icode.data.AbstractChecker;
+import fr.cnes.icode.Analyzer;
 import fr.cnes.icode.data.CheckResult;
-import fr.cnes.icode.logger.ICodeLogger;
-import fr.cnes.icode.services.checkers.CheckerContainer;
-import fr.cnes.icode.services.checkers.CheckerService;
-import fr.cnes.icode.services.languages.ILanguage;
 import fr.cnes.icode.services.languages.LanguageService;
 import fr.cnes.sonar.plugins.icode.exceptions.ICodeException;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
@@ -52,7 +46,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -176,6 +169,7 @@ public class ICodeSensor implements Sensor {
      */
     private void executeEmbeddedICode(final SensorContext sensorContext) {
         // Initialisation of tools for analysis.
+        final Analyzer analyzer = new Analyzer();
         final FileSystem fileSystem = sensorContext.fileSystem();
         final FilePredicates predicates = fileSystem.predicates();
         final ActiveRules activeRules = sensorContext.activeRules();
@@ -190,7 +184,7 @@ public class ICodeSensor implements Sensor {
         }
 
         // Run all checkers on all files.
-        final List<CheckResult> results = sonarCheck(files, LanguageService.getLanguagesIds(), null);
+        final List<CheckResult> results = analyzer.stableCheck(files, LanguageService.getLanguagesIds(), null);
 
         // Add each issue to SonarQube.
         for(final CheckResult result : results) {
@@ -207,87 +201,6 @@ public class ICodeSensor implements Sensor {
 
         ICodeMetricsProcessor.saveExtraMeasures(sensorContext, filesMap, results);
 
-    }
-
-    /**
-     * This method apply all rules of the different contributions set in
-     * parameter except the one excluded. File in parameters are being analyzed
-     * by each contribution able to handle it or none if it isn't.
-     *
-     * Important: Default configurations to run analysis are
-     * available when setting parameters.
-     *
-     * @param pInputFiles
-     *            to analyze
-     * @param pLanguageIds
-     *            to include in the analysis. <strong>Set null</strong> to run
-     *            an analysis including all contributions.
-     * @param pExcludedCheckIds
-     *            rules identifier to exclude from the analysis. <strong>Set
-     *            null</strong> run analysis with every rules.
-     * @return list of {@link CheckResult} found by the analysis.
-     */
-    public List<CheckResult> sonarCheck(final Set<File> pInputFiles, final List<String> pLanguageIds,
-                                         final List<String> pExcludedCheckIds) {
-        final String methodName = "check";
-        ICodeLogger.entering(this.getClass().getName(), methodName);
-
-        List<String> languageIds = pLanguageIds;
-        if (languageIds == null) {
-            languageIds = LanguageService.getLanguagesIds();
-        }
-        List<String> excludedCheckIds = pExcludedCheckIds;
-        if (pExcludedCheckIds == null) {
-            excludedCheckIds = new ArrayList<>();
-        }
-        final List<CheckResult> analysisResultCheckResult = new ArrayList<>();
-
-        // Contains checkers by language.
-        final Map<String,List<CheckerContainer>> checkers = Maps.newHashMap();
-        // Contains files by language.
-        final Map<String, List<File>> inputs = Maps.newLinkedHashMap();
-        // Get languages to check during the analysis.
-        final List<ILanguage> languages = LanguageService.getLanguages(languageIds);
-        // Get checkers to run during analysis.
-        for(final ILanguage language : languages) {
-            checkers.put(language.getId(), CheckerService.getCheckers(language.getId(), excludedCheckIds));
-        }
-
-        // Sort files by language.
-        for (final File file : pInputFiles) {
-            final String languageId = LanguageService.getLanguageId(getFileExtension(file.getAbsolutePath()));
-            final List<File> tempList = inputs.getOrDefault(languageId, Lists.newArrayList());
-            tempList.add(file);
-            inputs.put(languageId, tempList);
-        }
-        // For each selected language, run selected checkers on selected files.
-        for (final ILanguage language : languages) {
-            for (final File input : inputs.getOrDefault(language.getId(), Lists.newArrayList())) {
-                for (final CheckerContainer checker : checkers.get(language.getId())) {
-                    try {
-                        AbstractChecker check = checker.getChecker();
-                        check.setInputFile(input);
-                        analysisResultCheckResult.addAll(check.run());
-                    } catch (final Exception e) {
-                        // Set the error message.
-                        final String errorMessage = String.format("Internal i-Code error: exception [%s] thrown while checking [%s] on file [%s] - %s",
-                                e.getClass().getSimpleName(), checker.getName(), input.getPath(), e.getMessage());
-                        // Log the error in i-Code and SonarQube logger.
-                        LOGGER.error(errorMessage, e);
-                        // Create an issue to be displayed in SonarQube.
-                        final CheckResult exception = new CheckResult("Parsing Error", "Parsing Error", input);
-                        exception.setLangageId(language.getId());
-                        exception.setLocation("unknown");
-                        exception.setLine(0);
-                        exception.setMessage(errorMessage);
-                        // Add the exception as a Parsing Error result.
-                        analysisResultCheckResult.add(exception);
-                    }
-                }
-            }
-        }
-
-        return analysisResultCheckResult;
     }
 
     /**
