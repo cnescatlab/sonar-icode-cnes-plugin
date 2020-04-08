@@ -7,27 +7,28 @@ assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+#### Describe the bug
+> _A clear and concise description of what the bug is._
 
-**To reproduce**
-Steps to reproduce the behavior:
+#### To reproduce
+> _Steps to reproduce the behavior._
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+#### Expected behavior
+> _A clear and concise description of what you expected to happen._
 
-**Screenshots & log**
-If applicable, add screenshots to help explain your problem. Then, append SonarQube and i-Code log and **do not forget to obfuscate them**.
+#### Screenshots & log
+> _If applicable, add screenshots to help explain your problem. Then, append SonarQube and i-Code log and **do not forget to obfuscate them**._
 
-**User environment (please complete the following information):**
+#### User environment
+> _Please complete the following information._
  - OS: [e.g. Windows 10]
  - Java version: [e.g. 1.8]
  - i-Code version: [e.g. 3.1.0]
  - Plugin version: [e.g. 2.0.0]
 
-**Additional context**
-Add any other context about the problem here.
+#### Additional context
+> _Add any other context about the problem here._

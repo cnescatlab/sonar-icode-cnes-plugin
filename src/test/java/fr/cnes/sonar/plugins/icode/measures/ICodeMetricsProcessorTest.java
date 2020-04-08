@@ -35,6 +35,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ICodeMetricsProcessorTest {
@@ -198,6 +199,51 @@ public class ICodeMetricsProcessorTest {
 
         ICodeMetricsProcessor.saveExtraMeasures(context, files, project);
         Assert.assertEquals(1, context.measures(key).size());
+    }
+
+    @Test
+    public void test_save_extra_measure_with_null_location() {
+
+        final CheckResult checkResult = new CheckResult("F77.MET.ComplexitySimplified",
+                "F77.MET.ComplexitySimplified", "f77");
+        checkResult.setLocation(null);
+        checkResult.setMessage("empty message");
+        checkResult.setLine(1);
+        checkResult.setValue(1.0f);
+        checkResult.setFile(new File("clanhb.f"));
+
+        ICodeMetricsProcessor.saveExtraMeasures(context, files, List.of(checkResult));
+        Assert.assertEquals(0, context.measures(clanhb_f.key()).size());
+    }
+
+    @Test
+    public void test_save_extra_measure_with_empty_location() {
+
+        final CheckResult checkResult = new CheckResult("F77.MET.ComplexitySimplified",
+                "F77.MET.ComplexitySimplified", "f77");
+        checkResult.setLocation("");
+        checkResult.setMessage("empty message");
+        checkResult.setLine(1);
+        checkResult.setValue(1.0f);
+        checkResult.setFile(new File("clanhb.f"));
+
+        ICodeMetricsProcessor.saveExtraMeasures(context, files, List.of(checkResult));
+        Assert.assertEquals(0, context.measures(clanhb_f.key()).size());
+    }
+
+    @Test
+    public void test_save_extra_measure_with_method_location() {
+
+        final CheckResult checkResult = new CheckResult("F77.MET.ComplexitySimplified",
+                "F77.MET.ComplexitySimplified", "f77");
+        checkResult.setLocation("method");
+        checkResult.setMessage("empty message");
+        checkResult.setLine(1);
+        checkResult.setValue(1.0f);
+        checkResult.setFile(new File("clanhb.f"));
+
+        ICodeMetricsProcessor.saveExtraMeasures(context, files, List.of(checkResult));
+        Assert.assertEquals(1, context.measures(clanhb_f.key()).size());
     }
 
     @Test

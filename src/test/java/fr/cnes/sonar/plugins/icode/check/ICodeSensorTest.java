@@ -21,9 +21,11 @@ import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.Result;
+import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.mockito.Mockito;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
@@ -36,7 +38,7 @@ import org.sonar.api.config.internal.MapSettings;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,13 +51,15 @@ public class ICodeSensorTest {
     private Map<String, InputFile> files;
 
     private DefaultInputFile bash_sh;
+    private DefaultInputFile sub_bash_sh;
     private DefaultInputFile clanhb_f;
+    private DefaultInputFile empty_sh;
     private AnalysisRule rule;
 
     @Before
     public void prepare() throws URISyntaxException {
         fs = new DefaultFileSystem(new File(getClass().getResource("/project").toURI()));
-        fs.setEncoding(Charset.forName("UTF-8"));
+        fs.setEncoding(StandardCharsets.UTF_8);
 
         bash_sh = TestInputFileBuilder.create(
                 "ProjectKey",
@@ -68,6 +72,17 @@ public class ICodeSensorTest {
                 .setContents("blablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\n")
                 .build();
         fs.add(bash_sh);
+        sub_bash_sh = TestInputFileBuilder.create(
+                "ProjectKey",
+                fs.resolvePath("sub/bash.sh").getPath())
+                .setLanguage("icode")
+                .setType(InputFile.Type.MAIN)
+                .setLines(10)
+                .setOriginalLineOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
+                .setLastValidOffset(100)
+                .setContents("blablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\n")
+                .build();
+        fs.add(sub_bash_sh);
         clanhb_f = TestInputFileBuilder.create(
                 "ProjectKey",
                 fs.resolvePath("clanhb.f").getPath())
@@ -78,6 +93,17 @@ public class ICodeSensorTest {
                 .setLastValidOffset(100)
                 .build();
         fs.add(clanhb_f);
+        empty_sh = TestInputFileBuilder.create(
+                "ProjectKey",
+                fs.resolvePath("empty.sh").getPath())
+                .setLanguage("icode")
+                .setType(InputFile.Type.MAIN)
+                .setLines(0)
+                .setOriginalLineOffsets(new int[]{})
+                .setLastValidOffset(0)
+                .setContents("")
+                .build();
+        fs.add(empty_sh);
 
         context = SensorContextTester.create(fs.baseDir());
         files = new HashMap<>();
@@ -89,18 +115,35 @@ public class ICodeSensorTest {
         context = SensorContextTester.create(fs.baseDir());
         context.setFileSystem(fs);
         MapSettings settings = new MapSettings();
-        settings.setProperty("sonar.icode.reports.path", "");
         settings.setProperty("sonar.icode.embedded", false);
+        settings.setProperty(ICodePluginProperties.REPORT_PATH_KEY, "../result.res");
         context.setSettings(settings);
     }
 
-	@Test
-	public void test_given_sensorDescriptor_when_describe_then_callSensorDescriptorName() {
-		SensorDescriptor sensorDescriptor = Mockito.mock(SensorDescriptor.class);
-		ICodeSensor icodeMetricsSensor = new ICodeSensor();
-		icodeMetricsSensor.describe(sensorDescriptor);
-		verify(sensorDescriptor).name(ICodeSensor.class.getName());
-	}
+    @Test
+    public void test_given_sensorDescriptor_when_describe_then_callSensorDescriptorName() {
+        SensorDescriptor sensorDescriptor = Mockito.mock(SensorDescriptor.class);
+        ICodeSensor icodeMetricsSensor = new ICodeSensor();
+        icodeMetricsSensor.describe(sensorDescriptor);
+        verify(sensorDescriptor).name("Sonar i-Code");
+    }
+
+    @Test
+    public void test_run_internal_icode_in_nominal_situation() {
+        final ICodeSensor sensor = new ICodeSensor();
+
+        final MapSettings settings = new MapSettings();
+        settings.setProperty("sonar.icode.launch", false);
+        settings.setProperty("sonar.icode.embedded", true);
+        context.setSettings(settings);
+
+        try {
+            sensor.execute(context);
+            Assertions.assertTrue(true);
+        } catch(final Exception e) {
+            Assertions.fail();
+        }
+    }
 
     @Test
     public void test_normal_work() {
@@ -117,14 +160,15 @@ public class ICodeSensorTest {
         final ICodeSensor sensor = new ICodeSensor();
 
         final MapSettings settings = new MapSettings();
-        settings.setProperty("sonar.icode.launch",true);
-        settings.setProperty("sonar.icode.embedded",false);
+        settings.setProperty("sonar.icode.launch", true);
+        settings.setProperty("sonar.icode.embedded", false);
         context.setSettings(settings);
 
         try {
             sensor.execute(context);
-        } catch(Exception e) {
-            assert(true);
+            Assertions.assertTrue(true);
+        } catch(final Exception e) {
+            Assertions.fail();
         }
     }
 
@@ -138,12 +182,50 @@ public class ICodeSensorTest {
         };
 
         final MapSettings settings = new MapSettings();
-        settings.setProperty("sonar.icode.launch",true);
-        settings.setProperty("sonar.icode.embedded",false);
+        settings.setProperty("sonar.icode.launch", true);
+        settings.setProperty("sonar.icode.embedded", false);
         context.setSettings(settings);
 
         sensor.execute(context);
-        assert(true);
+        Assertions.assertTrue(true);
+    }
+
+    @Test
+    public void test_get_report_file_success() {
+        final ICodeSensor sensor = new ICodeSensor() {
+            @Override
+            protected int runICode(final String command) {
+                return 0;
+            }
+        };
+
+        final MapSettings settings = new MapSettings();
+        settings.setProperty("sonar.icode.launch", true);
+        settings.setProperty("sonar.icode.embedded", false);
+        settings.setProperty(ICodePluginProperties.REPORT_PATH_KEY, "../result.res");
+        context.setSettings(settings);
+
+        int result = sensor.getReportFiles(context.config(), fs).size();
+        Assertions.assertEquals(1, result);
+    }
+
+    @Test
+    public void test_get_report_file_failure() {
+        final ICodeSensor sensor = new ICodeSensor() {
+            @Override
+            protected int runICode(final String command) {
+                return 0;
+            }
+        };
+
+        final MapSettings settings = new MapSettings();
+        settings.setProperty("sonar.icode.launch", true);
+        settings.setProperty("sonar.icode.embedded", false);
+        settings.setProperty(ICodePluginProperties.REPORT_PATH_KEY, "../ghost.res");
+        context.setSettings(settings);
+
+        int result = sensor.getReportFiles(context.config(), fs).size();
+        Assertions.assertEquals(0, result);
     }
 
     @Test
@@ -156,12 +238,12 @@ public class ICodeSensorTest {
         };
 
         final MapSettings settings = new MapSettings();
-        settings.setProperty("sonar.icode.launch",true);
-        settings.setProperty("sonar.icode.embedded",false);
+        settings.setProperty("sonar.icode.launch", true);
+        settings.setProperty("sonar.icode.embedded", false);
         context.setSettings(settings);
 
         sensor.execute(context);
-        assert(true);
+        Assertions.assertTrue(true);
     }
 
     @Test
@@ -180,19 +262,25 @@ public class ICodeSensorTest {
         final AnalysisProject project = new AnalysisProject();
         final AnalysisFile file = new AnalysisFile();
         final AnalysisFile file2 = new AnalysisFile();
+        final AnalysisFile file3 = new AnalysisFile();
+        final AnalysisFile file4 = new AnalysisFile();
 
         file.setFileName("badaboum.sh");
         file.setLanguage("shell");
         file2.setFileName("bash.sh");
         file2.setLanguage("shell");
+        file3.setFileName("clanhb.f");
+        file3.setLanguage("f77");
+        file4.setFileName("sub/bash.sh");
+        file4.setLanguage("shell");
 
-        project.setAnalysisFile(new AnalysisFile[]{file, file2});
+        project.setAnalysisFile(new AnalysisFile[]{file, file2, file3, file4});
 
         Assert.assertNotNull(sensor);
 
-        Map<String, InputFile> relevantFile = sensor.getScannedFiles(context.fileSystem(), project);
+        Map<String, InputFile> relevantFile = sensor.getScannedFiles(fs, project);
 
-        Assert.assertEquals(0, relevantFile.size());
+        Assert.assertEquals(3, relevantFile.size());
     }
 
     @Test
@@ -211,7 +299,10 @@ public class ICodeSensorTest {
 
     @Test
     public void test_save_issue_with_CheckResult() {
-        CheckResult result = new CheckResult("SH.ERR.Help", "11", bash_sh.file());
+        CheckResult result = new CheckResult(
+                "SH.ERR.Help",
+                "11",
+                new File(fs.baseDir(), bash_sh.filename()));
         result.setValue(3.0f);
         result.setLine(4);
         result.setLocation("yolo");
@@ -219,7 +310,7 @@ public class ICodeSensorTest {
         result.setLangageId("Shell");
 
         ICodeSensor.saveIssue(context, result);
-        Assert.assertEquals(0, context.allIssues().size());
+        Assert.assertEquals(1, context.allIssues().size());
     }
 
     @Test

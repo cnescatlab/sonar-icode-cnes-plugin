@@ -17,6 +17,7 @@
 package fr.cnes.sonar.plugins.icode.measures;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.mockito.Mockito;
 import org.sonar.api.ce.measure.Component;
 import org.sonar.api.ce.measure.Measure;
@@ -27,45 +28,75 @@ import org.sonar.api.ce.measure.MeasureComputer.MeasureComputerDefinitionContext
 import org.sonar.api.measures.Metric;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class ComputeNestingMetricTest {
 
     @Test
     public void test_metric_definition() {
-        MeasureComputerDefinition measureComputerDefinition = Mockito.mock(MeasureComputerDefinition.class);
-        MeasureComputer.MeasureComputerDefinition.Builder builder = Mockito.mock(MeasureComputer.MeasureComputerDefinition.Builder.class);
+        MeasureComputerDefinition measureComputerDefinition = mock(MeasureComputerDefinition.class);
+        MeasureComputer.MeasureComputerDefinition.Builder builder = mock(MeasureComputer.MeasureComputerDefinition.Builder.class);
         List<Metric> allMetrics = (new ICodeNestingMetric()).getMetrics();
         String[] metricsKey = new String[]{allMetrics.get(0).key()};
-        Mockito.when(builder.setInputMetrics(metricsKey)).thenReturn(builder);
-        Mockito.when(builder.setOutputMetrics(metricsKey)).thenReturn(builder);
-        Mockito.when(builder.build()).thenReturn(measureComputerDefinition);
-        MeasureComputerDefinitionContext measureComputerDefinitionContext = Mockito.mock(MeasureComputerDefinitionContext.class);
-        Mockito.when(measureComputerDefinitionContext.newDefinitionBuilder()).thenReturn(builder);
+        when(builder.setInputMetrics(metricsKey)).thenReturn(builder);
+        when(builder.setOutputMetrics(metricsKey)).thenReturn(builder);
+        when(builder.build()).thenReturn(measureComputerDefinition);
+        MeasureComputerDefinitionContext measureComputerDefinitionContext = mock(MeasureComputerDefinitionContext.class);
+        when(measureComputerDefinitionContext.newDefinitionBuilder()).thenReturn(builder);
         ICodeNestingMetric compute = new ICodeNestingMetric();
         compute.define(measureComputerDefinitionContext);
     }
 
     @Test
     public void test_given_context_when_compute_then_newComputedMeasures() {
-        org.sonar.api.ce.measure.Component componentFile = Mockito.mock(org.sonar.api.ce.measure.Component.class);
-        Mockito.when(componentFile.getType()).thenReturn(Component.Type.DIRECTORY);
-        MeasureComputerContext context = Mockito.mock(MeasureComputerContext.class);
-        Mockito.when(context.getComponent()).thenReturn(componentFile);
+        org.sonar.api.ce.measure.Component componentFile = mock(org.sonar.api.ce.measure.Component.class);
+        when(componentFile.getType()).thenReturn(Component.Type.DIRECTORY);
+        MeasureComputerContext context = mock(MeasureComputerContext.class);
+        when(context.getComponent()).thenReturn(componentFile);
         ArrayList<Measure> childsMeasures = new ArrayList<>();
-        Measure aMeasureMin = Mockito.mock(Measure.class);
-        Mockito.when(aMeasureMin.getIntValue()).thenReturn(1);
-        Mockito.when(aMeasureMin.getDoubleValue()).thenReturn(1.);
-        Measure aMeasureMax = Mockito.mock(Measure.class);
-        Mockito.when(aMeasureMax.getIntValue()).thenReturn(5);
-        Mockito.when(aMeasureMax.getDoubleValue()).thenReturn(5.);
+        Measure aMeasureMin = mock(Measure.class);
+        when(aMeasureMin.getIntValue()).thenReturn(1);
+        when(aMeasureMin.getDoubleValue()).thenReturn(1.);
+        Measure aMeasureMax = mock(Measure.class);
+        when(aMeasureMax.getIntValue()).thenReturn(5);
+        when(aMeasureMax.getDoubleValue()).thenReturn(5.);
         childsMeasures.add(aMeasureMin);
         childsMeasures.add(aMeasureMax);
-        Mockito.when(context.getChildrenMeasures(ICodeNestingMetric.NESTING_MAX.key())).thenReturn(childsMeasures);
+        when(context.getChildrenMeasures(ICodeNestingMetric.NESTING_MAX.key())).thenReturn(childsMeasures);
         ICodeNestingMetric computeModule = new ICodeNestingMetric();
         computeModule.compute(context);
         Mockito.verify(context).addMeasure(ICodeNestingMetric.NESTING_MAX.key(), 5);
     }
 
+    @Test
+    public void test_compute_metric_without_children() {
 
+        // Create a mock for the context.
+        MeasureComputerContext context = mock(MeasureComputerContext.class);
+
+        final Iterable iter = () -> new Iterator() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Object next() {
+                return null;
+            }
+        };
+
+        when(context.getChildrenMeasures(ICodeNestingMetric.KEY)).thenReturn(iter);
+        doAnswer(invocationOnMock -> fail()).when(context).addMeasure(anyString(), anyInt());
+
+        final ICodeNestingMetric nestingMetric = new ICodeNestingMetric();
+        nestingMetric.compute(context);
+        Assertions.assertTrue(true);
+    }
 }

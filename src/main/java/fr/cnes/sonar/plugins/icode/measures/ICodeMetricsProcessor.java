@@ -43,6 +43,9 @@ public class ICodeMetricsProcessor {
 
     /** Shared part between all i-Code metrics key. **/
     private static final String COMMON_METRICS_KEY_PART = ".MET.";
+    /** Define location in the code **/
+    public static final String CLASS = "class";
+    public static final String METHOD = "method";
 
     /**
      * Private constructor because this class contains only static methods.
@@ -60,69 +63,68 @@ public class ICodeMetricsProcessor {
     }
 
     /**
-     * Save a measure in a SQ or CNES metric.
+     * Save a measure in SonarQube from i-Code report format.
      *
      * @param context Context of the analysis containing services.
      * @param files Map containing files in SQ format.
-     * @param rule Measure considered like a rule in i-Code.
+     * @param icodeMeasure Measure considered like a rule in i-Code.
      */
-    public static void saveMeasure(final SensorContext context, final Map<String, InputFile> files, final AnalysisRule rule) {
+    public static void saveMeasure(final SensorContext context, final Map<String, InputFile> files,
+                                   final AnalysisRule icodeMeasure) {
 
-        // Create a new measure from the scan context.
-        final NewMeasure<Integer> newMeasure = context.newMeasure();
-        // i-Code rule id.
-        final String metricKey = rule.getAnalysisRuleId();
         // Determine if a measure is relative to a file or a method.
-        final String metricScope = rule.getResult().getResultTypePlace();
-        // Component concerned by the measure.
-        final String metricComponent = rule.getResult().getFileName();
-        // Component concerned by the measure.
-        final String measureValue = rule.getResult().getResultValue();
+        final String metricScope = icodeMeasure.getResult().getResultTypePlace();
 
-        // Is true if the metric must be interpreted by the plugin.
-        boolean isCalculated = false;
-
-        // Local attribute to set
-        Metric<Integer> metric = null;
-        InputComponent component = null;
-        Integer value = null;
-        if(metricScope.equals("class")) {
+        if(metricScope.equals(CLASS)) {
+            // Get i-Code rule id to test if issue must be saved here.
+            final String metricKey = icodeMeasure.getAnalysisRuleId();
             // Take SHELL / F77 / F90 ncloc into account
             if (metricKey.contains("MET.LineOfCode")) {
-                metric = CoreMetrics.NCLOC;
-                component = files.getOrDefault(metricComponent, null);
-                value = Double.valueOf(measureValue).intValue();
-                isCalculated = true;
+                saveSonarQubeNewMeasure(context, files, CoreMetrics.NCLOC, icodeMeasure);
             }
             // Take SHELL / F77 / F90 number of comment lines into account
             else if (metricKey.contains("MET.LineOfComment")) {
-                metric = CoreMetrics.COMMENT_LINES;
-                component = files.getOrDefault(metricComponent, null);
-                value = Double.valueOf(measureValue).intValue();
-                isCalculated = true;
+                saveSonarQubeNewMeasure(context, files, CoreMetrics.COMMENT_LINES, icodeMeasure);
             }
             // Take SHELL complexity into account
             else if (metricKey.contains("SH.MET.ComplexitySimplified")) {
-                metric = CoreMetrics.COMPLEXITY;
-                component = files.getOrDefault(metricComponent, null);
-                value = Double.valueOf(measureValue).intValue();
-                isCalculated = true;
+                saveSonarQubeNewMeasure(context, files, CoreMetrics.COMPLEXITY, icodeMeasure);
             }
         }
 
+    }
+
+    /**
+     * Save an issue or log a warning if the component is not found.
+     *
+     * @param context SonarQube context in which measure must be saved.
+     * @param files All files visible by SonarQube.
+     * @param sonarMetric The SonarQube metric in which the measure must be saved.
+     * @param icodeMeasure The value of the i-Code measure.
+     */
+    protected static void saveSonarQubeNewMeasure(final SensorContext context, final Map<String, InputFile> files,
+                                                  final Metric<Integer> sonarMetric, final AnalysisRule icodeMeasure) {
+
+        // Component concerned by the measure.
+        final String metricComponent = icodeMeasure.getResult().getFileName();
+        // Component concerned by the measure.
+        final String measureValue = icodeMeasure.getResult().getResultValue();
+        // Retrieve the component/file on which the measure has been taken.
+        final InputComponent component = files.getOrDefault(metricComponent, null);
+        // i-Code takes measure as Double and SonarQube as Integer: just convert it.
+        final int value = Double.valueOf(measureValue).intValue();
         // Finally save the measure if all value are filled.
-        if(isCalculated) {
-            if (metric != null && value != null && component != null) {
-                newMeasure.forMetric(metric);
-                newMeasure.withValue(value);
-                newMeasure.on(component);
-                newMeasure.save();
-            } else {
-                LOGGER.warn(String.format("Measure '%s' for '%s' is ignored on '%s'.",
-                        metricKey, metricScope, metricComponent));
-            }
+        if (component != null) {
+            // Create a new measure from the scan context.
+            final NewMeasure<Integer> newMeasure = context.newMeasure();
+            newMeasure.forMetric(sonarMetric);
+            newMeasure.withValue(value);
+            newMeasure.on(component);
+            newMeasure.save();
+        } else {
+            LOGGER.warn(String.format("Measure '%s' for '%s' is ignored on '%s'.",
+                    icodeMeasure.getAnalysisRuleId(), CLASS, metricComponent));
         }
-
     }
 
     /**
@@ -142,7 +144,7 @@ public class ICodeMetricsProcessor {
         for(final AnalysisRule rule : project.getAnalysisRules()) {
             final String type = rule.getResult().getResultTypePlace();
             final String id = rule.getAnalysisRuleId();
-            if(id.contains(COMMON_METRICS_KEY_PART) && type.equals("method")) {
+            if(id.contains(COMMON_METRICS_KEY_PART) && type.equals(METHOD)) {
                 final List<AnalysisRule> sub = measures.getOrDefault(id, new ArrayList<>());
                 sub.add(rule);
                 measures.put(id, sub);
@@ -173,9 +175,10 @@ public class ICodeMetricsProcessor {
 
         // Collect all measures on methods into specific list
         for(final CheckResult result : results) {
-            final String type = Objects.isNull(result.getLocation()) || result.getLocation().isEmpty() ? "class" : "method";
+            final String type = Objects.isNull(result.getLocation()) || result.getLocation().isEmpty() ?
+                    CLASS : result.getLocation();
             final String id = result.getName();
-            if(id.contains(COMMON_METRICS_KEY_PART) && type.equals("method")) {
+            if(id.contains(COMMON_METRICS_KEY_PART) && type.equals(METHOD)) {
                 final List<AnalysisRule> sub = measures.getOrDefault(id, new ArrayList<>());
                 final AnalysisRule rule = new AnalysisRule(result);
                 sub.add(rule);
@@ -320,71 +323,29 @@ public class ICodeMetricsProcessor {
     }
 
     /**
-     * Save a measure in a SQ or CNES metric.
+     * Save a measure in SonarQube from i-Code internal java model format.
      *
-     * @param sensorContext Context of the analysis containing services.
+     * @param context Context of the analysis containing services.
      * @param result Measure considered like a rule in i-Code.
      */
-    public static void saveMeasure(final SensorContext sensorContext, final CheckResult result) {
+    public static void saveMeasure(final SensorContext context, final CheckResult result) {
 
         // Filesystem provided by SonarQube.
-        final FileSystem fileSystem = sensorContext.fileSystem();
+        final FileSystem fileSystem = context.fileSystem();
         // Factory for SonarQube predicates.
         final FilePredicates predicates = fileSystem.predicates();
-        // Create a new measure from the scan context.
-        final NewMeasure<Integer> newMeasure = sensorContext.newMeasure();
-        // i-Code rule id.
-        final String metricKey = result.getName();
-        // Determine if a measure is relative to a file or a method.
-        final String metricScope = Objects.isNull(result.getLocation()) || result.getLocation().isEmpty() ? "class" : "method";
         // Component concerned by the measure.
         final String metricComponent = result.getFile().getPath();
-        // Component concerned by the measure.
-        final String measureValue = String.valueOf(result.getValue());
 
-        // Is true if the metric must be interpreted by the plugin.
-        boolean isCalculated = false;
+        // Create a fake Map of input files to reuse function.
+        final Map<String, InputFile> files = new HashMap<>();
+        files.put(metricComponent, fileSystem.inputFile(predicates.hasPath(metricComponent)));
 
-        // Local attribute to set
-        Metric<Integer> metric = null;
-        InputComponent component = null;
-        Integer value = null;
-        if(metricScope.equals("class")) {
-            // Take SHELL / F77 / F90 ncloc into account
-            if (metricKey.contains("MET.LineOfCode")) {
-                metric = CoreMetrics.NCLOC;
-                component = fileSystem.inputFile(predicates.hasPath(metricComponent));
-                value = Double.valueOf(measureValue).intValue();
-                isCalculated = true;
-            }
-            // Take SHELL / F77 / F90 number of comment lines into account
-            else if (metricKey.contains("MET.LineOfComment")) {
-                metric = CoreMetrics.COMMENT_LINES;
-                component = fileSystem.inputFile(predicates.hasPath(metricComponent));
-                value = Double.valueOf(measureValue).intValue();
-                isCalculated = true;
-            }
-            // Take SHELL complexity into account
-            else if (metricKey.contains("SH.MET.ComplexitySimplified")) {
-                metric = CoreMetrics.COMPLEXITY;
-                component = fileSystem.inputFile(predicates.hasPath(metricComponent));
-                value = Double.valueOf(measureValue).intValue();
-                isCalculated = true;
-            }
-        }
+        // Create a fake AnalysisRule for reuse purpose.
+        final AnalysisRule icodeMeasure = new AnalysisRule(result);
 
-        // Finally save the measure if all value are filled.
-        if(isCalculated) {
-            if (metric != null && value != null && component != null) {
-                newMeasure.forMetric(metric);
-                newMeasure.withValue(value);
-                newMeasure.on(component);
-                newMeasure.save();
-            } else {
-                LOGGER.warn(String.format("Measure '%s' for '%s' is ignored on '%s'.",
-                        metricKey, metricScope, metricComponent));
-            }
-        }
+        // Call method for AnalysisRule saving.
+        saveMeasure(context, files, icodeMeasure);
 
     }
 }

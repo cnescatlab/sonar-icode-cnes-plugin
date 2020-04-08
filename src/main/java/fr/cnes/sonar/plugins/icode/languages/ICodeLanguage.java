@@ -54,7 +54,7 @@ public abstract class ICodeLanguage extends AbstractLanguage {
 	public String[] getFileSuffixes() {
 		String[] suffixes = filterEmptyStrings(configuration.getStringArray(getSuffixKey()));
 		if (suffixes.length == 0) {
-			suffixes = getDefaultSuffixes().split(",");
+			suffixes = filterEmptyStrings(getDefaultSuffixes().split(","));
 		}
 		return suffixes;
 	}
@@ -80,9 +80,9 @@ public abstract class ICodeLanguage extends AbstractLanguage {
 	 *
 	 * @return Output String array without empty string values.
 	 */
-    private static String[] filterEmptyStrings(String[] stringArray) {
+    public static String[] filterEmptyStrings(final String[] stringArray) {
         List<String> nonEmptyStrings = new ArrayList<>();
-        for (String string : stringArray) {
+        for (final String string : stringArray) {
             if (StringUtils.isNotBlank(string.trim())) {
                 nonEmptyStrings.add(string.trim());
             }
@@ -97,7 +97,7 @@ public abstract class ICodeLanguage extends AbstractLanguage {
 	 * @return True if obj is this.
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		return obj==this;
 	}
 
