@@ -30,7 +30,7 @@ Here is the compatibility matrix of the plugin:
 |       < 2.0.0      |           none          |          6.7.x              |
 |        2.0.0       |          4.0.0          |        7.9 -> 8.2           |
 |        2.0.1       |          4.0.0          |        7.9 -> 8.2           |
-|        2.0.2       |          4.0.0          |        7.9 -> 8.2           |
+|        2.0.2       |          4.1.0          |        7.9 -> 8.2           |
 
 #### Run i-Code manually
 If you need help to run i-Code please refer to the [official user manual](https://github.com/lequal/i-CodeCNES/blob/master/documentation/i-Code%20CNES%20-%20User%20Manual.pdf) or [i-Code issue tracker](https://github.com/lequal/i-CodeCNES/issues).
@@ -77,6 +77,8 @@ Please report issues at https://github.com/lequal/i-CodeCNES/issues
 If you experienced a problem with the plugin please open an issue. Inside this issue please explain us how to reproduce this issue and paste the log. 
 
 If you want to do a PR, please put inside of it the reason of this pull request. If this pull request fix an issue please insert the number of the issue or explain inside of the PR how to reproduce this issue.
+
+All details are available in [CONTRIBUTING](https://github.com/lequal/sonar-icode-cnes-plugin/CONTRIBUTING.md).
 
 ### Feedback and Support
 Contact : L-lequal@cnes.fr

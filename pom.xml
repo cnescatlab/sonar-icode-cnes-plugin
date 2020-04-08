@@ -22,7 +22,6 @@
         </license>
     </licenses>
 
-    <!-- optional -->
     <organization>
         <name>CNES</name>
         <url>http://cnes.fr</url>
@@ -90,7 +89,7 @@
         <dependency>
             <groupId>com.github.lequal.i-CodeCNES</groupId>
             <artifactId>icode-library</artifactId>
-            <version>4.1.0-beta</version>
+            <version>v4.1.0</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>

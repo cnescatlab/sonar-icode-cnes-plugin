@@ -125,7 +125,7 @@ public class ICodeSensorTest {
         SensorDescriptor sensorDescriptor = Mockito.mock(SensorDescriptor.class);
         ICodeSensor icodeMetricsSensor = new ICodeSensor();
         icodeMetricsSensor.describe(sensorDescriptor);
-        verify(sensorDescriptor).name(ICodeSensor.class.getName());
+        verify(sensorDescriptor).name("Sonar i-Code");
     }
 
     @Test

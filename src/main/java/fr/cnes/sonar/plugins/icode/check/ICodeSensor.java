@@ -74,7 +74,7 @@ public class ICodeSensor implements Sensor {
         sensorDescriptor.onlyOnLanguages(ShellLanguage.KEY, Fortran77Language.KEY, Fortran90Language.KEY);
 
         // Defines sensor name
-        sensorDescriptor.name(getClass().getName());
+        sensorDescriptor.name("Sonar i-Code");
 
         // Only main files are concerned, not tests.
         sensorDescriptor.onlyOnFileType(InputFile.Type.MAIN);
