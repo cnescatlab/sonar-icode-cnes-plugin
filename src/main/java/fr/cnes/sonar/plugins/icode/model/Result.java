@@ -81,4 +81,5 @@ public class Result {
     public void setResultMessage(String resultMessage) {
         this.resultMessage = resultMessage;
     }
+
 }

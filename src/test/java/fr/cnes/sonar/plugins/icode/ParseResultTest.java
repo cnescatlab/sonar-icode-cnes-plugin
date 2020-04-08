@@ -17,11 +17,11 @@ public class ParseResultTest {
         Assert.assertNotNull(analysisProject);
         Assert.assertNotNull(analysisProject.getAnalysisRules().get(0));
 
-        // Try to get Analysis informations
+        // Try to get Analysis information
         Assert.assertNotNull(analysisProject.getAnalysisInformations().getAuthor());
 
-        // Try to get files informations
-        Assert.assertEquals(7, analysisProject.getAnalysisFiles().size());
+        // Try to get files information
+        Assert.assertEquals(8, analysisProject.getAnalysisFiles().size());
         Assert.assertNotNull(analysisProject.getAnalysisFiles().get(0).getFileName());
         Assert.assertNotNull(analysisProject.getAnalysisFiles().get(0).getLanguage());
 

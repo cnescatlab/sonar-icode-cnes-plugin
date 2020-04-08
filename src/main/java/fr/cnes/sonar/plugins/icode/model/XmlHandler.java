@@ -25,8 +25,6 @@ import java.io.InputStream;
  * Class used to unmarshal i-Code xml file (results and rules definition).
  *
  * It contains useful methods to handle xml files.
- *
- * @author lequal
  */
 public class XmlHandler {
 
@@ -44,12 +42,12 @@ public class XmlHandler {
      * @return AnalysisReport: the main structure of the report.
      */
     public static Object unmarshal(final InputStream file, final Class<?> cls){
-        XStream xStream = new XStream() {
+        final XStream xStream = new XStream() {
             @Override
             protected MapperWrapper wrapMapper(MapperWrapper next) {
                 return new MapperWrapper(next) {
                     @Override
-                    public boolean shouldSerializeMember(Class definedIn, String fieldName) {
+                    public boolean shouldSerializeMember(final Class definedIn, final String fieldName) {
                         return (definedIn != Object.class) && super.shouldSerializeMember(definedIn, fieldName);
                     }
                 };

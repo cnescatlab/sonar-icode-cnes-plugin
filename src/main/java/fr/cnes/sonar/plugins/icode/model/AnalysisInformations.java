@@ -16,7 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 

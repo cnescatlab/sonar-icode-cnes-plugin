@@ -4,7 +4,15 @@
 		<key>Parsing Error</key>
 		<name>Parsing Error</name>
 		<internalKey>*</internalKey>
-		<description>An error occurs when parsing a file.</description>
+		<description><![CDATA[
+<p>
+An error occurred when parsing a file. This is an internal error of i-Code CNES analysis.
+</p>
+<p>
+Please, report this error to i-Code CNES maintainers to improve the tool: <a href="https://github.com/lequal/i-CodeCNES/issues">https://github.com/lequal/i-CodeCNES/issues</a>
+</p>
+        ]]>
+		</description>
 		<severity>BLOCKER</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
