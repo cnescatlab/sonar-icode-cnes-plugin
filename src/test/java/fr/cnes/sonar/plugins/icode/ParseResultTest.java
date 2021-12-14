@@ -21,7 +21,7 @@ public class ParseResultTest {
         Assert.assertNotNull(analysisProject.getAnalysisInformations().getAuthor());
 
         // Try to get files information
-        Assert.assertEquals(8, analysisProject.getAnalysisFiles().size());
+        Assert.assertEquals(4, analysisProject.getAnalysisFiles().size());
         Assert.assertNotNull(analysisProject.getAnalysisFiles().get(0).getFileName());
         Assert.assertNotNull(analysisProject.getAnalysisFiles().get(0).getLanguage());
 

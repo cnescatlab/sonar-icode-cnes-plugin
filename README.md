@@ -7,7 +7,7 @@
 
 SonarQube plugin for the code analysis tool: i-Code CNES.
 
-SonarQube is an open platform to manage code quality. This plugin adds the ability to check Fortran (77 & 90) & Shell with i-Code or import pre-existing results of i-Code.
+SonarQube is an open platform to manage code quality. This plugin adds the ability to check Fortran (77 & 90) with i-Code or import pre-existing results of i-Code.
 
 This plugin is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
@@ -41,7 +41,6 @@ If embedded version of i-Code does not match your need, you can set the executio
 - `sonar.icode.path`: Define i-Code CNES executable path to auto-launch it on analysis. Default: `${HOME}/icode-cnes/icode.exe`.
 
 #### Other plugin's properties
-- `sonar.icode.shell.file.suffixes`: List of suffixes for Shell files to analyze. Default: `.sh,.ksh,.bash`.
 - `sonar.icode.f77.file.suffixes`: List of suffixes for F77 files to analyze. Default: `.f,.f77,.for,.fpp,.ftn,.F,.F77,.FOR,.FPP,.FTN`.
 - `sonar.icode.f90.file.suffixes`: List of suffixes for F90 files to analyze. Default: `.f90,.F90`.
 - `sonar.icode.reports.path`: Path to the i-Code reports. Multiple path can be provided. Default: `result.res`.
@@ -49,14 +48,13 @@ If embedded version of i-Code does not match your need, you can set the executio
 ### Features
 - Fortran 77 analysis
 - Fortran 90 analysis
-- Shell analysis
 - Import i-Code results
 
 #### Get i-Code help
 Use `icode -h` to get the following help about i-Code:
 ````
 usage: icode [<FILE> [...]] [-c <arg>] [-e] [-f <arg>] [-h] [-l] [-o <arg>] [-p <arg>] [-q <arg>] [-r] [-x <arg>]
-Analyze Shell, F77 & F90 code to find defects & bugs.
+Analyze F77 & F90 code to find defects & bugs.
 
  -c,--checked-languages <arg>        Comma separated list of languages checked during analysis. All by default.
  -e,--exporters                      Display all available exporters.

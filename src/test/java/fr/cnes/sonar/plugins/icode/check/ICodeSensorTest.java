@@ -261,26 +261,16 @@ public class ICodeSensorTest {
 
         final AnalysisProject project = new AnalysisProject();
         final AnalysisFile file = new AnalysisFile();
-        final AnalysisFile file2 = new AnalysisFile();
-        final AnalysisFile file3 = new AnalysisFile();
-        final AnalysisFile file4 = new AnalysisFile();
+        file.setFileName("clanhb.f");
+        file.setLanguage("f77");
 
-        file.setFileName("badaboum.sh");
-        file.setLanguage("shell");
-        file2.setFileName("bash.sh");
-        file2.setLanguage("shell");
-        file3.setFileName("clanhb.f");
-        file3.setLanguage("f77");
-        file4.setFileName("sub/bash.sh");
-        file4.setLanguage("shell");
-
-        project.setAnalysisFile(new AnalysisFile[]{file, file2, file3, file4});
+        project.setAnalysisFile(new AnalysisFile[]{file});
 
         Assert.assertNotNull(sensor);
 
         Map<String, InputFile> relevantFile = sensor.getScannedFiles(fs, project);
 
-        Assert.assertEquals(3, relevantFile.size());
+        Assert.assertEquals(1, relevantFile.size());
     }
 
     @Test
@@ -297,21 +287,6 @@ public class ICodeSensorTest {
         Assert.assertEquals(1, context.allIssues().size());
     }
 
-    @Test
-    public void test_save_issue_with_CheckResult() {
-        CheckResult result = new CheckResult(
-                "SH.ERR.Help",
-                "11",
-                new File(fs.baseDir(), bash_sh.filename()));
-        result.setValue(3.0f);
-        result.setLine(4);
-        result.setLocation("yolo");
-        result.setMessage("Small file");
-        result.setLangageId("Shell");
-
-        ICodeSensor.saveIssue(context, result);
-        Assert.assertEquals(1, context.allIssues().size());
-    }
 
     @Test
     public void test_save_issue_with_unknown_file() {

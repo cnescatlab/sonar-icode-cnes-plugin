@@ -5,10 +5,6 @@
   <analysisFile language="fr.cnes.analysis.tools.languages.f77" fileName="programme_test.f" />
   <analysisFile language="fr.cnes.analysis.tools.languages.f90" fileName="cps_acsol2.F90" />
   <analysisFile language="fr.cnes.analysis.tools.languages.f90" fileName="cps_math_tchcal.F90" />
-  <analysisFile language="fr.cnes.analysis.tools.languages.shell" fileName="activatesyncTMArchive.sh" />
-  <analysisFile language="fr.cnes.analysis.tools.languages.shell" fileName="activatesyncbackupnominal.sh" />
-  <analysisFile language="fr.cnes.analysis.tools.languages.shell" fileName="cat-scan-script.sh" />
-  <analysisFile language="fr.cnes.analysis.tools.languages.shell" fileName="bash.sh" />
   <analysisRule analysisRuleId="F77.MET.ComplexitySimplified">
     <result resultId="1" fileName="brdf.f" resultLine="13" resultTypePlace="method" resultNamePlace="FUNCTION  BDREF" resultValue="7.0" />
   </analysisRule>

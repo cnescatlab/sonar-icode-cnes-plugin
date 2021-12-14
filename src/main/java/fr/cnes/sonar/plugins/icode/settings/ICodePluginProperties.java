@@ -42,24 +42,7 @@ public class ICodePluginProperties {
      * i-Code name.
      **/
     public static final String ICODE_NAME = "i-Code CNES";
-
-    // project code file patterns
-    /**
-     * Key for the Shell suffix property
-     **/
-    public static final String SHELL_SUFFIX_KEY = PROPERTIES_PREFIX + "shell.file.suffixes";
-    /**
-     * Default value for the code suffix property
-     **/
-    public static final String SHELL_SUFFIX_DEFAULT = ".sh,.ksh,.bash";
-    /**
-     * Name for the code suffix property
-     **/
-    public static final String SHELL_SUFFIX_NAME = "Shell File Suffixes";
-    /**
-     * Description for the code suffix property
-     **/
-    public static final String SHELL_SUFFIX_DESC = "List of suffixes for Shell files to analyze.";
+  
 
     // project code file patterns
     /**
@@ -193,12 +176,6 @@ public class ICodePluginProperties {
                     .category(ICODE_NAME)
                     .name(ICODE_PATH_NAME)
                     .description(ICODE_PATH_DESC)
-                    .onQualifiers(Qualifiers.PROJECT)
-                    .build()
-            ,
-            PropertyDefinition.builder(SHELL_SUFFIX_KEY).multiValues(true)
-                    .defaultValue(SHELL_SUFFIX_DEFAULT).category(ICODE_NAME)
-                    .name(SHELL_SUFFIX_NAME).description(SHELL_SUFFIX_DESC)
                     .onQualifiers(Qualifiers.PROJECT)
                     .build()
             ,

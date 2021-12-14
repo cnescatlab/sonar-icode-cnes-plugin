@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Declared language i-Code as the parent language for Fortran 77, Fortran 90 & Shell.
+ * Declared language i-Code as the parent language for Fortran 77, Fortran 90.
  */
 public abstract class ICodeLanguage extends AbstractLanguage {
 

@@ -6,7 +6,7 @@
     <groupId>fr.cnes.sonar.plugins</groupId>
     <artifactId>sonar-icode-cnes-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
-    <version>2.0.2</version>
+    <version>3.0.0</version>
 
     <name>Sonar i-Code CNES plugin</name>
 
@@ -24,7 +24,7 @@
 
     <organization>
         <name>CNES</name>
-        <url>http://cnes.fr</url>
+        <url>https://cnes.fr</url>
     </organization>
 
     <developers>

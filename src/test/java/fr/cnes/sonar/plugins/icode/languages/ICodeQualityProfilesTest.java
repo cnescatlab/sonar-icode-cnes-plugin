@@ -28,7 +28,7 @@ public class ICodeQualityProfilesTest {
         BuiltInQualityProfilesDefinition.Context context = new BuiltInQualityProfilesDefinition.Context();
         profileDef.define(context);
         Assert.assertNotNull(profileDef);
-        Assert.assertEquals(3, context.profilesByLanguageAndName().keySet().size());
+        Assert.assertEquals(2, context.profilesByLanguageAndName().keySet().size());
     }
 
 }
