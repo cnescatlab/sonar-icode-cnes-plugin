@@ -2234,11 +2234,6 @@
     </result>
   </analysisRule>
   <analysisRule analysisRuleId="COM.FLOW.FileExistence">
-    <result resultId="501" fileName="bash.sh" resultLine="2" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
-      <resultMessage>The existence of the file syncTMArchive.sh has not been checked.</resultMessage>
-    </result>
-  </analysisRule>
-  <analysisRule analysisRuleId="COM.FLOW.FileExistence">
     <result resultId="502" fileName="activatesyncbackupnominal.sh" resultLine="42" resultTypePlace="method" resultNamePlace="MAIN PROGRAM">
       <resultMessage>The existence of the file fakesyncbackupnominal.sh has not been checked.</resultMessage>
     </result>
