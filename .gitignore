@@ -29,3 +29,4 @@ buildNumber.properties
 # Ignore IntelliJ files
 .idea
 *.iml
+.vscode
