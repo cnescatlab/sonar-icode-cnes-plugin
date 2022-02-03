@@ -26,7 +26,7 @@ public class ParseResultTest {
         Assert.assertNotNull(analysisProject.getAnalysisFiles().get(0).getLanguage());
 
         // Try to get rules analyzed
-        Assert.assertEquals(573, analysisProject.getAnalysisRules().size());
+        Assert.assertEquals(465, analysisProject.getAnalysisRules().size());
         Assert.assertNotNull(analysisProject.getAnalysisRules().get(0).getResult());
         Assert.assertNotNull(analysisProject.getAnalysisRules().get(0).getAnalysisRuleId());
 
