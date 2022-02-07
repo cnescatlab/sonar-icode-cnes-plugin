@@ -62,6 +62,11 @@ public class ICodeSensor implements Sensor {
      */
     private static final Logger LOGGER = Loggers.get(ICodeSensor.class);
 
+    /** 
+     * Languages used by I-Code
+     */
+    private final String[] LANGUAGES = {Fortran77Language.KEY, Fortran90Language.KEY};
+
     /**
      * Give information about this sensor.
      *
@@ -70,7 +75,7 @@ public class ICodeSensor implements Sensor {
     @Override
     public void describe(final SensorDescriptor sensorDescriptor) {
         // Prevents sensor to be run during all analysis.
-        sensorDescriptor.onlyOnLanguages(Fortran77Language.KEY, Fortran90Language.KEY);
+        sensorDescriptor.onlyOnLanguages(LANGUAGES);
 
         // Defines sensor name
         sensorDescriptor.name("Sonar i-Code");
@@ -79,9 +84,11 @@ public class ICodeSensor implements Sensor {
         sensorDescriptor.onlyOnFileType(InputFile.Type.MAIN);
 
         // This sensor is activated only if a rule from the following repo is activated.
-        sensorDescriptor.createIssuesForRuleRepositories(
-                ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran77Language.KEY),
-                ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran90Language.KEY));
+        for (String Lang : LANGUAGES) {
+            sensorDescriptor.createIssuesForRuleRepositories(
+                ICodeRulesDefinition.getRepositoryKeyForLanguage(Lang));
+        }
+        
     }
 
     /**
@@ -380,9 +387,12 @@ public class ICodeSensor implements Sensor {
      * @return True if the rule is active and false if not or not exists.
      */
     protected boolean isRuleActive(final ActiveRules activeRules, final String rule) {
-        final RuleKey ruleKeyF77 = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran77Language.KEY), rule);
-        final RuleKey ruleKeyF90 = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran90Language.KEY), rule);
-        return activeRules.find(ruleKeyF77)!=null || activeRules.find(ruleKeyF90)!=null;
+        boolean isActive = false;
+        for (String Lang : LANGUAGES) {
+            RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Lang), rule);
+            isActive = activeRules.find(ruleKey)!=null || isActive;
+        }
+        return isActive;
     }
 
 }

@@ -16,6 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
+import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
