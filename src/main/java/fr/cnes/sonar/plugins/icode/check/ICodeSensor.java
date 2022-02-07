@@ -65,7 +65,7 @@ public class ICodeSensor implements Sensor {
     /** 
      * Languages used by I-Code
      */
-    private final String[] LANGUAGES = {Fortran77Language.KEY, Fortran90Language.KEY};
+    private final String[] languages = {Fortran77Language.KEY, Fortran90Language.KEY};
 
     /**
      * Give information about this sensor.
@@ -75,7 +75,7 @@ public class ICodeSensor implements Sensor {
     @Override
     public void describe(final SensorDescriptor sensorDescriptor) {
         // Prevents sensor to be run during all analysis.
-        sensorDescriptor.onlyOnLanguages(LANGUAGES);
+        sensorDescriptor.onlyOnLanguages(languages);
 
         // Defines sensor name
         sensorDescriptor.name("Sonar i-Code");
@@ -84,7 +84,7 @@ public class ICodeSensor implements Sensor {
         sensorDescriptor.onlyOnFileType(InputFile.Type.MAIN);
 
         // This sensor is activated only if a rule from the following repo is activated.
-        for (String Lang : LANGUAGES) {
+        for (String Lang : languages) {
             sensorDescriptor.createIssuesForRuleRepositories(
                 ICodeRulesDefinition.getRepositoryKeyForLanguage(Lang));
         }
@@ -388,7 +388,7 @@ public class ICodeSensor implements Sensor {
      */
     protected boolean isRuleActive(final ActiveRules activeRules, final String rule) {
         boolean isActive = false;
-        for (String Lang : LANGUAGES) {
+        for (String Lang : languages) {
             RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Lang), rule);
             isActive = activeRules.find(ruleKey)!=null || isActive;
         }
