@@ -89,66 +89,23 @@ public class ICodeMetricsProcessorTest {
 
     @Test
     public void test_save_nominal_measures() {
+        String[] analysisRulesIds = {"SH.MET.LineOfCode","SH.MET.LineOfComment","F90.MET.Nesting","F90.MET.LineOfCode"};
+        String[] fileNames = {"bash.sh", "bash.sh", "bash.sh", "zoulou.sh"};
+        int[] expectedResults = {1,2,2,2}; // Size is incremented as context.measure(key) is not resetted after each iteration
 
-        rule.setResult(new Result());
-        rule.setAnalysisRuleId("SH.MET.LineOfCode");
-        rule.getResult().setFileName("bash.sh");
-        rule.getResult().setResultValue("3");
-        rule.getResult().setResultLine("3");
-        rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultMessage("Small file");
-        final String key = bash_sh.key();
+        for(int i=0;i<analysisRulesIds.length; ++i){
+            rule.setResult(new Result());
+            rule.setAnalysisRuleId(analysisRulesIds[i]);
+            rule.getResult().setFileName(fileNames[i]);
+            rule.getResult().setResultValue("3");
+            rule.getResult().setResultLine("3");
+            rule.getResult().setResultTypePlace("class");
+            rule.getResult().setResultMessage("Small file");
+            final String key = bash_sh.key();
 
-        ICodeMetricsProcessor.saveMeasure(context, files, rule);
-        Assert.assertEquals(1, context.measures(key).size());
-    }
-
-    @Test
-    public void test_save_line_of_comment_measures() {
-
-        rule.setResult(new Result());
-        rule.setAnalysisRuleId("SH.MET.LineOfComment");
-        rule.getResult().setFileName("bash.sh");
-        rule.getResult().setResultValue("3");
-        rule.getResult().setResultLine("3");
-        rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultMessage("Small file");
-        final String key = bash_sh.key();
-
-        ICodeMetricsProcessor.saveMeasure(context, files, rule);
-        Assert.assertEquals(1, context.measures(key).size());
-    }
-
-    @Test
-    public void test_save_other_measures() {
-
-        rule.setResult(new Result());
-        rule.setAnalysisRuleId("F90.MET.Nesting");
-        rule.getResult().setFileName("bash.sh");
-        rule.getResult().setResultValue("3");
-        rule.getResult().setResultLine("3");
-        rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultMessage("Small file");
-        final String key = bash_sh.key();
-
-        ICodeMetricsProcessor.saveMeasure(context, files, rule);
-        Assert.assertEquals(0, context.measures(key).size());
-    }
-
-    @Test
-    public void test_save_other_measures_on_inexistant_file() {
-
-        rule.setResult(new Result());
-        rule.setAnalysisRuleId("F90.MET.LineOfCode");
-        rule.getResult().setFileName("zoulou.sh");
-        rule.getResult().setResultValue("3");
-        rule.getResult().setResultLine("3");
-        rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultMessage("Small file");
-        final String key = bash_sh.key();
-
-        ICodeMetricsProcessor.saveMeasure(context, files, rule);
-        Assert.assertEquals(0, context.measures(key).size());
+            ICodeMetricsProcessor.saveMeasure(context, files, rule);
+            Assert.assertEquals(expectedResults[i], context.measures(key).size());
+        }
     }
 
     @Test
@@ -173,47 +130,23 @@ public class ICodeMetricsProcessorTest {
 
     @Test
     public void test_save_extra_measure_with_null_location() {
+        // If we upgrade to Junit5, we may check @ParametrizedTest annotation
+        String[] locations = {null, "", "method"};
+        int[] expectedResults = {0, 0, 1};
 
-        final CheckResult checkResult = new CheckResult("F77.MET.ComplexitySimplified",
-                "F77.MET.ComplexitySimplified", "f77");
-        checkResult.setLocation(null);
-        checkResult.setMessage("empty message");
-        checkResult.setLine(1);
-        checkResult.setValue(1.0f);
-        checkResult.setFile(new File("clanhb.f"));
 
-        ICodeMetricsProcessor.saveExtraMeasures(context, files, List.of(checkResult));
-        Assert.assertEquals(0, context.measures(clanhb_f.key()).size());
-    }
+        for(int i=0;i<locations.length; ++i){
+            final CheckResult checkResult = new CheckResult("F77.MET.ComplexitySimplified",
+                    "F77.MET.ComplexitySimplified", "f77");
+            checkResult.setLocation(locations[i]);
+            checkResult.setMessage("empty message");
+            checkResult.setLine(1);
+            checkResult.setValue(1.0f);
+            checkResult.setFile(new File("clanhb.f"));
 
-    @Test
-    public void test_save_extra_measure_with_empty_location() {
-
-        final CheckResult checkResult = new CheckResult("F77.MET.ComplexitySimplified",
-                "F77.MET.ComplexitySimplified", "f77");
-        checkResult.setLocation("");
-        checkResult.setMessage("empty message");
-        checkResult.setLine(1);
-        checkResult.setValue(1.0f);
-        checkResult.setFile(new File("clanhb.f"));
-
-        ICodeMetricsProcessor.saveExtraMeasures(context, files, List.of(checkResult));
-        Assert.assertEquals(0, context.measures(clanhb_f.key()).size());
-    }
-
-    @Test
-    public void test_save_extra_measure_with_method_location() {
-
-        final CheckResult checkResult = new CheckResult("F77.MET.ComplexitySimplified",
-                "F77.MET.ComplexitySimplified", "f77");
-        checkResult.setLocation("method");
-        checkResult.setMessage("empty message");
-        checkResult.setLine(1);
-        checkResult.setValue(1.0f);
-        checkResult.setFile(new File("clanhb.f"));
-
-        ICodeMetricsProcessor.saveExtraMeasures(context, files, List.of(checkResult));
-        Assert.assertEquals(1, context.measures(clanhb_f.key()).size());
+            ICodeMetricsProcessor.saveExtraMeasures(context, files, List.of(checkResult));
+            Assert.assertEquals(expectedResults[i], context.measures(clanhb_f.key()).size());
+        }
     }
 
     @Test
