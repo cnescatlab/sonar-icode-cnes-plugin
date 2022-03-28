@@ -11,7 +11,7 @@
     <name>Sonar i-Code CNES plugin</name>
 
     <description>i-Code CNES plugin for SonarQube</description>
-    <url>https://github.com/lequal/sonar-icode-cnes-plugin</url>
+    <url>https://github.com/cnescatlab/sonar-icode-cnes-plugin</url>
     <inceptionYear>2017</inceptionYear>
 
     <licenses>
@@ -65,8 +65,8 @@
         <jacoco.version>0.8.4</jacoco.version>
         <sonar.pluginKey>icode</sonar.pluginKey>
         <sonar.pluginClass>fr.cnes.sonar.plugins.icode.ICodePlugin</sonar.pluginClass>
-        <sonar.pluginUrl>https://github.com/lequal/sonar-icode-cnes-plugin</sonar.pluginUrl>
-        <sonar.pluginSourcesUrl>https://github.com/lequal/sonar-icode-cnes-plugin</sonar.pluginSourcesUrl>
+        <sonar.pluginUrl>https://github.com/cnescatlab/sonar-icode-cnes-plugin</sonar.pluginUrl>
+        <sonar.pluginSourcesUrl>https://github.com/cnescatlab/sonar-icode-cnes-plugin</sonar.pluginSourcesUrl>
         <sonar.pluginOrganizationName>CNES</sonar.pluginOrganizationName>
         <sonar.sources>src/main/java</sonar.sources>
         <sonar.test>src/test/java</sonar.test>

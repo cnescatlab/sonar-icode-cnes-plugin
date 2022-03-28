@@ -11,11 +11,11 @@ SonarQube is an open platform to manage code quality. This plugin adds the abili
 
 This plugin is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
-You can get i-Code CNES on GitHub: [lequal/i-CodeCNES](https://github.com/lequal/i-CodeCNES).
+You can get i-Code CNES on GitHub: [cnescatlab/i-CodeCNES](https://github.com/cnescatlab/i-CodeCNES).
 
 ### Quickstart
 - Setup a SonarQube instance.
-- **[Optional]** Install i-Code command line application as described in [official documentation](https://github.com/lequal/i-CodeCNES/wiki/Installation-Manual).
+- **[Optional]** Install i-Code command line application as described in [official documentation](https://github.com/cnescatlab/i-CodeCNES/wiki/Installation-Manual).
 - Install `sonaricode-*.jar` in `<SONARQUBE_HOME>/extensions/plugins/`.
 - **[Optional]** Run i-Code manually or configure auto-launch in plugin configuration.
 - Run an analysis with *sonar-scanner*, *maven*, *gradle*, *msbuild*, etc.
@@ -33,7 +33,7 @@ Here is the compatibility matrix of the plugin:
 |        2.0.2       |          4.1.0          |        7.9 -> 8.2           |
 
 #### Run i-Code manually
-If you need help to run i-Code please refer to the [official user manual](https://github.com/lequal/i-CodeCNES/wiki/User-Manual) or [i-Code issue tracker](https://github.com/lequal/i-CodeCNES/issues).
+If you need help to run i-Code please refer to the [official user manual](https://github.com/cnescatlab/i-CodeCNES/wiki/User-Manual) or [i-Code issue tracker](https://github.com/cnescatlab/i-CodeCNES/issues).
 
 #### Run a specific i-Code version through sonaricode plugin
 If embedded version of i-Code does not match your need, you can set the execution of another installed version of i-Code through the following properties:
@@ -68,7 +68,7 @@ Analyze F77 & F90 code to find defects & bugs.
  -r,--rules                          Display all available rules.
  -x,--excluded-rules <arg>           Comma separated list of rules id to exclude from analysis. None by default.
 
-Please report issues at https://github.com/lequal/i-CodeCNES/issues
+Please report issues at https://github.com/leqcnescatlabual/i-CodeCNES/issues
 ````
 
 ### How to contribute
@@ -76,12 +76,12 @@ If you experienced a problem with the plugin please open an issue. Inside this i
 
 If you want to do a PR, please put inside of it the reason of this pull request. If this pull request fix an issue please insert the number of the issue or explain inside of the PR how to reproduce this issue.
 
-All details are available in [CONTRIBUTING](https://github.com/lequal/sonar-icode-cnes-plugin/CONTRIBUTING.md).
+All details are available in [CONTRIBUTING](https://github.com/cnescatlab/sonar-icode-cnes-plugin/blob/master/CONTRIBUTING.md).
 
 ### Feedback and Support
 Contact : L-lequal@cnes.fr
 
-Bugs and Feature requests: https://github.com/lequal/sonar-icode-cnes-plugin/issues
+Bugs and Feature requests: https://github.com/cnescatlab/sonar-icode-cnes-plugin/issues
 
 ### License
 Licensed under the [GNU General Public License, Version 3.0](https://www.gnu.org/licenses/gpl.txt)
