@@ -21,12 +21,12 @@ public class ParseResultTest {
         Assert.assertNotNull(analysisProject.getAnalysisInformations().getAuthor());
 
         // Try to get files information
-        Assert.assertEquals(8, analysisProject.getAnalysisFiles().size());
+        Assert.assertEquals(4, analysisProject.getAnalysisFiles().size());
         Assert.assertNotNull(analysisProject.getAnalysisFiles().get(0).getFileName());
         Assert.assertNotNull(analysisProject.getAnalysisFiles().get(0).getLanguage());
 
         // Try to get rules analyzed
-        Assert.assertEquals(574, analysisProject.getAnalysisRules().size());
+        Assert.assertEquals(465, analysisProject.getAnalysisRules().size());
         Assert.assertNotNull(analysisProject.getAnalysisRules().get(0).getResult());
         Assert.assertNotNull(analysisProject.getAnalysisRules().get(0).getAnalysisRuleId());
 

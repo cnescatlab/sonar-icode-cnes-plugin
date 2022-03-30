@@ -20,7 +20,6 @@ import fr.cnes.sonar.plugins.icode.check.ICodeSensor;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.languages.ICodeQualityProfiles;
-import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
 import fr.cnes.sonar.plugins.icode.measures.ICodeNestingMetric;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
@@ -39,7 +38,7 @@ public class ICodePlugin implements Plugin {
 	@Override
 	public void define(Context context) {
 		// Setting plugin ICode
-		context.addExtensions(ShellLanguage.class, Fortran77Language.class, Fortran90Language.class);
+		context.addExtensions(Fortran77Language.class, Fortran90Language.class);
 		context.addExtension(ICodeQualityProfiles.class);
 		context.addExtensions(ICodePluginProperties.getProperties());
 

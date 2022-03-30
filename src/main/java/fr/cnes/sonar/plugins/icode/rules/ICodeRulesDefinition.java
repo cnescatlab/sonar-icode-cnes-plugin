@@ -18,7 +18,6 @@ package fr.cnes.sonar.plugins.icode.rules;
 
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
-import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
@@ -34,8 +33,6 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	/** Partial key for repository. **/
 	private static final String REPO_KEY_SUFFIX = "-rules";
 
-	/** Path to xml file in resources tree (shell rules). **/
-	public static final String PATH_TO_SHELL_RULES_XML = "/rules/icode-shell-rules.xml";
 
 	/** Path to xml file in resources tree (fortran 77 rules). **/
 	public static final String PATH_TO_F77_RULES_XML = "/rules/icode-f77-rules.xml";
@@ -50,7 +47,6 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	 */
 	@Override
 	public void define(final Context context) {
-		createRepository(context, ShellLanguage.KEY);
 		createRepository(context, Fortran77Language.KEY);
 		createRepository(context, Fortran90Language.KEY);
 	}
@@ -105,9 +101,6 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	public String rulesDefinitionFilePath(final String language) {
 		String path = "bad_file";
 		switch (language) {
-			case ShellLanguage.KEY:
-				path = PATH_TO_SHELL_RULES_XML;
-				break;
 			case Fortran77Language.KEY:
 				path = PATH_TO_F77_RULES_XML;
 				break;
