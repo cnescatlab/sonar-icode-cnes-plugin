@@ -31,6 +31,8 @@ Here is the compatibility matrix of the plugin:
 |        2.0.0       |          4.0.0          |        7.9 -> 8.2           |
 |        2.0.1       |          4.0.0          |        7.9 -> 8.2           |
 |        2.0.2       |          4.1.0          |        7.9 -> 8.2           |
+|   3.0.1-SNAPSHOT   |          4.1.1          |        7.9 -> 8.2           |
+
 
 #### Run i-Code manually
 If you need help to run i-Code please refer to the [official user manual](https://github.com/cnescatlab/i-CodeCNES/wiki/User-Manual) or [i-Code issue tracker](https://github.com/cnescatlab/i-CodeCNES/issues).
