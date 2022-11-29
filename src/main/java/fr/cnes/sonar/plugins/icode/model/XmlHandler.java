@@ -54,6 +54,15 @@ public class XmlHandler {
             }
         };
         xStream.processAnnotations(cls);
+
+        /*
+            See https://stackoverflow.com/a/67288175 for more informations about this.
+            In few words, It's a security feature,
+            We need to explicitly authorize class that uses XStream to avoid unwanted injections. 
+        */
+        xStream.allowTypesByWildcard(new String[] {
+            "fr.cnes.sonar.plugins.icode.model.**",
+        });
         return xStream.fromXML(file);
     }
 

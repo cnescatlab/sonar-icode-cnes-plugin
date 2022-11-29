@@ -78,17 +78,13 @@ public class ICodeMetricsProcessor {
         if(metricScope.equals(CLASS)) {
             // Get i-Code rule id to test if issue must be saved here.
             final String metricKey = icodeMeasure.getAnalysisRuleId();
-            // Take SHELL / F77 / F90 ncloc into account
+            // Take F77 / F90 ncloc into account
             if (metricKey.contains("MET.LineOfCode")) {
                 saveSonarQubeNewMeasure(context, files, CoreMetrics.NCLOC, icodeMeasure);
             }
-            // Take SHELL / F77 / F90 number of comment lines into account
+            // Take F77 / F90 number of comment lines into account
             else if (metricKey.contains("MET.LineOfComment")) {
                 saveSonarQubeNewMeasure(context, files, CoreMetrics.COMMENT_LINES, icodeMeasure);
-            }
-            // Take SHELL complexity into account
-            else if (metricKey.contains("SH.MET.ComplexitySimplified")) {
-                saveSonarQubeNewMeasure(context, files, CoreMetrics.COMPLEXITY, icodeMeasure);
             }
         }
 
@@ -151,7 +147,7 @@ public class ICodeMetricsProcessor {
             }
         }
 
-        // Compute nesting for shell and fortran.
+        // Compute nesting for Fortran.
         computeNesting(context, scannedFiles, measures);
         // Compute complexity for Fortran.
         computeComplexity(context, scannedFiles, measures);
@@ -186,7 +182,7 @@ public class ICodeMetricsProcessor {
             }
         }
 
-        // Compute nesting for shell and fortran.
+        // Compute nesting for Fortran.
         computeNesting(context, scannedFiles, measures);
         // Compute complexity for Fortran.
         computeComplexity(context, scannedFiles, measures);

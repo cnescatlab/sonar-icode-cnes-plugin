@@ -20,6 +20,8 @@ import fr.cnes.icode.data.CheckResult;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.File;
 import java.io.InputStream;
@@ -39,10 +41,6 @@ public class ModelTest {
 
         project.setAnalysisInformations(new AnalysisInformations());
         project.getAnalysisInformations().setAuthor("Me");
-
-        file = new AnalysisFile();
-        file.setFileName("foo.sh");
-        file.setLanguage("shell");
 
         rule = new AnalysisRule();
         rule.setAnalysisRuleId("WOW");
@@ -79,16 +77,16 @@ public class ModelTest {
 
     @Test
     public void test_unmarshal_from_file()  {
-        InputStream file = this.getClass().getResourceAsStream("/rules/icode-shell-rules.xml");
+        InputStream file = this.getClass().getResourceAsStream("/rules/icode-f77-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(file, RulesDefinition.class);
-        Assert.assertEquals(45, def.getRules().size());
+        Assert.assertEquals(58, def.getRules().size());
     }
 
     @Test
     public void test_unmarshal_from_stream() {
-        InputStream stream = this.getClass().getResourceAsStream("/rules/icode-shell-rules.xml");
+        InputStream stream = this.getClass().getResourceAsStream("/rules/icode-f77-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
-        Assert.assertEquals(45, def.getRules().size());
+        Assert.assertEquals(58, def.getRules().size());
     }
 
     @Test
@@ -100,38 +98,15 @@ public class ModelTest {
     }
 
     @Test
-    public void test_CheckResult_to_AnalysisRule_conversion_with_method_location() {
-        checkResult.setLocation("method");
-        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
-        Assert.assertEquals("method", analysisRule.getResult().getResultTypePlace());
-    }
+    public void test_CheckResults(){
+        // If we upgrade to Junit5, we may check @ParametrizedTest annotation
+        String[] locations = {"method", "class", "", null, "yolo" };
+        String[] expectedResults = {"method", "class", "class", "class", "yolo"};
 
-    @Test
-    public void test_CheckResult_to_AnalysisRule_conversion_with_class_location() {
-        checkResult.setLocation("class");
-        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
-        Assert.assertEquals("class", analysisRule.getResult().getResultTypePlace());
+        for(int i=0;i<locations.length; ++i){
+            checkResult.setLocation(locations[i]);
+            final AnalysisRule analysisRule = new AnalysisRule(checkResult);
+            Assert.assertEquals(expectedResults[i], analysisRule.getResult().getResultTypePlace());
+        }
     }
-
-    @Test
-    public void test_CheckResult_to_AnalysisRule_conversion_with_empty_location() {
-        checkResult.setLocation("");
-        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
-        Assert.assertEquals("class", analysisRule.getResult().getResultTypePlace());
-    }
-
-    @Test
-    public void test_CheckResult_to_AnalysisRule_conversion_with_null_location() {
-        checkResult.setLocation(null);
-        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
-        Assert.assertEquals("class", analysisRule.getResult().getResultTypePlace());
-    }
-
-    @Test
-    public void test_CheckResult_to_AnalysisRule_conversion_with_yolo_location() {
-        checkResult.setLocation("yolo");
-        final AnalysisRule analysisRule = new AnalysisRule(checkResult);
-        Assert.assertEquals("yolo", analysisRule.getResult().getResultTypePlace());
-    }
-
 }

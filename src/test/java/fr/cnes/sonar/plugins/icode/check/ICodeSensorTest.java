@@ -16,7 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
-import fr.cnes.icode.data.CheckResult;
+import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
@@ -50,10 +50,8 @@ public class ICodeSensorTest {
     private SensorContextTester context;
     private Map<String, InputFile> files;
 
-    private DefaultInputFile bash_sh;
-    private DefaultInputFile sub_bash_sh;
     private DefaultInputFile clanhb_f;
-    private DefaultInputFile empty_sh;
+    private DefaultInputFile clanhb_f90;
     private AnalysisRule rule;
 
     @Before
@@ -61,28 +59,6 @@ public class ICodeSensorTest {
         fs = new DefaultFileSystem(new File(getClass().getResource("/project").toURI()));
         fs.setEncoding(StandardCharsets.UTF_8);
 
-        bash_sh = TestInputFileBuilder.create(
-                "ProjectKey",
-                fs.resolvePath("bash.sh").getPath())
-                .setLanguage("icode")
-                .setType(InputFile.Type.MAIN)
-                .setLines(10)
-                .setOriginalLineOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
-                .setLastValidOffset(100)
-                .setContents("blablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\n")
-                .build();
-        fs.add(bash_sh);
-        sub_bash_sh = TestInputFileBuilder.create(
-                "ProjectKey",
-                fs.resolvePath("sub/bash.sh").getPath())
-                .setLanguage("icode")
-                .setType(InputFile.Type.MAIN)
-                .setLines(10)
-                .setOriginalLineOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
-                .setLastValidOffset(100)
-                .setContents("blablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\nblablabla\n")
-                .build();
-        fs.add(sub_bash_sh);
         clanhb_f = TestInputFileBuilder.create(
                 "ProjectKey",
                 fs.resolvePath("clanhb.f").getPath())
@@ -93,24 +69,26 @@ public class ICodeSensorTest {
                 .setLastValidOffset(100)
                 .build();
         fs.add(clanhb_f);
-        empty_sh = TestInputFileBuilder.create(
+
+        clanhb_f90 = TestInputFileBuilder.create(
                 "ProjectKey",
-                fs.resolvePath("empty.sh").getPath())
+                fs.resolvePath("clanhb.f90").getPath())
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
-                .setLines(0)
-                .setOriginalLineOffsets(new int[]{})
-                .setLastValidOffset(0)
-                .setContents("")
+                .setLines(10)
+                .setOriginalLineOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
+                .setLastValidOffset(100)
                 .build();
-        fs.add(empty_sh);
+        fs.add(clanhb_f90);
+
 
         context = SensorContextTester.create(fs.baseDir());
         files = new HashMap<>();
         rule = new AnalysisRule();
 
-        files.put("bash.sh", bash_sh);
+        
         files.put("clanhb.f", clanhb_f);
+        files.put("clanhb.f90", clanhb_f90);
 
         context = SensorContextTester.create(fs.baseDir());
         context.setFileSystem(fs);
@@ -261,57 +239,37 @@ public class ICodeSensorTest {
 
         final AnalysisProject project = new AnalysisProject();
         final AnalysisFile file = new AnalysisFile();
-        final AnalysisFile file2 = new AnalysisFile();
-        final AnalysisFile file3 = new AnalysisFile();
-        final AnalysisFile file4 = new AnalysisFile();
+        file.setFileName("clanhb.f");
+        file.setLanguage("f77");
 
-        file.setFileName("badaboum.sh");
-        file.setLanguage("shell");
-        file2.setFileName("bash.sh");
-        file2.setLanguage("shell");
-        file3.setFileName("clanhb.f");
-        file3.setLanguage("f77");
-        file4.setFileName("sub/bash.sh");
-        file4.setLanguage("shell");
-
-        project.setAnalysisFile(new AnalysisFile[]{file, file2, file3, file4});
+        project.setAnalysisFile(new AnalysisFile[]{file});
 
         Assert.assertNotNull(sensor);
 
         Map<String, InputFile> relevantFile = sensor.getScannedFiles(fs, project);
 
-        Assert.assertEquals(3, relevantFile.size());
+        Assert.assertEquals(1, relevantFile.size());
     }
+
 
     @Test
-    public void test_save_issue() {
-        rule.setResult(new Result());
-        rule.setAnalysisRuleId("SH.ERR.Help");
-        rule.getResult().setFileName("bash.sh");
-        rule.getResult().setResultValue("3");
-        rule.getResult().setResultLine("4");
-        rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultMessage("Small file");
+    public void test_get_scanned_files_f90() {
+        final ICodeSensor sensor = new ICodeSensor();
 
-        ICodeSensor.saveIssue(context, files, rule);
-        Assert.assertEquals(1, context.allIssues().size());
+        final AnalysisProject project = new AnalysisProject();
+        final AnalysisFile file = new AnalysisFile();
+        file.setFileName("clanhb.f90");
+        file.setLanguage("f90");
+
+        project.setAnalysisFile(new AnalysisFile[]{file});
+
+        Assert.assertNotNull(sensor);
+
+        Map<String, InputFile> relevantFile = sensor.getScannedFiles(fs, project);
+
+        Assert.assertEquals(1, relevantFile.size());
     }
 
-    @Test
-    public void test_save_issue_with_CheckResult() {
-        CheckResult result = new CheckResult(
-                "SH.ERR.Help",
-                "11",
-                new File(fs.baseDir(), bash_sh.filename()));
-        result.setValue(3.0f);
-        result.setLine(4);
-        result.setLocation("yolo");
-        result.setMessage("Small file");
-        result.setLangageId("Shell");
-
-        ICodeSensor.saveIssue(context, result);
-        Assert.assertEquals(1, context.allIssues().size());
-    }
 
     @Test
     public void test_save_issue_with_unknown_file() {

@@ -29,12 +29,10 @@ public class ICodePluginPropertiesTest {
 	@Test
 	public void test_plugin_properties_definition() {
 		List<PropertyDefinition> actual = ICodePluginProperties.getProperties();
-		assertEquals(7, actual.size());
+		assertEquals(6, actual.size());
 		PropertyDefinition codeSuffix = actual.get(3);
 		Assert.assertEquals(ICodePluginProperties.ICODE_NAME, codeSuffix.category());
-		assertEquals(ICodePluginProperties.SHELL_SUFFIX_KEY, codeSuffix.key());
-		assertEquals(ICodePluginProperties.SHELL_SUFFIX_DEFAULT, codeSuffix.defaultValue());
-		PropertyDefinition reportPath = actual.get(6);
+		PropertyDefinition reportPath = actual.get(5);
 		assertEquals(ICodePluginProperties.ICODE_NAME, reportPath.category());
 		assertEquals(ICodePluginProperties.REPORT_PATH_KEY, reportPath.key());
 		assertEquals(ICodePluginProperties.REPORT_PATH_DEFAULT, reportPath.defaultValue());

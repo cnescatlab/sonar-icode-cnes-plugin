@@ -22,7 +22,6 @@ import fr.cnes.icode.services.languages.LanguageService;
 import fr.cnes.sonar.plugins.icode.exceptions.ICodeException;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
-import fr.cnes.sonar.plugins.icode.languages.ShellLanguage;
 import fr.cnes.sonar.plugins.icode.measures.ICodeMetricsProcessor;
 import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
 import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
@@ -63,6 +62,11 @@ public class ICodeSensor implements Sensor {
      */
     private static final Logger LOGGER = Loggers.get(ICodeSensor.class);
 
+    /** 
+     * Languages used by I-Code
+     */
+    private final String[] languages = {Fortran77Language.KEY, Fortran90Language.KEY};
+
     /**
      * Give information about this sensor.
      *
@@ -71,7 +75,7 @@ public class ICodeSensor implements Sensor {
     @Override
     public void describe(final SensorDescriptor sensorDescriptor) {
         // Prevents sensor to be run during all analysis.
-        sensorDescriptor.onlyOnLanguages(ShellLanguage.KEY, Fortran77Language.KEY, Fortran90Language.KEY);
+        sensorDescriptor.onlyOnLanguages(languages);
 
         // Defines sensor name
         sensorDescriptor.name("Sonar i-Code");
@@ -80,10 +84,11 @@ public class ICodeSensor implements Sensor {
         sensorDescriptor.onlyOnFileType(InputFile.Type.MAIN);
 
         // This sensor is activated only if a rule from the following repo is activated.
-        sensorDescriptor.createIssuesForRuleRepositories(
-                ICodeRulesDefinition.getRepositoryKeyForLanguage(ShellLanguage.KEY),
-                ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran77Language.KEY),
-                ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran90Language.KEY));
+        for (String Lang : languages) {
+            sensorDescriptor.createIssuesForRuleRepositories(
+                ICodeRulesDefinition.getRepositoryKeyForLanguage(Lang));
+        }
+        
     }
 
     /**
@@ -382,10 +387,12 @@ public class ICodeSensor implements Sensor {
      * @return True if the rule is active and false if not or not exists.
      */
     protected boolean isRuleActive(final ActiveRules activeRules, final String rule) {
-        final RuleKey ruleKeyShell = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(ShellLanguage.KEY), rule);
-        final RuleKey ruleKeyF77 = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran77Language.KEY), rule);
-        final RuleKey ruleKeyF90 = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Fortran90Language.KEY), rule);
-        return activeRules.find(ruleKeyShell)!=null || activeRules.find(ruleKeyF77)!=null || activeRules.find(ruleKeyF90)!=null;
+        boolean isActive = false;
+        for (String Lang : languages) {
+            RuleKey ruleKey = RuleKey.of(ICodeRulesDefinition.getRepositoryKeyForLanguage(Lang), rule);
+            isActive = activeRules.find(ruleKey)!=null || isActive;
+        }
+        return isActive;
     }
 
 }

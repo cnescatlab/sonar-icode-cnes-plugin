@@ -44,7 +44,6 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
      */
     @Override
     public void define(final Context context) {
-        createBuiltInProfile(context, ShellLanguage.KEY, ICodeRulesDefinition.PATH_TO_SHELL_RULES_XML);
         createBuiltInProfile(context, Fortran77Language.KEY, ICodeRulesDefinition.PATH_TO_F77_RULES_XML);
         createBuiltInProfile(context, Fortran90Language.KEY, ICodeRulesDefinition.PATH_TO_F90_RULES_XML);
     }
