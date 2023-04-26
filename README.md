@@ -82,8 +82,6 @@ If you want to do a PR, please put inside of it the reason of this pull request.
 All details are available in [CONTRIBUTING](https://github.com/cnescatlab/sonar-icode-cnes-plugin/blob/master/CONTRIBUTING.md).
 
 ### Feedback and Support
-Contact : L-lequal@cnes.fr
-
 Bugs and Feature requests: https://github.com/cnescatlab/sonar-icode-cnes-plugin/issues
 
 ### License
