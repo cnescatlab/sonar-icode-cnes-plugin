@@ -65,7 +65,7 @@ public class ICodeSensorTest {
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .setLines(10)
-                .setOriginalLineOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
+                .setOriginalLineStartOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
                 .setLastValidOffset(100)
                 .build();
         fs.add(clanhb_f);
@@ -76,7 +76,7 @@ public class ICodeSensorTest {
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .setLines(10)
-                .setOriginalLineOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
+                .setOriginalLineStartOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
                 .setLastValidOffset(100)
                 .build();
         fs.add(clanhb_f90);
