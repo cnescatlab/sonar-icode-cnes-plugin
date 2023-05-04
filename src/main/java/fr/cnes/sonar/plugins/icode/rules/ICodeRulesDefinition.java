@@ -57,7 +57,7 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	public void define(final Context context) {
 		// createRepository(context, Fortran77Language.KEY);
 		//createRepository(context, Fortran90Language.KEY);
-		NewRepository repository = context.createRepository(REPOSITORY, FORTRAN_LANGUAGE).setName(ICodePluginProperties.ICODE_NAME)
+		NewRepository repository = context.createRepository(REPOSITORY, FORTRAN_LANGUAGE).setName(ICodePluginProperties.ICODE_NAME);
 
 		NewRule f77DataArray = repository.createRule(F77_DATA_ARRAY.rule())
 			.setName("F77.DATA.Array")
@@ -65,8 +65,9 @@ public class ICodeRulesDefinition implements RulesDefinition {
 			.setHtmlDescription("Arrays dimension should be declared explicitly. The use of * is tolerated for the last one if justified with a comment.")
 			.setSeverity(Severity.MAJOR)
 			.setStatus(RuleStatus.READY)
-			.setType(RuleType.CODE_SMELL)
-			.setDebtRemediationFunction(framaErrorRule.debtRemediationFunctions().constantPerIssue("30min"));
+			.setType(RuleType.CODE_SMELL);
+		
+		f77DataArray.setDebtRemediationFunction(f77DataArray.debtRemediationFunctions().constantPerIssue("30min"));
 
 		repository.done();
 	}
