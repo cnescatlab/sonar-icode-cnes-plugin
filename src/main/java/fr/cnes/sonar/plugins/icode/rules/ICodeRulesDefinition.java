@@ -16,11 +16,15 @@
  */
 package fr.cnes.sonar.plugins.icode.rules;
 
+import org.sonar.api.rule.RuleKey;
+import org.sonar.api.rule.RuleStatus;
+import org.sonar.api.rule.Severity;
+import org.sonar.api.rules.RuleType;
+import org.sonar.api.server.rule.RulesDefinition;
+
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
-import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -29,6 +33,10 @@ import java.nio.charset.StandardCharsets;
  * Specific i-Code rules definition provided by resource file.
  */
 public class ICodeRulesDefinition implements RulesDefinition {
+
+	public static final String REPOSITORY = "f77-rules";
+  	public static final String FORTRAN_LANGUAGE = "f77";
+  	public static final RuleKey F77_DATA_ARRAY = RuleKey.of(REPOSITORY, "F77.DATA.Array");
 
 	/** Partial key for repository. **/
 	private static final String REPO_KEY_SUFFIX = "-rules";
@@ -47,31 +55,43 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	 */
 	@Override
 	public void define(final Context context) {
-		createRepository(context, Fortran77Language.KEY);
-		createRepository(context, Fortran90Language.KEY);
-	}
+		// createRepository(context, Fortran77Language.KEY);
+		//createRepository(context, Fortran90Language.KEY);
+		NewRepository repository = context.createRepository(REPOSITORY, FORTRAN_LANGUAGE).setName(ICodePluginProperties.ICODE_NAME)
 
-	/**
-	 * Create repositories for each language.
-	 *
-	 * @param context SonarQube context.
-	 * @param language Key of the language.
-	 */
-	protected void createRepository(final Context context, final String language) {
-		// Create a repository to put rules inside.
-		final NewRepository repository = context
-                .createRepository(getRepositoryKeyForLanguage(language), language)
-                .setName(getRepositoryName());
+		NewRule f77DataArray = repository.createRule(F77_DATA_ARRAY.rule())
+			.setName("F77.DATA.Array")
+			.setInternalKey("*")
+			.setHtmlDescription("Arrays dimension should be declared explicitly. The use of * is tolerated for the last one if justified with a comment.")
+			.setSeverity(Severity.MAJOR)
+			.setStatus(RuleStatus.READY)
+			.setType(RuleType.CODE_SMELL)
+			.setDebtRemediationFunction(framaErrorRule.debtRemediationFunctions().constantPerIssue("30min"));
 
-		// Get XML file describing rules for language.
-		final InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath(language));
-		// Add rules in repository.
-		if (rulesXml != null) {
-			final RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
-			rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
-		}
 		repository.done();
 	}
+
+	// /**
+	//  * Create repositories for each language.
+	//  *
+	//  * @param context SonarQube context.
+	//  * @param language Key of the language.
+	//  */
+	// protected void createRepository(final Context context, final String language) {
+	// 	// Create a repository to put rules inside.
+	// 	final NewRepository repository = context
+    //             .createRepository(getRepositoryKeyForLanguage(language), language)
+    //             .setName(getRepositoryName());
+
+	// 	// Get XML file describing rules for language.
+	// 	final InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath(language));
+	// 	// Add rules in repository.
+	// 	if (rulesXml != null) {
+	// 		final RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
+	// 		rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
+	// 	}
+	// 	repository.done();
+	// }
 
 	/**
      * Getter for repository key.
@@ -81,15 +101,6 @@ public class ICodeRulesDefinition implements RulesDefinition {
      */
     public static String getRepositoryKeyForLanguage(final String language) {
         return language + REPO_KEY_SUFFIX;
-    }
-
-    /**
-     * Getter for repository name.
-     *
-     * @return A string.
-     */
-    public static String getRepositoryName() {
-        return ICodePluginProperties.ICODE_NAME;
     }
 
     /**
