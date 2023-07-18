@@ -23,11 +23,15 @@ import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
+import org.sonar.api.server.rule.RulesDefinition.NewRule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.io.InputStream;
 
 /**
- * Built-in quality profile format since SonarQube 6.6.
+ * Built-in quality profile format since SonarQube 9.9
  */
 public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinition {
 
@@ -44,45 +48,29 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
      */
     @Override
     public void define(final Context context) {
-        NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile("F 77", "f77");
-        profile.setDefault(true);
-
-        NewBuiltInActiveRule data_array = profile.activateRule("f77-rules", "F77.DATA.Array");
-        profile.done();
-
-        NewBuiltInQualityProfile profile2 = context.createBuiltInQualityProfile("F 90", "f90");
-        profile2.setDefault(true);
-        profile2.done();
-        //createBuiltInProfile(context, Fortran77Language.KEY, ICodeRulesDefinition.PATH_TO_F77_RULES_XML);
-        //reateBuiltInProfile(context, Fortran90Language.KEY, ICodeRulesDefinition.PATH_TO_F90_RULES_XML);
+        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN77_REPOSITORY, Fortran77Language.KEY, ICodeRulesDefinition.f77Rules);
+        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN90_REPOSITORY, Fortran90Language.KEY, ICodeRulesDefinition.f90Rules);
     }
 
     /**
      * Create a built in quality profile for a specific language.
      *
      * @param context SonarQube context in which create the profile.
+     * @param repository Rules' repository.
      * @param language Language key of the associated profile.
-     * @param path Path to the xml definition of all rules.
+     * @param rules Rules to activate.
      */
-    private void createBuiltInProfile(final Context context, final String language, final String path) {
+    private void createBuiltInProfile(final Context context, final String repository, final String languageKey, final List<NewRule> rules) {
         // Create a builder for the rules' repository.
-        final NewBuiltInQualityProfile defaultProfile =
-                context.createBuiltInQualityProfile(I_CODE_RULES_PROFILE_NAME, language);
-
-        // Retrieve all defined rules.
-        final InputStream stream = getClass().getResourceAsStream(path);
-        final RulesDefinition rules = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
-        final String repositoryKey = ICodeRulesDefinition.getRepositoryKeyForLanguage(language);
+        NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(I_CODE_RULES_PROFILE_NAME, languageKey);
 
         // Activate all i-Code CNES rules.
-        for(final Rule rule : rules.getRules()) {
-            defaultProfile.activateRule(repositoryKey, rule.getKey());
-            LOGGER.debug(String.format("Rule %s added to repository %s.", rule.getKey(), repositoryKey));
+        for (NewRule rule : rules) {
+            profile.activateRule(repository, rule.key());
+            LOGGER.info(String.format("Rule %s added to repository %s.", rule.key(), repository));
         }
-        LOGGER.debug(String.format("%s rules are activated.", defaultProfile.activeRules().size()));
-
-        // Save the default profile.
-        defaultProfile.setDefault(true);
-        defaultProfile.done();
+        profile.setDefault(true);
+        profile.done();
+        LOGGER.info(String.format("%s rules are activated for the repository %s.", profile.activeRules().size(), repository));
     }
 }
