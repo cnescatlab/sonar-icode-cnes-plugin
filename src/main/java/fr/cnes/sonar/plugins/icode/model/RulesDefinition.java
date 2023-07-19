@@ -28,7 +28,7 @@ import java.util.List;
  *
  * It contains meta data about rules definition.
  */
-@XStreamAlias("icodelint-rules")
+@XStreamAlias("rules")
 @XStreamImplicitCollection("icodeRules")
 @XStreamInclude(Rule.class)
 public class RulesDefinition {

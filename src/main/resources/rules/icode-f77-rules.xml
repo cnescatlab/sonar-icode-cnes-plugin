@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<icodelint-rules>
+<rules>
 	<rule>
 		<key>Parsing Error</key>
 		<name>Parsing Error</name>
@@ -714,4 +714,4 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
-</icodelint-rules>
+</rules>
