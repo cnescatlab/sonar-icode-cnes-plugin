@@ -19,16 +19,21 @@ package fr.cnes.sonar.plugins.icode.languages;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
+import org.sonar.api.server.rule.RulesDefinition;
+import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 
 public class ICodeQualityProfilesTest {
 
     @Test
     public void test_should_create_sonar_way_profile() {
         ICodeQualityProfiles profileDef = new ICodeQualityProfiles();
+
+        RulesDefinition.Context contextRules = new RulesDefinition.Context();
+        new ICodeRulesDefinition().define(contextRules);
+
         BuiltInQualityProfilesDefinition.Context context = new BuiltInQualityProfilesDefinition.Context();
         profileDef.define(context);
         Assert.assertNotNull(profileDef);
         Assert.assertEquals(2, context.profilesByLanguageAndName().keySet().size());
     }
-
 }

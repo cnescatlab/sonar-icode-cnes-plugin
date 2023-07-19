@@ -32,18 +32,18 @@ public class ICodeRulesDefinitionTest {
 		Assert.assertEquals(64, context.repository("f90-rules").rules().size());
 	}
 
-	// @Test
-	// public void test_creation_of_repositories_and_rules_for_bad_language() {
-	// 	RulesDefinition.Context context = new RulesDefinition.Context();
-	// 	Assert.assertEquals(0, context.repositories().size());
-	// 	new ICodeRulesDefinition(){
-	// 		@Override
-	// 		public void define(Context context) {
-	// 			createRepository(context, "bad");
-	// 		}
-	// 	}.define(context);
-	// 	Assert.assertEquals(1, context.repositories().size());
-	// 	Assert.assertEquals(0, context.repository("bad-rules").rules().size());
-	// }
+	@Test
+	public void test_creation_of_repositories_and_rules_for_bad_language() {
+		RulesDefinition.Context context = new RulesDefinition.Context();
+		Assert.assertEquals(0, context.repositories().size());
+		new ICodeRulesDefinition(){
+			@Override
+			public void define(Context context) {
+				createFortranRepository(context, "bad", "bad-rules", "bad_file");
+			}
+		}.define(context);
+		Assert.assertEquals(1, context.repositories().size());
+		Assert.assertEquals(0, context.repository("bad-rules").rules().size());
+	}
 
 }

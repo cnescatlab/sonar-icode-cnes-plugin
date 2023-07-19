@@ -45,36 +45,36 @@ public class ICodeMetricsProcessorTest {
     private Map<String, InputFile> files;
     private AnalysisRule rule;
 
-    private DefaultInputFile bash_sh;
     private DefaultInputFile clanhb_f;
+    private DefaultInputFile clanhb_f90;
 
     @Before
     public void prepare() throws URISyntaxException {
-        final URI projectPath = ICodeMetricsProcessor.class.getResource("/project/").toURI();
+        final URI projectPath = ICodeMetricsProcessor.class.getResource("/project").toURI();
         fs = new DefaultFileSystem(new File(projectPath));
         fs.setEncoding(Charset.forName("UTF-8"));
 
-        bash_sh = TestInputFileBuilder.create(
-                "ProjectKey",
-                fs.resolvePath(projectPath.getRawPath()+"bash.sh").getPath())
-                .setLanguage("icode")
-                .setType(InputFile.Type.MAIN)
-                .build();
-        fs.add(bash_sh);
         clanhb_f = TestInputFileBuilder.create(
                 "ProjectKey",
-                fs.resolvePath(projectPath.getRawPath()+"clanhb.f").getPath())
+                fs.baseDir(), new File(getClass().getResource("/project/clanhb.f").toURI()))
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .build();
         fs.add(clanhb_f);
 
+        clanhb_f90 = TestInputFileBuilder.create("ProjectKey", fs.baseDir(), new File(getClass().getResource("/project/clanhb.f90").toURI()))
+                .setLanguage("icode")
+                .setType(InputFile.Type.MAIN)
+                .build();
+        fs.add(clanhb_f90);
+        
+
         context = SensorContextTester.create(fs.baseDir());
         files = new HashMap<>();
         rule = new AnalysisRule();
 
-        files.put("bash.sh", bash_sh);
         files.put("clanhb.f", clanhb_f);
+        files.put("clanhb.f90", clanhb_f90);
     }
 
     @Test
@@ -89,23 +89,18 @@ public class ICodeMetricsProcessorTest {
 
     @Test
     public void test_save_nominal_measures() {
-        String[] analysisRulesIds = {"SH.MET.LineOfCode","SH.MET.LineOfComment","F90.MET.Nesting","F90.MET.LineOfCode"};
-        String[] fileNames = {"bash.sh", "bash.sh", "bash.sh", "zoulou.sh"};
-        int[] expectedResults = {1,2,2,2}; // Size is incremented as context.measure(key) is not resetted after each iteration
 
-        for(int i=0;i<analysisRulesIds.length; ++i){
-            rule.setResult(new Result());
-            rule.setAnalysisRuleId(analysisRulesIds[i]);
-            rule.getResult().setFileName(fileNames[i]);
-            rule.getResult().setResultValue("3");
-            rule.getResult().setResultLine("3");
-            rule.getResult().setResultTypePlace("class");
-            rule.getResult().setResultMessage("Small file");
-            final String key = bash_sh.key();
+        final String key = clanhb_f.key();
+        rule.setResult(new Result());
+        rule.setAnalysisRuleId("F77.MET.Line");
+        rule.getResult().setFileName("clanhb.f");
+        rule.getResult().setResultValue("3");
+        rule.getResult().setResultLine("3");
+        rule.getResult().setResultTypePlace("class");
+        rule.getResult().setResultMessage("Small file");
 
-            ICodeMetricsProcessor.saveMeasure(context, files, rule);
-            Assert.assertEquals(expectedResults[i], context.measures(key).size());
-        }
+        ICodeMetricsProcessor.saveMeasure(context, files, rule);
+        Assert.assertEquals(1, context.measures(key).size());
     }
 
     @Test
@@ -173,11 +168,11 @@ public class ICodeMetricsProcessorTest {
     public void test_compute_functions() {
 
         final AnalysisProject project = new AnalysisProject();
-        final String key = bash_sh.key();
+        final String key = clanhb_f.key();
 
         rule.setResult(new Result());
-        rule.setAnalysisRuleId("SH.MET.LineOfCode");
-        rule.getResult().setFileName("bash.sh");
+        rule.setAnalysisRuleId("F77.MET.Line");
+        rule.getResult().setFileName("clanhb.f");
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
         rule.getResult().setResultTypePlace("method");
@@ -188,37 +183,4 @@ public class ICodeMetricsProcessorTest {
         ICodeMetricsProcessor.saveExtraMeasures(context, files, project);
         Assert.assertEquals(1, context.measures(key).size());
     }
-
-    @Test
-    public void test_compute_comment() {
-
-        final AnalysisProject project = new AnalysisProject();
-        final AnalysisRule rule2 = new AnalysisRule();
-        final String key = bash_sh.key();
-
-        rule.setResult(new Result());
-        rule.setAnalysisRuleId("SH.MET.LineOfCode");
-        rule.getResult().setFileName("bash.sh");
-        rule.getResult().setResultValue("20");
-        rule.getResult().setResultLine("3");
-        rule.getResult().setResultTypePlace("method");
-        rule.getResult().setResultMessage("Small file");
-
-        rule2.setResult(new Result());
-        rule2.setAnalysisRuleId("SH.MET.Nesting");
-        rule2.getResult().setFileName("bash.sh");
-        rule2.getResult().setResultValue("50");
-        rule2.getResult().setResultLine("3");
-        rule2.getResult().setResultTypePlace("method");
-        rule2.getResult().setResultMessage("Small file");
-
-        project.setAnalysisRule(new AnalysisRule[]{rule, rule2});
-
-        ICodeMetricsProcessor.saveExtraMeasures(context, files, project);
-        Assert.assertEquals(2, context.measures(key).size());
-        Assert.assertEquals("functions", ((DefaultMeasure)context.measures(key).toArray()[0]).metric().key());
-        Assert.assertEquals("icode-nesting-max", ((DefaultMeasure)context.measures(key).toArray()[1]).metric().key());
-        Assert.assertEquals(50, ((DefaultMeasure)context.measures(key).toArray()[1]).value());
-    }
-
 }

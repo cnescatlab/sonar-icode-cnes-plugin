@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Assertions;
 import org.mockito.Mockito;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
+import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.batch.sensor.SensorDescriptor;
@@ -58,10 +59,8 @@ public class ICodeSensorTest {
     public void prepare() throws URISyntaxException {
         fs = new DefaultFileSystem(new File(getClass().getResource("/project").toURI()));
         fs.setEncoding(StandardCharsets.UTF_8);
-
-        clanhb_f = TestInputFileBuilder.create(
-                "ProjectKey",
-                fs.resolvePath("clanhb.f").getPath())
+        
+        clanhb_f = TestInputFileBuilder.create("ProjectKey", fs.baseDir(), new File(getClass().getResource("/project/clanhb.f").toURI()))
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .setLines(10)
@@ -70,9 +69,7 @@ public class ICodeSensorTest {
                 .build();
         fs.add(clanhb_f);
 
-        clanhb_f90 = TestInputFileBuilder.create(
-                "ProjectKey",
-                fs.resolvePath("clanhb.f90").getPath())
+        clanhb_f90 = TestInputFileBuilder.create("ProjectKey", fs.baseDir(), new File(getClass().getResource("/project/clanhb.f90").toURI()))
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .setLines(10)

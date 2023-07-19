@@ -96,6 +96,12 @@ public class ICodeRulesDefinition implements RulesDefinition {
 
 		try {
 			InputStream inputFile = this.getClass().getResourceAsStream(pathToRulesXml);
+			
+			if (inputFile == null) {
+				repository.done();
+				return rules;
+			}
+
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			Document doc = dbFactory.newDocumentBuilder().parse(inputFile);
 			doc.getDocumentElement().normalize();

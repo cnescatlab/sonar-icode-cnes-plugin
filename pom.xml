@@ -132,6 +132,11 @@
             <artifactId>xstream</artifactId>
             <version>1.4.18</version>
         </dependency>
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api-impl</artifactId>
+            <version>9.9.1.69595</version>
+        </dependency>
     </dependencies>
 
     <build>
