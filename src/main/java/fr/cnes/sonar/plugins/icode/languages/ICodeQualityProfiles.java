@@ -17,6 +17,8 @@
 package fr.cnes.sonar.plugins.icode.languages;
 
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
+import fr.cnes.sonar.plugins.icode.rules.RulesRepository;
+
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
@@ -35,6 +37,9 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
     /** Display name for the built-in quality profile. **/
     private static final String I_CODE_RULES_PROFILE_NAME = "Sonar way";
 
+    private List<NewRule> f77Rules = RulesRepository.getInstance().getF77Rules();
+    private List<NewRule> f90Rules = RulesRepository.getInstance().getF90Rules();
+
     /**
      * Allow to create a plugin.
      *
@@ -42,8 +47,8 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
      */
     @Override
     public void define(final Context context) {
-        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN77_REPOSITORY, Fortran77Language.KEY, ICodeRulesDefinition.f77Rules);
-        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN90_REPOSITORY, Fortran90Language.KEY, ICodeRulesDefinition.f90Rules);
+        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN77_REPOSITORY, Fortran77Language.KEY, f77Rules);
+        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN90_REPOSITORY, Fortran90Language.KEY, f90Rules);
     }
 
     /**

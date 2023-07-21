@@ -27,6 +27,7 @@ import org.sonar.api.utils.log.Loggers;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
+import fr.cnes.sonar.plugins.icode.rules.RulesRepository;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -61,9 +62,6 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	/** Path to xml file in resources tree (fortran 90 rules). **/
 	public static final String PATH_TO_F90_RULES_XML = "/rules/icode-f90-rules.xml";
 
-	public static List<NewRule> f77Rules;
-	public static List<NewRule> f90Rules;
-
 	/**
 	 * Define i-Code rules in SonarQube thanks to xml configuration files.
 	 *
@@ -95,11 +93,12 @@ public class ICodeRulesDefinition implements RulesDefinition {
 			
 			if (inputFile == null) {
 				repository.done();
-				if (language == FORTRAN77_LANGUAGE) {
-					ICodeRulesDefinition.f77Rules = rules;
+				if (language.equals(FORTRAN77_LANGUAGE)) {
+					RulesRepository.getInstance().setF77Rules(rules);
 				} else {
-					ICodeRulesDefinition.f90Rules = rules;
+					RulesRepository.getInstance().setF90Rules(rules);
 				}
+				
 			}
 
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -143,11 +142,11 @@ public class ICodeRulesDefinition implements RulesDefinition {
 		} catch (Exception e) {
 			LOGGER.error("Error while creating rules.", e);
 		}
-		if (language == FORTRAN77_LANGUAGE) {
-			ICodeRulesDefinition.f77Rules = rules;
+		if (language.equals(FORTRAN77_LANGUAGE)) {
+			RulesRepository.getInstance().setF77Rules(rules);
 		} else {
-			ICodeRulesDefinition.f90Rules = rules;
-		}
+			RulesRepository.getInstance().setF90Rules(rules);
+		}		
 	}
 
 	/**
