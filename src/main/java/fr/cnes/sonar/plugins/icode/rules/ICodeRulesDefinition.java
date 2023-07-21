@@ -61,8 +61,8 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	/** Path to xml file in resources tree (fortran 90 rules). **/
 	public static final String PATH_TO_F90_RULES_XML = "/rules/icode-f90-rules.xml";
 
-	private static List<NewRule> f77Rules;
-	private static List<NewRule> f90Rules;
+	public static List<NewRule> f77Rules;
+	public static List<NewRule> f90Rules;
 
 	/**
 	 * Define i-Code rules in SonarQube thanks to xml configuration files.
@@ -151,12 +151,4 @@ public class ICodeRulesDefinition implements RulesDefinition {
     public static String getRepositoryKeyForLanguage(final String language) {
         return language + REPO_KEY_SUFFIX;
     }
-
-	public static List<NewRule> getF77Rules() {
-		return f77Rules;
-	}
-
-	public static List<NewRule> getF90Rules() {
-		return f90Rules;
-	}
 }

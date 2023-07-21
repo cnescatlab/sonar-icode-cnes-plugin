@@ -21,7 +21,7 @@ import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
 import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.Result;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -43,7 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ICodeMetricsProcessorTest {
+class ICodeMetricsProcessorTest {
 
     private DefaultFileSystem fs;
     private SensorContextTester context;
@@ -53,7 +53,7 @@ public class ICodeMetricsProcessorTest {
     private DefaultInputFile clanhb_f;
     private DefaultInputFile clanhb_f90;
 
-    @Before
+    @BeforeEach
     public void prepare() throws URISyntaxException {
         final URI projectPath = ICodeMetricsProcessor.class.getResource("/project").toURI();
         fs = new DefaultFileSystem(new File(projectPath));
@@ -92,7 +92,7 @@ public class ICodeMetricsProcessorTest {
 
     @ParameterizedTest
     @MethodSource("testData")
-    public void test_compute_metrics(AnalysisRuleTestData testData) {
+    void test_compute_metrics(AnalysisRuleTestData testData) {
         final AnalysisProject project = new AnalysisProject();
         final String key = clanhb_f.key();
 
@@ -112,17 +112,17 @@ public class ICodeMetricsProcessorTest {
     }
 
     @Test
-    public void test_is_metric_true() {
+    void test_is_metric_true() {
         Assert.assertTrue(ICodeMetricsProcessor.isMetric("SH.MET.COCO"));
     }
 
     @Test
-    public void test_is_metric_false() {
+    void test_is_metric_false() {
         Assert.assertFalse(ICodeMetricsProcessor.isMetric("COCO"));
     }
 
     @Test
-    public void test_save_extra_measure_with_null_location() {
+    void test_save_extra_measure_with_null_location() {
         // If we upgrade to Junit5, we may check @ParametrizedTest annotation
         String[] locations = {null, "", "method"};
         int[] expectedResults = {0, 0, 1};
@@ -143,7 +143,7 @@ public class ICodeMetricsProcessorTest {
     }
 
     @Test
-    public void test_save_nominal_measures() {
+    void test_save_nominal_measures() {
 
         final String key = clanhb_f.key();
         rule.setResult(new Result());
