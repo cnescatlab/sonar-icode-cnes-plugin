@@ -71,8 +71,8 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	 */
 	@Override
 	public void define(final Context context) {
-		this.f77Rules = createFortranRepository(context, FORTRAN77_LANGUAGE, FORTRAN77_REPOSITORY, PATH_TO_F77_RULES_XML);
-		this.f90Rules = createFortranRepository(context, FORTRAN90_LANGUAGE, FORTRAN90_REPOSITORY, PATH_TO_F90_RULES_XML);
+		createFortranRepository(context, FORTRAN77_LANGUAGE, FORTRAN77_REPOSITORY, PATH_TO_F77_RULES_XML);
+		createFortranRepository(context, FORTRAN90_LANGUAGE, FORTRAN90_REPOSITORY, PATH_TO_F90_RULES_XML);
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	 * @param repositoryName Key of the repository.
 	 * @param pathToRulesXml Path to the xml file containing the rules.
 	 */
-	 protected List<NewRule> createFortranRepository(final Context context, final String language, final String repositoryName, final String pathToRulesXml) {
+	 protected void createFortranRepository(final Context context, final String language, final String repositoryName, final String pathToRulesXml) {
 		// Create the repository
 		NewRepository repository = context.createRepository(repositoryName, language)
 		.setName(ICodePluginProperties.ICODE_NAME);
@@ -95,7 +95,11 @@ public class ICodeRulesDefinition implements RulesDefinition {
 			
 			if (inputFile == null) {
 				repository.done();
-				return rules;
+				if (language == FORTRAN77_LANGUAGE) {
+					ICodeRulesDefinition.f77Rules = rules;
+				} else {
+					ICodeRulesDefinition.f90Rules = rules;
+				}
 			}
 
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -139,7 +143,11 @@ public class ICodeRulesDefinition implements RulesDefinition {
 		} catch (Exception e) {
 			LOGGER.error("Error while creating rules.", e);
 		}
-		return rules;
+		if (language == FORTRAN77_LANGUAGE) {
+			ICodeRulesDefinition.f77Rules = rules;
+		} else {
+			ICodeRulesDefinition.f90Rules = rules;
+		}
 	}
 
 	/**
