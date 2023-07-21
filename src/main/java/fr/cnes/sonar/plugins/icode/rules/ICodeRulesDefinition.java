@@ -27,7 +27,6 @@ import org.sonar.api.utils.log.Loggers;
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
-import fr.cnes.sonar.plugins.icode.rules.RulesRepository;
 
 import java.io.InputStream;
 import java.util.ArrayList;
