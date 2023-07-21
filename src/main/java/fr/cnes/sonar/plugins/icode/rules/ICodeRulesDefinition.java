@@ -18,7 +18,6 @@ package fr.cnes.sonar.plugins.icode.rules;
 
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.rule.RuleStatus;
-import org.sonar.api.rule.Severity;
 import org.sonar.api.rules.RuleType;
 import org.sonar.api.server.rule.RulesDefinition;
 
@@ -30,13 +29,10 @@ import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.io.File;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -65,8 +61,8 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	/** Path to xml file in resources tree (fortran 90 rules). **/
 	public static final String PATH_TO_F90_RULES_XML = "/rules/icode-f90-rules.xml";
 
-	public static List<NewRule> f77Rules;
-	public static List<NewRule> f90Rules;
+	private static List<NewRule> f77Rules;
+	private static List<NewRule> f90Rules;
 
 	/**
 	 * Define i-Code rules in SonarQube thanks to xml configuration files.
@@ -103,6 +99,7 @@ public class ICodeRulesDefinition implements RulesDefinition {
 			}
 
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			dbFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
 			Document doc = dbFactory.newDocumentBuilder().parse(inputFile);
 			doc.getDocumentElement().normalize();
 
@@ -115,15 +112,15 @@ public class ICodeRulesDefinition implements RulesDefinition {
 					Element element = (Element) node;
 
 					String key = element.getElementsByTagName("key").item(0).getTextContent();
-                    String name = element.getElementsByTagName("name").item(0).getTextContent();
-                    String internalKey = element.getElementsByTagName("internalKey").item(0).getTextContent();
-                    String description = element.getElementsByTagName("description").item(0).getTextContent();
-                    String severity = element.getElementsByTagName("severity").item(0).getTextContent();
-                    RuleStatus status = RuleStatus.valueOf(element.getElementsByTagName("status").item(0).getTextContent());
-                    RuleType type = RuleType.valueOf(element.getElementsByTagName("type").item(0).getTextContent());
+					String name = element.getElementsByTagName("name").item(0).getTextContent();
+					String internalKey = element.getElementsByTagName("internalKey").item(0).getTextContent();
+					String description = element.getElementsByTagName("description").item(0).getTextContent();
+					String severity = element.getElementsByTagName("severity").item(0).getTextContent();
+					RuleStatus status = RuleStatus.valueOf(element.getElementsByTagName("status").item(0).getTextContent());
+					RuleType type = RuleType.valueOf(element.getElementsByTagName("type").item(0).getTextContent());
 					String remediationFunctionBaseEffort = element.getElementsByTagName("remediationFunctionBaseEffort").item(0).getTextContent();
 
-  					RuleKey ruleKey = RuleKey.of(repositoryName, key);
+					RuleKey ruleKey = RuleKey.of(repositoryName, key);
 
 					NewRule rule = repository.createRule(ruleKey.rule())
 						.setName(name)
@@ -140,7 +137,7 @@ public class ICodeRulesDefinition implements RulesDefinition {
 			}
 			repository.done();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error while creating rules.", e);
 		}
 		return rules;
 	}
@@ -154,4 +151,12 @@ public class ICodeRulesDefinition implements RulesDefinition {
     public static String getRepositoryKeyForLanguage(final String language) {
         return language + REPO_KEY_SUFFIX;
     }
+
+	public static List<NewRule> getF77Rules() {
+		return f77Rules;
+	}
+
+	public static List<NewRule> getF90Rules() {
+		return f90Rules;
+	}
 }

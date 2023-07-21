@@ -78,12 +78,9 @@ public class ICodeMetricsProcessor {
         if(metricScope.equals(CLASS)) {
             // Get i-Code rule id to test if issue must be saved here.
             final String metricKey = icodeMeasure.getAnalysisRuleId();
-            // Take F77 / F90 ncloc into account
+            // Take F77 / F90 ncloc and number of comment lines into account
             if (metricKey.contains("MET.Line")) {
                 saveSonarQubeNewMeasure(context, files, CoreMetrics.NCLOC, icodeMeasure);
-            }
-            // Take F77 / F90 number of comment lines into account
-            else if (metricKey.contains("MET.Line")) {
                 saveSonarQubeNewMeasure(context, files, CoreMetrics.COMMENT_LINES, icodeMeasure);
             }
         }

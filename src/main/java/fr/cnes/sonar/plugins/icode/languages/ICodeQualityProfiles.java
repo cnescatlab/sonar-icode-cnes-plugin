@@ -16,19 +16,13 @@
  */
 package fr.cnes.sonar.plugins.icode.languages;
 
-import fr.cnes.sonar.plugins.icode.model.Rule;
-import fr.cnes.sonar.plugins.icode.model.RulesDefinition;
-import fr.cnes.sonar.plugins.icode.model.XmlHandler;
 import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.api.server.rule.RulesDefinition.NewRule;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import java.io.InputStream;
 
 /**
  * Built-in quality profile format since SonarQube 9.9
@@ -48,8 +42,8 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
      */
     @Override
     public void define(final Context context) {
-        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN77_REPOSITORY, Fortran77Language.KEY, ICodeRulesDefinition.f77Rules);
-        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN90_REPOSITORY, Fortran90Language.KEY, ICodeRulesDefinition.f90Rules);
+        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN77_REPOSITORY, Fortran77Language.KEY, ICodeRulesDefinition.getF77Rules());
+        createBuiltInProfile(context, ICodeRulesDefinition.FORTRAN90_REPOSITORY, Fortran90Language.KEY, ICodeRulesDefinition.getF90Rules());
     }
 
     /**

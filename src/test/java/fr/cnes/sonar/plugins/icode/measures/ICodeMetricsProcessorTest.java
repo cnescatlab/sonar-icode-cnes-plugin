@@ -22,7 +22,12 @@ import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 import fr.cnes.sonar.plugins.icode.model.Result;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.Arguments;
+
+import java.util.stream.Stream;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
@@ -77,6 +82,35 @@ public class ICodeMetricsProcessorTest {
         files.put("clanhb.f90", clanhb_f90);
     }
 
+    private static Stream<Arguments> testData() {
+        return Stream.of(
+                Arguments.of(new AnalysisRuleTestData("F77.MET.ComplexitySimplified", "clanhb.f", "3")),
+                Arguments.of(new AnalysisRuleTestData("F77.MET.Nesting", "clanhb.f", "3")),
+                Arguments.of(new AnalysisRuleTestData("F77.MET.Line", "clanhb.f", "3"))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("testData")
+    public void test_compute_metrics(AnalysisRuleTestData testData) {
+        final AnalysisProject project = new AnalysisProject();
+        final String key = clanhb_f.key();
+
+        rule.setResult(new Result());
+        rule.setAnalysisRuleId(testData.getAnalysisRuleId());
+        rule.getResult().setFileName(testData.getFileName());
+        rule.getResult().setResultValue(testData.getResultValue());
+        rule.getResult().setResultLine("3"); // Assuming the result line is always "3"
+        rule.getResult().setResultTypePlace("method");
+        rule.getResult().setResultMessage("Small file");
+
+        project.setAnalysisRule(new AnalysisRule[]{rule});
+
+        ICodeMetricsProcessor.saveExtraMeasures(context, files, project);
+
+        Assert.assertEquals(1, context.measures(key).size());
+    }
+
     @Test
     public void test_is_metric_true() {
         Assert.assertTrue(ICodeMetricsProcessor.isMetric("SH.MET.COCO"));
@@ -85,42 +119,6 @@ public class ICodeMetricsProcessorTest {
     @Test
     public void test_is_metric_false() {
         Assert.assertFalse(ICodeMetricsProcessor.isMetric("COCO"));
-    }
-
-    @Test
-    public void test_save_nominal_measures() {
-
-        final String key = clanhb_f.key();
-        rule.setResult(new Result());
-        rule.setAnalysisRuleId("F77.MET.Line");
-        rule.getResult().setFileName("clanhb.f");
-        rule.getResult().setResultValue("3");
-        rule.getResult().setResultLine("3");
-        rule.getResult().setResultTypePlace("class");
-        rule.getResult().setResultMessage("Small file");
-
-        ICodeMetricsProcessor.saveMeasure(context, files, rule);
-        Assert.assertEquals(1, context.measures(key).size());
-    }
-
-    @Test
-    public void test_compute_complexity() {
-
-        final AnalysisProject project = new AnalysisProject();
-        final String key = clanhb_f.key();
-
-        rule.setResult(new Result());
-        rule.setAnalysisRuleId("F77.MET.ComplexitySimplified");
-        rule.getResult().setFileName("clanhb.f");
-        rule.getResult().setResultValue("3");
-        rule.getResult().setResultLine("3");
-        rule.getResult().setResultTypePlace("method");
-        rule.getResult().setResultMessage("Small file");
-
-        project.setAnalysisRule(new AnalysisRule[]{rule});
-
-        ICodeMetricsProcessor.saveExtraMeasures(context, files, project);
-        Assert.assertEquals(1, context.measures(key).size());
     }
 
     @Test
@@ -145,42 +143,44 @@ public class ICodeMetricsProcessorTest {
     }
 
     @Test
-    public void test_compute_nesting() {
+    public void test_save_nominal_measures() {
 
-        final AnalysisProject project = new AnalysisProject();
         final String key = clanhb_f.key();
-
-        rule.setResult(new Result());
-        rule.setAnalysisRuleId("F77.MET.Nesting");
-        rule.getResult().setFileName("clanhb.f");
-        rule.getResult().setResultValue("3");
-        rule.getResult().setResultLine("3");
-        rule.getResult().setResultTypePlace("method");
-        rule.getResult().setResultMessage("Small file");
-
-        project.setAnalysisRule(new AnalysisRule[]{rule});
-
-        ICodeMetricsProcessor.saveExtraMeasures(context, files, project);
-        Assert.assertEquals(1, context.measures(key).size());
-    }
-
-    @Test
-    public void test_compute_functions() {
-
-        final AnalysisProject project = new AnalysisProject();
-        final String key = clanhb_f.key();
-
         rule.setResult(new Result());
         rule.setAnalysisRuleId("F77.MET.Line");
         rule.getResult().setFileName("clanhb.f");
         rule.getResult().setResultValue("3");
         rule.getResult().setResultLine("3");
-        rule.getResult().setResultTypePlace("method");
+        rule.getResult().setResultTypePlace("class");
         rule.getResult().setResultMessage("Small file");
 
-        project.setAnalysisRule(new AnalysisRule[]{rule});
-
-        ICodeMetricsProcessor.saveExtraMeasures(context, files, project);
+        ICodeMetricsProcessor.saveMeasure(context, files, rule);
         Assert.assertEquals(1, context.measures(key).size());
     }
+ 
+}
+
+class AnalysisRuleTestData {
+    private String analysisRuleId;
+    private String fileName;
+    private String resultValue;
+
+    public AnalysisRuleTestData(String analysisRuleId, String fileName, String resultValue) {
+        this.analysisRuleId = analysisRuleId;
+        this.fileName = fileName;
+        this.resultValue = resultValue;
+    }
+
+    public String getAnalysisRuleId() {
+        return analysisRuleId;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getResultValue() {
+        return resultValue;
+    }
+
 }
