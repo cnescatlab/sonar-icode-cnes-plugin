@@ -338,7 +338,7 @@ public class ICodeSensor implements Sensor {
         for(final AnalysisFile file : files) {
             // Checks if the file system contains a file with corresponding path (relative or absolute).
             final String fileToFind = new File(fileSystem.baseDir(), file.getFileName()).getPath();
-            final FilePredicate predicate = fileSystem.predicates().hasRelativePath(fileToFind);
+            final FilePredicate predicate = fileSystem.predicates().hasPath(fileToFind);
             final InputFile inputFile = fileSystem.inputFile(predicate);
             if(inputFile!=null) {
                 result.put(file.getFileName(), inputFile);

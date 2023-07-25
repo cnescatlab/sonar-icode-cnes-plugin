@@ -23,16 +23,17 @@ import org.sonar.api.SonarQubeSide;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.utils.Version;
+import org.sonar.api.SonarEdition;
 
 
 public class ICodePluginTest {
 
-	private static final Version VERSION_6_7 = Version.create(6, 7);
+	private static final Version VERSION_8_9 = Version.create(8, 9);
 
 	@Test
 	public void test_extensions_are_all_set() {
 		ICodePlugin iCodePlugin = new ICodePlugin();
-		SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(VERSION_6_7, SonarQubeSide.SERVER);
+		SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(VERSION_8_9, SonarQubeSide.SERVER, SonarEdition.COMMUNITY);
 		Plugin.Context context = new Plugin.Context(runtime);
 		iCodePlugin.define(context);
 		Assert.assertEquals(12, context.getExtensions().size());

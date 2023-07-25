@@ -39,7 +39,7 @@ public class ICodeRulesDefinitionTest {
 		new ICodeRulesDefinition(){
 			@Override
 			public void define(Context context) {
-				createRepository(context, "bad");
+				createFortranRepository(context, "bad", "bad-rules", "bad_file");
 			}
 		}.define(context);
 		Assert.assertEquals(1, context.repositories().size());
