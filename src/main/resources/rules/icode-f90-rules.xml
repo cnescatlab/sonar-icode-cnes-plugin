@@ -14,10 +14,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
         ]]>
 		</description>
 		<severity>BLOCKER</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>BUG</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -26,10 +24,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Equality and non equality (.EQ., ==, .NE., /=) are forbidden on reals (REAL, DOUBLE PRECISION, COMPLEX).</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -38,10 +34,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Variables have to be initialized before being used. When a variable is used, the algorithm should checked if it is initialized and if not throw an error.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -50,10 +44,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Data declared into subroutine, function, ... and which are never modified then should be declared as constant.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -62,10 +54,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>It is forbidden to modify loop condition inside the loop.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -74,10 +64,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Every declared variable should be used.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -86,10 +74,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Allocation and deallocation of ressources should be in the same level. For each “DEALLOCATE” keyword found, i-Code CNES checks that the keyword “ALLOCATE” is also found and checks that they are relative to the same resource.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -98,10 +84,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>In a loop, SLEEP, WAIT and PAUSE instructions are forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -110,10 +94,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Keyword STOP is forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -122,10 +104,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>In a condition (IF,DO), maximum number of operands is 5 (AND, OR, NEQV, XOR, EQV, NOT, LT, &lt;, LE, &lt;=, GT, &gt;, GE, &gt;=, EQ, ==, NE, /=).</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -134,10 +114,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Function return values should be checked.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -146,10 +124,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>The identity of the user running the program should be checked.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -158,10 +134,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Function, procedure and method should have a unique exit point.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -170,10 +144,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Function, procedure and method should have a unique exit point.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -182,10 +154,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>File opening (OPEN, READ, WRITE) should be done after using INQUIRE and EXIST instruction of this file.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -194,10 +164,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>In the OPEN instruction, it is forbidden to use directly the file name (file.txt). Path should be defined through a variable.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -208,10 +176,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 			NOT. (.NOT. a)		-> ( a )
 			.NOT. ( a .AND. .NOT. b)	-> .NOT. a .OR. b</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -220,10 +186,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Every expression should be braced.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -232,10 +196,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Commented code is forbidden. i-Code CNES checks all keywords in comments, except in the header.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -244,10 +206,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>"GO TO" is forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -256,10 +216,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>In a loop instruction, comparison using (.EQ., ==, .NE., \=) are forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -268,10 +226,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Variable name should be unique.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -280,10 +236,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Headers are mandatory for each module and function.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -300,10 +254,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 			END DO
 		</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -312,10 +264,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>A line of source code should contain 100 characters maximum.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -324,10 +274,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>In a expression (defined by operator like +, -, /, *, **) all variables should have the same type : REAL, INTEGER, …</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -336,10 +284,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>SWITCH instruction should define the DEFAULT case as last one.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -348,10 +294,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Each line should be limited to only one expression.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -360,10 +304,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Recursion is forbidden. In Fortran, i-Code CNES checks that "RECURSIVE FUNCTION(params)" is not found.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -372,10 +314,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Every open file should be closed.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -384,10 +324,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Array dimensions should be respected.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -396,10 +334,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>In an array of indirections, it is not possible to define the same item several times. </description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -408,10 +344,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Constants which appear in several subprograms should be defined into a module.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -420,10 +354,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Numerical constants (see above) should be followed by subtype parameter.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -433,10 +365,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<description>The use of IMPLICIT NONE instruction is mandatory for each method header.
 			Limitations : this rule is not checked for function and array.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -445,10 +375,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>It is forbidden to use * output format (WRITE instruction) for REAL.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -457,10 +385,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Functions SELECTED_REAL_KIND and SELECTED_INT_KIND should be grouped in the same module.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -469,10 +395,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Allocated memory should be free in the same conceptual level.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -481,10 +405,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>File inclusion is forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -493,10 +415,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Modules should only contains USE, PRIVATE and PUBLIC clauses.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -505,10 +425,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>In an OPEN function, units number should depend on another function or array.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -527,10 +445,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 			- Do not use FORMAT label
 			- Do not use descriptor H (Hollerith) in formats</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -539,10 +455,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Allocation and deallocation should contain “STAT” parameter. Then, « STAT » value should be tested. </description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -551,10 +465,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>OPEN and READ instructions, which work on files, should contain IOSTAT parameter and check this variable value. To check this, OPEN instruction should contain FILE attribute.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -563,10 +475,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Between declaration and ASSOCIATED instruction, it is mandatory to call NULLIFY.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -575,10 +485,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>ENTRY instruction is forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -587,10 +495,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>EQUIVALENCE instruction is forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -599,10 +505,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>IF followed by one of these instructions : EXIT, GOTO, CYCLE, RETURN is forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -611,10 +515,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Each subprogram parameter should be declared with INTENT keyword.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -623,10 +525,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>After deallocate, the use of NULLIFY into the same logical unit is mandatory.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -635,10 +535,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>The use of keyword ONLY without comment is forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -647,10 +545,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Do not use old notation. Replace .EQ., .NE., .LT., .LE., .GT., .GE. by ==, /=, &lt;, &lt;=, &gt;, &gt;=.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -662,10 +558,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 			- Manage array references
 			- Dynamic allocation into components with derived types</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -676,10 +570,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		    BAD: result = AMOD (argument, divider)
 		    GOOD: result = MOD (argument, divider)</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -688,10 +580,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Fortran keywords should not be used as variable names.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -700,10 +590,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Overriding operators is forbidden.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -712,10 +600,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>The use of a whole array should be represented using the notation (:).</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -724,10 +610,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Called subprogram should be visible.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -736,10 +620,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>END keyword should be followed by the type (function, subroutine…) and the name.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -748,10 +630,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Every OPEN instruction should have parameters FILE, STATUS, IOSTAT and POSITION.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -760,10 +640,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>A variable should be referenced with the same name in subprogram.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -772,10 +650,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Every type declaration should be placed into a module.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -784,10 +660,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>INTEGER parameters should be followed by SELECTED_INT_KIND expression.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
@@ -796,10 +670,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>REAL parameters should be followed by SELECTED_REAL_KIND.</description>
 		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
 	</rule>
 </icodelint-rules>

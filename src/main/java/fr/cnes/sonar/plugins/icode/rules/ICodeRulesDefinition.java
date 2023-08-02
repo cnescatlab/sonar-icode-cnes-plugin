@@ -16,23 +16,44 @@
  */
 package fr.cnes.sonar.plugins.icode.rules;
 
+import org.sonar.api.rule.RuleKey;
+import org.sonar.api.rule.RuleStatus;
+import org.sonar.api.rules.RuleType;
+import org.sonar.api.server.rule.RulesDefinition;
+
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
+
 import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
 import fr.cnes.sonar.plugins.icode.languages.Fortran90Language;
 import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
-import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 /**
  * Specific i-Code rules definition provided by resource file.
  */
 public class ICodeRulesDefinition implements RulesDefinition {
 
+	/** Logger for this class. **/
+    private static final Logger LOGGER = Loggers.get(ICodeRulesDefinition.class);
+
 	/** Partial key for repository. **/
 	private static final String REPO_KEY_SUFFIX = "-rules";
 
+	public static final String FORTRAN77_LANGUAGE = Fortran77Language.KEY;
+	public static final String FORTRAN90_LANGUAGE = Fortran90Language.KEY;
+
+	public static final String FORTRAN77_REPOSITORY = FORTRAN77_LANGUAGE + REPO_KEY_SUFFIX;
+	public static final String FORTRAN90_REPOSITORY = FORTRAN90_LANGUAGE + REPO_KEY_SUFFIX;
 
 	/** Path to xml file in resources tree (fortran 77 rules). **/
 	public static final String PATH_TO_F77_RULES_XML = "/rules/icode-f77-rules.xml";
@@ -47,30 +68,84 @@ public class ICodeRulesDefinition implements RulesDefinition {
 	 */
 	@Override
 	public void define(final Context context) {
-		createRepository(context, Fortran77Language.KEY);
-		createRepository(context, Fortran90Language.KEY);
+		createFortranRepository(context, FORTRAN77_LANGUAGE, FORTRAN77_REPOSITORY, PATH_TO_F77_RULES_XML);
+		createFortranRepository(context, FORTRAN90_LANGUAGE, FORTRAN90_REPOSITORY, PATH_TO_F90_RULES_XML);
 	}
 
 	/**
-	 * Create repositories for each language.
-	 *
+	 * Create repositories for each language f77 and f90
+	 * 
 	 * @param context SonarQube context.
 	 * @param language Key of the language.
+	 * @param repositoryName Key of the repository.
+	 * @param pathToRulesXml Path to the xml file containing the rules.
 	 */
-	protected void createRepository(final Context context, final String language) {
-		// Create a repository to put rules inside.
-		final NewRepository repository = context
-                .createRepository(getRepositoryKeyForLanguage(language), language)
-                .setName(getRepositoryName());
+	 protected void createFortranRepository(final Context context, final String language, final String repositoryName, final String pathToRulesXml) {
+		// Create the repository
+		NewRepository repository = context.createRepository(repositoryName, language)
+		.setName(ICodePluginProperties.ICODE_NAME);
 
-		// Get XML file describing rules for language.
-		final InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath(language));
-		// Add rules in repository.
-		if (rulesXml != null) {
-			final RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
-			rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
+		List<NewRule> rules = new ArrayList<>();
+
+		try {
+			InputStream inputFile = this.getClass().getResourceAsStream(pathToRulesXml);
+			
+			if (inputFile == null) {
+				repository.done();
+				if (language.equals(FORTRAN77_LANGUAGE)) {
+					RulesRepository.getInstance().setF77Rules(rules);
+				} else {
+					RulesRepository.getInstance().setF90Rules(rules);
+				}
+				
+			}
+
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			dbFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+			Document doc = dbFactory.newDocumentBuilder().parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nodeList = doc.getElementsByTagName("rule");
+
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				Node node = nodeList.item(i);
+
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) node;
+
+					String key = element.getElementsByTagName("key").item(0).getTextContent();
+					String name = element.getElementsByTagName("name").item(0).getTextContent();
+					String internalKey = element.getElementsByTagName("internalKey").item(0).getTextContent();
+					String description = element.getElementsByTagName("description").item(0).getTextContent();
+					String severity = element.getElementsByTagName("severity").item(0).getTextContent();
+					RuleStatus status = RuleStatus.valueOf(element.getElementsByTagName("status").item(0).getTextContent());
+					RuleType type = RuleType.valueOf(element.getElementsByTagName("type").item(0).getTextContent());
+					String remediationFunctionBaseEffort = element.getElementsByTagName("remediationFunctionBaseEffort").item(0).getTextContent();
+
+					RuleKey ruleKey = RuleKey.of(repositoryName, key);
+
+					NewRule rule = repository.createRule(ruleKey.rule())
+						.setName(name)
+						.setInternalKey(internalKey)
+						.setHtmlDescription(description)
+						.setSeverity(severity)
+						.setStatus(status)
+						.setType(type);
+					
+					rule.setDebtRemediationFunction(rule.debtRemediationFunctions().constantPerIssue(remediationFunctionBaseEffort));
+					rules.add(rule);
+					LOGGER.info(String.format("Rule %s created.", rule.toString()));
+				}
+			}
+			repository.done();
+		} catch (Exception e) {
+			LOGGER.error("Error while creating rules.", e);
 		}
-		repository.done();
+		if (language.equals(FORTRAN77_LANGUAGE)) {
+			RulesRepository.getInstance().setF77Rules(rules);
+		} else {
+			RulesRepository.getInstance().setF90Rules(rules);
+		}		
 	}
 
 	/**
@@ -82,35 +157,4 @@ public class ICodeRulesDefinition implements RulesDefinition {
     public static String getRepositoryKeyForLanguage(final String language) {
         return language + REPO_KEY_SUFFIX;
     }
-
-    /**
-     * Getter for repository name.
-     *
-     * @return A string.
-     */
-    public static String getRepositoryName() {
-        return ICodePluginProperties.ICODE_NAME;
-    }
-
-    /**
-     * Getter for the path to rules file.
-     *
-	 * @param language Key of the language.
-     * @return A path in String format.
-     */
-	public String rulesDefinitionFilePath(final String language) {
-		String path = "bad_file";
-		switch (language) {
-			case Fortran77Language.KEY:
-				path = PATH_TO_F77_RULES_XML;
-				break;
-			case Fortran90Language.KEY:
-				path = PATH_TO_F90_RULES_XML;
-				break;
-			default:
-				break;
-		}
-		return path;
-	}
 }
-
