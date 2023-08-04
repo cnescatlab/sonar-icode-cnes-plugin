@@ -27,7 +27,7 @@ assignees: ''
 > _Please complete the following information._
  - OS: [e.g. Windows 10]
  - Java version: [e.g. 1.8]
- - i-Code version: [e.g. 3.1.0]
+ - i-Code version: [e.g. 3.1.1]
  - Plugin version: [e.g. 2.0.0]
 
 #### Additional context
