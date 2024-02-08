@@ -6,7 +6,7 @@
     <groupId>fr.cnes.sonar.plugins</groupId>
     <artifactId>sonar-icode-cnes-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
-    <version>3.1.1</version>
+    <version>3.1.2</version>
 
     <name>Sonar i-Code CNES plugin</name>
 
