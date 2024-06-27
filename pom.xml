@@ -6,7 +6,7 @@
     <groupId>fr.cnes.sonar.plugins</groupId>
     <artifactId>sonar-icode-cnes-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
-    <version>3.1.0</version>
+    <version>3.1.2</version>
 
     <name>Sonar i-Code CNES plugin</name>
 
@@ -97,7 +97,7 @@
         <dependency>
             <groupId>com.github.lequal.i-CodeCNES</groupId>
             <artifactId>icode-library</artifactId>
-            <version>4.1.2</version>
+            <version>5.0.0</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
