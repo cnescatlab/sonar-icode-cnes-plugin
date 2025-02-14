@@ -12,6 +12,8 @@ on: [push, pull_request]
 jobs:
 
   build:
+    permissions:
+      packages: read
     runs-on: ubuntu-latest
     name: Java 11 CI
     steps:
@@ -34,6 +36,8 @@ jobs:
         run: mvn -B clean test package
       
   code-analysis:
+    permissions:
+      packages: read
     runs-on: ubuntu-latest    
     name: SonarCloud Code Analysis
     # It's not possible to launch an analysis on external pull requests
