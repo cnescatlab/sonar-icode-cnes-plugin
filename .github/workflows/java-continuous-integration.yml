@@ -33,7 +33,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
-        run: mvn -B clean test package
+        run: mvn -B clean test package -s settings.xml
       
   code-analysis:
     permissions:
@@ -70,4 +70,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.organization=lequal -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+        run: mvn clean -s settings.xml org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.organization=lequal -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
