@@ -3,7 +3,7 @@
 # This workflow is triggered each time
 # commits are pushed to GitHub or a pull request is opened.
 # It launches three jobs in parallel : a build with java 8,
-# a build with java 11 and a SonarCloud analysis.
+# a build with java 17 and a SonarCloud analysis.
 ---
 name: Java CI
 
@@ -18,7 +18,7 @@ jobs:
     permissions:
       packages: read
     runs-on: ubuntu-latest
-    name: Java 11 CI
+    name: Java 17 CI
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: 11
+          java-version: 17
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
@@ -54,7 +54,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '11'
+          java-version: '17'
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
