@@ -12,7 +12,7 @@ on:
 
 env: 
   MVN_USR: ${{ secrets.MVN_USR }}
-  MVN_PWD: ${{ secrets.MVN_USR }}
+  MVN_PWD: ${{ secrets.MVN_PWD }}
 
 jobs:
   release:
