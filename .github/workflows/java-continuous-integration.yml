@@ -8,10 +8,15 @@
 name: Java CI
 
 on: [push, pull_request]
+env: 
+  MVN_USR: ${{ secrets.MVN_USR }}
+  MVN_PWD: ${{ secrets.MVN_PWD }}
 
 jobs:
-
+  
   build:
+    permissions:
+      packages: read
     runs-on: ubuntu-latest
     name: Java 17 CI
     steps:
@@ -31,9 +36,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
-        run: mvn -B clean test package
+        run: mvn -B clean test package -s settings.xml
       
   code-analysis:
+    permissions:
+      packages: read
     runs-on: ubuntu-latest    
     name: SonarCloud Code Analysis
     # It's not possible to launch an analysis on external pull requests
@@ -66,4 +73,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.organization=lequal -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+        run: mvn clean -s settings.xml org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.organization=lequal -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN

@@ -85,6 +85,13 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/cnescatlab/i-CodeCNES</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -95,10 +102,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.lequal.i-CodeCNES</groupId>
+            <groupId>fr.cnes.icode</groupId>
             <artifactId>icode-library</artifactId>
-            <version>4.1.2</version>
-        </dependency>
+            <version>5.1.0</version>
+            </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
