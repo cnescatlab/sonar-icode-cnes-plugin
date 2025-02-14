@@ -6,7 +6,7 @@
     <groupId>fr.cnes.sonar.plugins</groupId>
     <artifactId>sonar-icode-cnes-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
-    <version>3.1.2</version>
+    <version>4.0.0</version>
 
     <name>Sonar i-Code CNES plugin</name>
 
@@ -61,9 +61,9 @@
         <jdk.max.version>17</jdk.max.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <sonar.apiVersion>9.8.0.203</sonar.apiVersion>
-        <sonar.testingHarnessVersion>9.5.0.56709</sonar.testingHarnessVersion>
-        <sonar.apiImplVersion>9.9.1.69595</sonar.apiImplVersion>
+        <sonar.apiVersion>11.1.0.2693</sonar.apiVersion>
+        <sonar.testingHarnessVersion>25.2.0.102705</sonar.testingHarnessVersion>
+        <sonar.apiImplVersion>25.2.0.102705</sonar.apiImplVersion>
         <sonar.sslr-squid-bridge.version>2.6.1</sonar.sslr-squid-bridge.version>
         <sonar-packaging-maven-plugin.version>1.21.0.505</sonar-packaging-maven-plugin.version>
         <commons-lang.version>3.7</commons-lang.version>
