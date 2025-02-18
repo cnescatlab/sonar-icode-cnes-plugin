@@ -36,7 +36,7 @@ Here is the compatibility matrix of the plugin:
 |        3.0.1       |          4.1.2          |        7.9 -> 8.2           |       Fortran       |
 |        3.1.0       |          4.1.2          |        7.9 -> 9.9           |       Fortran       |
 |        3.1.1       |          4.1.2          |        7.9 -> 9.9           |       Fortran       |
-|        3.1.2       |          5.0.0          |        7.9 -> 9.9           |       Fortran       |
+|        3.1.2       |          5.1.0          |        7.9 -> 9.9           |       Fortran       |
 
 #### Run i-Code manually
 If you need help to run i-Code please refer to the [official user manual](https://github.com/cnescatlab/i-CodeCNES/wiki/User-Manual) or [i-Code issue tracker](https://github.com/cnescatlab/i-CodeCNES/issues).
