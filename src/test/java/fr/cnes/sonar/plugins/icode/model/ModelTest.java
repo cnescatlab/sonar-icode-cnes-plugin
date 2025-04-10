@@ -79,14 +79,14 @@ public class ModelTest {
     public void test_unmarshal_from_file()  {
         InputStream file = this.getClass().getResourceAsStream("/rules/icode-f77-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(file, RulesDefinition.class);
-        Assert.assertEquals(58, def.getRules().size());
+        Assert.assertEquals(66, def.getRules().size());
     }
 
     @Test
     public void test_unmarshal_from_stream() {
         InputStream stream = this.getClass().getResourceAsStream("/rules/icode-f77-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(stream, RulesDefinition.class);
-        Assert.assertEquals(58, def.getRules().size());
+        Assert.assertEquals(66, def.getRules().size());
     }
 
     @Test

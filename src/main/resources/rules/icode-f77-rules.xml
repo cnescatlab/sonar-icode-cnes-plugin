@@ -22,7 +22,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.DATA.FloatCompare</key>
 		<name>COM.DATA.FloatCompare</name>
 		<internalKey>*</internalKey>
-		<description>Equality and non equality (.EQ., ==, .NE., /=) are forbidden on reals (REAL, DOUBLE PRECISION, COMPLEX).</description>
+		<description>Equality and non equality (.EQ., ==, .NE., /=) are forbidden on reals (REAL,
+			DOUBLE PRECISION, COMPLEX).</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -32,7 +33,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.DATA.Initialisation</key>
 		<name>COM.DATA.Initialisation</name>
 		<internalKey>*</internalKey>
-		<description>Variables have to be initialized before being used. When a variable is used, the algorithm should checked if it is initialized and if not throw an error.</description>
+		<description>Variables have to be initialized before being used. When a variable is used,
+			the algorithm should checked if it is initialized and if not throw an error.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -42,7 +44,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.DATA.Invariant</key>
 		<name>COM.DATA.Invariant</name>
 		<internalKey>*</internalKey>
-		<description>Data declared into subroutine, function, ... and which are never modified then should be declared as constant.</description>
+		<description>Data declared into subroutine, function, ... and which are never modified then
+			should be declared as constant.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -72,7 +75,9 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.DESIGN.Alloc</key>
 		<name>COM.DESIGN.Alloc</name>
 		<internalKey>*</internalKey>
-		<description>Allocation and desallocation of ressources should be in the same level. For each “DEALLOCATE” keyword found, i-Code CNES checks that the keyword “ALLOCATE” is also found and checks that they are relative to the same resource.</description>
+		<description>Allocation and desallocation of ressources should be in the same level. For
+			each “DEALLOCATE” keyword found, i-Code CNES checks that the keyword “ALLOCATE” is also
+			found and checks that they are relative to the same resource.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -102,7 +107,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.FLOW.BooleanExpression</key>
 		<name>COM.FLOW.BooleanExpression</name>
 		<internalKey>*</internalKey>
-		<description>In a condition (IF,DO), maximum number of operands is 5 (AND, OR, NEQV, XOR, EQV, NOT, LT, &lt;, LE, &lt;=, GT, &gt;, GE, &gt;=, EQ, ==, NE, /=).</description>
+		<description>In a condition (IF,DO), maximum number of operands is 5 (AND, OR, NEQV, XOR,
+			EQV, NOT, LT, &lt;, LE, &lt;=, GT, &gt;, GE, &gt;=, EQ, ==, NE, /=).</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -152,7 +158,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.FLOW.FileExistence</key>
 		<name>COM.FLOW.FileExistence</name>
 		<internalKey>*</internalKey>
-		<description>File opening (OPEN, READ, WRITE) should be done after using INQUIRE and EXIST instruction of this file.</description>
+		<description>File opening (OPEN, READ, WRITE) should be done after using INQUIRE and EXIST
+			instruction of this file.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -162,7 +169,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.FLOW.FilePath</key>
 		<name>COM.FLOW.FilePath</name>
 		<internalKey>*</internalKey>
-		<description>In the OPEN instruction, it is forbidden to use directly the file name (file.txt). Path should be defined through a variable.</description>
+		<description>In the OPEN instruction, it is forbidden to use directly the file name
+			(file.txt). Path should be defined through a variable.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -172,9 +180,10 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.INST.BoolNegation</key>
 		<name>COM.INST.BoolNegation</name>
 		<internalKey>*</internalKey>
-		<description>Double negation is forbidden on Boolean expressions. Negations are defined with the keyword « NOT ». Following expressions are not allowed:
-			NOT. (.NOT. a)		-> ( a )
-			.NOT. ( a .AND. .NOT. b)	-> .NOT. a .OR. b</description>
+		<description>Double negation is forbidden on Boolean expressions. Negations are defined with
+			the keyword « NOT ». Following expressions are not allowed:
+			NOT. (.NOT. a) -> ( a )
+			.NOT. ( a .AND. .NOT. b) -> .NOT. a .OR. b</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -194,7 +203,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.INST.CodeComment</key>
 		<name>COM.INST.CodeComment</name>
 		<internalKey>*</internalKey>
-		<description>Commented code is forbidden. i-Code CNES checks all keywords in comments, except in the header.</description>
+		<description>Commented code is forbidden. i-Code CNES checks all keywords in comments,
+			except in the header.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -246,11 +256,11 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<internalKey>*</internalKey>
 		<description>Source code should be indented with spaces:
 			DO i = 2, nb
-			    somme = somme + x(i)
-			    IF (isnan(somme)) THEN
-			        print *, 'somme is a NaN'
-			        moy = -1.0
-			    END IF
+			somme = somme + x(i)
+			IF (isnan(somme)) THEN
+			print *, 'somme is a NaN'
+			moy = -1.0
+			END IF
 			END DO
 		</description>
 		<severity>MAJOR</severity>
@@ -272,7 +282,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>COM.TYPE.Expression</key>
 		<name>COM.TYPE.Expression</name>
 		<internalKey>*</internalKey>
-		<description>In a expression (defined by operator like +, -, /, *, **) all variables should have the same type : REAL, INTEGER, …</description>
+		<description>In a expression (defined by operator like +, -, /, *, **) all variables should
+			have the same type : REAL, INTEGER, …</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -302,7 +313,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.BLOC.Function</key>
 		<name>F77.BLOC.Function</name>
 		<internalKey>*</internalKey>
-		<description>Parameter’s braces should be used when defining a FUNCTION whenever there is no parameter.</description>
+		<description>Parameter’s braces should be used when defining a FUNCTION whenever there is no
+			parameter.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -322,7 +334,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.DATA.Array</key>
 		<name>F77.DATA.Array</name>
 		<internalKey>*</internalKey>
-		<description>Arrays dimension should be declared explicitly. The use of * is tolerated for the last one if justified with a comment.</description>
+		<description>Arrays dimension should be declared explicitly. The use of * is tolerated for
+			the last one if justified with a comment.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -342,7 +355,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.DATA.Double</key>
 		<name>F77.DATA.Double</name>
 		<internalKey>*</internalKey>
-		<description>In a constant initialisation or in an expression evaluation, the use of (D) (as double precision is mandatory.</description>
+		<description>In a constant initialisation or in an expression evaluation, the use of (D) (as
+			double precision is mandatory.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -382,7 +396,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.DATA.Parameter</key>
 		<name>F77.DATA.Parameter</name>
 		<internalKey>*</internalKey>
-		<description>The use of constants, computed values or function calls as function parameters is forbidden.</description>
+		<description>The use of constants, computed values or function calls as function parameters
+			is forbidden.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -392,7 +407,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.ERR.OpenRead</key>
 		<name>F77.ERR.OpenRead</name>
 		<internalKey>*</internalKey>
-		<description>The check of return status for instructions OPEN and READ is mandatory. It is recommended to use “IOSTAT = “ to do it.</description>
+		<description>The check of return status for instructions OPEN and READ is mandatory. It is
+			recommended to use “IOSTAT = “ to do it.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -432,7 +448,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.INST.Function</key>
 		<name>F77.INST.Function</name>
 		<internalKey>*</internalKey>
-		<description>FUNCTION instruction should be used with an explicite type declaration, at function definition.</description>
+		<description>FUNCTION instruction should be used with an explicite type declaration, at
+			function definition.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -452,7 +469,9 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.INST.Include</key>
 		<name>F77.INST.Include</name>
 		<internalKey>*</internalKey>
-		<description>If instruction INCLUDE is used, the included file should not contain executable instructions. (ASSIGN, GOTO, IF, ELSE, CONTINUE, STOP, PAUSE ; DO, READ, WRITE, PRINT, REWIND ; BACKSPACE, ENDFILE, OPEN, CLOSE, INQUIER, CALL, RETURN, END).</description>
+		<description>If instruction INCLUDE is used, the included file should not contain executable
+			instructions. (ASSIGN, GOTO, IF, ELSE, CONTINUE, STOP, PAUSE ; DO, READ, WRITE, PRINT,
+			REWIND ; BACKSPACE, ENDFILE, OPEN, CLOSE, INQUIER, CALL, RETURN, END).</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -482,7 +501,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.INST.Save</key>
 		<name>F77.INST.Save</name>
 		<internalKey>*</internalKey>
-		<description>SAVE instruction is forbidden except for local variables with justification in a comment.</description>
+		<description>SAVE instruction is forbidden except for local variables with justification in
+			a comment.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -572,9 +592,10 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.REF.Parameter</key>
 		<name>F77.REF.Parameter</name>
 		<internalKey>*</internalKey>
-		<description>It is forbidden to set as subroutine parameter variables which are already in a COMMON bloc accessible from the subroutine and the program which calls it.</description>
+		<description>It is forbidden to set as subroutine parameter variables which are already in a
+			COMMON bloc accessible from the subroutine and the program which calls it.</description>
 		<severity>MAJOR</severity>
-		
+
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
@@ -583,7 +604,8 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<key>F77.TYPE.Basic</key>
 		<name>F77.TYPE.Basic</name>
 		<internalKey>*</internalKey>
-		<description>Only standard types (INTEGER, REAL, DOUBLE PRECISION, COMPLEX, LOGICAL, CHARACTER) are allowed.</description>
+		<description>Only standard types (INTEGER, REAL, DOUBLE PRECISION, COMPLEX, LOGICAL,
+			CHARACTER) are allowed.</description>
 		<severity>MAJOR</severity>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
@@ -598,5 +620,85 @@ Please, report this error to i-Code CNES maintainers to improve the tool: <a hre
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<severity>MAJOR</severity>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+		<internalKey>*</internalKey>
+		<name>COM.PRES.FileLength</name>
+		<key>COM.PRES.FileLength</key>
+		<description>The file must be short</description>
+	</rule>
+	<rule>
+		<severity>MAJOR</severity>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+		<internalKey>*</internalKey>
+		<name>COM.MET.LineOfCode</name>
+		<key>COM.MET.LineOfCode</key>
+		<description>The number of line of code must be lower</description>
+	</rule>
+	<rule>
+		<severity>MAJOR</severity>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+		<internalKey>*</internalKey>
+		<name>COM.FLOW.CheckArguments</name>
+		<key>COM.FLOW.CheckArguments</key>
+		<description>You must control every arguments</description>
+	</rule>
+	<rule>
+		<severity>MAJOR</severity>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+		<internalKey>*</internalKey>
+		<name>COM.MET.ComplexitySimplified</name>
+		<key>COM.MET.ComplexitySimplified</key>
+		<description>The cylcomatic number from Simplified McCabe must be lowered</description>
+	</rule>
+	<rule>
+		<severity>MAJOR</severity>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+		<internalKey>*</internalKey>
+		<name>F77.DESIGN.LogicUnit</name>
+		<key>F77.DESIGN.LogicUnit</key>
+		<description>Please refer to RNC Q80.</description>
+	</rule>
+	<rule>
+		<severity>MAJOR</severity>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+		<internalKey>*</internalKey>
+		<name>COM.MET.RatioComment</name>
+		<key>COM.MET.RatioComment</key>
+		<description>You must add more comments on your code</description>
+	</rule>
+	<rule>
+		<severity>MAJOR</severity>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+		<internalKey>*</internalKey>
+		<name>COM.PRES.Data</name>
+		<key>COM.PRES.Data</key>
+		<description>Please refer to RNC Q80.</description>
+	</rule>
+	<rule>
+		<severity>MAJOR</severity>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<remediationFunctionBaseEffort>30min</remediationFunctionBaseEffort>
+		<internalKey>*</internalKey>
+		<name>F77.FILE.Header</name>
+		<key>F77.FILE.Header</key>
+		<description>You must add an header to this file</description>
 	</rule>
 </icodelint-rules>
