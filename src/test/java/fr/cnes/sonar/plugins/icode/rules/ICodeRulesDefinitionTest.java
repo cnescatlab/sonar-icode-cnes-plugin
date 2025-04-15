@@ -28,8 +28,8 @@ public class ICodeRulesDefinitionTest {
 		Assert.assertEquals(0, context.repositories().size());
 		new ICodeRulesDefinition().define(context);
 		Assert.assertEquals(2, context.repositories().size());
-		Assert.assertEquals(58, context.repository("f77-rules").rules().size());
-		Assert.assertEquals(64, context.repository("f90-rules").rules().size());
+		Assert.assertEquals(66, context.repository("f77-rules").rules().size());
+		Assert.assertEquals(72, context.repository("f90-rules").rules().size());
 	}
 
 	@Test
