@@ -16,12 +16,12 @@
  */
 package fr.cnes.sonar.plugins.icode.languages;
 
-import org.apache.commons.lang.StringUtils;
-import org.sonar.api.config.Configuration;
-import org.sonar.api.resources.AbstractLanguage;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.sonar.api.config.Configuration;
+import org.sonar.api.resources.AbstractLanguage;
 
 /**
  * Declared language i-Code as the parent language for Fortran 77, Fortran 90.
@@ -37,8 +37,8 @@ public abstract class ICodeLanguage extends AbstractLanguage {
 	 * i-Code extension for i-Code specific properties, Metrics and Rules.
 	 *
 	 * @param configuration Inject SonarQube configuration into this extension.
-	 * @param key Key of the language to set.
-	 * @param name Name of the language to set.
+	 * @param key           Key of the language to set.
+	 * @param name          Name of the language to set.
 	 */
 	public ICodeLanguage(final Configuration configuration, final String key, final String name) {
 		super(key, name);
@@ -75,20 +75,20 @@ public abstract class ICodeLanguage extends AbstractLanguage {
 
 	/**
 	 * Delete all empty string values into a input String array.
-	 * 
+	 *
 	 * @param stringArray Input String array.
 	 *
 	 * @return Output String array without empty string values.
 	 */
-    public static String[] filterEmptyStrings(final String[] stringArray) {
-        List<String> nonEmptyStrings = new ArrayList<>();
-        for (final String string : stringArray) {
-            if (StringUtils.isNotBlank(string.trim())) {
-                nonEmptyStrings.add(string.trim());
-            }
-        }
-        return nonEmptyStrings.toArray(new String[nonEmptyStrings.size()]);
-    }
+	public static String[] filterEmptyStrings(final String[] stringArray) {
+		List<String> nonEmptyStrings = new ArrayList<>();
+		for (final String string : stringArray) {
+			if (StringUtils.isNotBlank(string.trim())) {
+				nonEmptyStrings.add(string.trim());
+			}
+		}
+		return nonEmptyStrings.toArray(new String[nonEmptyStrings.size()]);
+	}
 
 	/**
 	 * Assert obj is the same object as this.
@@ -98,7 +98,7 @@ public abstract class ICodeLanguage extends AbstractLanguage {
 	 */
 	@Override
 	public boolean equals(final Object obj) {
-		return obj==this;
+		return super.equals(obj);
 	}
 
 	/**

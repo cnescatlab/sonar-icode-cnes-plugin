@@ -16,25 +16,6 @@
  */
 package fr.cnes.sonar.plugins.icode.measures;
 
-import fr.cnes.icode.data.CheckResult;
-import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
-import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
-import fr.cnes.sonar.plugins.icode.model.Result;
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.Arguments;
-
-import java.util.stream.Stream;
-import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.fs.internal.DefaultFileSystem;
-import org.sonar.api.batch.fs.internal.DefaultInputFile;
-import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
-import org.sonar.api.batch.sensor.internal.SensorContextTester;
-import org.sonar.api.batch.sensor.measure.internal.DefaultMeasure;
-
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -42,6 +23,24 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
+import org.sonar.api.batch.sensor.internal.SensorContextTester;
+
+import fr.cnes.icode.data.CheckResult;
+import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
+import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
+import fr.cnes.sonar.plugins.icode.model.Result;
 
 class ICodeMetricsProcessorTest {
 
@@ -67,12 +66,12 @@ class ICodeMetricsProcessorTest {
                 .build();
         fs.add(clanhb_f);
 
-        clanhb_f90 = TestInputFileBuilder.create("ProjectKey", fs.baseDir(), new File(getClass().getResource("/project/clanhb.f90").toURI()))
+        clanhb_f90 = TestInputFileBuilder
+                .create("ProjectKey", fs.baseDir(), new File(getClass().getResource("/project/clanhb.f90").toURI()))
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .build();
         fs.add(clanhb_f90);
-        
 
         context = SensorContextTester.create(fs.baseDir());
         files = new HashMap<>();
@@ -86,8 +85,7 @@ class ICodeMetricsProcessorTest {
         return Stream.of(
                 Arguments.of(new AnalysisRuleTestData("F77.MET.ComplexitySimplified", "clanhb.f", "3")),
                 Arguments.of(new AnalysisRuleTestData("F77.MET.Nesting", "clanhb.f", "3")),
-                Arguments.of(new AnalysisRuleTestData("F77.MET.Line", "clanhb.f", "3"))
-        );
+                Arguments.of(new AnalysisRuleTestData("F77.MET.Line", "clanhb.f", "3")));
     }
 
     @ParameterizedTest
@@ -104,7 +102,7 @@ class ICodeMetricsProcessorTest {
         rule.getResult().setResultTypePlace("method");
         rule.getResult().setResultMessage("Small file");
 
-        project.setAnalysisRule(new AnalysisRule[]{rule});
+        project.setAnalysisRule(new AnalysisRule[] { rule });
 
         ICodeMetricsProcessor.saveExtraMeasures(context, files, project);
 
@@ -124,11 +122,10 @@ class ICodeMetricsProcessorTest {
     @Test
     void test_save_extra_measure_with_null_location() {
         // If we upgrade to Junit5, we may check @ParametrizedTest annotation
-        String[] locations = {null, "", "method"};
-        int[] expectedResults = {0, 0, 1};
+        String[] locations = { null, "", "method" };
+        int[] expectedResults = { 0, 0, 1 };
 
-
-        for(int i=0;i<locations.length; ++i){
+        for (int i = 0; i < locations.length; ++i) {
             final CheckResult checkResult = new CheckResult("F77.MET.ComplexitySimplified",
                     "F77.MET.ComplexitySimplified", "f77");
             checkResult.setLocation(locations[i]);
@@ -157,7 +154,7 @@ class ICodeMetricsProcessorTest {
         ICodeMetricsProcessor.saveMeasure(context, files, rule);
         Assert.assertEquals(1, context.measures(key).size());
     }
- 
+
 }
 
 class AnalysisRuleTestData {

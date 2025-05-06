@@ -16,15 +16,15 @@
  */
 package fr.cnes.sonar.plugins.icode.languages;
 
-import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
-import fr.cnes.sonar.plugins.icode.rules.RulesRepository;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 import org.sonar.api.server.rule.RulesDefinition.NewRule;
 
-import java.util.List;
+import fr.cnes.sonar.plugins.icode.rules.ICodeRulesDefinition;
+import fr.cnes.sonar.plugins.icode.rules.RulesRepository;
 
 /**
  * Built-in quality profile format since SonarQube 9.9
@@ -32,7 +32,7 @@ import java.util.List;
 public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinition {
 
     /** Logger for this class. **/
-    private static final Logger LOGGER = Loggers.get(ICodeQualityProfiles.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ICodeQualityProfiles.class);
 
     /** Display name for the built-in quality profile. **/
     private static final String I_CODE_RULES_PROFILE_NAME = "Sonar way";
@@ -54,12 +54,13 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
     /**
      * Create a built in quality profile for a specific language.
      *
-     * @param context SonarQube context in which create the profile.
+     * @param context    SonarQube context in which create the profile.
      * @param repository Rules' repository.
-     * @param language Language key of the associated profile.
-     * @param rules Rules to activate.
+     * @param language   Language key of the associated profile.
+     * @param rules      Rules to activate.
      */
-    private void createBuiltInProfile(final Context context, final String repository, final String languageKey, final List<NewRule> rules) {
+    private void createBuiltInProfile(final Context context, final String repository, final String languageKey,
+            final List<NewRule> rules) {
         // Create a builder for the rules' repository.
         NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(I_CODE_RULES_PROFILE_NAME, languageKey);
 
@@ -70,6 +71,7 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
         }
         profile.setDefault(true);
         profile.done();
-        LOGGER.info(String.format("%s rules are activated for the repository %s.", profile.activeRules().size(), repository));
+        LOGGER.info(String.format("%s rules are activated for the repository %s.", profile.activeRules().size(),
+                repository));
     }
 }

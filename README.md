@@ -38,6 +38,7 @@ Here is the compatibility matrix of the plugin:
 |        3.1.1       |          4.1.2          |        7.9 -> 9.9           |       Fortran       |
 |        3.1.2       |          5.1.0          |        7.9 -> 9.9           |       Fortran       |
 |        5.1.0       |          5.1.0          |        7.9 -> 9.9           |       Fortran       |
+|        5.2.0       |          5.1.0          |      25.1.0 -> 25.9.0       |       Fortran       |
 
 *Notice: Since 5.X this plugins will follow I-Code versionning. There is no breaking changes between 3.X and 5.X*
 
@@ -50,8 +51,8 @@ If embedded version of i-Code does not match your need, you can set the executio
 - `sonar.icode.path`: Define i-Code CNES executable path to auto-launch it on analysis. Default: `${HOME}/icode-cnes/icode.exe`.
 
 #### Other plugin's properties
-- `sonar.icode.f77.file.suffixes`: List of suffixes for F77 files to analyze. Default: `.f,.f77,.for,.fpp,.ftn,.F,.F77,.FOR,.FPP,.FTN`.
-- `sonar.icode.f90.file.suffixes`: List of suffixes for F90 files to analyze. Default: `.f90,.F90`.
+- `sonar.f77.file.suffixes`: List of suffixes for F77 files to analyze. Default: `.f,.f77,.for,.fpp,.ftn,.F,.F77,.FOR,.FPP,.FTN`.
+- `sonar.f90.file.suffixes`: List of suffixes for F90 files to analyze. Default: `.f90,.F90`.
 - `sonar.icode.reports.path`: Path to the i-Code reports. Multiple path can be provided. Default: `result.res`.
 
 ### Features

@@ -16,9 +16,14 @@
  */
 package fr.cnes.sonar.plugins.icode.measures;
 
-import fr.cnes.icode.data.CheckResult;
-import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
-import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputComponent;
@@ -27,10 +32,10 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.measure.NewMeasure;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Metric;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 
-import java.util.*;
+import fr.cnes.icode.data.CheckResult;
+import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
+import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
 
 /**
  * Executed during sonar-scanner call.
@@ -39,7 +44,7 @@ import java.util.*;
 public class ICodeMetricsProcessor {
 
     /** Logger for this class. **/
-    private static final Logger LOGGER = Loggers.get(ICodeMetricsProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ICodeMetricsProcessor.class);
 
     /** Shared part between all i-Code metrics key. **/
     private static final String COMMON_METRICS_KEY_PART = ".MET.";
@@ -50,7 +55,8 @@ public class ICodeMetricsProcessor {
     /**
      * Private constructor because this class contains only static methods.
      */
-    private ICodeMetricsProcessor(){}
+    private ICodeMetricsProcessor() {
+    }
 
     /**
      * Determine if an i-Code rule is a metric.
@@ -65,17 +71,17 @@ public class ICodeMetricsProcessor {
     /**
      * Save a measure in SonarQube from i-Code report format.
      *
-     * @param context Context of the analysis containing services.
-     * @param files Map containing files in SQ format.
+     * @param context      Context of the analysis containing services.
+     * @param files        Map containing files in SQ format.
      * @param icodeMeasure Measure considered like a rule in i-Code.
      */
     public static void saveMeasure(final SensorContext context, final Map<String, InputFile> files,
-                                   final AnalysisRule icodeMeasure) {
+            final AnalysisRule icodeMeasure) {
 
         // Determine if a measure is relative to a file or a method.
         final String metricScope = icodeMeasure.getResult().getResultTypePlace();
 
-        if(metricScope.equals(CLASS)) {
+        if (metricScope.equals(CLASS)) {
             // Get i-Code rule id to test if issue must be saved here.
             final String metricKey = icodeMeasure.getAnalysisRuleId();
             // Take F77 / F90 ncloc and number of comment lines into account
@@ -93,13 +99,13 @@ public class ICodeMetricsProcessor {
     /**
      * Save an issue or log a warning if the component is not found.
      *
-     * @param context SonarQube context in which measure must be saved.
-     * @param files All files visible by SonarQube.
-     * @param sonarMetric The SonarQube metric in which the measure must be saved.
+     * @param context      SonarQube context in which measure must be saved.
+     * @param files        All files visible by SonarQube.
+     * @param sonarMetric  The SonarQube metric in which the measure must be saved.
      * @param icodeMeasure The value of the i-Code measure.
      */
     protected static void saveSonarQubeNewMeasure(final SensorContext context, final Map<String, InputFile> files,
-                                                  final Metric<Integer> sonarMetric, final AnalysisRule icodeMeasure) {
+            final Metric<Integer> sonarMetric, final AnalysisRule icodeMeasure) {
 
         // Component concerned by the measure.
         final String metricComponent = icodeMeasure.getResult().getFileName();
@@ -126,21 +132,21 @@ public class ICodeMetricsProcessor {
     /**
      * Save extra measures from report analysis.
      *
-     * @param context Context of the analysis containing services.
+     * @param context      Context of the analysis containing services.
      * @param scannedFiles Available files.
-     * @param project Complete i-Code report.
+     * @param project      Complete i-Code report.
      */
     public static void saveExtraMeasures(final SensorContext context, final Map<String, InputFile> scannedFiles,
-                                         final AnalysisProject project) {
+            final AnalysisProject project) {
 
         // Contains all measures
         final Map<String, List<AnalysisRule>> measures = new HashMap<>();
 
         // Collect all measures on methods into specific list
-        for(final AnalysisRule rule : project.getAnalysisRules()) {
+        for (final AnalysisRule rule : project.getAnalysisRules()) {
             final String type = rule.getResult().getResultTypePlace();
             final String id = rule.getAnalysisRuleId();
-            if(id.contains(COMMON_METRICS_KEY_PART) && type.equals(METHOD)) {
+            if (id.contains(COMMON_METRICS_KEY_PART) && type.equals(METHOD)) {
                 final List<AnalysisRule> sub = measures.getOrDefault(id, new ArrayList<>());
                 sub.add(rule);
                 measures.put(id, sub);
@@ -159,22 +165,22 @@ public class ICodeMetricsProcessor {
     /**
      * Save extra measures from report analysis.
      *
-     * @param context Context of the analysis containing services.
+     * @param context      Context of the analysis containing services.
      * @param scannedFiles Available files.
-     * @param results Complete i-Code report.
+     * @param results      Complete i-Code report.
      */
     public static void saveExtraMeasures(final SensorContext context, final Map<String, InputFile> scannedFiles,
-                                         final List<CheckResult> results) {
+            final List<CheckResult> results) {
 
         // Contains all measures
         final Map<String, List<AnalysisRule>> measures = new HashMap<>();
 
         // Collect all measures on methods into specific list
-        for(final CheckResult result : results) {
-            final String type = Objects.isNull(result.getLocation()) || result.getLocation().isEmpty() ?
-                    CLASS : result.getLocation();
+        for (final CheckResult result : results) {
+            final String type = Objects.isNull(result.getLocation()) || result.getLocation().isEmpty() ? CLASS
+                    : result.getLocation();
             final String id = result.getName();
-            if(id.contains(COMMON_METRICS_KEY_PART) && type.equals(METHOD)) {
+            if (id.contains(COMMON_METRICS_KEY_PART) && type.equals(METHOD)) {
                 final List<AnalysisRule> sub = measures.getOrDefault(id, new ArrayList<>());
                 final AnalysisRule rule = new AnalysisRule(result);
                 sub.add(rule);
@@ -194,25 +200,25 @@ public class ICodeMetricsProcessor {
     /**
      * Compute the number of functions for all files.
      *
-     * @param context Context of the analysis containing services.
+     * @param context      Context of the analysis containing services.
      * @param scannedFiles Available files.
-     * @param measures Map containing list of measure by metrics.
+     * @param measures     Map containing list of measure by metrics.
      */
     private static void computeFunctions(final SensorContext context, final Map<String, InputFile> scannedFiles,
-                                         final Map<String, List<AnalysisRule>> measures) {
+            final Map<String, List<AnalysisRule>> measures) {
 
         final Map<String, Integer> functions = new HashMap<>();
         final List<AnalysisRule> rawMeasures = new ArrayList<>();
 
         // Collect all ncloc measures in one list.
-        measures.forEach((x,y) -> {
-            if(x.contains(".MET.Line")) {
+        measures.forEach((x, y) -> {
+            if (x.contains(".MET.Line")) {
                 rawMeasures.addAll(y);
             }
         });
 
         // Compute number of functions by file.
-        for(final AnalysisRule measure : rawMeasures) {
+        for (final AnalysisRule measure : rawMeasures) {
             final String file = measure.getResult().getFileName();
             Integer sum = functions.getOrDefault(file, 0) + 1;
             functions.put(file, sum);
@@ -225,25 +231,25 @@ public class ICodeMetricsProcessor {
     /**
      * Compute the sum of complexity for all fortran files.
      *
-     * @param context Context of the analysis containing services.
+     * @param context      Context of the analysis containing services.
      * @param scannedFiles Available files.
-     * @param measures Map containing list of measure by metrics.
+     * @param measures     Map containing list of measure by metrics.
      */
     private static void computeComplexity(final SensorContext context, final Map<String, InputFile> scannedFiles,
-                                          final Map<String, List<AnalysisRule>> measures) {
+            final Map<String, List<AnalysisRule>> measures) {
 
         final Map<String, Integer> complexity = new HashMap<>();
         final List<AnalysisRule> rawMeasures = new ArrayList<>();
 
         // Collect all fortran complexity measures in one list.
-        measures.forEach((x,y) -> {
-            if(x.contains("F77.MET.ComplexitySimplified")||x.contains("F90.MET.ComplexitySimplified")) {
+        measures.forEach((x, y) -> {
+            if (x.contains("F77.MET.ComplexitySimplified") || x.contains("F90.MET.ComplexitySimplified")) {
                 rawMeasures.addAll(y);
             }
         });
 
         // Compute complexity sum value by file.
-        for(final AnalysisRule measure : rawMeasures) {
+        for (final AnalysisRule measure : rawMeasures) {
             final String file = measure.getResult().getFileName();
             final Integer value = Double.valueOf((measure.getResult().getResultValue())).intValue();
             Integer sum = complexity.getOrDefault(file, 0);
@@ -259,28 +265,28 @@ public class ICodeMetricsProcessor {
     /**
      * Compute the max nesting by file and save measures.
      *
-     * @param context Context of the analysis containing services.
+     * @param context      Context of the analysis containing services.
      * @param scannedFiles Available files.
-     * @param measures Map containing list of measure by metrics.
+     * @param measures     Map containing list of measure by metrics.
      */
     private static void computeNesting(final SensorContext context, final Map<String, InputFile> scannedFiles,
-                                       final Map<String, List<AnalysisRule>> measures) {
+            final Map<String, List<AnalysisRule>> measures) {
         final Map<String, Integer> nesting = new HashMap<>();
         final List<AnalysisRule> rawMeasures = new ArrayList<>();
 
         // collect all nesting measures in one list
-        measures.forEach((x,y) -> {
-            if(x.contains(".MET.Nesting")) {
+        measures.forEach((x, y) -> {
+            if (x.contains(".MET.Nesting")) {
                 rawMeasures.addAll(y);
             }
         });
 
         // compute max nesting value by file
-        for(final AnalysisRule measure : rawMeasures) {
+        for (final AnalysisRule measure : rawMeasures) {
             final String file = measure.getResult().getFileName();
             final Integer value = Double.valueOf((measure.getResult().getResultValue())).intValue();
             Integer max = nesting.getOrDefault(file, 0);
-            max = Math.max(max,value);
+            max = Math.max(max, value);
             nesting.put(file, max);
         }
 
@@ -292,18 +298,18 @@ public class ICodeMetricsProcessor {
     /**
      * Save a measure for a given situation: metric, file and value.
      *
-     * @param context Context of the analysis.
+     * @param context      Context of the analysis.
      * @param scannedFiles Set of available files.
-     * @param filename Name of the file for which the measure is saved.
-     * @param value Value of the measure.
-     * @param metric Metric type to save.
+     * @param filename     Name of the file for which the measure is saved.
+     * @param value        Value of the measure.
+     * @param metric       Metric type to save.
      */
     private static void saveMeasure(final SensorContext context, final Map<String, InputFile> scannedFiles,
-                                    final String filename, final Integer value, final Metric<Integer> metric) {
+            final String filename, final Integer value, final Metric<Integer> metric) {
         // Retrieve the file.
         final InputFile file = scannedFiles.getOrDefault(filename, null);
         // Create a new measure from the scan context if the file exists.
-        if(file!=null) {
+        if (file != null) {
             final NewMeasure<Integer> newMeasure = context.newMeasure();
             newMeasure.forMetric(metric);
             newMeasure.withValue(value);
@@ -313,8 +319,7 @@ public class ICodeMetricsProcessor {
         } else {
             LOGGER.error(String.format(
                     "Measure '%s' on file '%s' has not been saved because source file was not found.",
-                    metric.getName(), filename
-            ));
+                    metric.getName(), filename));
         }
     }
 
@@ -322,7 +327,7 @@ public class ICodeMetricsProcessor {
      * Save a measure in SonarQube from i-Code internal java model format.
      *
      * @param context Context of the analysis containing services.
-     * @param result Measure considered like a rule in i-Code.
+     * @param result  Measure considered like a rule in i-Code.
      */
     public static void saveMeasure(final SensorContext context, final CheckResult result) {
 

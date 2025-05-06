@@ -16,25 +16,7 @@
  */
 package fr.cnes.sonar.plugins.icode.check;
 
-import fr.cnes.sonar.plugins.icode.languages.Fortran77Language;
-import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
-import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
-import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
-import fr.cnes.sonar.plugins.icode.model.Result;
-import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.mockito.Mockito;
-import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.fs.internal.DefaultFileSystem;
-import org.sonar.api.batch.fs.FileSystem;
-import org.sonar.api.batch.fs.internal.DefaultInputFile;
-import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
-import org.sonar.api.batch.sensor.SensorDescriptor;
-import org.sonar.api.batch.sensor.internal.SensorContextTester;
-import org.sonar.api.config.internal.MapSettings;
+import static org.mockito.Mockito.verify;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +25,24 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Mockito.verify;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.mockito.Mockito;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
+import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.batch.sensor.internal.SensorContextTester;
+import org.sonar.api.config.internal.MapSettings;
+
+import fr.cnes.sonar.plugins.icode.model.AnalysisFile;
+import fr.cnes.sonar.plugins.icode.model.AnalysisProject;
+import fr.cnes.sonar.plugins.icode.model.AnalysisRule;
+import fr.cnes.sonar.plugins.icode.model.Result;
+import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
 
 public class ICodeSensorTest {
 
@@ -59,31 +58,31 @@ public class ICodeSensorTest {
     public void prepare() throws URISyntaxException {
         fs = new DefaultFileSystem(new File(getClass().getResource("/project").toURI()));
         fs.setEncoding(StandardCharsets.UTF_8);
-        
-        clanhb_f = TestInputFileBuilder.create("ProjectKey", fs.baseDir(), new File(getClass().getResource("/project/clanhb.f").toURI()))
+
+        clanhb_f = TestInputFileBuilder
+                .create("ProjectKey", fs.baseDir(), new File(getClass().getResource("/project/clanhb.f").toURI()))
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .setLines(10)
-                .setOriginalLineStartOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
+                .setOriginalLineStartOffsets(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 })
                 .setLastValidOffset(100)
                 .build();
         fs.add(clanhb_f);
 
-        clanhb_f90 = TestInputFileBuilder.create("ProjectKey", fs.baseDir(), new File(getClass().getResource("/project/clanhb.f90").toURI()))
+        clanhb_f90 = TestInputFileBuilder
+                .create("ProjectKey", fs.baseDir(), new File(getClass().getResource("/project/clanhb.f90").toURI()))
                 .setLanguage("icode")
                 .setType(InputFile.Type.MAIN)
                 .setLines(10)
-                .setOriginalLineStartOffsets(new int[]{0,0,0,0,0,0,0,0,0,0})
+                .setOriginalLineStartOffsets(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 })
                 .setLastValidOffset(100)
                 .build();
         fs.add(clanhb_f90);
-
 
         context = SensorContextTester.create(fs.baseDir());
         files = new HashMap<>();
         rule = new AnalysisRule();
 
-        
         files.put("clanhb.f", clanhb_f);
         files.put("clanhb.f90", clanhb_f90);
 
@@ -115,7 +114,7 @@ public class ICodeSensorTest {
         try {
             sensor.execute(context);
             Assertions.assertTrue(true);
-        } catch(final Exception e) {
+        } catch (final Exception e) {
             Assertions.fail();
         }
     }
@@ -142,7 +141,7 @@ public class ICodeSensorTest {
         try {
             sensor.execute(context);
             Assertions.assertTrue(true);
-        } catch(final Exception e) {
+        } catch (final Exception e) {
             Assertions.fail();
         }
     }
@@ -226,7 +225,7 @@ public class ICodeSensorTest {
         final ICodeSensor sensor = new ICodeSensor();
 
         final int value = sensor.runICode("java -version");
-        
+
         Assert.assertEquals(0, value);
     }
 
@@ -239,7 +238,7 @@ public class ICodeSensorTest {
         file.setFileName("clanhb.f");
         file.setLanguage("f77");
 
-        project.setAnalysisFile(new AnalysisFile[]{file});
+        project.setAnalysisFile(new AnalysisFile[] { file });
 
         Assert.assertNotNull(sensor);
 
@@ -247,7 +246,6 @@ public class ICodeSensorTest {
 
         Assert.assertEquals(1, relevantFile.size());
     }
-
 
     @Test
     public void test_get_scanned_files_f90() {
@@ -258,7 +256,7 @@ public class ICodeSensorTest {
         file.setFileName("clanhb.f90");
         file.setLanguage("f90");
 
-        project.setAnalysisFile(new AnalysisFile[]{file});
+        project.setAnalysisFile(new AnalysisFile[] { file });
 
         Assert.assertNotNull(sensor);
 
@@ -266,7 +264,6 @@ public class ICodeSensorTest {
 
         Assert.assertEquals(1, relevantFile.size());
     }
-
 
     @Test
     public void test_save_issue_with_unknown_file() {
