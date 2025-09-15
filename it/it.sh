@@ -3,8 +3,8 @@
 usage(){
     echo -e "\nUsage: $0 [sSh] \n"
     echo "-h : Display help"
-    echo "-s [SONAR-SCANNER] : Take Sonar-scanner tag image from https://hub.docker.com/r/sonarsource/sonar-scanner-cli"
-    echo "-S [SONARQUBE] : Take SonarQube tag image from https://hub.docker.com/_/sonarqube"
+    echo "-s [SONAR-SCANNER] : Take Sonar-scanner tag image from https://hub.docker.com/r/sonarsource/sonar-scanner-cli". Default is the latest tag
+    echo "-S [SONARQUBE] : Take SonarQube tag image from https://hub.docker.com/_/sonarqube". Default is the community tag
 }
 
 OPTSTRING=":s:S:h"
