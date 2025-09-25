@@ -16,13 +16,11 @@
  */
 package fr.cnes.sonar.plugins.icode.languages;
 
-import fr.cnes.sonar.plugins.icode.settings.ICodePluginProperties;
-import org.junit.Assert;
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Test;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.config.internal.MapSettings;
-
-import static org.junit.Assert.assertArrayEquals;
 
 public class ICodeLanguagesTest {
 
@@ -31,9 +29,9 @@ public class ICodeLanguagesTest {
         Configuration settings = new MapSettings().asConfig();
         Fortran77Language fortran77Language = new Fortran77Language(settings);
         Fortran90Language fortran90Language = new Fortran90Language(settings);
-        String[] expected = new String[]{".f",".f77",".for",".fpp",".ftn",".F",".F77",".FOR",".FPP",".FTN"};
+        String[] expected = new String[] { ".f", ".f77", ".for", ".fpp", ".ftn", ".F", ".F77", ".FOR", ".FPP", ".FTN" };
         assertArrayEquals(expected, fortran77Language.getFileSuffixes());
-        expected = new String[]{".f90",".F90"};
+        expected = new String[] { ".f90", ".F90" };
         assertArrayEquals(expected, fortran90Language.getFileSuffixes());
     }
 
@@ -53,15 +51,16 @@ public class ICodeLanguagesTest {
                 return ".notstrange,,strange,.,                 ";
             }
         };
-        String[] expected = new String[]{".notstrange","strange","."};
+        String[] expected = new String[] { ".notstrange", "strange", "." };
         String[] actual = strangeLanguage.getFileSuffixes();
         assertArrayEquals(expected, actual);
     }
 
     @Test
     public void test_all_possibilities_with_filter_empty_strings() {
-        String[] expected = new String[]{".notstrange","strange","."};
-        String[] actual = ICodeLanguage.filterEmptyStrings(new String[]{".notstrange","","strange",".","       "});
+        String[] expected = new String[] { ".notstrange", "strange", "." };
+        String[] actual = ICodeLanguage
+                .filterEmptyStrings(new String[] { ".notstrange", "", "strange", ".", "       " });
         assertArrayEquals(expected, actual);
     }
 }

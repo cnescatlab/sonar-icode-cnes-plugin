@@ -57,13 +57,13 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>23</maven.compiler.target>
         <maven.compiler.release>17</maven.compiler.release>
         <surefire.version>3.5.3</surefire.version>
         <!-- Matrice: https://github.com/SonarSource/sonar-plugin-api -->
-        <sonar.plugin.api.version>9.14.0.375</sonar.plugin.api.version>
-        <sonar.version>9.9.0.65466</sonar.version>
+        <sonar.plugin.api.version>11.0.0.2664</sonar.plugin.api.version>
+        <sonar.version>25.1.0.102122</sonar.version>
         <sonar.pluginKey>icode</sonar.pluginKey>
         <sonar.pluginClass>fr.cnes.sonar.plugins.icode.ICodePlugin</sonar.pluginClass>
         <sonar.pluginUrl>https://github.com/cnescatlab/sonar-icode-cnes-plugin</sonar.pluginUrl>
@@ -75,15 +75,11 @@
 
     <repositories>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        <repository>
-          <id>github</id>
-          <url>https://maven.pkg.github.com/cnescatlab/i-CodeCNES</url>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/cnescatlab/i-CodeCNES</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
@@ -104,13 +100,6 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.17.0</version>
         </dependency>
-        <!-- unit tests -->
-        <!-- <dependency>
-            <groupId>org.sonarsource.sonarqube</groupId>
-            <artifactId>sonar-testing-harness</artifactId>
-            <version>${sonar.version}</version>
-            <scope>test</scope>
-        </dependency> -->
         <dependency>
             <groupId>org.sonarsource.sonarqube</groupId>
             <artifactId>sonar-plugin-api-impl</artifactId>

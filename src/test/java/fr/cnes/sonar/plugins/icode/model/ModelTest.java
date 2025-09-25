@@ -16,15 +16,14 @@
  */
 package fr.cnes.sonar.plugins.icode.model;
 
-import fr.cnes.icode.data.CheckResult;
+import java.io.File;
+import java.io.InputStream;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
-import java.io.File;
-import java.io.InputStream;
+import fr.cnes.icode.data.CheckResult;
 
 public class ModelTest {
 
@@ -76,7 +75,7 @@ public class ModelTest {
     }
 
     @Test
-    public void test_unmarshal_from_file()  {
+    public void test_unmarshal_from_file() {
         InputStream file = this.getClass().getResourceAsStream("/rules/icode-f77-rules.xml");
         RulesDefinition def = (RulesDefinition) XmlHandler.unmarshal(file, RulesDefinition.class);
         Assert.assertEquals(66, def.getRules().size());
@@ -98,12 +97,12 @@ public class ModelTest {
     }
 
     @Test
-    public void test_CheckResults(){
+    public void test_CheckResults() {
         // If we upgrade to Junit5, we may check @ParametrizedTest annotation
-        String[] locations = {"method", "class", "", null, "yolo" };
-        String[] expectedResults = {"method", "class", "class", "class", "yolo"};
+        String[] locations = { "method", "class", "", null, "yolo" };
+        String[] expectedResults = { "method", "class", "class", "class", "yolo" };
 
-        for(int i=0;i<locations.length; ++i){
+        for (int i = 0; i < locations.length; ++i) {
             checkResult.setLocation(locations[i]);
             final AnalysisRule analysisRule = new AnalysisRule(checkResult);
             Assert.assertEquals(expectedResults[i], analysisRule.getResult().getResultTypePlace());
