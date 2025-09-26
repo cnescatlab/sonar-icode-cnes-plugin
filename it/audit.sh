@@ -29,7 +29,7 @@ echo $SONAR_TOKEN
 # Audit code
 echo "Launching scanner..."
 cd /usr/src/myapp/it
-sonar-scanner -X -Dsonar.qualitygate.wait 2>&1 | tee /tmp/scanner.log
+sonar-scanner -Dsonar.log.level=DEBUG -Dsonar.verbose=true -Dsonar.qualitygate.wait 2>&1 | tee /tmp/scanner.log
 
 if [ $? -ne 0 ]
 then
@@ -64,13 +64,15 @@ if r.status_code != 200:
 
 data = r.json()
 
-if data['total'] != 100:
-    print('Wrong total number of issues: ' + str(data['total']), file=sys.stderr)
-    sys.exit(1)
-
 issues = 0
 if 'f77-rules' in data['issues'][0]['rule'] and data['issues'][0]['line'] == 1:
     issues += 1
+
+if data['total'] != 100:
+    print('Wrong total number of issues: ' + str(data['total']), file=sys.stderr)
+    sys.exit(1)
+else:
+    print('Validation Fortran 77 OK. Issues found: ' + str(data['total']), file=sys.stdout)
 
 r = requests.get('http://sonarqube:9000/api/issues/search?componentKeys=$SONAR_PROJECT_KEY:src/clanhb.f90&statuses=OPEN', auth=('$SONAR_ADMIN_LOGIN', '$SONAR_ADMIN_PWD'))
 if r.status_code != 200:
@@ -79,11 +81,15 @@ if r.status_code != 200:
 
 data = r.json()
 
+
+if 'f90-rules' in data['issues'][0]['rule'] and data['issues'][0]['line'] == 1:
+    issues += 1
+
 if data['total'] != 197:
     print('Wrong total number of issues: ' + str(data['total']), file=sys.stderr)
     sys.exit(1)
-if 'f90-rules' in data['issues'][0]['rule'] and data['issues'][0]['line'] == 1:
-    issues += 1
+else:
+    print('Validation Fortran 90 OK. Issues found: ' + str(data['total']), file=sys.stdout)
 
 
 sys.exit(0 if issues == 2 else 1)

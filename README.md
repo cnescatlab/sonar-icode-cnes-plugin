@@ -38,7 +38,7 @@ Here is the compatibility matrix of the plugin:
 |        3.1.1       |          4.1.2          |        7.9 -> 9.9           |       Fortran       |
 |        3.1.2       |          5.1.0          |        7.9 -> 9.9           |       Fortran       |
 |        5.1.0       |          5.1.0          |        7.9 -> 9.9           |       Fortran       |
-|        5.2.0       |          5.1.0          |      25.1.0 -> 25.9.0       |       Fortran       |
+|        5.2.0       |          5.1.0          |     25.1.0 -> 25.9.0        |       Fortran       |
 
 *Notice: Since 5.X this plugins will follow I-Code versionning. There is no breaking changes between 3.X and 5.X*
 
