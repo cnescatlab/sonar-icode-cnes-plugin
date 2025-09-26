@@ -71,7 +71,7 @@ public final class ICodeQualityProfiles implements BuiltInQualityProfilesDefinit
         }
         profile.setDefault(true);
         profile.done();
-        LOGGER.info(String.format("%s rules are activated for the repository %s.", profile.activeRules().size(),
-                repository));
+        LOGGER.info("{} rules are activated for the repository {}.", profile.activeRules().size(),
+                repository);
     }
 }

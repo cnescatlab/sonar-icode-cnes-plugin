@@ -8,6 +8,10 @@
 name: Java CI
 
 on: [push, pull_request]
+env:
+  MVN_USR: dummy
+  MVN_PWD: ${{ secrets.GITHUB_TOKEN }}
+
 
 jobs:
 
@@ -39,10 +43,7 @@ jobs:
           path: "**/target/"
           key: ${{ runner.os }}-cache-java-${{ matrix.java }}-${{ github.sha }}
       - name: Build with Maven
-        run: mvn -B clean install -s settings.xml
-        env:
-          MVN_USR: dummy
-          MVN_PWD: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn -B clean verify -s settings.xml
 
   code-analysis:
     permissions:
@@ -51,7 +52,7 @@ jobs:
     needs: build
     name: SonarCloud Code Analysis
     # It's not possible to launch an analysis on external pull requests
-    # if: ${{ github.repository_owner == 'cnescatlab' }}
+    if: ${{ github.repository_owner == 'cnescatlab' }}
     steps:
       # the latest version at https://github.com/marketplace/actions/checkout
       - name: Check out repository code
@@ -65,14 +66,8 @@ jobs:
           path: "**/target/"
           fail-on-cache-miss: true
           key: ${{ runner.os }}-cache-java-21-${{ github.sha }}
-      # the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
-      # Triggering SonarQube analysis as results of it are required by Quality Gate check.
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
-        with:
-          args: >
-            -Dsonar.qualitygate.wait=true
-            -Dsonar.qualitygate.timeout=600
+        run: mvn -s settings.xml -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 

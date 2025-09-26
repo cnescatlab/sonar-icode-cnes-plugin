@@ -317,9 +317,9 @@ public class ICodeMetricsProcessor {
             // Finally save the measure.
             newMeasure.save();
         } else {
-            LOGGER.error(String.format(
-                    "Measure '%s' on file '%s' has not been saved because source file was not found.",
-                    metric.getName(), filename));
+            LOGGER.error(
+                    "Measure '{}' on file '{}' has not been saved because source file was not found.",
+                    metric.getName(), filename);
         }
     }
 

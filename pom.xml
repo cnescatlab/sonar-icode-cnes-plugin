@@ -71,6 +71,7 @@
         <sonar.pluginOrganizationName>CNES</sonar.pluginOrganizationName>
         <sonar.sources>src/main/java</sonar.sources>
         <sonar.test>src/test/java</sonar.test>
+        <sonar.organization>lequal</sonar.organization>
     </properties>
 
     <dependencies>
