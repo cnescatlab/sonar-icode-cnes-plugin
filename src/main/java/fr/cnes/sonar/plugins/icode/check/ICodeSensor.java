@@ -200,7 +200,6 @@ public class ICodeSensor implements Sensor {
             filesMap.put(inputFile.uri().getPath(), inputFile);
         }
 
-
         // Run all checkers on all files.
         final List<CheckResult> results = analyzer.stableCheck(files, LanguageService.getLanguagesIds(), null);
 
@@ -333,9 +332,9 @@ public class ICodeSensor implements Sensor {
             newIssue.at(newIssueLocation);
             newIssue.save();
         } else {
-            LOGGER.error(String.format(
-                    "Issue '%s' on file '%s' has not been saved because source file was not found.",
-                    issue.getAnalysisRuleId(), issue.getResult().getFileName()));
+            LOGGER.error(
+                    "Issue '{}' on file '{}' has not been saved because source file was not found.",
+                    issue.getAnalysisRuleId(), issue.getResult().getFileName());
         }
 
     }
