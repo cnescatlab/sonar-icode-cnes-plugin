@@ -57,8 +57,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>23</maven.compiler.target>
+        <!--
+        https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-release.html -->
         <maven.compiler.release>17</maven.compiler.release>
         <surefire.version>3.5.3</surefire.version>
         <!-- Matrice: https://github.com/SonarSource/sonar-plugin-api -->
@@ -72,16 +72,6 @@
         <sonar.sources>src/main/java</sonar.sources>
         <sonar.test>src/test/java</sonar.test>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/cnescatlab/i-CodeCNES</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>
@@ -104,6 +94,7 @@
             <groupId>org.sonarsource.sonarqube</groupId>
             <artifactId>sonar-plugin-api-impl</artifactId>
             <version>${sonar.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -180,20 +171,19 @@
                 <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
                 <artifactId>sonar-packaging-maven-plugin</artifactId>
                 <extensions>true</extensions>
+                <version>1.23.0.740</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${jdk.min.version}</source>
-                    <target>${jdk.min.version}</target>
-                </configuration>
+                <version>3.14.1</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.9.0</version>
                 <configuration>
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
@@ -202,6 +192,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.4</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.surefire</groupId>
@@ -214,6 +205,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.13</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>

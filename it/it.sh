@@ -39,11 +39,11 @@ export SCRIPT_DIR=`dirname $0`
 
 # Clean-up if needed
 echo "Cleanup..."
-docker-compose -f $SCRIPT_DIR/docker-compose.yml down
+docker compose -f $SCRIPT_DIR/docker-compose.yml down
 
 # Start containers
 echo "Starting SonarQube..."
-docker-compose -f $SCRIPT_DIR/docker-compose.yml up -d sonarqube
+docker compose -f $SCRIPT_DIR/docker-compose.yml up --quiet-pull -d sonarqube
 CONTAINER_NAME=$(docker ps --format "{{.Names}}" | grep 'it-sonarqube-1.*' | head -1)
 # Wait for SonarQube to be up
 grep -q "SonarQube is operational" <(docker logs --follow --tail 0 $CONTAINER_NAME)
@@ -54,7 +54,7 @@ MAVEN_VERSION=$(grep '<version>' $SCRIPT_DIR/../pom.xml | head -1 | sed 's/<\/\?
 echo "Installing the plugin Icode version $MAVEN_VERSION"
 docker cp $SCRIPT_DIR/../target/sonar-icode-cnes-plugin-$MAVEN_VERSION.jar $CONTAINER_NAME:/opt/sonarqube/extensions/plugins
 # Restart SonarQube
-docker-compose -f $SCRIPT_DIR/docker-compose.yml restart sonarqube
+docker compose -f $SCRIPT_DIR/docker-compose.yml restart sonarqube
 # Wait for SonarQube to be up
 grep -q "SonarQube is operational" <(docker logs --follow --tail 0 $CONTAINER_NAME)
 # Check plug-in installation
@@ -83,11 +83,11 @@ echo "Plugin successfully installed!"
 
 # Audit code
 echo "Audit test scripts..."
-docker-compose -f $SCRIPT_DIR/docker-compose.yml up --build --exit-code-from auditor auditor
+docker compose -f $SCRIPT_DIR/docker-compose.yml up --quiet-pull --build --exit-code-from auditor auditor
 AUDIT_STATUS=$?
 
 # Delete containers
 echo "Cleanup..."
-docker-compose -f $SCRIPT_DIR/docker-compose.yml down
+docker compose -f $SCRIPT_DIR/docker-compose.yml down
 
 exit $AUDIT_STATUS
